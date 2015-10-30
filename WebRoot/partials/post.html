@@ -1,0 +1,18 @@
+<div id="wrapper" ng-controller="PostCtrl">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 text-left"><div class="btn btn-default"><a href="{{prevPostPath}}" class="prev-a">涓婁竴绡</a></div></div>
+      <div class="col-lg-4 text-center"><div class="btn btn-default"><a href="/">鍥炵洰褰�</a></div></div>
+      <div class="col-lg-4 text-right"><div class="btn btn-default"><a href="{{nextPostPath}}" class="next-a">涓嬩竴绡</a></div></div>
+    </div>
+  </div>
+  
+  <div id="post" class="background-white" ng-markdown="postContent"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 text-left"><div class="btn btn-default"><a href="{{prevPostPath}}" class="prev-a">涓婁竴绡�/a></div></div>
+      <div class="col-lg-4 text-center"><div class="btn btn-default"><a href="/">鍥炵洰褰�/a></div></div>
+      <div class="col-lg-4 text-right"><div class="btn btn-default"><a href="{{nextPostPath}}" class="next-a">涓嬩竴绡�/a></div></div>
+    </div>
+  </div>
+</div>

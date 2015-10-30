@@ -1,0 +1,21 @@
+<html>
+
+<head>
+
+	<script  type="text/javascript" language="javascript" >
+		function adjustParent() {   
+			var ifm= document.getElementById("iFrame");   
+			var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;   
+			if(ifm != null && subWeb != null) {
+			   ifm.height = subWeb.body.scrollHeight;
+			   ifm.width = subWeb.body.scrollWidth;
+			}   
+		}   
+	</script>
+</head>
+
+<body>
+	<iframe id="iFrame" FRAMEBORDER=0  src="./partials/index-list.html" onLoad="adjustParent()" ></iframe>
+</body>
+
+</html>

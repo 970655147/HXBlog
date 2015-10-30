@@ -1,0 +1,10 @@
+{
+    "title" : "蓝风970655147",
+    "subTitle" : "好记性不如烂笔头",
+    "quickLinks" : [
+        {"text" : "Blog", "href" : "/blogs"},
+        {"text" : "Resume", "href" : "/resume"},
+        {"text" : "Github", "href" : "https://github.com/970655147"},
+        {"text" : "csdnBlog", "href" : "http://blog.csdn.net/u011039332"}
+    ]
+}
