@@ -6,7 +6,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+
+import javax.servlet.http.HttpServlet;
 
 public class Tools {
 	
@@ -24,6 +32,15 @@ public class Tools {
 	public static final String CRLF = "\r\n";
 	public static Random ran = new Random();
 	public static String DEFAULT_CHARSET = "GBK";
+	
+	// 加载jdbc
+	static {
+		try {
+			Class.forName("org.sqlite.JDBC");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	// 获取给定的输入流中的字符内容
 	public static String getContent(InputStream is, String charset) throws IOException {
@@ -56,7 +73,54 @@ public class Tools {
 	
 	// 获取包中的路径对应的文件的路径
 	public static String getPackagePath(String basePath, String packagePath) {
-		return basePath + "/WEB-INF/classes" + packagePath;
+		return basePath + "WEB-INF/classes" + packagePath;
+	}
+	
+	// 获取到数据库的连接
+	public static Connection getConnection(String basePath) throws Exception {
+		String dbPath = Tools.getPackagePath(basePath, Constants.dbPath);
+		String conUrl  = "jdbc:sqlite://" + dbPath;
+		Connection con = DriverManager.getConnection(conUrl );
+		
+		return con;
+	}
+	public static void close(Connection con) {
+		if(con != null) {
+			try {
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	// 获取当前项目的地址
+	public static String getProjectPath(HttpServlet servlet) {
+		return servlet.getServletContext().getRealPath("/");
+	}
+	
+	// 各个tag的分隔符
+	static String tagsSep = ",";
+	
+	// 获取给定的tagList的字符串表示 / 从tagList字符串获取给定的tagList
+	public static String getTagListString(List<String> tagList) {
+		StringBuilder sb = new StringBuilder(tagList.size() << 2);
+		Iterator<String> tagsIt = tagList.iterator();
+		while(tagsIt.hasNext() ) {
+			sb.append(tagsIt.next() );
+			sb.append(tagsSep);
+		}
+		
+		return sb.toString();
+	}
+	public static List<String> getTagListFromString(String tagListStr) {
+		String[] splits = tagListStr.split(tagsSep);
+		List<String> res = new ArrayList<>(splits.length);
+		for(String tag : splits) {
+			res.add(tag);
+		}
+		
+		return res;
 	}
 	
 	

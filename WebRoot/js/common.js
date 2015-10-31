@@ -1,3 +1,14 @@
+// 获取str中最后一个sep分隔符之后的数据
+function getStrAfterLastSep(str, sep) {
+	var lastIdx = str.lastIndexOf(sep)
+	if(lastIdx > 0) {
+		return str.substr(lastIdx + sep.length);
+	} else {
+		return null;
+	}
+}
+
+
 (function() {
   var app = angular.module('blog', ['ngSanitize'])
 
@@ -21,67 +32,45 @@
 //    return $http.get("config.json")
 	  return $http.get("/HXBlog/blogConfigAction").success(function(data) {
       var getState = function(path) {
-         var items = path.split("/");
-        if (items.length > 1 && items[items.length - 1] === "resume") {
-          return "Resume";
+         var lastStr = getStrAfterLastSep(path, "/")
+        if (lastStr === "resume") {
+          return "Resume"
         } else {
-            return "Blog";	
+            return "Blog"
         }
       };
-      $scope.state = getState($location.path());
-      $scope.config = data;
+      $scope.state = getState($location.path())
+      $scope.config = data
       return $scope.$on("$locationChangeSuccess", function(event, newLoc, oldLoc) {
-        return $scope.state = getState($location.path());
-      });
-    });
+        return $scope.state = getState($location.path())
+      })
+    })
+  })
+  
+  // 获取各个标签
+  app.controller('tagListCtrl', function($scope, $http, $routeParams) {
+	  return $http.get("/HXBlog/blogListAction").success(function(data) {
+		  var curTag = null
+	      if (($routeParams.tag != null) && $routeParams.tag.length !== 0) {
+	    	  curTag = $routeParams.tag
+	        } else {
+	        	curTag = "All"
+	        }
+		  
+		  var tags = data.tagList
+		  for(i=0; i<tags.length; i++) {
+			  tags[i].href = tags[i].text + ".html"
+			  if(tags[i].text == curTag) {
+				  $scope.currentTag = tags[i]
+			  }
+		  }
+		  
+		  $scope.tagList = data.tagList
+		  $scope.blogList = data.blogList
+	  })
   });
-
-//  app.controller('IndexListCtrl', function($scope, $routeParams, indexService) {
-//    return indexService.async().then(function(data) {
-//      var buildTagList, tag;
-//      buildTagList = function(indexData) {
-//        var all_tags, post, tag, tags, _i, _j, _len, _len2;
-//        all_tags = [];
-//        for (_i = 0, _len = indexData.length; _i < _len; _i++) {
-//          post = indexData[_i];
-//          all_tags = all_tags.concat(post.tags);
-//        }
-//        tags = {};
-//        for (_j = 0, _len2 = all_tags.length; _j < _len2; _j++) {
-//          tag = all_tags[_j];
-//          if (tags[tag]) {
-//            tags[tag]["count"] += 1;
-//          } else {
-//            tags[tag] = {
-//              "text": tag,
-//              "href": "#!/tag/" + tag,
-//              "count": 1
-//            };
-//          }
-//        }
-//        tags["All"] = {
-//          "text": "All",
-//          "href": "#!/",
-//          "count": indexData.length
-//        };
-//        return tags;
-//      };
-//      $scope.indexList = data;
-//      indexService.indexData = data;
-//      $scope.tagList = buildTagList(data);
-//      if (($routeParams.tag != null) && $routeParams.tag.length !== 0) {
-//        tag = $routeParams.tag;
-//      } else {
-//        tag = "All";
-//      }
-//      $scope.currentTag = $scope.tagList[tag];
-//      if (tag === "All") {
-//        return $scope.currentTag.filter = "";
-//      } else {
-//        return $scope.currentTag.filter = tag;
-//      }
-//    });
-//  });
+  
+  
 //
 //  app.controller('PostCtrl', function($scope, $http, $routeParams, indexService) {
 //    return $http.get("post/" + $routeParams.postPath + ".md").success(function(data) {

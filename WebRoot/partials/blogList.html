@@ -1,4 +1,5 @@
-<div id="index" ng-controller="tagListCtrl">
+
+<div id="index" ng-controller="tagListCtrl" >
   <div id="tag-panel">
       <div id="current-tag" class="btn btn-info"><a href="/">{{currentTag.text}}</a></div>
       <button id="extend-btn" class="btn pull-right">
@@ -9,12 +10,12 @@
   
   <ul id="tag-panel-list" ng-show="showTagPanel">
     <li class="tag-item btn btn-info" ng-repeat="(tag, tagInfo) in tagList">
-      <a class="tag-href" href="{{tagInfo.href}}">{{tagInfo.text}}</a>
+      <a class="tag-href" href="{{tagInfo.href}}">{{tagInfo.text}}({{tagInfo.cnt}})</a>
     </li>
   </ul>
   
   <table id="index-list" class="table table-hover">
-    <tr class="index-item-row" ng-repeat="item in indexList | filter:currentTag.filter">
+    <tr class="index-item-row" ng-repeat="item in blogList">
       <td class="post-title"><a href="#!/post/{{item.path}}">{{item.title}}</a></td>
       <td class="post-date">{{item.date}}</td>
       <td class="post-tags">
@@ -24,5 +25,6 @@
       </td>
     </tr>
   </table>
-  
+
+
 </div>

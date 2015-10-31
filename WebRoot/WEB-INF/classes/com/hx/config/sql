@@ -1,0 +1,30 @@
+##################### blogList ################################
+create table if not exists blogList(
+       id integer primary key autoincrement,
+       title varchar(128),
+       path varchar(256),       
+       tag varchar(64),       
+       createTime varchar(32)
+);
+
+insert into blogList (title, path, tag, createTime) values ("博客代码更新", "2013-08-26-blog-code-changes", "blog,Angularjs", "2013-08-26");
+insert into blogList (title, path, tag, createTime) values ("杂记", "2013-08-11-things-done-after-last-post", "blog,Coursera,IDE", "2013-08-12");
+
+
+##################### tagToBlog  ################################
+create table if not exists tagToBlog(
+       id integer primary key autoincrement,
+       tag varchar(64),
+       blogId varchar(32)
+);
+
+insert into tagToBlog (tag, blogId) values ("blog", "1");
+insert into tagToBlog (tag, blogId) values ("blog", "2");
+insert into tagToBlog (tag, blogId) values ("Angularjs", "1");
+insert into tagToBlog (tag, blogId) values ("Coursera", "2");
+insert into tagToBlog (tag, blogId) values ("IDE", "2");
+
+
+##################### tagToBlog  ################################
+
+

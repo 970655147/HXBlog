@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>HXBlog</display-name>
+  
   <servlet>
     <servlet-name>blogConfigAction</servlet-name>
     <servlet-class>com.hx.action.BlogConfigAction</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>blogListAction</servlet-name>
+    <servlet-class>com.hx.action.BlogListAction</servlet-class>
+  </servlet>  
+  
+  <!--  ==========================- sep ========================================  -->
+  
   <servlet-mapping>
     <servlet-name>blogConfigAction</servlet-name>
     <url-pattern>/blogConfigAction</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>blogListAction</servlet-name>
+    <url-pattern>/blogListAction</url-pattern>
+  </servlet-mapping>  
+  
 </web-app>
