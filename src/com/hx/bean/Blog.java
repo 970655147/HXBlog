@@ -3,6 +3,8 @@ package com.hx.bean;
 import java.sql.ResultSet;
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -34,6 +36,7 @@ public class Blog implements EncapJSON {
 	public void init(ResultSet rs) throws Exception {
 		this.id = rs.getInt("id");
 		this.title = rs.getString("title");
+//		this.path = Tools.getBlogPath(rs.getString("path"));
 		this.path = rs.getString("path");
 		this.tags = Tools.getTagListFromString(rs.getString("tag") );
 		this.createTime = rs.getString("createTime");
@@ -43,11 +46,12 @@ public class Blog implements EncapJSON {
 	public void encapJSON(JSONObject obj) {
 		obj.element("id", id);
 		obj.element("title", title);
+		obj.element("path", path);
 		JSONArray tags = new JSONArray();
 		for(String tag : this.tags) {
 			tags.add(tag);
 		}
-		obj.element("tag", tags.toString());
+		obj.element("tags", tags.toString());
 		obj.element("date", createTime);
 	}
 	

@@ -20,7 +20,7 @@ public class TagToBlogCnt implements Comparable<TagToBlogCnt>, EncapJSON {
 	
 	// for TreeSet
 	public int compareTo(TagToBlogCnt o) {
-		int cntDelta = blogCnt - o.blogCnt;
+		int cntDelta =  o.blogCnt - blogCnt;
 		
 		if(cntDelta != 0) {
 			return cntDelta;

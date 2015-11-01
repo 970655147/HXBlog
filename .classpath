@@ -19,5 +19,10 @@
 			<attribute name="owner.project.facets" value="jst.web.jstl"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="WebRoot/ueditorLib/jsp/lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="WebRoot/ueditorLib/jsp/lib/commons-fileupload-1.3.1.jar"/>
+	<classpathentry kind="lib" path="WebRoot/ueditorLib/jsp/lib/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="WebRoot/ueditorLib/jsp/lib/json.jar"/>
+	<classpathentry kind="lib" path="WebRoot/ueditorLib/jsp/lib/ueditor-1.1.2.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>

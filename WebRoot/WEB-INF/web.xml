@@ -10,7 +10,12 @@
     <servlet-name>blogListAction</servlet-name>
     <servlet-class>com.hx.action.BlogListAction</servlet-class>
   </servlet>  
+  <servlet>
+    <servlet-name>blogReviseAction</servlet-name>
+    <servlet-class>com.hx.action.BlogReviseAction</servlet-class>
+  </servlet>  
   
+    
   <!--  ==========================- sep ========================================  -->
   
   <servlet-mapping>
@@ -21,5 +26,9 @@
     <servlet-name>blogListAction</servlet-name>
     <url-pattern>/blogListAction</url-pattern>
   </servlet-mapping>  
-  
+  <servlet-mapping>
+    <servlet-name>blogReviseAction</servlet-name>
+    <url-pattern>/blogReviseAction</url-pattern>
+  </servlet-mapping>  
+    
 </web-app>

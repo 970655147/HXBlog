@@ -8,13 +8,14 @@ function getStrAfterLastSep(str, sep) {
 	}
 }
 
-
 (function() {
   var app = angular.module('blog', ['ngSanitize'])
 
   // 控制ng-view的跳转
     app.config([
-    '$routeProvider', function($routeProvider) {
+     '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+      // 这一步必须要加上 
+      $locationProvider.html5Mode(false).hashPrefix('!');
       return $routeProvider.when("/", {
         templateUrl: "partials/blogList.html"
       }).when("/tag/:tag", {
@@ -49,17 +50,18 @@ function getStrAfterLastSep(str, sep) {
   
   // 获取各个标签
   app.controller('tagListCtrl', function($scope, $http, $routeParams) {
-	  return $http.get("/HXBlog/blogListAction").success(function(data) {
-		  var curTag = null
-	      if (($routeParams.tag != null) && $routeParams.tag.length !== 0) {
-	    	  curTag = $routeParams.tag
-	        } else {
-	        	curTag = "All"
-	        }
-		  
+	  var curTag = null
+      if (($routeParams.tag != null) && $routeParams.tag.length !== 0) {
+	    curTag = $routeParams.tag
+      } else {
+      	curTag = "all"
+      }
+	  var blogListReq = "/HXBlog/blogListAction" + "?tag=" + curTag
+
+	  return $http.get(blogListReq).success(function(data) {
 		  var tags = data.tagList
 		  for(i=0; i<tags.length; i++) {
-			  tags[i].href = tags[i].text + ".html"
+			  tags[i].href = "#!/tag/" + tags[i].text
 			  if(tags[i].text == curTag) {
 				  $scope.currentTag = tags[i]
 			  }
@@ -67,9 +69,25 @@ function getStrAfterLastSep(str, sep) {
 		  
 		  $scope.tagList = data.tagList
 		  $scope.blogList = data.blogList
+//		  console.log(data.blogList)
 	  })
   });
   
+  // 查看帖子的控制器
+  app.controller('postCtrl', function($scope, $http, $routeParams) {
+	  var path = null
+      if (($routeParams.postPath != null) && $routeParams.postPath.length !== 0) {
+    	  path = $routeParams.postPath
+      } else {
+    	  path = "postBlog"
+      }
+	  var blogReq = "post/" +path + ".html"
+	  
+	  return $http.get(blogReq).success(function(data) {
+		 $scope.postId = path
+		 $("#post").html(data)
+	  })
+  });
   
 //
 //  app.controller('PostCtrl', function($scope, $http, $routeParams, indexService) {

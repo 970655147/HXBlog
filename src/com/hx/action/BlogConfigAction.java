@@ -22,6 +22,7 @@ public class BlogConfigAction extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		String content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(this), Constants.configPath), Tools.DEFAULT_CHARSET );
 		out.write(content);
+//		Log.log(content);
 		out.close();
 	}
 	

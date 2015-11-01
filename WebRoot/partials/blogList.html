@@ -1,10 +1,9 @@
 
 <div id="index" ng-controller="tagListCtrl" >
   <div id="tag-panel">
-      <div id="current-tag" class="btn btn-info"><a href="/">{{currentTag.text}}</a></div>
-      <button id="extend-btn" class="btn pull-right">
-        <div id="extend-img" class="glyphicon glyphicon-circle-arrow-down"
-          ng-click="showTagPanel = !showTagPanel"></div>
+      <div id="current-tag" class="btn btn-info"><a href="{{currentTag.href}}">{{currentTag.text}}</a></div>
+      <button id="extend-btn" class="btn pull-right" ng-click="showTagPanel = !showTagPanel" >
+        <div id="extend-img" class="glyphicon glyphicon-circle-arrow-down"></div>
       </button>
   </div>
   
