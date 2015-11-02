@@ -1,14 +1,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
         "http://www.w3.org/TR/html4/loose.dtd">
-<html ng-app="blog" >
+<html >
 <head>
     <title>blogEditor</title>
+    <link rel="stylesheet" type="text/css" href="/HXBlog/css/lib/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/HXBlog/css/lib/bootstrap-glyphicons.css"/>
+      
     <meta http-equiv="Content-Type" content="text/html;charset=gbk"/>
     <script type="text/javascript" charset="utf-8" src="ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="ueditor.all.min.js"> </script>
- 	<script type="text/javascript" src="/HXBlog/js/lib/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="/HXBlog/js/lib/angular.min.js"></script>
-    <script type="text/javascript" src="/HXBlog/js/lib/angular-sanitize.min.js"></script>    
+ 	<script type="text/javascript" src="/HXBlog/js/lib/jquery-2.1.1.min.js"></script>  
 		    
     <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
     <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
@@ -20,16 +21,28 @@
         }
     </style>
 </head>
-<body ng-controller="editorCtrl" >
+<body >
 <div>
     <h1>blogEditor</h1>
+    <div class="input-group input-group-lg" style="padding: 10px 100px 10px 10px;" >
+       <span class="input-group-addon">文章标题</span>
+       <input id="title" type="text" class="form-control" placeholder="please input title here" maxlength="50"  >
+    </div>
+    <br/>
+    
     <script id="editor" type="text/plain" style="width:1024px;height:500px;"></script>
 </div>
-<div id="btns">
-    <div>
-        <button onclick="submit()">提交blog</button>
-    </div>
 
+<div id="btns">
+    <div id="tags" class="input-group input-group-lg" style="padding: 10px 100px 10px 10px;" >
+       <span class="input-group-addon">tags</span>
+       <input id="tagInput" type="text" class="form-control" placeholder="please input tag here" maxlength="50"  />
+    </div>
+	<span id="tagNotice" style="padding : 10px 10px 30px 20px; color : red" ></span>
+	       
+    <div>
+        <button id="submitBtn" class="btn btn-default" >提交blog</button>  <span id="submitNotice"  style="padding : 10px 10px 30px 20px; color : red"  ></span>
+    </div>
 </div>
 
   <script type="text/javascript" src="/HXBlog/js/blogEditor.js"></script>    

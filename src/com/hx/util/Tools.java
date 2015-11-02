@@ -16,7 +16,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+
+import net.sf.json.JSONObject;
+
+import com.hx.bean.Blog;
 
 // 工具函数
 public class Tools {
@@ -107,12 +113,13 @@ public class Tools {
 	}
 	
 	// 获取当前项目的地址
-	public static String getProjectPath(HttpServlet servlet) {
-		return servlet.getServletContext().getRealPath("/");
+	public static String getProjectPath(HttpServletRequest req) {
+		return req.getServletContext().getRealPath("/");
 	}
 	
 	// 各个tag的分隔符
 	static String tagsSep = ",";
+	static String dateBlogSep = "__dateBlogSep__";
 	
 	// 获取给定的tagList的字符串表示 / 从tagList字符串获取给定的tagList
 	public static String getTagListString(List<String> tagList) {
@@ -133,6 +140,22 @@ public class Tools {
 		}
 		
 		return res;
+	}
+	
+	// 根据给定的日期, 博客title, 获取其应该存储的文件名
+	public static String getBlogFileName(String date, String title) {
+		return date + dateBlogSep + title;
+	}
+	public static String[] getDateAndBlogTitleFromFileName(String fileName) {
+		String[] dateAndBlogTitle = new String[0];
+		int sepIdx = fileName.indexOf(dateBlogSep);
+		if(sepIdx >= 0) {
+			dateAndBlogTitle = new String[2];
+			dateAndBlogTitle[0] = fileName.substring(0, sepIdx);
+			dateAndBlogTitle[1] = fileName.substring(sepIdx + dateBlogSep.length());
+		}
+		
+		return dateAndBlogTitle;
 	}
 	
 	// 获取给定的播客的地址
@@ -160,6 +183,21 @@ public class Tools {
 		bos.close();
 		
 		Log.log("append content to \" " + nextTmpFile.getAbsolutePath() + " \" success ...");
+	}
+	
+	// 判断给定的字符串是否为空
+	public static boolean isEmpty(String str) {
+		return (str == null) || (EMPTY_STR.equals(str.trim()) ) || NULL.equals(str.trim()); 
+	}
+	public static void addIfNotEmpty(JSONObject obj, String key, String val) {
+		if(! isEmpty(val)) {
+			obj.put(key, val);
+		}
+	}
+	
+	// 获取发布博客成功之后的响应消息
+	public static String getSuccMsg(Blog newBlog) {
+		return "post " + newBlog.getTitle() + " success ...";
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.hx.bean;
 
+import com.hx.util.Tools;
+
 import net.sf.json.JSONObject;
 
 // 用于排序的bean
@@ -17,6 +19,10 @@ public class TagToBlogCnt implements Comparable<TagToBlogCnt>, EncapJSON {
 		this.tag = tag;
 		this.blogCnt = blogCnt;
 	}
+	public TagToBlogCnt(TagToBlogCnt tagToBlogCnt) {
+		this.tag = tagToBlogCnt.tag;
+		this.blogCnt = tagToBlogCnt.blogCnt;
+	}
 	
 	// for TreeSet
 	public int compareTo(TagToBlogCnt o) {
@@ -29,6 +35,11 @@ public class TagToBlogCnt implements Comparable<TagToBlogCnt>, EncapJSON {
 		}
 	}
 
+	// blogCnt 自增
+	public void incTagCnt() {
+		blogCnt ++;
+	}
+	
 	// 封装当前对象中的数据到obj中
 	public void encapJSON(JSONObject obj) {
 		obj.element("text", tag);
@@ -41,6 +52,20 @@ public class TagToBlogCnt implements Comparable<TagToBlogCnt>, EncapJSON {
 	public Integer getBlogCnt() {
 		return blogCnt;
 	}
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+	public void setBlogCnt(Integer blogCnt) {
+		this.blogCnt = blogCnt;
+	}	
 
+	// for debug & response
+	public String toString() {
+		JSONObject res = new JSONObject();
+		Tools.addIfNotEmpty(res, "tag", tag);
+		res.element("blogCnt", blogCnt.toString());
+		
+		return res.toString();
+	}
 	
 }

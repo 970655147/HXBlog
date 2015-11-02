@@ -16,7 +16,7 @@ public class BlogReviseAction extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String revisedContent = req.getParameter("revised");
 		String blogName = req.getParameter("path") + Tools.HTML;
-		Tools.save(prepare(revisedContent), Tools.getBlogPath(Tools.getProjectPath(this), blogName) );
+		Tools.save(revisedContent, Tools.getBlogPath(Tools.getProjectPath(req), blogName) );
 //		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
 //		String blogPath = Tools.getBlogPath(Tools.getProjectPath(this), blogId);
 //		PrintWriter out = resp.getWriter();
