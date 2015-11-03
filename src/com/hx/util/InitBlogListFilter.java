@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.hx.action.BlogListAction;
 
-// 初始化BlogListAction
+// 每一个action的过滤器 [未用]
 public class InitBlogListFilter implements Filter {
 
 	public void destroy() {
@@ -21,7 +21,7 @@ public class InitBlogListFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
-		BlogListAction.initIfNeeded((HttpServletRequest) req);
+		BlogListAction.initIfNeeded(req.getServletContext() );
 		chain.doFilter(req, resp);
 	}
 

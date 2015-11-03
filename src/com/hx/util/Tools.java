@@ -12,16 +12,19 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import com.hx.action.BlogListAction;
 import com.hx.bean.Blog;
 
 // 工具函数
@@ -93,6 +96,10 @@ public class Tools {
 	public static String getPackagePath(String basePath, String packagePath) {
 		return basePath + "WEB-INF/classes" + Tools.SLASH + packagePath;
 	}
+	// 获取给定的播客的地址
+	public static String getBlogPath(String basePath, String blogFileName) {
+		return basePath + Constants.blogFolder + Tools.SLASH + blogFileName + HTML;
+	}	
 	
 	// 获取到数据库的连接
 	public static Connection getConnection(String basePath) throws Exception {
@@ -113,8 +120,8 @@ public class Tools {
 	}
 	
 	// 获取当前项目的地址
-	public static String getProjectPath(HttpServletRequest req) {
-		return req.getServletContext().getRealPath("/");
+	public static String getProjectPath(ServletContext servletContext) {
+		return servletContext.getRealPath("/");
 	}
 	
 	// 各个tag的分隔符
@@ -133,6 +140,10 @@ public class Tools {
 		return sb.toString();
 	}
 	public static List<String> getTagListFromString(String tagListStr) {
+		if(Tools.isEmpty(tagListStr) ) {
+			return new ArrayList<>();
+		}
+		
 		String[] splits = tagListStr.split(tagsSep);
 		List<String> res = new ArrayList<>(splits.length);
 		for(String tag : splits) {
@@ -158,11 +169,6 @@ public class Tools {
 		return dateAndBlogTitle;
 	}
 	
-	// 获取给定的播客的地址
-	public static String getBlogPath(String basePath, String path) {
-		return basePath + Constants.blogFolder + Tools.SLASH + path;
-	}
-	
 	// 将html字符串保存到指定的文件中
 	public static void save(String html, String nextTmpName) throws IOException {
 		save(html, new File(nextTmpName) );
@@ -185,6 +191,36 @@ public class Tools {
 		Log.log("append content to \" " + nextTmpFile.getAbsolutePath() + " \" success ...");
 	}
 	
+	// 重命名给定的文件
+	public static boolean renameTo(File src, File dst) {
+		if(! src.exists() ) {
+			Log.log("src file isn't exists !");
+			return false;
+		}
+		if(dst.exists() ) {
+			Log.log("dst file is exists !");
+			return false;
+		}
+		
+		return src.renameTo(dst);
+	}	
+	public static boolean renameTo(String src, String dst) {
+		return renameTo(new File(src), new File(dst) );
+	}
+	
+	// 删除给定的文件
+	public static boolean delete(File src) {
+		if(! src.exists() ) {
+			Log.log("src file isn't exists !");
+			return false;
+		}
+		
+		return src.delete();
+	}
+	public static boolean delete(String src) {
+		return delete(new File(src) );
+	}
+	
 	// 判断给定的字符串是否为空
 	public static boolean isEmpty(String str) {
 		return (str == null) || (EMPTY_STR.equals(str.trim()) ) || NULL.equals(str.trim()); 
@@ -196,8 +232,49 @@ public class Tools {
 	}
 	
 	// 获取发布博客成功之后的响应消息
-	public static String getSuccMsg(Blog newBlog) {
-		return "post " + newBlog.getTitle() + " success ...";
+	public static String getPostSuccMsg(Blog newBlog) {
+		return "post \"" + newBlog.getTitle() + "\" success ...";
+	}
+	public static String getPostFailedMsg(Blog newBlog) {
+		return "post \"" + newBlog.getTitle() + "\" failed ...";
+	}
+	// 获取删除博客成功之后的响应消息
+	public static String getDeleteSuccMsg(Blog newBlog) {
+		return "delete \"" + newBlog.getTitle() + "\" success ...";
+	}
+	public static String getDeleteFailedMsg(Blog newBlog) {
+		return "delete \"" + newBlog.getTitle() + "\" failed ...";
+	}
+	
+	// 需要过滤的tag
+	private static Set<String> tagFilter = new HashSet<>();
+	static {
+		tagFilter.add(BlogListAction.ALL);
+	}
+	
+	// 获取JSONArray的字符串表示 [字符串带双引号]
+	public static String tagsToString(List<String> arr) {
+		if(arr.size() == 0) {
+			return "[]";
+		}
+		
+		JSONArray tags = new JSONArray();
+		for(String tag : arr) {
+			if(! tagFilter.contains(tag)) {
+				tags.add(tag);
+			}
+		}
+		return tags.toString();
+	}
+	
+	// 判断给定的两个字符串是否相同
+	public static boolean equalsIgnorecase(String str01, String str02) {
+		return str01.toUpperCase().equals(str02.toUpperCase() );
+	}
+	
+	// 打印日志
+	public static void log(Object obj, Object content) {
+		Log.log(obj.getClass().getName() + " -> " + Constants.dateFormat.format(new Date()) + " : " + content.toString() );
 	}
 	
 }

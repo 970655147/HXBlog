@@ -39,6 +39,9 @@ public class TagToBlogCnt implements Comparable<TagToBlogCnt>, EncapJSON {
 	public void incTagCnt() {
 		blogCnt ++;
 	}
+	public void decTagCnt() {
+		blogCnt --;
+	}
 	
 	// 封装当前对象中的数据到obj中
 	public void encapJSON(JSONObject obj) {
@@ -62,8 +65,7 @@ public class TagToBlogCnt implements Comparable<TagToBlogCnt>, EncapJSON {
 	// for debug & response
 	public String toString() {
 		JSONObject res = new JSONObject();
-		Tools.addIfNotEmpty(res, "tag", tag);
-		res.element("blogCnt", blogCnt.toString());
+		encapJSON(res);
 		
 		return res.toString();
 	}

@@ -15,24 +15,19 @@ import com.hx.util.Constants;
 import com.hx.util.Log;
 import com.hx.util.Tools;
 
-public class BlogPublishAction extends HttpServlet {
+public class BlogDeleteAction extends HttpServlet {
 
 	// ÐÞ¸Ä²¥¿Í
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String title = req.getParameter("title");
-		String tags = req.getParameter("tags");
-		String content = req.getParameter("content");
-		Date now = new Date();
-		String createTime = Constants.createDateFormat.format(now );
-		String blogName = Tools.getBlogFileName(Constants.dateFormat.format(now), title);
+		Integer blogId = Integer.parseInt(req.getParameter("id") );
+		Blog oldBLog = BlogListAction.getBlog(blogId);
 		
-		Blog newBlog = new Blog(BlogListAction.nextBlogId(), title, blogName, tags, createTime);
-		Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), blogName) );
-		BlogListAction.publishBlog(newBlog);
+		Tools.delete(Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBLog.getPath()) );
+		BlogListAction.deleteBlog(oldBLog);
 		
 		// -----------------------------------------
 		PrintWriter out = resp.getWriter();
-		ResponseMsg respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog));
+		ResponseMsg respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getDeleteSuccMsg(oldBLog));
 		out.write(respMsg.toString() );
 		Tools.log(this, respMsg);
 		out.close();

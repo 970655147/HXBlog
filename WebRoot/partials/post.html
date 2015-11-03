@@ -1,15 +1,21 @@
 <div id="wrapper" ng-controller="postCtrl">
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 text-left"><div class="btn btn-default"><a href="{{prevPostPath}}" class="prev-a">上一篇</a></div></div>
+      <div data="prevBlog" class="col-lg-4 text-left">
+      	<div class="btn btn-default">上一篇</div>
+      </div>
       <div class="col-lg-4 text-center"><div class="btn btn-default"><a href="/HXBlog">首页</a></div></div>
       <div class="col-lg-4 text-right">
       <!-- /HXBlog/blogReviseAction?blogId={{postId}} -->
+      <!-- 
       	<div class="btn btn-default"><a href="/HXBlog/ueditorLib/index.html?blogId={{postId}}&revise=true">修改</a></div>
-      	<div class="btn btn-default"><a href="{{nextPostPath}}" class="next-a">下一篇</a></div>
+      	 -->
+      	<div class="btn btn-default"><a href="/HXBlog/#!/blogPublishAction?blogId={{postId}}&revise=true">修改</a></div>
+      	<div class="btn btn-default">下一篇</div>
       	</div>
     </div>
   </div>
+  <br/>
   
   <!-- 
   <div id="post" class="background-white" ng-markdown="postContent"></div>
@@ -18,11 +24,35 @@
 		
   </div>
   
+  <br/>
   <div class="container">
     <div class="row">
-      <div class="col-lg-4 text-left"><div class="btn btn-default"><a href="{{prevPostPath}}" class="prev-a">上一篇</a></div></div>
+      <div data="prevBlog" class="col-lg-4 text-left">
+      	<div class="btn btn-default">上一篇</div>
+      </div>
       <div class="col-lg-4 text-center"><div class="btn btn-default"><a href="/HXBlog">首页</a></div></div>
-      <div class="col-lg-4 text-right"><div class="btn btn-default"><a href="{{nextPostPath}}" class="next-a">下一篇</a></div></div>
+      <div class="col-lg-4 text-right">
+		<div id="deleteBtn" class="btn btn-default"><a href="javascript:void(0)">删除</a></div>      	
+      	<div class="btn btn-default">下一篇</div>
+      </div>
     </div>
   </div>
+  
+  <!-- 消息提示 -->
+<div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+			<h4 class="modal-title" id="myModalLabel">播客状态</h4>
+			</div>
+			<div id="respMsg" class="modal-body"> </div>
+			<div class="modal-footer">
+			<div data="prevBlog" type="button" class="btn btn-primary">上一篇</div>
+			<div type="button" class="btn btn-default" ><a href="/HXBlog">首页</a></div>
+			<div data="nextBlog" type="button" class="btn btn-primary">下一篇</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 </div>

@@ -44,6 +44,7 @@ function getStrAfterLastSep(str, sep) {
 		          return "Blog"
 		      }
 	      };
+	      
 	      $scope.state = getState($location.path())
 	      $scope.config = data
 	      return $scope.$on("$locationChangeSuccess", function(event, newLoc, oldLoc) {
@@ -79,17 +80,48 @@ function getStrAfterLastSep(str, sep) {
   
   // 查看帖子的控制器
   app.controller('postCtrl', function($scope, $http, $routeParams) {
-	  var path = null
+	  var path = NULL
       if (($routeParams.postPath != null) && $routeParams.postPath.length !== 0) {
     	  path = $routeParams.postPath
-      } else {
-    	  path = "postBlog"
       }
-	  var blogReq = "post/" +path + ".html"
+	  var blogReq = "/HXBlog/action/blogGetAction?blogId=" + path
 	  
 	  return $http.get(blogReq).success(function(data) {
-		 $scope.postId = path
-		 $("#post").html(data)
+//		 console.log(data)
+		 $scope.postId = data.id
+		 $("#post").html(data.content)
+		 
+		 // 删除帖子按钮
+		$("#deleteBtn").click(function() {
+			var postUrl = "/HXBlog/action/blogDeleteAction"
+			var blogObj = new Blog($scope.postId, null, null, null)
+			$.ajax({
+				url: postUrl, type : "post",
+				data : blogObj.getBlogObj(),
+				success : function(data){
+					data = JSON.parse(data)
+					
+					$("#respMsg").html(data.msg)
+					$("#myModal").modal()
+		        }
+			});    
+		})
+		
+		// 首页按钮事件
+		$("#goHome").click(function() {
+			 location = "/HXBlog/"
+		})
+		 
+		// 上一页按钮的事件
+		 $("div[data='prevBlog']").click(function() {
+			 console.log("df")
+		 })
+		 
+		 // 下一页按钮事件
+ 		 $("#nextBlog").click(function() {
+			 
+		 })
+		
 	  })
   });
   

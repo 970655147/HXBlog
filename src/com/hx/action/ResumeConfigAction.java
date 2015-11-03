@@ -20,9 +20,9 @@ public class ResumeConfigAction extends HttpServlet {
 		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
 		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
 		PrintWriter out = resp.getWriter();
-		String content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(req), Constants.resumePath), Tools.DEFAULT_CHARSET );
+		String content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(req.getServletContext()), Constants.resumePath), Tools.DEFAULT_CHARSET );
 		out.write(content);
-//		Log.log(content);
+		Tools.log(this, content);
 		out.close();
 	}
 	

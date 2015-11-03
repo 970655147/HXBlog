@@ -23,7 +23,15 @@
     <servlet-name>blogPublishAction</servlet-name>
     <servlet-class>com.hx.action.BlogPublishAction</servlet-class>
   </servlet>  
-  
+  <servlet>
+    <servlet-name>blogGetAction</servlet-name>
+    <servlet-class>com.hx.action.BlogGetAction</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>blogDeleteAction</servlet-name>
+    <servlet-class>com.hx.action.BlogDeleteAction</servlet-class>
+  </servlet>  
+    
     
   <!--  ==========================- sep ========================================  -->
   
@@ -47,22 +55,39 @@
   <servlet-name>blogPublishAction</servlet-name>
     <url-pattern>/action/blogPublishAction</url-pattern>
   </servlet-mapping>  
+  <servlet-mapping>
+  <servlet-name>blogGetAction</servlet-name>
+    <url-pattern>/action/blogGetAction</url-pattern>
+  </servlet-mapping>  
+  <servlet-mapping>
+  <servlet-name>blogDeleteAction</servlet-name>
+    <url-pattern>/action/blogDeleteAction</url-pattern>
+  </servlet-mapping>  
+    
 
-
-  <!--  ==========================- filter ========================================  -->
+  <!--
+  // 因为有了 InitAndCheckUpdateListener, 所以 这个InitBlogListFilter似乎没有使用的余地了
+    ==========================- filter ========================================  
 
   <filter>
       <filter-name>initBlogListFilter</filter-name>
       <filter-class>com.hx.util.InitBlogListFilter</filter-class>
   </filter>      
       
-  <!--  ==========================- sep ========================================  -->      
+    ==========================- sep ========================================      
       
   <filter-mapping>
  	 <filter-name>initBlogListFilter</filter-name>
      <url-pattern>/action/*</url-pattern>
   </filter-mapping>    
+   -->
+       
       
+  <!--  ==========================- listener ========================================  -->
       
+  <listener>   
+  	 <display-name>checkUpdateListener</display-name>
+	 <listener-class>com.hx.util.InitAndCheckUpdateListener</listener-class>   
+  </listener>          
       
 </web-app>

@@ -17,6 +17,7 @@ public class Blog implements EncapJSON {
 	private String path;
 	private List<String> tags;
 	private String createTime;
+	private String content;
 	
 	// 初始化
 	public Blog() {
@@ -24,6 +25,11 @@ public class Blog implements EncapJSON {
 	}
 	public Blog(Integer id, String title, String path, String tags, String createTime) {
 		set(id, title, path, tags, createTime);
+		this.content = null;
+	}
+	public Blog(Blog blog) {
+		this(blog.id, blog.title, blog.path, null, blog.createTime);
+		this.tags = blog.tags;
 	}
 	
 	// 利用给定的resultSet 初始化当前blog对象
@@ -36,12 +42,9 @@ public class Blog implements EncapJSON {
 		obj.element("id", id);
 		obj.element("title", title);
 		obj.element("path", path);
-		JSONArray tags = new JSONArray();
-		for(String tag : this.tags) {
-			tags.add(tag);
-		}
-		obj.element("tags", tags.toString());
+		obj.element("tags", Tools.tagsToString(tags));
 		obj.element("date", createTime);
+		obj.element("content", content);
 	}
 	
 	// setter & getter
@@ -65,18 +68,24 @@ public class Blog implements EncapJSON {
 		this.title = title;
 		this.path = path;
 		this.tags = Tools.getTagListFromString(tags);
-		this.tags.add(BlogListAction.ALL);
-		this.createTime = createTime;
+		if(! this.tags.contains(BlogListAction.ALL)) {
+			this.tags.add(BlogListAction.ALL);
+		}
+		if(Tools.isEmpty(createTime) ) {
+			this.createTime = createTime;
+		}
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	// for debug & response
 	public String toString() {
 		JSONObject res = new JSONObject();
-		res.element("id", id);
-		Tools.addIfNotEmpty(res, "title", title);
-		Tools.addIfNotEmpty(res, "path", path);
-		res.element("tags", tags.toString());
-		Tools.addIfNotEmpty(res, "createTime", createTime);
+		encapJSON(res);
 		
 		return res.toString();
 	}

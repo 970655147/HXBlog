@@ -1,140 +1,111 @@
-    // -------------------- 数据结构相关--------------------------
-	// js实现StringBuilder
-	function StringBuilder() {
-		this._stringArray = new Array();
-	}
-	StringBuilder.prototype.append = function(str){
-		this._stringArray.push(str);
-	}
-	StringBuilder.prototype.toString = function(sep){
-		return this._stringArray.join(sep);
-	}
-	
-	// blogBean
-	function Blog(title, tags, content) {
-		this.title = title
-		this.tags = tags
-		this.content = content
-	}
-	Blog.prototype.toString = function() {
-		var sb = new StringBuilder()
-		sb.append("{ ")
-		sb.append("title : \"")
-		sb.append(this.title)
-		sb.append("\", tags : \"")
-		sb.append(this.tags)		
-		sb.append("\", content : \"")
-		sb.append(this.content)		
-		sb.append("\" }")
-		
-		return sb.toString(NULL)
-	}
-	Blog.prototype.getBlogObj = function() {
-		var blogObj = {
-				"title" : this.title,
-				"tags" : this.tags,
-				"content" : this.content
-		}
-		
-		return blogObj
-	}	
-	
-    // -------------------- 业务相关--------------------------
-	// 常量
-	var NULL = ""
-	var HTML = ".html"
-	var tagSep = ","
-	var maxTagNum = 10
-	var maxTagLength = 7
-		
+
 	//实例化编辑器
     //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+	var tagsPath = "div#tags span[class$='input-group-addon']"	
+	var tagInputPath = "input#tagInput"    	
+	var tagNoticePath = "span#tagNotice"
+	var submitNoticePath = "span#submitNotice"	
+		
     var ue = UE.getEditor('editor')
 	var url = document.URL
 	var post = getBlogId(url, "blogId=", "&")
 	var isRevise = equalsIgnoreCase("true", getBlogId(url, "revise=", "&"))
-	var postUrl = NULL
-	if(post != NULL) {
-		postUrl = "/HXBlog/post/" + post + HTML
+	var postUrl = EMPTY_STR
+	if(post != EMPTY_STR) {
+		postUrl = "/HXBlog/action/blogGetAction?blogId=" + post
 	}
 	
 	// 如果需要加载博客, 则加载博客
 	ue.ready(function() {
-		if(postUrl != NULL) {
+		if(postUrl != EMPTY_STR) {
 		 	var resp = $.ajax({url:postUrl, async:false});
-			ue.execCommand('insertHtml', resp.responseText)
+		 	resp = JSON.parse(resp.responseText)
+			ue.execCommand('insertHtml', resp.content)
+			$("#title").val(resp.title)
+			
+			var tags = eval(resp.tags)
+			for(i=0; i<tags.length; i++) {
+				appendTag(tagsPath, tags[i])
+			}
 		}
 	})
-	
-	// 提交任务
-	function submit() {
-		if(postUrl != NULL) {
-			var revisedContent = ue.getContent()
-			$.ajax({ url: "/HXBlog/action/blogReviseAction", type : "post",
-					data:{
-						revised : revisedContent,
-						path : post
-					},
-					success: function(){
-			       
-			        }
-			});
-		}
-	}
 	
     // -------------------- 绑定需要的事件 --------------------------
  	// <span class="input-group-addon btn btn-default" style="color:blue" >tags</span>
 	// 添加一个标签
-    $("input#tagInput").blur(function () {
-    	$("span#tagNotice").html("")    	
+    $(tagInputPath).blur(function () {
+    	$(tagNoticePath).html(EMPTY_STR)    	
     	// include a "tags" span
-    	var tagsPath = "div#tags span[class$='input-group-addon']"
-    	var tagNoticePath = "span#tagNotice"
-    	var tagInputPath = "input#tagInput"
     	var tag = $(tagInputPath).val().trim()
    
     	if(validateTag(tag, tagNoticePath) ) {
     		if(validateTags(tagsPath, tag, tagNoticePath)) {
         		appendTag(tagsPath, tag)
-        		$(tagInputPath).val(NULL)		
+        		$(tagInputPath).val(EMPTY_STR)		
     		}	
 		}
     })
     
     // 校验, 提交
     $("#submitBtn").click(function() {
-    	var submitNoticePath = "span#submitNotice"
-        var tagsPath = "div#tags span[class$='input-group-addon']"
     	var title = $("input#title").val().trim()
     	var content = ue.getContent()
-    	$(submitNoticePath).html(NULL)
+    	$(submitNoticePath).html(EMPTY_STR)
     	
     	if(validateTitle(title, submitNoticePath)) {
     		if(validateContent(content, submitNoticePath)) {
-    			var blogObj = new Blog(title, getTags(tagsPath), content)
+    			var blogObj = new Blog(post, title, getTags(tagsPath), content)
+    			var postUrl = EMPTY_STR
     			if(! isRevise) {
-    				$.ajax({
-    					url: "/HXBlog/action/blogPublishAction", type : "post",
-    					data : blogObj.getBlogObj(),
-    					success : function(){
-    			       
-    			        }
-    				});
+    				postUrl = "/HXBlog/action/blogPublishAction"
     			} else {
-    				
+    				postUrl = "/HXBlog/action/blogReviseAction"
     			}
+    			
+				$.ajax({
+					url: postUrl, type : "post",
+					data : blogObj.getBlogObj(),
+					success : function(data){
+						data = JSON.parse(data)
+						
+						$("#respMsg").html(data.msg)
+						$("#myModal").modal()
+			        }
+				});    			
     		}
     	}
     })
+//	// 提交任务
+//	function submit() {
+//		if(postUrl != EMPTY_STR) {
+//			var revisedContent = ue.getContent()
+//			$.ajax({ url: "/HXBlog/action/blogReviseAction", type : "post",
+//					data:{
+//						revised : revisedContent,
+//						path : post
+//					},
+//					success: function(){
+//						console.log("fgz")
+//			        }
+//			});
+//		}
+//	}    
     
+    // 绑定继续写博客按钮的事件
+	$("#goOnBlog").click(function() {
+		parent.location = "/HXBlog/#!/blogPublishAction"
+//		document.URL=location.href
+//		location.reload()
+	})
+    						
     // 初始化各个按钮的点击事件
-    $("div#tags span[class$='btn-default']").click(removeThis)
+    $(tagsPath).click(removeThis)
 
     // -------------------- 工具方法 --------------------------
 	// 获取博客的名称
 	function getBlogId(url, idStartIdxStr, idEndIdxStr) {
 		var idStartIdx = url.indexOf(idStartIdxStr)
-		var post = NULL;
+		var post = EMPTY_STR;
 		if(idStartIdx >= 0) {
 			var idEndIdx = url.indexOf(idEndIdxStr, idStartIdx + idStartIdxStr.length)
 			if(idEndIdx > idStartIdx) {
@@ -183,7 +154,7 @@
 	
     // 校验title
     function validateTitle(title, noticePath) {
-    	if(title == NULL) {
+    	if(title == EMPTY_STR) {
     		$(noticePath).html("title can't be empty !")
     		return false
     	}
@@ -193,7 +164,7 @@
     
     // 校验输入内容
     function validateContent(content, noticePath) {
-    	if(content == NULL) {
+    	if(content == EMPTY_STR) {
     		$(noticePath).html("content can't be empty !")
     		return false
     	}
@@ -203,7 +174,7 @@
     
     // 校验tag
     function validateTag(tag, noticePath) {
-    	if(tag == NULL) {
+    	if(tag == EMPTY_STR) {
 //    		$(noticePath).html("tag can't be empty !")
     		return false
     	}

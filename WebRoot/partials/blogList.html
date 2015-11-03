@@ -15,7 +15,7 @@
   
   <table id="index-list" class="table table-hover">
     <tr class="index-item-row" ng-repeat="item in blogList">
-      <td class="post-title"><a href="#!/post/{{item.path}}">{{item.title}}</a></td>
+      <td class="post-title"><a href="#!/post/{{item.id}}">{{item.title}}</a></td>
       <td class="post-date">{{item.date}}</td>
       <td class="post-tags">
         <a class="post-tag-href" href="#!/tag/{{tag}}" ng-repeat="tag in item.tags">

@@ -1,6 +1,16 @@
 
-<div id="index" ng-controller="publishCtrl" >
+<script type="text/javascript" >
+	// 校验当前url, 如果存在查询字符串, 则将其添加刀index.html的后面
+	var sepIdx = location.href.indexOf("?")
+	if(sepIdx >= 0) {
+		var queryString = location.href.substring(sepIdx)
+		var editorFrame = $("#blogEditorFrame")
+		editorFrame.attr("src", editorFrame.attr("src") + queryString)
+	}
+</script>
 
-	<iframe src="/HXBlog/ueditorLib/index.html" width="1080px" height="768px" >  </iframe>
+<div id="index" width="1080px" height="768px" ng-controller="publishCtrl" >
+
+	<iframe id="blogEditorFrame" src="/HXBlog/ueditorLib/index.html" width="1080px" height="768px" >  </iframe>
 
 </div>
