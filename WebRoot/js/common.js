@@ -88,11 +88,18 @@ function getStrAfterLastSep(str, sep) {
 	  
 	  return $http.get(blogReq).success(function(data) {
 //		 console.log(data)
-		 $scope.postId = data.id
-		 $("#post").html(data.content)
+		 $scope.postId = data.blog.id
+		 $("#post").html(data.blog.content)
+		 if(data.isLogin) {
+			 $("#reviseBtn").html(data.reviseBtn)
+			 $("#deleteBtn").html(data.deleteBtn) 
+		 } else {
+			 $("#reviseBtn").remove()
+			 $("#deleteBtn").remove()
+		 }
 		 
 		 // 删除帖子按钮
-		$("#deleteBtn").click(function() {
+		$("#deleteAction").click(function() {
 			var postUrl = "/HXBlog/action/blogDeleteAction"
 			var blogObj = new Blog($scope.postId, null, null, null)
 			$.ajax({
@@ -105,12 +112,11 @@ function getStrAfterLastSep(str, sep) {
 					$("#myModal").modal()
 		        }
 			});    
-		})
-		
-		// 首页按钮事件
-		$("#goHome").click(function() {
-			 location = "/HXBlog/"
-		})
+		})					 
+//		// 首页按钮事件
+//		$("#goHome").click(function() {
+//			 location = "/HXBlog/"
+//		})
 		 
 		// 上一页按钮的事件
 		 $("div[data='prevBlog']").click(function() {

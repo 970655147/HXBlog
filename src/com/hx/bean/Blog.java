@@ -3,10 +3,10 @@ package com.hx.bean;
 import java.sql.ResultSet;
 import java.util.List;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.hx.action.BlogListAction;
+import com.hx.util.Log;
 import com.hx.util.Tools;
 
 // 对应于数据库中的blogList的每一条记录
@@ -34,7 +34,9 @@ public class Blog implements EncapJSON {
 	
 	// 利用给定的resultSet 初始化当前blog对象
 	public void init(ResultSet rs) throws Exception {
-		set(rs.getInt("id"), rs.getString("title"), rs.getString("path"), rs.getString("tag"), rs.getString("createTime"));
+		String path = rs.getString("path");
+		set(rs.getInt("id"), null, path, rs.getString("tag"), rs.getString("createTime"));
+		this.title = Tools.getTitleFromBlogFileName(path);
 	}
 	
 	// 封装当前对象中的数据到obj中
@@ -71,7 +73,7 @@ public class Blog implements EncapJSON {
 		if(! this.tags.contains(BlogListAction.ALL)) {
 			this.tags.add(BlogListAction.ALL);
 		}
-		if(Tools.isEmpty(createTime) ) {
+		if(! Tools.isEmpty(createTime) ) {
 			this.createTime = createTime;
 		}
 	}

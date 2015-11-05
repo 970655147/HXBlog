@@ -2,7 +2,6 @@
     "title" : "蓝风970655147",
     "subTitle" : "好记性不如烂笔头",
     "quickLinks" : [
-        {"text" : "Publish", "href" : "/HXBlog/#!/blogPublishAction"},
         {"text" : "Blog", "href" : "/HXBlog/#!/tag/all"},
         {"text" : "Resume", "href" : "/HXBlog/#!/resume"},
         {"text" : "Github", "href" : "https://github.com/970655147"},

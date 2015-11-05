@@ -34,19 +34,21 @@ public class BlogReviseAction extends HttpServlet {
 		newBlog.set(id, title, blogName, tags, null);
 		
 		if(! isChangeName) {
-			Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBlogName) );			
+			Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogName) );			
 		} else {
-			Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBlogName) );
-			Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBlogName), Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), blogName) );
+			Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogName) );
+			Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBlogName), Tools.getBlogPath(Tools.getProjectPath(), blogName) );
 		}
 
-		BlogListAction.reviseBlog(newBlog);
+		BlogListAction.reviseBlog(newBlog, req.getServletContext());
 		
 		// -----------------------------------------
-		PrintWriter out = resp.getWriter();
 		ResponseMsg respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog));
-		out.write(respMsg.toString() );
-		Tools.log(this, respMsg);
+		
+		PrintWriter out = resp.getWriter();
+		String respInfo = respMsg.toString();
+		out.write(respInfo );
+		Tools.log(this, respInfo);
 		out.close();
 	}
 	

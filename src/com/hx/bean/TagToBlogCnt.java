@@ -1,7 +1,5 @@
 package com.hx.bean;
 
-import com.hx.util.Tools;
-
 import net.sf.json.JSONObject;
 
 // ÓÃÓÚÅÅĞòµÄbean

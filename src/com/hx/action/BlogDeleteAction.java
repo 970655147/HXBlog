@@ -22,14 +22,16 @@ public class BlogDeleteAction extends HttpServlet {
 		Integer blogId = Integer.parseInt(req.getParameter("id") );
 		Blog oldBLog = BlogListAction.getBlog(blogId);
 		
-		Tools.delete(Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBLog.getPath()) );
-		BlogListAction.deleteBlog(oldBLog);
+		Tools.delete(Tools.getBlogPath(Tools.getProjectPath(), oldBLog.getPath()) );
+		BlogListAction.deleteBlog(oldBLog, req.getServletContext());
 		
 		// -----------------------------------------
-		PrintWriter out = resp.getWriter();
 		ResponseMsg respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getDeleteSuccMsg(oldBLog));
-		out.write(respMsg.toString() );
-		Tools.log(this, respMsg);
+		
+		PrintWriter out = resp.getWriter();
+		String respInfo = respMsg.toString();
+		out.write(respInfo );
+		Tools.log(this, respInfo);
 		out.close();
 	}
 	

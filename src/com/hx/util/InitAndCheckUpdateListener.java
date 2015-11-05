@@ -1,5 +1,6 @@
 package com.hx.util;
 
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,9 +16,26 @@ public class InitAndCheckUpdateListener implements ServletContextListener {
 	Timer updateCheckTimer = new Timer();
 	
 	// context初始化的时候调用
-	public void contextInitialized(ServletContextEvent scv) {
-		BlogListAction.initIfNeeded(scv.getServletContext() );
-		updateCheckTimer.schedule(new CheckUpdateTask(), Constants.checkUpdateInterval, Constants.checkUpdateInterval);
+	// 定时检查的任务
+		// 定时检查BlogListAction中是否存在更新的数据, 如果有 则刷新到数据库
+	public void contextInitialized(final ServletContextEvent scv) {
+		Tools.setProjectPath(scv.getServletContext() );
+		BlogListAction.initIfNeeded();
+		updateCheckTimer.schedule(new TimerTask() {
+			public void run() {
+				int updated = BlogListAction.getUpdated();
+				if(updated > 0) {
+					BlogListAction.flushToDB(scv.getServletContext() );
+					Tools.log(this, "checkUpdate, updated : " + updated);
+				}
+				
+				if(Tools.getLogBufferSize() > 0) {
+					Tools.flushLog(Constants.dateFormat.format(new Date()) );
+				}
+			}
+		}, Constants.checkUpdateInterval, Constants.checkUpdateInterval);
+		
+		Tools.log(this, "HXBlog initinized !");
 	}
 	
 	// context被销毁的时候调用
@@ -25,17 +43,5 @@ public class InitAndCheckUpdateListener implements ServletContextListener {
 		updateCheckTimer.cancel();
 	}
 	
-	// 定时检查的任务
-		// 定时检查BlogListAction中是否存在更新的数据, 如果有 则刷新到数据库
-	static class CheckUpdateTask extends TimerTask {
-
-		public void run() {
-			int updated = BlogListAction.getUpdated();
-			if(updated > 0) {
-				BlogListAction.flushToDB();
-			}
-		}
-		
-	}
 
 }

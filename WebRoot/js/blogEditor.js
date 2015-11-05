@@ -92,9 +92,17 @@
 //	}    
     
     // 绑定继续写博客按钮的事件
+    	// 如果是修改页面, 则更新父窗口的href
+    	// 否则 表示添加帖子页面, 刷新父窗口
 	$("#goOnBlog").click(function() {
-		parent.location = "/HXBlog/#!/blogPublishAction"
-//		document.URL=location.href
+		if(isRevise) {
+			parent.location.href = "/HXBlog/#!/blogPublishAction"
+		} else {
+			parent.location.reload()
+		}
+		console.log(parent.location.href)
+//		document.URL = location.href
+//		document.URL =  "/HXBlog/#!/blogPublishAction"
 //		location.reload()
 	})
     						

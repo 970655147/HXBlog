@@ -21,7 +21,7 @@ public class InitBlogListFilter implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
-		BlogListAction.initIfNeeded(req.getServletContext() );
+		BlogListAction.initIfNeeded();
 		chain.doFilter(req, resp);
 	}
 

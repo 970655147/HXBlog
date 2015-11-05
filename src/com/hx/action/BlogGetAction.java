@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
+
 import com.hx.bean.Blog;
+import com.hx.util.Constants;
 import com.hx.util.Log;
 import com.hx.util.Tools;
 
@@ -19,14 +22,24 @@ public class BlogGetAction extends HttpServlet {
 		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
 		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
 		
-		PrintWriter out = resp.getWriter();
 		Integer blogId = Integer.parseInt(req.getParameter("blogId") );
 		Blog blog = new Blog(BlogListAction.getBlog(blogId) );
-		String content = Tools.getContent(Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), (blog.getPath()) ), Tools.DEFAULT_CHARSET);
+		String content = Tools.getContent(Tools.getBlogPath(Tools.getProjectPath(), (blog.getPath()) ), Tools.DEFAULT_CHARSET);
 		blog.setContent(content);
 		
-		out.write(blog.toString() );
-		Tools.log(this, blog);
+		JSONObject res = new JSONObject();
+		boolean isLogin = Tools.isLogin(req);
+		res.element("isLogin",  isLogin);
+		res.element("blog", blog.toString() );
+		if(isLogin) {
+			res.element("reviseBtn", Constants.reviseBtn);
+			res.element("deleteBtn", Constants.deleteBtn);
+		}
+		
+		PrintWriter out = resp.getWriter();
+		String respInfo = res.toString();
+		out.write(respInfo );
+		Tools.log(this, respInfo );
 		out.close();
 	}
 }

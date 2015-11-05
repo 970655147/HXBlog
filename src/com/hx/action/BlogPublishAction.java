@@ -27,14 +27,16 @@ public class BlogPublishAction extends HttpServlet {
 		String blogName = Tools.getBlogFileName(Constants.dateFormat.format(now), title);
 		
 		Blog newBlog = new Blog(BlogListAction.nextBlogId(), title, blogName, tags, createTime);
-		Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), blogName) );
-		BlogListAction.publishBlog(newBlog);
+		Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), blogName) );
+		BlogListAction.publishBlog(newBlog, req.getServletContext());
 		
 		// -----------------------------------------
-		PrintWriter out = resp.getWriter();
 		ResponseMsg respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog));
-		out.write(respMsg.toString() );
-		Tools.log(this, respMsg);
+		
+		PrintWriter out = resp.getWriter();
+		String respInfo = respMsg.toString();
+		out.write(respInfo );
+		Tools.log(this, respInfo);
 		out.close();
 	}
 	
