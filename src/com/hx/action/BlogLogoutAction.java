@@ -25,7 +25,7 @@ public class BlogLogoutAction extends HttpServlet {
 		
 		boolean isLogin = Tools.isLogin(req);
 		StringBuilder sb = new StringBuilder();
-		JSONObject userInfo = new JSONObject().element("userName", Tools.getStrFromSession(req, Constants.USER_NAME)).element("token", Tools.getStrFromSession(req, Constants.TOKEN)).element("ip", Tools.getIPAddr(req) );
+		JSONObject userInfo = new JSONObject().element("userName", Tools.getStrFromSession(req, Constants.ACCOUNT_NAME)).element("token", Tools.getStrFromSession(req, Constants.TOKEN)).element("ip", Tools.getIPAddr(req) );
 		sb.append("an user attempt to login out : ");
 		sb.append(userInfo.toString() );
 		sb.append(", ");
@@ -33,8 +33,9 @@ public class BlogLogoutAction extends HttpServlet {
 		if(isLogin) {
 			sb.append("this user is valid !");
 			HttpSession session = req.getSession();
-			session.removeAttribute(Constants.USER_NAME);
+			session.removeAttribute(Constants.ACCOUNT_NAME);
 			session.removeAttribute(Constants.TOKEN);
+			session.removeAttribute(Constants.preferInfo);
 		} else {
 			sb.append("this user is invalid !");
 		}

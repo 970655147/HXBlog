@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
+import com.hx.bean.UserInfo;
 import com.hx.util.Constants;
 import com.hx.util.Tools;
 
@@ -31,10 +32,11 @@ public class BlogLoginAction extends HttpServlet {
 		sb.append(", ");
 		
 		boolean isLogin = false;
-		if(userName.equals(Constants.userName) && pwd.equals(Constants.pwd)) {
+		if(userName.equals(Constants.account) && pwd.equals(Constants.pwd)) {
 			HttpSession session = req.getSession();
-			session.setAttribute(Constants.USER_NAME, Constants.userName);
+			session.setAttribute(Constants.ACCOUNT_NAME, Constants.account);
 			session.setAttribute(Constants.TOKEN, Constants.token);
+			session.setAttribute(Constants.preferInfo, new UserInfo(Constants.adminUserName, Constants.adminEmail, Constants.adminImageIdx) );
 			sb.append("login success !");
 			isLogin = true;
 		} else {

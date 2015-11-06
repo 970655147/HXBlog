@@ -20,13 +20,18 @@ public class BlogDeleteAction extends HttpServlet {
 
 	// É¾³ý²¥¿Í
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		
 		ResponseMsg respMsg = new ResponseMsg();
 		if(Tools.validateUserLogin(req, respMsg)) {
 			Integer blogId = Integer.parseInt(req.getParameter("id") );
 			Blog oldBLog = BlogManager.getBlog(blogId);
 			
 			if(Tools.validateBlog(req, oldBLog, respMsg) ) {
-				Tools.delete(Tools.getBlogPath(Tools.getProjectPath(), oldBLog.getPath()) );
+				if(Tools.isFileExists(Tools.getBlogPath(Tools.getProjectPath(), (oldBLog.getPath()) )) ) {	
+					Tools.delete(Tools.getBlogPath(Tools.getProjectPath(), oldBLog.getPath()) );
+				}
 				BlogManager.deleteBlog(oldBLog, req.getServletContext());
 				respMsg.set(true, Constants.defaultResponseCode, Tools.getDeleteSuccMsg(oldBLog), null);
 			}

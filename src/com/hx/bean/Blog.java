@@ -5,9 +5,7 @@ import java.util.List;
 
 import net.sf.json.JSONObject;
 
-import com.hx.action.BlogListAction;
 import com.hx.business.BlogManager;
-import com.hx.util.Log;
 import com.hx.util.Tools;
 
 // 对应于数据库中的blogList的每一条记录
@@ -18,25 +16,29 @@ public class Blog implements EncapJSON {
 	private String path;
 	private List<String> tags;
 	private String createTime;
+	private int good;
+	private int notGood;
+	private int visited;
 	private String content;
+	private JSONObject comments;
 	
 	// 初始化
 	public Blog() {
 		
 	}
-	public Blog(Integer id, String title, String path, String tags, String createTime) {
-		set(id, title, path, tags, createTime);
+	public Blog(Integer id, String title, String path, String tags, String createTime, int good, int notGood, int visited) {
+		set(id, title, path, tags, createTime, good, notGood, visited);
 		this.content = null;
 	}
 	public Blog(Blog blog) {
-		this(blog.id, blog.title, blog.path, null, blog.createTime);
+		this(blog.id, blog.title, blog.path, null, blog.createTime, blog.good, blog.notGood, blog.visited);
 		this.tags = blog.tags;
 	}
 	
 	// 利用给定的resultSet 初始化当前blog对象
 	public void init(ResultSet rs) throws Exception {
 		String path = rs.getString("path");
-		set(rs.getInt("id"), null, path, rs.getString("tag"), rs.getString("createTime"));
+		set(rs.getInt("id"), null, path, rs.getString("tag"), rs.getString("createTime"), rs.getInt("good"), rs.getInt("notGood"), rs.getInt("visited") );
 		this.title = Tools.getTitleFromBlogFileName(path);
 	}
 	
@@ -44,10 +46,14 @@ public class Blog implements EncapJSON {
 	public void encapJSON(JSONObject obj) {
 		obj.element("id", id);
 		obj.element("title", title);
-		obj.element("path", path);
+		Tools.addIfNotEmpty(obj, "path", path);
 		obj.element("tags", Tools.tagsToString(tags));
-		obj.element("date", createTime);
-		obj.element("content", content);
+		Tools.addIfNotEmpty(obj, "date", createTime);
+		Tools.addIfNotEmpty(obj, "content", content);
+		obj.element("good", good);
+		obj.element("notGood", notGood);
+		obj.element("visited", visited);
+		Tools.addIfNotEmpty(obj, "comments", comments);
 	}
 	
 	// setter & getter
@@ -66,6 +72,24 @@ public class Blog implements EncapJSON {
 	public String getCreateTime() {
 		return createTime;
 	}
+	public Integer getGood() {
+		return good;
+	}
+	public Integer getNotGood() {
+		return notGood;
+	}
+	public Integer getVisited() {
+		return visited;
+	}
+	public void incGood() {
+		good ++;
+	}
+	public void incNotGood() {
+		notGood ++;
+	}
+	public void incVisited() {
+		visited ++;
+	}
 	public void set(Integer id, String title, String path, String tags, String createTime) {
 		this.id = id;
 		this.title = title;
@@ -78,11 +102,23 @@ public class Blog implements EncapJSON {
 			this.createTime = createTime;
 		}
 	}
+	public void set(Integer id, String title, String path, String tags, String createTime, int good, int notGood, int visited) {
+		set(id, title, path, tags, createTime);
+		this.good = good;
+		this.notGood = notGood;
+		this.visited = visited;
+	}
 	public String getContent() {
 		return content;
 	}
 	public void setContent(String content) {
 		this.content = content;
+	}
+	public JSONObject getComments() {
+		return comments;
+	}
+	public void setComments(JSONObject comments) {
+		this.comments = comments;
 	}
 	
 	// for debug & response

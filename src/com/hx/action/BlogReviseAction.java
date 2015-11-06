@@ -19,30 +19,42 @@ public class BlogReviseAction extends HttpServlet {
 
 	// 修改播客
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		
 		ResponseMsg respMsg = new ResponseMsg();
 		if(Tools.validateUserLogin(req, respMsg) ) {
 			Integer id = Integer.parseInt(req.getParameter("id") );
 			String title = req.getParameter("title");
 			String tags = req.getParameter("tags");
 			String content = req.getParameter("content");
-			Blog newBlog = new Blog(BlogManager.getBlog(id) );
-			String oldBlogName = newBlog.getPath();
-			boolean isChangeName = ! Tools.equalsIgnorecase(oldBlogName.trim(), title.trim() );
-			
-			Date now = new Date();
-			String createTime = Constants.createDateFormat.format(now );
-			String blogName = Tools.getBlogFileName(Constants.dateFormat.format(now), title);	
-			newBlog.set(id, title, blogName, tags, null);
-			
-			if(! isChangeName) {
-				Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogName) );			
-			} else {
-				Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogName) );
-				Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBlogName), Tools.getBlogPath(Tools.getProjectPath(), blogName) );
+			if(Tools.validateTitle(req, title, respMsg)) {
+				if(Tools.validateTags(req, tags, respMsg)) {
+					if(Tools.validateContent(req, content, respMsg) ) {
+						Blog newBlog = BlogManager.getBlog(id);
+						// 对于修改这里, 不使用副本 [因为, 使不使用副本对于结果来说, 并没有影响]
+						if(Tools.validateBlog(req, newBlog, respMsg)) {
+							String oldBlogName = newBlog.getPath();
+							boolean isChangeName = ! Tools.equalsIgnorecase(oldBlogName.trim(), title.trim() );
+							
+							Date now = new Date();
+//							String createTime = Constants.createDateFormat.format(now );
+							String blogName = Tools.getBlogFileName(Constants.dateFormat.format(now), title);	
+							newBlog.set(id, title, blogName, tags, null);
+							
+							if(! isChangeName) {
+								Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogName) );			
+							} else {
+								Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogName) );
+								Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBlogName), Tools.getBlogPath(Tools.getProjectPath(), blogName) );
+							}
+					
+							BlogManager.reviseBlog(newBlog, req.getServletContext());
+							respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
+						}
+					}
+				}
 			}
-	
-			BlogManager.reviseBlog(newBlog, req.getServletContext());
-			respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
 		}
 		
 		PrintWriter out = resp.getWriter();

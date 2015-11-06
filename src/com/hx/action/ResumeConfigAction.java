@@ -20,9 +20,17 @@ public class ResumeConfigAction extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
 		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
-		String content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(), Constants.resumePath), Tools.DEFAULT_CHARSET );
+
+		String content = null;
+		String logInfo = null;
+		if(Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath)) ) {
+			content = Constants.defaultResume;
+			logInfo = "your resume be seen by : " + Tools.getIPAddr(req) + ", but resultFile not exists !";
+		} else {
+			content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(), Constants.resumePath), Tools.DEFAULT_CHARSET );
+			logInfo = "your resume be seen by : " + Tools.getIPAddr(req);
+		}
 		
-		String logInfo = "your resume be seen by : " + Tools.getIPAddr(req);
 		PrintWriter out = resp.getWriter();
 		out.write(content);
 		Tools.log(this, logInfo);

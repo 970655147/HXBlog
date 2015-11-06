@@ -22,8 +22,10 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.regex.Matcher;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -48,6 +50,7 @@ public class Tools {
 	public static final Character CR = '\r';
 	public static final Character LF = '\n';
 	public static final Character QUESTION = '?';
+	public static final String UNDER_LINE = "_";
 	public static final String CRLF = "\r\n";
 	public final static Random ran = new Random();
 	public final static String DEFAULT_CHARSET = "GBK";
@@ -211,10 +214,13 @@ public class Tools {
 			return new ArrayList<>();
 		}
 		
+		tagListStr = Tools.replaceMultiSpacesAsOne(tagListStr);
 		String[] splits = tagListStr.split(tagsSep);
 		List<String> res = new ArrayList<>(splits.length);
 		for(String tag : splits) {
-			res.add(Tools.replaceMultiSpacesAsOne(tag) );
+			if(! Tools.isEmpty(tag) ) {
+				res.add(tag );
+			}
 		}
 		
 		return res;
@@ -304,11 +310,26 @@ public class Tools {
 	public static boolean isEmpty(Collection coll) {
 		return (coll == null) || (coll.size() == 0); 
 	}	
+	public static boolean isEmpty(JSONObject coll) {
+		return (coll == null) || (coll.size() == 0); 
+	}	
+	
+	// 如果给定的对象不为空, 则将其加入给定的JSONObject中
 	public static void addIfNotEmpty(JSONObject obj, String key, String val) {
 		if(! isEmpty(val)) {
 			obj.put(key, val);
 		}
 	}
+	public static void addIfNotEmpty(JSONObject obj, String key, JSONObject jsonObj) {
+		if(! isEmpty(jsonObj)) {
+			obj.put(key, jsonObj.toString());
+		}
+	}	
+	public static void addIfNotEmpty(JSONObject obj, String key, Object valObj) {
+		if(valObj != null) {
+			obj.put(key, valObj.toString());
+		}
+	}	
 	
 	// 获取发布博客成功之后的响应消息
 	public static String getPostSuccMsg(Blog newBlog) {
@@ -359,7 +380,9 @@ public class Tools {
 		while(idx < arr.size() && tagFilter.contains(arr.get(idx)) ) {
 			idx ++;
 		}
-		sb.append(arr.get(idx) );
+		if(idx < arr.size() ) {
+			sb.append(arr.get(idx) );
+		}
 		for(int i=idx+1; i<arr.size(); i++) {
 			String tag = arr.get(i);
 			if(! tagFilter.contains(tag)) {
@@ -393,10 +416,15 @@ public class Tools {
 		StringBuilder sb = new StringBuilder();
 		for(Entry<Integer, Blog> entry : addedBlog.entrySet()) {
 			Blog blog = entry.getValue();
-			sb.append(" select ");	sb.append(blog.getId());	sb.append(" , '");
+			sb.append(" select ");	
+			sb.append(blog.getId());	sb.append(" , '");
 			sb.append(blog.getPath());	sb.append("' , '");
 			sb.append(tagsToStringTripBracket(blog.getTags()) );	sb.append("' , '");
-			sb.append(blog.getCreateTime());	sb.append("' union all ");
+			sb.append(blog.getCreateTime());	sb.append("' , '");
+			sb.append(blog.getGood());	sb.append("' , '");
+			sb.append(blog.getNotGood());	sb.append("' , '");
+			sb.append(blog.getVisited());	
+			sb.append("' union all ");
 		}
 		
 		String unionAll = sb.substring(0, sb.lastIndexOf("union"));
@@ -410,8 +438,10 @@ public class Tools {
 		StringBuilder sb = new StringBuilder();
 		for(String tag : tags) {
 			if(! tagFilter.contains(tag)) {
-				sb.append(" select '");	sb.append(tag);	sb.append("', ");
-				sb.append(blogId);	sb.append(" union all ");
+				sb.append(" select '");	
+				sb.append(tag);	sb.append("', ");
+				sb.append(blogId);	
+				sb.append(" union all ");
 			}
 		}
 		
@@ -419,7 +449,7 @@ public class Tools {
 		return String.format(Constants.addMultiTagListSql, unionAll);
 	}
 	public static String getUpdateBlogListSql(Integer blogId, Blog blog) {
-		return String.format(Constants.updateBlogListSql, blog.getPath(), tagsToStringTripBracket(blog.getTags()), blog.getId());
+		return String.format(Constants.updateBlogListSql, blog.getPath(), tagsToStringTripBracket(blog.getTags()), blog.getGood(), blog.getNotGood(), blog.getVisited(), blog.getId());
 	}
 	
 	// 判断给定的两个字符串是否相同
@@ -543,7 +573,7 @@ public class Tools {
 		if(session == null) {
 			return false;
 		}
-		if((! Constants.userName.equals(session.getAttribute(Constants.USER_NAME))) || (! Constants.token.equals(session.getAttribute(Constants.TOKEN))) ) {
+		if((! Constants.account.equals(session.getAttribute(Constants.ACCOUNT_NAME))) || (! Constants.token.equals(session.getAttribute(Constants.TOKEN))) ) {
 			return false;
 		}
 		
@@ -606,5 +636,91 @@ public class Tools {
 		
 		return true;
 	}
+	public static boolean validateObjectBeNull(HttpServletRequest req, Object obj, String key, ResponseMsg respMsg) {
+		if(obj == null) {
+			respMsg.set(false, Constants.defaultResponseCode, "sorry, " + key + " can't be null　!", Tools.getIPAddr(req) );
+			return false;
+		}
+		
+		return true;
+	}
+	public static boolean validateStringBeNull(HttpServletRequest req, String str, String key, ResponseMsg respMsg) {
+		if(isEmpty(str)) {
+			respMsg.set(false, Constants.defaultResponseCode, "sorry, " + key + " can't be null　!", Tools.getIPAddr(req) );
+			return false;
+		}
+		
+		return true;
+	}	
+	
+	// 校验用户传输过来的title
+	public static boolean validateTitle(HttpServletRequest req, String title, ResponseMsg respMsg) {
+		if(Tools.isEmpty(title) ) {
+			respMsg.set(false, Constants.defaultResponseCode, "please input title　!", Tools.getIPAddr(req) );
+			return false;
+		}
+		if(title.length() > Constants.titleMaxLength) {
+			respMsg.set(false, Constants.defaultResponseCode, "your title is to long [0 - 30], please check it !", Tools.getIPAddr(req) );
+			return false;
+		}
+		Matcher matcher = Constants.specCharPattern.matcher(title);
+		if(matcher.matches() ) {
+			respMsg.set(false, Constants.defaultResponseCode, "your title contains special character [eg : ! - /], please check it !", Tools.getIPAddr(req) );
+			return false;
+		}
+		
+		return true;
+	}
+	
+	// 校验tags
+	public static boolean validateTags(HttpServletRequest req, String tag, ResponseMsg respMsg) {
+		Matcher matcher = Constants.specCharPattern.matcher(tag);
+		if(matcher.matches() ) {
+			respMsg.set(false, Constants.defaultResponseCode, "your tag contains special character [eg : ! - /], please check it !", Tools.getIPAddr(req) );
+			return false;
+		}
+		
+		return true;
+	}
+	
+	// 校验content
+	public static boolean validateContent(HttpServletRequest req, String tag, ResponseMsg respMsg) {
+		return true;
+	}
+	
+	// 判断是否评点过 顶 /踩
+	public static boolean validateIsSensed(HttpServletRequest req, Integer blogId, ResponseMsg respMsg) {
+		boolean isSensed = Constants.senseCookieValue.equals(Tools.getCookieByName(req.getCookies(), Tools.getSensedCookieName(blogId)) );
+		if(isSensed) {
+			respMsg.set(false, Constants.defaultResponseCode, "your have already clicked good/ notGood !", Tools.getIPAddr(req) );
+			return false;
+		}
+		
+		return true;
+	}
+	
+	// 找到名为cookieName的Cookie对应的值
+	public static String getCookieByName(Cookie[] cookies, String cookieName) {
+		String res = Constants.defaultCookieValue;
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals(cookieName) ) {
+				res = cookie.getValue();
+				break ;
+			}
+		}
+		
+		return res;
+	}
+	
+	// 获取给定的blogId的访问session的名称
+	public static String getVisitedCookieName(Integer blogId) {
+		return Constants.visitedCookieName + UNDER_LINE + blogId.toString();
+	}
+	
+	// 获取点过顶踩的cookie的名称
+	public static String getSensedCookieName(Integer blogId) {
+		return Constants.senseCookieName + UNDER_LINE + blogId.toString();
+	}
+	
 	
 }

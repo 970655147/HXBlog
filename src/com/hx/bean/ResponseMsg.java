@@ -12,6 +12,7 @@ public class ResponseMsg {
 	private int respCode;
 	private String msg;
 	private String ip;
+	private String others;
 	
 	// ≥ı ºªØ
 	public ResponseMsg() {
@@ -35,6 +36,12 @@ public class ResponseMsg {
 	public String getIp() {
 		return ip;
 	}
+	public String getOthers() {
+		return others;
+	}
+	public void setOthers(String others) {
+		this.others = others;
+	}
 	public void set(boolean isSuccess, int respCode, String msg, String ip) {
 		this.isSuccess = isSuccess;
 		this.respCode = respCode;
@@ -49,6 +56,7 @@ public class ResponseMsg {
 		res.element("respCode", respCode);
 		Tools.addIfNotEmpty(res, "msg", msg);
 		Tools.addIfNotEmpty(res, "ip", ip);
+		Tools.addIfNotEmpty(res, "others", others);
 		
 		return res.toString();
 	}

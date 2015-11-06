@@ -45,6 +45,12 @@ public class InitAndCheckUpdateListener implements ServletContextListener {
 		if(updated > 0) {
 			BlogManager.flushToDB(servletContext );
 			Tools.log(this, "checkUpdate, updated : " + updated);
+		} else {
+			updated = BlogManager.getVistitedSensedUpdate();
+			if(updated > 0) {
+				BlogManager.flushToDBForVisitedSensed(servletContext);
+				Tools.log(this, "checkVistitedSensedUpdate, updated : " + updated);
+			}
 		}
 		
 		if(Tools.getLogBufferSize() > 0) {

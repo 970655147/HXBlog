@@ -4,18 +4,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
 import com.hx.bean.Blog;
 import com.hx.business.BlogManager;
 import com.hx.util.Constants;
-import com.hx.util.Log;
 import com.hx.util.Tools;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 public class BlogGetAction extends HttpServlet {
 	
@@ -35,21 +35,27 @@ public class BlogGetAction extends HttpServlet {
 		}
 		
 		if(blogId == null) {
-			blog = new Blog(Constants.defaultBlogId, "have no this blog !", Constants.defaultBlogPath, Constants.defaultBlogTag, null);
+			blog = new Blog(Constants.defaultBlogId, "have no this blog !", Constants.defaultBlogPath, Constants.defaultBlogTag, null, Constants.defaultGood, Constants.defaultNotGood, Constants.defaultVisited);
 			blog.setContent("hi, you have been intercept ~ ~ ~ ~ !");
 			injectorInfo.element("blogId", req.getParameter("blogId")).element("ip", Tools.getIPAddr(req));
 		} else {
-			blog = BlogManager.getBlog(blogId);
-			if(blog == null) {
-				blog = new Blog(Constants.defaultBlogId, "have no this blog !", Constants.defaultBlogPath, Constants.defaultBlogTag, null);
+			Blog blogInServer = BlogManager.getBlog(blogId);
+			if(blogInServer == null) {
+				blog = new Blog(Constants.defaultBlogId, "have no this blog !", Constants.defaultBlogPath, Constants.defaultBlogTag, null, Constants.defaultGood, Constants.defaultNotGood, Constants.defaultVisited);
 				blog.setContent("have no this blog !");
 				injectorInfo.element("blogId", blogId).element("ip", Tools.getIPAddr(req)); 
 			} else {
-				blog = new Blog(blog);
-				String blogPath = Tools.getBlogPath(Tools.getProjectPath(), (blog.getPath()) );
+				blog = new Blog(blogInServer);
+				String blogPath = Tools.getBlogPath(Tools.getProjectPath(), (blogInServer.getPath()) );
 				if(! Tools.isFileExists(blogPath) ) {
 					blog.setContent("this blog already be deleted, maybe by adminstrator !");
 				} else {
+					if(! Constants.visitedCookieValue.equals(Tools.getCookieByName(req.getCookies(), Tools.getVisitedCookieName(blog.getId()))) ) {
+						blogInServer.incVisited();
+						blog.incVisited();
+						BlogManager.addVisitSense(blog);
+						resp.addCookie(new Cookie(Tools.getVisitedCookieName(blog.getId()), Constants.visitedCookieValue));
+					}
 					String content = Tools.getContent(blogPath, Tools.DEFAULT_CHARSET);
 					blog.setContent(content);
 				}
@@ -60,6 +66,11 @@ public class BlogGetAction extends HttpServlet {
 		boolean isLogin = Tools.isLogin(req);
 		res.element("isLogin",  isLogin);
 		res.element("blog", blog.toString() );
+		res.element("sense", Constants.senseCookieValue.equals(Tools.getCookieByName(req.getCookies(), Tools.getSensedCookieName(blogId))) );
+		HttpSession session = req.getSession();
+		if(session != null) {
+			Tools.addIfNotEmpty(res, "user", session.getAttribute(Constants.preferInfo) );
+		}
 		if(isLogin) {
 			res.element("reviseBtn", String.format(Constants.reviseBtn, blog.getId()) );
 			res.element("deleteBtn", Constants.deleteBtn);

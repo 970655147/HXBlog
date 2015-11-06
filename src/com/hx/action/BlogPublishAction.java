@@ -20,21 +20,29 @@ public class BlogPublishAction extends HttpServlet {
 
 	// ÐÞ¸Ä²¥¿Í
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		
 		ResponseMsg respMsg = new ResponseMsg();
 		if(Tools.validateUserLogin(req, respMsg)) {
-			String title = req.getParameter("title");
-			String tags = req.getParameter("tags");
+			String title = Tools.replaceMultiSpacesAsOne(req.getParameter("title") );
+			String tags = Tools.replaceMultiSpacesAsOne(req.getParameter("tags") );
 			String content = req.getParameter("content");
-			Date now = new Date();
-			String createTime = Constants.createDateFormat.format(now );
-			String blogName = Tools.getBlogFileName(Constants.dateFormat.format(now), title);
-			
-			Blog newBlog = new Blog(BlogManager.nextBlogId(), title, blogName, tags, createTime);
-			Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), blogName) );
-			BlogManager.publishBlog(newBlog, req.getServletContext());
-			
-			// -----------------------------------------
-			respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
+			if(Tools.validateTitle(req, title, respMsg)) {
+				if(Tools.validateTags(req, tags, respMsg)) {
+					if(Tools.validateContent(req, content, respMsg) ) {
+						Date now = new Date();
+						String createTime = Constants.createDateFormat.format(now );
+						String blogName = Tools.getBlogFileName(Constants.dateFormat.format(now), title);
+						
+						Blog newBlog = new Blog(BlogManager.nextBlogId(), title, blogName, tags, createTime, 0, 0, 0);
+						Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), blogName) );
+						BlogManager.publishBlog(newBlog, req.getServletContext());
+						
+						respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
+					}
+				}
+			}
 		}
 		
 		PrintWriter out = resp.getWriter();

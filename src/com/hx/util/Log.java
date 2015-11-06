@@ -27,6 +27,9 @@ public class Log {
 //		}
 //	}
 	
+	// 水平线
+	public static String HORIZON = "-----------------------------------";
+	
 	// 打印对象
 	public static void log() {
 		System.out.println("get there...");
@@ -289,7 +292,7 @@ public class Log {
 
 	// 打印一条水平线
 	public static void horizon() {
-		System.out.println("-----------------------------------");
+		log(HORIZON);
 	}
 	
 	public static void horizon(int n) {

@@ -5,11 +5,14 @@ create table if not exists blogList(
        id integer primary key autoincrement,
        path varchar(256),       
        tag varchar(64),       
-       createTime varchar(32)
+       createTime varchar(32),
+       good integer,
+       notGood integer,
+       visited integer
 );
 
-insert into blogList (path, tag, createTime) values ("2015-11-02_22-45-10-038__dateBlogSep__qqq", "blog,Angularjs", "2013-08-26");
-insert into blogList (path, tag, createTime) values ("2015-11-02_22-43-20-567__dateBlogSep__222", "blog,Coursera,IDE", "2013-08-12");
+insert into blogList (path, tag, createTime, good, notGood, visited) values ("2015-11-02_22-45-10-038__dateBlogSep__qqq", "blog,Angularjs", "2013-08-26", 0, 0, 0);
+insert into blogList (path, tag, createTime, good, notGood, visited) values ("2015-11-02_22-43-20-567__dateBlogSep__222", "blog,Coursera,IDE", "2013-08-12", 0, 0, 0);
 
 
 
@@ -27,6 +30,18 @@ insert into tagToBlog (tag, blogId) values ("Coursera", "2");
 insert into tagToBlog (tag, blogId) values ("IDE", "2");
 
 
-##################### tagToBlog  ################################
+##################### commentList  ################################
+
+create table if not exists commentList(
+       id integer primary key autoincrement,
+       blogId integer,       
+       floorId integer,       
+       commentId integer,
+       name varchar(64),
+       date varchar(64),
+       headImgIdx integer,
+       comment varchar(256)
+);
+
 
 

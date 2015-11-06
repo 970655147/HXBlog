@@ -30,7 +30,7 @@ import com.hx.util.Tools;
 public class BlogManager {
 
 	// blogList, tagList, tag到tag对应的博客数的集合
-	// 增加的播客的集合, 更新的播客的集合, 删除的播客的集合
+	// 增加的播客的集合, 更新的播客的集合, 更新sense visited的播客集合,  删除的播客的集合
 	// 增加的(blogId -> [tag])的映射, 删除的(blogId -> [tag])的映射
 	// 是否需要初始化, 同步用的对象
 	private static Map<Integer, Blog> blogList = new ConcurrentHashMap<>();
@@ -38,6 +38,7 @@ public class BlogManager {
 	private static Set<TagToBlogCnt> tagToBlogCnt = new TreeSet<>();
 	private static Map<Integer, Blog> addedList = new ConcurrentHashMap<>();
 	private static Map<Integer, Blog> updatedList = new ConcurrentHashMap<>();
+	private static Map<Integer, Blog> visitSenseUpdatedList = new ConcurrentHashMap<>();
 	private static Map<Integer, Blog> deletedList = new ConcurrentHashMap<>();
 	private static Map<Integer, List<String>> addedBlogIdToTagMap = new HashMap<>();
 	private static Map<Integer, List<String>> deletedBlogIdToTagMap = new HashMap<>();
@@ -273,11 +274,17 @@ public class BlogManager {
 		
 		// ---------------------------------------------------
 	}
+	// 检查是否需要刷出缓存的数据到数据库
 	private static void checkIfNeedFlush(ServletContext servletContext) {
 //		Log.log("updated : " + getUpdated() );
 		if(getUpdated() >= Constants.updateThreashold) {
 			flushToDB(servletContext);
 		}
+	}
+	
+	// 添加blog到 visitSenseUpdatedList
+	public static void addVisitSense(Blog blog) {
+		visitSenseUpdatedList.put(blog.getId(), blog);
 	}
 	
 	// 将newBlog添加到tag对应的tagList中
@@ -329,6 +336,10 @@ public class BlogManager {
 	public static int getUpdated() {
 		return addedList.size() + updatedList.size() + deletedList.size();
 	}
+	// 获取更新的标签的个数
+	public static int getVistitedSensedUpdate() {
+		return visitSenseUpdatedList.size();
+	}	
 	
 	// 将更新的数据刷新到数据库
 		// 刷新数据库期间, 不允许对数据库进行操作
@@ -340,14 +351,17 @@ public class BlogManager {
 			Map<Integer, Blog> addedListTmp = new HashMap<>(); 
 			Map<Integer, Blog> deletedListTmp = new HashMap<>(); 
 			Map<Integer, Blog> updatedListTmp = new HashMap<>();
-			Map<Integer, List<String>> addedBlogIdToTagMapTmp = new HashMap<Integer, List<String>>();
-			Map<Integer, List<String>> deletedBlogIdToTagMapTmp = new HashMap<Integer, List<String>>();
+			Map<Integer, Blog> visitSenseUpdatedListTmp = new HashMap<>();
+			Map<Integer, List<String>> addedBlogIdToTagMapTmp = new HashMap<>();
+			Map<Integer, List<String>> deletedBlogIdToTagMapTmp = new HashMap<>();
 			addedListTmp.putAll(addedList);
 			deletedListTmp.putAll(deletedList);
 			updatedListTmp.putAll(updatedList);
+			visitSenseUpdatedListTmp.putAll(visitSenseUpdatedList);
 			addedList.clear();
 			updatedList.clear();
-			deletedList.clear();			
+			deletedList.clear();	
+			visitSenseUpdatedList.clear();
 			synchronized (updateLock) {
 				addedBlogIdToTagMapTmp.putAll(addedBlogIdToTagMap);
 				deletedBlogIdToTagMapTmp.putAll(deletedBlogIdToTagMap);
@@ -361,7 +375,7 @@ public class BlogManager {
 					con = Tools.getConnection(Tools.getProjectPath(servletContext));			
 					flushAddedRecords(con, addedListTmp, addedBlogIdToTagMapTmp);
 					flushDeletedRecords(con, deletedListTmp, deletedBlogIdToTagMapTmp);
-					flushRevisedRecords(con, updatedListTmp);
+					flushRevisedRecords(con, updatedListTmp, visitSenseUpdatedListTmp);
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
@@ -378,25 +392,53 @@ public class BlogManager {
 			Tools.log(BlogListAction.class, getFlushInfo() );
 		}		
 	}
-
+	
+	// 刷新更新了访问量, 顶踩的播客
+	public static void flushToDBForVisitedSensed(ServletContext servletContext) {
+		int updated = getVistitedSensedUpdate();
+		if(updated > 0) {
+			Map<Integer, Blog> visitSenseUpdatedListTmp = new HashMap<>();
+			visitSenseUpdatedListTmp.putAll(visitSenseUpdatedList);
+			visitSenseUpdatedList.clear();
+			
+			synchronized (initLock) {
+				Connection con = null;
+				try {
+					con = Tools.getConnection(Tools.getProjectPath(servletContext));			
+					flushRevisedRecords(con, null, visitSenseUpdatedListTmp);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if(con != null) {
+						try {
+							con.close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}					
+				}
+			}
+		}		
+	}
+	
 	// 刷新添加的记录到db
 	private static void flushAddedRecords(Connection con, Map<Integer, Blog> addedList, Map<Integer, List<String>> addedBlogIdToTagMap) throws Exception {
 		updated[Constants.addBlogCnt] = 0;
 		updated[Constants.addTagCnt] = 0;
-		if(addedList.size() > 0) {		
+		if((addedList != null) && (addedList.size() > 0) ) {		
 			String addSelectedSql = Tools.getAddSelectedBlogsSql(addedList);
-			Log.log(addSelectedSql);
+			Tools.log(BlogManager.class, addSelectedSql);
 			PreparedStatement delBlogPs = con.prepareStatement(addSelectedSql);
 			updated[Constants.addBlogCnt] = delBlogPs.executeUpdate();
 		}
 		
-		if(addedBlogIdToTagMap.size() > 0) {
+		if((addedBlogIdToTagMap != null) && (addedBlogIdToTagMap.size() > 0) ) {
 			String addSelectedSql = null;
 			PreparedStatement addTagsPs = null;
 			for(Entry<Integer, List<String>> entry : addedBlogIdToTagMap.entrySet()) {
 				if(entry.getValue().size() > 0) {
 					addSelectedSql = Tools.getAddSelectedTagsSql(entry.getKey(), entry.getValue());
-					Log.log(addSelectedSql);
+					Tools.log(BlogManager.class, addSelectedSql);
 					addTagsPs = con.prepareStatement(addSelectedSql);
 					updated[Constants.addTagCnt] += addTagsPs.executeUpdate();
 				}
@@ -410,20 +452,20 @@ public class BlogManager {
 	private static void flushDeletedRecords(Connection con, Map<Integer, Blog> deletedList, Map<Integer, List<String>> deletedBlogIdToTagMap) throws Exception {
 		updated[Constants.deletedBlogCnt] = 0;
 		updated[Constants.deletedTagCnt] = 0;
-		if(deletedList.size() > 0) {
+		if((deletedList != null) && (deletedList.size() > 0) ) {
 			String deleteSelectedSql = Tools.getDeleteSelectedBlogsSql(deletedList);
-			Log.log(deleteSelectedSql);
+			Tools.log(BlogManager.class, deleteSelectedSql);
 			PreparedStatement delBlogPs = con.prepareStatement(deleteSelectedSql);
 			updated[Constants.deletedBlogCnt] = delBlogPs.executeUpdate();
 		}
 		
-		if(deletedBlogIdToTagMap.size() > 0) {
+		if((deletedBlogIdToTagMap != null) && (deletedBlogIdToTagMap.size() > 0) ) {
 			String deleteSelectedSql = null;
 			PreparedStatement delTagsPs = null;
 			for(Entry<Integer, List<String>> entry : deletedBlogIdToTagMap.entrySet()) {
 				if(entry.getValue().size() > 0) {
 					deleteSelectedSql = Tools.getDeleteSelectedTagsSql(entry.getKey(), entry.getValue());
-					Log.log(deleteSelectedSql);
+					Tools.log(BlogManager.class, deleteSelectedSql);
 					delTagsPs = con.prepareStatement(deleteSelectedSql);
 					updated[Constants.deletedTagCnt] += delTagsPs.executeUpdate();
 				}
@@ -434,14 +476,26 @@ public class BlogManager {
 	}
 	
 	// 刷新更新的记录到db
-	private static void flushRevisedRecords(Connection con, Map<Integer, Blog> updatedList) throws Exception {
+	private static void flushRevisedRecords(Connection con, Map<Integer, Blog> updatedList, Map<Integer, Blog> visitSenseUpdatedListTmp) throws Exception {
 		updated[Constants.revisedBlogCnt] = 0;
-		if(updatedList.size() > 0) {
+		if((updatedList != null) && (updatedList.size() > 0) ) {
 			String updateSelectedSql = null;
 			PreparedStatement updateTagsPs = null;
 			for(Entry<Integer, Blog> entry : updatedList.entrySet()) {
+				visitSenseUpdatedListTmp.remove(entry.getKey() );
 				updateSelectedSql = Tools.getUpdateBlogListSql(entry.getKey(), entry.getValue());
-				Log.log(updateSelectedSql);
+				Tools.log(BlogManager.class, updateSelectedSql);
+				updateTagsPs = con.prepareStatement(updateSelectedSql);
+				updated[Constants.revisedBlogCnt] += updateTagsPs.executeUpdate();
+			}
+		}
+		
+		if((visitSenseUpdatedListTmp != null) && (visitSenseUpdatedListTmp.size() > 0) ) {
+			String updateSelectedSql = null;
+			PreparedStatement updateTagsPs = null;
+			for(Entry<Integer, Blog> entry : visitSenseUpdatedListTmp.entrySet()) {
+				updateSelectedSql = Tools.getUpdateBlogListSql(entry.getKey(), entry.getValue());
+				Tools.log(BlogManager.class, updateSelectedSql);
 				updateTagsPs = con.prepareStatement(updateSelectedSql);
 				updated[Constants.revisedBlogCnt] += updateTagsPs.executeUpdate();
 			}

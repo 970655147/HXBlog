@@ -8,9 +8,14 @@
 	      <a class="tag-href" href="/HXBlog/#!/tag/{{tag}}">{{tag}}</a>
 	    </li>
   	</ul>
+  	
+  	<span class="pull-right" >
+  		{{visited}} 人阅读
+  	</span>
   </div>
 
   <br/>
+   <br/>
   <div class="container">
     <div class="row">
       <div data="prevBlog" class="col-lg-4 text-left">
@@ -50,7 +55,7 @@
     </div>
   </div>
   
-  <!-- 消息提示 -->
+  <!-- 删除文章消息提示 -->
 <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -76,63 +81,92 @@
 
 <!-- 顶踩 -->
 <div id="digg" >
-    <dl id="btnDigg" class="digg digg_enable">
-       
-         <dt>顶</dt>
-        <dd>{{great}}</dd>
+    <dl dataId="btnSense" data="good" class="digg digg_enable">
+        <dt>顶</dt>
+        <dd>{{good}}</dd>
     </dl>
-    <dl id="btnBury" class="digg digg_enable">
-      
+    
+    <dl dataId="btnSense" data="notGood" class="digg digg_enable">
           <dt>踩</dt>
         <dd>{{notGood}}</dd>
     </dl>
 </div>
 
+<!-- 评论 -->
 <div id="comment_title" class="panel_head">
         <span class="see_comment">查看评论</span>
 </div>
 
 <div id="comment_list" >
 	<dl class="comment_item comment_topic" id="comment_item_5592259">
-		<dt class="comment_head">84楼 
+		<dt class="comment_head">
+			<span id="floorId" >84楼</span> 
 			<span class="user">
-				<a class="username" href="/youngzai" target="_blank">youngzai</a>
-				<span class="ptime">10小时前发表</span>
+				<span id="commenter" class="text-warning" >youngzai</span>
+				<span id="privilege" class="text-error" >[admin]</span>
+				<span id="date" class="text-success">发表于</span>
 					<a href="javascript:void(0)" class="cmt_btn reply" title="回复">[回复]</a> 
 					<a href="javascript:void(0)" class="cmt_btn quote" title="引用">[引用]</a>
 					<a href="javascript:void(0)" class="cmt_btn report" title="举报">[举报]</a>
-				</span>
 			</span>
 		</dt>
+		
 		<dd class="comment_userface">
 			<img src="./images/avatar/btn_avatar_a0.png" width="40" height="40" title="默认" />
 		</dd>  : 
 		<dd class="comment_body">挺好</dd>
 	</dl>
 	<hr/>
+	
 </div>
 
 <form method="post" >
     <div class="input-group">
-      <div class="input-group-addon">用户名</div>
-      <input type="text" class="form-control" placeholder="userName">
+      <div class="input-group-addon">用户名 <span style="color:red" >*</span> </div>
+      <input id="userName" name="userName" type="text" class="form-control" placeholder="userName" />
+      
+      <div class="input-group-addon">邮箱</div>
+      <input id="email" name="email" type="text" class="form-control" placeholder="email" />
     </div>
     <br/>
             头像选择 : 
-    <select class="form-control">
-      <option>默认</option>
-	  <option>帅哥</option>
-	  <option>美女</option>
-	  <option>黄帽</option>
-	  <option>红人</option>
-	  <option>红帽</option>
+    <select class="form-control" id="imageIdx" >
+      <option id="0" >默认</option>
+	  <option id="1" >帅哥</option>
+	  <option id="2" >美女</option>
+	  <option id="3" >黄帽</option>
+	  <option id="4" >红人</option>
+	  <option id="5" >红帽</option>
 	</select>
     <br/>
     <div class="input-group">
-		<div class="input-group-addon">评&nbsp;&nbsp;&nbsp;&nbsp;论</div>
-		<textarea class="form-control" rows="3">
+		<div class="input-group-addon">评&nbsp;&nbsp;&nbsp;&nbsp;论  <span style="color:red" >*</span> </div> 
+		<textarea id="comment" class="form-control" rows="3">
 		</textarea>
 	</div>
+	
+	<br/>
+    <div>
+        <button id="submitBtn" class="btn btn-default" >提交评论</button>  <span id="submitNotice"  style="padding : 10px 10px 30px 20px; color : red"  ></span>
+    </div>	
+	
 </form>
+
+<!-- 消息提示 -->
+<div class="modal fade " id="submitCommentModal" tabindex="-1" role="dialog" aria-labelledby="submitCommentModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h4 class="modal-title" id="myModalLabel">评论状态</h4>
+			</div>
+			<div id="submitCommentMsg" class="modal-body"> </div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+			<button id="goOnBlog" type="button" class="btn btn-primary"> <a href="/HXBlog" > 回首页 </a>  </button>
+			</div>
+		</div>
+	</div>
+</div>
 
 </div>

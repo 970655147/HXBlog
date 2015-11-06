@@ -1,13 +1,3 @@
-// 获取str中最后一个sep分隔符之后的数据
-function getStrAfterLastSep(str, sep) {
-	var lastIdx = str.lastIndexOf(sep)
-	if(lastIdx >= 0) {
-		return str.substr(lastIdx + sep.length);
-	} else {
-		return null;
-	}
-}
-
 (function() {
   var app = angular.module('blog', ['ngSanitize'])
 
@@ -96,8 +86,19 @@ function getStrAfterLastSep(str, sep) {
 			 $scope.postId = data.blog.id
 			 $scope.title = data.blog.title
 			 $scope.tagList = data.blog.tags
+			 $scope.good = data.blog.good
+			 $scope.notGood = data.blog.notGood
+			 $scope.visited = data.blog.visited
+			 var sensed = data.sense
+			 
 			 $("#post").html(data.blog.content)
 			 $("#blogWarnning").hide()
+			 if(typeof(data.user) != UNDEFINED) {
+				 $("#userName").val(data.user.name)
+				 $("#email").val(data.user.email)
+				 $("#imageIdx").find("option[id='"+ data.user.imageIdx +"']").attr("selected", true)
+			 }
+			 
 			 if(data.isLogin) {
 				 $("#reviseBtn").html(data.reviseBtn)
 				 $("#deleteBtn").html(data.deleteBtn) 
@@ -148,6 +149,56 @@ function getStrAfterLastSep(str, sep) {
 	 			}
 			 })
 			
+			 // 顶踩按钮
+			 $("dl[dataId='btnSense']").click( function() {
+				 if(! sensed) {
+					 sensed = true;
+					 var postUrl = "/HXBlog/action/blogSenseAction"
+					 var sense = $(this).attr("data")
+					 var cur = parseInt($(this).find("dd").html() )
+					 $(this).find("dd").html(cur + 1)
+						$.ajax({
+							url: postUrl, type : "post",
+							data : {
+								"blogId" : data.blog.id,
+								"sense" : sense
+							},
+							success : function(data){
+					        }
+						});    
+				 } else {
+					 console.log("you have already click good / notGood !")
+				 }
+			})
+			
+			// 常量
+			var submitNoticePath = "#submitNotice"
+				
+			// 校验, 提交评论
+			$("#submitBtn").click(function() {
+		    	$(submitNoticePath).html(EMPTY_STR)
+		    	var userName = $("#userName").val().trim()
+		    	var comment = $("#comment").val()
+		    	var imageIdx = $("#imageIdx").find("option[selected='selected']").attr("id")
+		    	if(validateTitle(userName, "userName", submitNoticePath)) {
+		    		if(validateContent(comment, "comment", submitNoticePath)) {
+						var comment = new Comment(userName, $("#email").val().trim(), imageIdx, comment )
+		    			var postUrl = "/HXBlog/action/blogCommentAction"
+		    			
+						$.ajax({
+							url: postUrl, type : "post",
+							data : comment.getBlogObj(),
+							success : function(data){
+								data = JSON.parse(data)
+								
+								$("#submitCommentMsg").html(data.msg)
+								$("#submitCommentModal").modal()
+					        }
+						});    			
+		    		}
+		    	}
+			})
+			 
 		  })		  
 	  }
   });

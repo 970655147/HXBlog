@@ -52,8 +52,8 @@
     	var content = ue.getContent()
     	$(submitNoticePath).html(EMPTY_STR)
     	
-    	if(validateTitle(title, submitNoticePath)) {
-    		if(validateContent(content, submitNoticePath)) {
+    	if(validateTitle(title, "title", submitNoticePath)) {
+    		if(validateContent(content, "content", submitNoticePath)) {
     			var blogObj = new Blog(post, title, getTags(tagsPath), content)
     			var postUrl = EMPTY_STR
     			if(! isRevise) {
@@ -159,26 +159,6 @@
     function removeThis() {
         $(this).remove()
     }
-	
-    // 校验title
-    function validateTitle(title, noticePath) {
-    	if(title == EMPTY_STR) {
-    		$(noticePath).html("title can't be empty !")
-    		return false
-    	}
-    	
-    	return true
-    }
-    
-    // 校验输入内容
-    function validateContent(content, noticePath) {
-    	if(content == EMPTY_STR) {
-    		$(noticePath).html("content can't be empty !")
-    		return false
-    	}
-    	
-    	return true
-    }
     
     // 校验tag
     function validateTag(tag, noticePath) {
@@ -190,7 +170,11 @@
     		$(noticePath).html("tag is too long !")
     		return false
     	}
-	
+    	if(isMatch(specCharReg, tag)) {
+    		$(noticePath).html("tag can't contains spec character [eg : ! - /] !")
+    		return false
+    	}
+    		
     	return true
     }
     

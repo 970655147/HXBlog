@@ -39,6 +39,14 @@
     <servlet-name>blogLogoutAction</servlet-name>
     <servlet-class>com.hx.action.BlogLogoutAction</servlet-class>
   </servlet>      
+  <servlet>
+    <servlet-name>blogSenseAction</servlet-name>
+    <servlet-class>com.hx.action.BlogSenseAction</servlet-class>
+  </servlet>      
+  <servlet>
+    <servlet-name>blogCommentAction</servlet-name>
+    <servlet-class>com.hx.action.BlogCommentAction</servlet-class>
+  </servlet>             
       
   <!--  ==========================- sep ========================================  -->
   
@@ -78,7 +86,16 @@
   <servlet-name>blogLogoutAction</servlet-name>
     <url-pattern>/action/blogLogoutAction</url-pattern>
   </servlet-mapping>        
-
+  <servlet-mapping>
+  <servlet-name>blogSenseAction</servlet-name>
+    <url-pattern>/action/blogSenseAction</url-pattern>
+  </servlet-mapping>     
+  <servlet-mapping>
+  <servlet-name>blogCommentAction</servlet-name>
+    <url-pattern>/action/blogCommentAction</url-pattern>
+  </servlet-mapping>     
+  
+    
   <!--
   // 因为有了 InitAndCheckUpdateListener, 所以 这个InitBlogListFilter似乎没有使用的余地了
     ==========================- filter ========================================  
