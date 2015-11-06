@@ -5,6 +5,6 @@
         {"text" : "Blog", "href" : "/HXBlog/#!/tag/all"},
         {"text" : "Resume", "href" : "/HXBlog/#!/resume"},
         {"text" : "Github", "href" : "https://github.com/970655147"},
-        {"text" : "csdnBlog", "href" : "http://blog.csdn.net/u011039332"}
+        {"text" : "CSDNBlog", "href" : "http://blog.csdn.net/u011039332"},
     ]
 }

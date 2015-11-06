@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -29,8 +30,9 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import com.hx.action.BlogListAction;
 import com.hx.bean.Blog;
+import com.hx.bean.ResponseMsg;
+import com.hx.business.BlogManager;
 
 // 工具函数
 public class Tools {
@@ -141,6 +143,12 @@ public class Tools {
 	}
 	public static String getContent(InputStream is) throws IOException {
 		return getContent(is, DEFAULT_CHARSET);
+	}
+	
+	// 判断给定的路径的文件是否存在
+	public static boolean isFileExists(String path) {	
+		File file = new File(path);
+		return file.exists();
 	}
 	
 	// 获取包中的路径对应的文件的路径
@@ -293,6 +301,9 @@ public class Tools {
 	public static boolean isEmpty(String str) {
 		return (str == null) || (EMPTY_STR.equals(str.trim()) ) || NULL.equals(str.trim()); 
 	}
+	public static boolean isEmpty(Collection coll) {
+		return (coll == null) || (coll.size() == 0); 
+	}	
 	public static void addIfNotEmpty(JSONObject obj, String key, String val) {
 		if(! isEmpty(val)) {
 			obj.put(key, val);
@@ -317,7 +328,7 @@ public class Tools {
 	// 需要过滤的tag
 	private static Set<String> tagFilter = new HashSet<>();
 	static {
-		tagFilter.add(BlogListAction.ALL);
+		tagFilter.add(BlogManager.ALL);
 	}
 	
 	// 获取JSONArray的字符串表示 [字符串带双引号]
@@ -444,8 +455,9 @@ public class Tools {
 	// 刷新日志文件 [如果需要切换日志文件, 则切换]
 	public static int flushLog(String timeNow) {
 		int logLength = logBuffer.length();
-		String flushInfo = "flushed log : " + getKByteByByte(logLength) + " kb !"; 
+		String flushInfo = Tools.class.getName() + " -> " + timeNow + " : flushed log : " + getKByteByByte(logLength) + " kb !"; 
 		logBuffer.append(flushInfo);
+		logBuffer.append(CRLF);
 		Log.log(flushInfo);
 		String appendLog = logBuffer.toString();
 		logBuffer.setLength(0);
@@ -531,7 +543,7 @@ public class Tools {
 		if(session == null) {
 			return false;
 		}
-		if((! Constants.userName.equals(session.getAttribute("userName"))) || (! Constants.token.equals(session.getAttribute("token"))) ) {
+		if((! Constants.userName.equals(session.getAttribute(Constants.USER_NAME))) || (! Constants.token.equals(session.getAttribute(Constants.TOKEN))) ) {
 			return false;
 		}
 		
@@ -540,18 +552,59 @@ public class Tools {
 	
 	// 通过request获取ip
 	public static String getIPAddr(HttpServletRequest request) {
-			String ip = request.getHeader("x-forwarded-for");
-			if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-				ip = request.getHeader("Proxy-Client-IP");
-			}
-			if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-				ip = request.getHeader("WL-Proxy-Client-IP");
-			}
-			if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
-				ip = request.getRemoteAddr();
-			}
-
-			return ip;
+		String ip = request.getHeader("x-forwarded-for");
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
 		}
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if(ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+
+		return ip;
+	}
+	
+	// 从req.session中获取attr对应过的值
+	public static String getStrFromSession(HttpServletRequest req, String attr) {
+		HttpSession session = req.getSession(false);
+		String res = NULL;
+		if(session != null) {
+			res = String.valueOf(session.getAttribute(attr) );
+		}
+		
+		return res;
+	}
+	public static Object getAttrFromSession(HttpServletRequest req, String attr) {
+		HttpSession session = req.getSession(false);
+		Object res = null;
+		if(session != null) {
+			res = session.getAttribute(attr);
+		}
+		
+		return res;
+	}
+	
+	// 校验是否用户登录
+	public static boolean validateUserLogin(HttpServletRequest req, ResponseMsg respMsg) {
+		boolean isLogin = Tools.isLogin(req);
+		if(! isLogin) {
+			respMsg.set(false, Constants.defaultResponseCode, "sorry, you haven't login, please login first　!", Tools.getIPAddr(req) );
+			return false;
+		}
+		
+		return true;
+	}
+	
+	// 校验博客是否合法
+	public static boolean validateBlog(HttpServletRequest req, Blog blog, ResponseMsg respMsg) {
+		if(blog == null) {
+			respMsg.set(false, Constants.defaultResponseCode, "sorry, have no this blog　!", Tools.getIPAddr(req) );
+			return false;
+		}
+		
+		return true;
+	}
 	
 }

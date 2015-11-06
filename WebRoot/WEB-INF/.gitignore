@@ -1,3 +1,4 @@
 # ignore "class" & "lib" folder
 ./classes/*
 ./lib/*
+/classes

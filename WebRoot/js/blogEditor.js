@@ -20,10 +20,10 @@
 		if(postUrl != EMPTY_STR) {
 		 	var resp = $.ajax({url:postUrl, async:false});
 		 	resp = JSON.parse(resp.responseText)
-			ue.execCommand('insertHtml', resp.content)
-			$("#title").val(resp.title)
+			ue.execCommand('insertHtml', resp.blog.content)
+			$("#title").val(resp.blog.title)
 			
-			var tags = eval(resp.tags)
+			var tags = eval(resp.blog.tags)
 			for(i=0; i<tags.length; i++) {
 				appendTag(tagsPath, tags[i])
 			}
@@ -100,7 +100,7 @@
 		} else {
 			parent.location.reload()
 		}
-		console.log(parent.location.href)
+//		console.log(parent.location.href)
 //		document.URL = location.href
 //		document.URL =  "/HXBlog/#!/blogPublishAction"
 //		location.reload()

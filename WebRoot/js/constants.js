@@ -51,4 +51,6 @@
 	var tagSep = ","
 	var maxTagNum = 10
 	var maxTagLength = 7
+//	var haveNoPrevBlogIdx = -1
+//	var haveNoNextBlogIdx = -2
 	

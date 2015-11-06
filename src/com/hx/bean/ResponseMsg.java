@@ -11,16 +11,15 @@ public class ResponseMsg {
 	private boolean isSuccess;
 	private int respCode;
 	private String msg;
+	private String ip;
 	
 	// ≥ı ºªØ
 	public ResponseMsg() {
 		super();
 	}
-	public ResponseMsg(boolean isSuccess, int respCode, String msg) {
+	public ResponseMsg(boolean isSuccess, int respCode, String msg, String ip) {
 		super();
-		this.isSuccess = isSuccess;
-		this.respCode = respCode;
-		this.msg = msg;
+		set(isSuccess, respCode, msg, ip);
 	}
 	
 	// setter & getter
@@ -33,15 +32,23 @@ public class ResponseMsg {
 	public String getMsg() {
 		return msg;
 	}
+	public String getIp() {
+		return ip;
+	}
+	public void set(boolean isSuccess, int respCode, String msg, String ip) {
+		this.isSuccess = isSuccess;
+		this.respCode = respCode;
+		this.msg = msg;
+		this.ip = ip;
+	}
 	
 	// for debug & response
 	public String toString() {
 		JSONObject res = new JSONObject();
 		res.element("isSuccess", isSuccess);
 		res.element("respCode", respCode);
-		if(! Tools.isEmpty(msg)) {
-			res.element("msg", msg);
-		}
+		Tools.addIfNotEmpty(res, "msg", msg);
+		Tools.addIfNotEmpty(res, "ip", ip);
 		
 		return res.toString();
 	}

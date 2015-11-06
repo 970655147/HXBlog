@@ -11,7 +11,7 @@ function getStrAfterLastSep(str, sep) {
 (function() {
   var app = angular.module('blog', ['ngSanitize'])
 
-  // 控制ng-view的跳转
+  // 控制ng-view的路由
     app.config([
      '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
       // 这一步必须要加上 
@@ -67,73 +67,94 @@ function getStrAfterLastSep(str, sep) {
 		  var tags = data.tagList
 		  for(i=0; i<tags.length; i++) {
 			  tags[i].href = "#!/tag/" + tags[i].text
-			  if(tags[i].text == curTag) {
-				  $scope.currentTag = tags[i]
-			  }
 		  }
 		  
 		  $scope.tagList = data.tagList
 		  $scope.blogList = data.blogList
+		  $scope.currentTag = {
+				  "text" : data.curTag,
+				  "href" : "#!/tag/" + data.curTag
+		  }
+		  $scope.tagSep = tagSep;
 //		  console.log(data.blogList)
 	  })
   });
   
   // 查看帖子的控制器
+  	// $routeParams.postPath.length 是指/post/path, path的长度
   app.controller('postCtrl', function($scope, $http, $routeParams) {
 	  var path = NULL
       if (($routeParams.postPath != null) && $routeParams.postPath.length !== 0) {
     	  path = $routeParams.postPath
       }
-	  var blogReq = "/HXBlog/action/blogGetAction?blogId=" + path
-	  
-	  return $http.get(blogReq).success(function(data) {
-//		 console.log(data)
-		 $scope.postId = data.blog.id
-		 $("#post").html(data.blog.content)
-		 if(data.isLogin) {
-			 $("#reviseBtn").html(data.reviseBtn)
-			 $("#deleteBtn").html(data.deleteBtn) 
-		 } else {
-			 $("#reviseBtn").remove()
-			 $("#deleteBtn").remove()
-		 }
-		 
-		 // 删除帖子按钮
-		$("#deleteAction").click(function() {
-			var postUrl = "/HXBlog/action/blogDeleteAction"
-			var blogObj = new Blog($scope.postId, null, null, null)
-			$.ajax({
-				url: postUrl, type : "post",
-				data : blogObj.getBlogObj(),
-				success : function(data){
-					data = JSON.parse(data)
-					
-					$("#respMsg").html(data.msg)
-					$("#myModal").modal()
-		        }
-			});    
-		})					 
-//		// 首页按钮事件
-//		$("#goHome").click(function() {
-//			 location = "/HXBlog/"
-//		})
-		 
-		// 上一页按钮的事件
-		 $("div[data='prevBlog']").click(function() {
-			 console.log("df")
-		 })
-		 
-		 // 下一页按钮事件
- 		 $("#nextBlog").click(function() {
+	  var idAndTag = path.split(tagSep)
+	  if(idAndTag.length == 2) {
+		  var blogReq = "/HXBlog/action/blogGetAction?blogId=" + idAndTag[0] + "&tag=" + idAndTag[1]
+
+		  return $http.get(blogReq).success(function(data) {
+//			 console.log(data)
+			 $scope.postId = data.blog.id
+			 $scope.title = data.blog.title
+			 $scope.tagList = data.blog.tags
+			 $("#post").html(data.blog.content)
+			 $("#blogWarnning").hide()
+			 if(data.isLogin) {
+				 $("#reviseBtn").html(data.reviseBtn)
+				 $("#deleteBtn").html(data.deleteBtn) 
+				 $("#reviseBtn").attr("class", "btn btn-default")
+				 $("#deleteBtn").attr("class", "btn btn-default")
+			 } else {
+				 $("#reviseBtn").remove()
+				 $("#deleteBtn").remove()
+			 }
 			 
-		 })
-		
-	  })
+			 // 删除帖子按钮
+			$("#deleteAction").click(function() {
+				var postUrl = "/HXBlog/action/blogDeleteAction"
+				var blogObj = new Blog($scope.postId, null, null, null)
+				$.ajax({
+					url: postUrl, type : "post",
+					data : blogObj.getBlogObj(),
+					success : function(data){
+						data = JSON.parse(data)
+						
+						$("#respMsg").html(data.msg)
+						$("#myModal").modal()
+			        }
+				});    
+			})					 
+//			// 首页按钮事件
+//			$("#goHome").click(function() {
+//				 location = "/HXBlog/"
+//			})
+			 
+			// 上一页按钮的事件
+			 $("div[data='prevBlog']").click(function() {
+				 if(typeof(data.prevBlogId) != UNDEFINED) {
+					 location = "/HXBlog/#!/post/" + data.prevBlogId + "," + idAndTag[1]	 
+				 } else {
+					 $("#warnning").html("have no prev blog !")
+					 $("#blogWarnning").show()
+				 }
+			 })
+			 
+			 // 下一页按钮事件
+	 		 $("[data='nextBlog']").click(function() {
+	 			if(typeof(data.nextBlogId) != UNDEFINED) {
+	 				location = "/HXBlog/#!/post/" + data.nextBlogId + "," + idAndTag[1]
+	 			} else {
+	 				 $("#warnning").html("have no next blog !")
+	 				 $("#blogWarnning").show()
+	 			}
+			 })
+			
+		  })		  
+	  }
   });
   
   // 发布文章的controller
-  app.controller('publishCtrl', function($scope, $http) {
-  });  
+//  app.controller('publishCtrl', function($scope, $http) {
+//  });  
   
   // 获取简历信息的ctrl
   app.controller('resumeCtrl', function($scope, $http) {

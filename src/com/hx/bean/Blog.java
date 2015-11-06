@@ -6,6 +6,7 @@ import java.util.List;
 import net.sf.json.JSONObject;
 
 import com.hx.action.BlogListAction;
+import com.hx.business.BlogManager;
 import com.hx.util.Log;
 import com.hx.util.Tools;
 
@@ -70,8 +71,8 @@ public class Blog implements EncapJSON {
 		this.title = title;
 		this.path = path;
 		this.tags = Tools.getTagListFromString(tags);
-		if(! this.tags.contains(BlogListAction.ALL)) {
-			this.tags.add(BlogListAction.ALL);
+		if(! this.tags.contains(BlogManager.ALL)) {
+			this.tags.add(BlogManager.ALL);
 		}
 		if(! Tools.isEmpty(createTime) ) {
 			this.createTime = createTime;

@@ -15,12 +15,14 @@
   
   <table id="index-list" class="table table-hover">
     <tr class="index-item-row" ng-repeat="item in blogList">
-      <td class="post-title"><a href="#!/post/{{item.id}}">{{item.title}}</a></td>
+      <td class="post-title"><a href="#!/post/{{item.id}}{{tagSep}}{{currentTag.text}}">{{item.title}}</a></td>
       <td class="post-date">{{item.date}}</td>
       <td class="post-tags">
-        <a class="post-tag-href" href="#!/tag/{{tag}}" ng-repeat="tag in item.tags">
-          {{tag}};
-        </a>
+        <span class="btn btn-small btn-success" ng-repeat="tag in item.tags" >
+	        <a class="post-tag-href" href="#!/tag/{{tag}}" >
+	          {{tag}}
+	        </a>
+        </span>
       </td>
     </tr>
   </table>

@@ -47,7 +47,7 @@ public class TagToBlogCnt implements Comparable<TagToBlogCnt>, EncapJSON {
 		obj.element("cnt", blogCnt);
 	}
 	// setter & getter
-	public String getTagId() {
+	public String getTag() {
 		return tag;
 	}
 	public Integer getBlogCnt() {

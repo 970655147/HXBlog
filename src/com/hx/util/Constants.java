@@ -2,6 +2,7 @@ package com.hx.util;
 
 import java.text.SimpleDateFormat;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 // 常量
@@ -34,6 +35,8 @@ public class Constants {
 	
 	// 默认的blogId [未用], 格式化日期的dateFormat [前者用于显示, 后者用于构造文件]
 	public final static Integer defaultBlogId = -1;
+	public final static String defaultBlogPath = "unknown";
+	public final static String defaultBlogTag = "unknown";
 	public final static SimpleDateFormat createDateFormat = new SimpleDateFormat("yyyy-MM-dd HH : mm");
 	public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS");
 	
@@ -71,9 +74,21 @@ public class Constants {
 	public final static String pwd = "202cb962ac59075b964b07152d234b70";
 	
 	// 修改按钮, 删除按钮
-	public final static String reviseBtn = "<a href='/HXBlog/#!/blogPublishAction?blogId={{postId}}&revise=true'>修改</a>";
-	public final static String deleteBtn = "<a id='deleteAction' href='javascript:void(0)'>删除</a>'";
+	public final static String reviseBtn = "<a href='/HXBlog/#!/blogPublishAction?blogId=%d&revise=true'>修改</a>";
+	public final static String deleteBtn = "<a id='deleteAction' href='javascript:void(0)'>删除</a>";
 	public final static JSONObject publishBlogConf = new JSONObject().element("text", "Publish").element("href", "/HXBlog/#!/blogPublishAction");
+	public final static JSONObject logoutBlogConf = new JSONObject().element("text", "Logout").element("href", "/HXBlog/action/blogLogoutAction");
+	public final static JSONObject loginBlogConf = new JSONObject().element("text", "Login").element("href", "/HXBlog/login.html");
+	public final static JSONArray defaultTagList = new JSONArray().element(new JSONObject().element("text", Constants.defaultBlogTag).element("cnt", 0));
+	public final static JSONObject defaultTagListAndBlogList = new JSONObject().element("tagList", Constants.defaultTagList).element("blogList", new JSONObject() );
 	
+	// 是否还存在上一页, 下一篇文章的标志
+	public final static int HAVE_NO_THIS_TAG = -1;
+	public final static int HAVE_NO_PREV_IDX = -1;
+	public final static int HAVE_NO_NEXT_IDX = -2;
+	
+	// 0 整数
+	public final static Integer INTE_ZERO = new Integer(0);
+	public final static int ZERO = 0;
 	
 }

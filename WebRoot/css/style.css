@@ -52,3 +52,41 @@ body {
 .tag-item {
     margin: 2px;
 }
+
+/* 	from csdn	*/
+/*  ∂•≤»   */
+#digg{display:block; *display:inline-block; clear:both; width:182px; _width:188px; margin:0 auto; padding:30px 0 15px; text-align:center;}
+#digg:after{content:"."; display:block; height:0; clear:both; visibility:hidden;}
+	.digg{display:inline-block; float:left; width: 72px; height: 72px; overflow:hidden; margin:0 2px; background:#ff7900; text-align:center;}
+	.digg dt{margin:0px;padding:12px 0 3px 0; color:#fff; font:normal 27px/30px  'Microsoft YaHei';}
+	.digg dd{margin:0px;color:#f00; font:normal 12px/22px Arial;}
+	.digg_enable{ background:#ff7900; text-align:center; cursor:pointer;}
+	.digg_disable{ color:#fff;background:#999;}
+	.digg_disable dd{color:#fff;}
+	
+.digg_enable{ background:url(../images/post/digg_bg.gif) no-repeat 0 0; text-align:center; cursor:pointer;}
+.digg_disable{ background:#ff7900; text-align:center; cursor:pointer;}
+
+/*  ∆¿¬€Õ∑   */
+.panel_head { clear: both; height: 30px; padding: 0 5px; background: url(../images/post/tit_bg.jpg) repeat-x top; color: #333; font: bold 12px/30px Arial; text-indent: 5px; }
+
+/*  ∆¿¬€  */
+.comment_item fieldset{padding:0 10px; border:solid 1px #ddd; background-color:#f1f1f1;color:#999;}
+.comment_head,.commentform_title{clear: both; background:#F8FCFB; color:#888; padding:1px 4px; }
+.comment_head a,.commentform_title a{color:#369;}
+.comment_reply .comment_head{background-color:#EBF5F2;}
+.comment_reply{background-color:#F8FCFC;}
+.newcomment{ border: 1px solid #eee; padding: 10px; line-height: 20px; margin: 5px; width: 90%; background-color: #f6f6f6; }
+.commentform_title{color:#000; font-size:14px;}
+.commentform .comment_btn{width:85px; height:26px; margin:10px 0 0 90px; border:none; background:url(../images/submit_bg.gif) no-repeat 0 0; color:#666; font:normal 12px/26px Arial, Helvetica, sans-serif; text-align:center;}
+.guest_link{ background-color:#EEF9F4; border:solid 1px #DCF3E9; margin:10px; padding:10px;font-size:12px;}
+#main .panel_head{margin:5px 10px; background:url(../images/panel_head_bg.jpg) repeat-x; }
+#side #profile{ margin-top:0;}
+#baidu_clb_slot_117306{ margin-bottom:10px;}
+.announce{ margin:0 15px 10px;}
+.commentform{margin:0 10px 10px;}
+.commentform .panel_head{margin:5px 0 !important;}
+
+.comment_userface {display : inline}
+.comment_body {display : inline}
+

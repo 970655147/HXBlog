@@ -1,4 +1,16 @@
 <div id="wrapper" ng-controller="postCtrl">
+
+  <h1>标题 : {{title}}</h1>
+  <br/>
+  <div id="tags" >
+  	  <ul id="tag-panel-list">
+	    <li class="tag-item btn btn-info" ng-repeat="tag in tagList">
+	      <a class="tag-href" href="/HXBlog/#!/tag/{{tag}}">{{tag}}</a>
+	    </li>
+  	</ul>
+  </div>
+
+  <br/>
   <div class="container">
     <div class="row">
       <div data="prevBlog" class="col-lg-4 text-left">
@@ -10,8 +22,8 @@
       <!-- 
       	<div class="btn btn-default"><a href="/HXBlog/ueditorLib/index.html?blogId={{postId}}&revise=true">修改</a></div>
       	 -->
-      	<div id="reviseBtn" class="btn btn-default"></div>
-      	<div class="btn btn-default">下一篇</div>
+      	<div id="reviseBtn" ></div>
+      	<div data="nextBlog" class="btn btn-default">下一篇</div>
       	</div>
     </div>
   </div>
@@ -20,7 +32,7 @@
   <!-- 
   <div id="post" class="background-white" ng-markdown="postContent"></div>
    -->
-  <div id="post" >
+  <div id="post" style="background-color:#F0FEC1" >
 		
   </div>
   
@@ -32,8 +44,8 @@
       </div>
       <div class="col-lg-4 text-center"><div class="btn btn-default"><a href="/HXBlog">首页</a></div></div>
       <div class="col-lg-4 text-right">
-		<div id="deleteBtn" class="btn btn-default"></div>      	
-      	<div class="btn btn-default">下一篇</div>
+		<div id="deleteBtn" ></div>      	
+      	<div data="nextBlog" class="btn btn-default">下一篇</div>
       </div>
     </div>
   </div>
@@ -54,5 +66,73 @@
 		</div>
 	</div>
 </div>
+
+<!-- 没有上一篇文章, 下一篇文章的弹出框 -->
+<br/>
+<div id="blogWarnning" class="alert alert-warning">
+	<a href="javascript:void(0)" class="close" onclick="$('#blogWarnning').hide()">×</a>
+	<strong id="warnning" ></strong>
+</div>
+
+<!-- 顶踩 -->
+<div id="digg" >
+    <dl id="btnDigg" class="digg digg_enable">
+       
+         <dt>顶</dt>
+        <dd>{{great}}</dd>
+    </dl>
+    <dl id="btnBury" class="digg digg_enable">
+      
+          <dt>踩</dt>
+        <dd>{{notGood}}</dd>
+    </dl>
+</div>
+
+<div id="comment_title" class="panel_head">
+        <span class="see_comment">查看评论</span>
+</div>
+
+<div id="comment_list" >
+	<dl class="comment_item comment_topic" id="comment_item_5592259">
+		<dt class="comment_head">84楼 
+			<span class="user">
+				<a class="username" href="/youngzai" target="_blank">youngzai</a>
+				<span class="ptime">10小时前发表</span>
+					<a href="javascript:void(0)" class="cmt_btn reply" title="回复">[回复]</a> 
+					<a href="javascript:void(0)" class="cmt_btn quote" title="引用">[引用]</a>
+					<a href="javascript:void(0)" class="cmt_btn report" title="举报">[举报]</a>
+				</span>
+			</span>
+		</dt>
+		<dd class="comment_userface">
+			<img src="./images/avatar/btn_avatar_a0.png" width="40" height="40" title="默认" />
+		</dd>  : 
+		<dd class="comment_body">挺好</dd>
+	</dl>
+	<hr/>
+</div>
+
+<form method="post" >
+    <div class="input-group">
+      <div class="input-group-addon">用户名</div>
+      <input type="text" class="form-control" placeholder="userName">
+    </div>
+    <br/>
+            头像选择 : 
+    <select class="form-control">
+      <option>默认</option>
+	  <option>帅哥</option>
+	  <option>美女</option>
+	  <option>黄帽</option>
+	  <option>红人</option>
+	  <option>红帽</option>
+	</select>
+    <br/>
+    <div class="input-group">
+		<div class="input-group-addon">评&nbsp;&nbsp;&nbsp;&nbsp;论</div>
+		<textarea class="form-control" rows="3">
+		</textarea>
+	</div>
+</form>
 
 </div>

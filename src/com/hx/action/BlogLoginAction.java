@@ -17,7 +17,7 @@ import com.hx.util.Tools;
 // 获取blog配置的action
 public class BlogLoginAction extends HttpServlet {
 
-	// 获取config.conf中的配置
+	// 登录校验
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
 		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);

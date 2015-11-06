@@ -27,6 +27,9 @@ public class BlogConfigAction extends HttpServlet {
 		boolean isLogin = Tools.isLogin(req);
 		if(isLogin) {
 			config.getJSONArray("quickLinks").add(Constants.publishBlogConf);
+			config.getJSONArray("quickLinks").add(Constants.logoutBlogConf);
+		} else {
+			config.getJSONArray("quickLinks").add(Constants.loginBlogConf);
 		}
 		
 		PrintWriter out = resp.getWriter();
