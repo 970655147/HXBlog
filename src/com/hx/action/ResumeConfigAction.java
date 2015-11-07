@@ -23,9 +23,9 @@ public class ResumeConfigAction extends HttpServlet {
 
 		String content = null;
 		String logInfo = null;
-		if(Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath)) ) {
+		if(! Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath)) ) {
 			content = Constants.defaultResume;
-			logInfo = "your resume be seen by : " + Tools.getIPAddr(req) + ", but resultFile not exists !";
+			logInfo = "your resume be seen by : " + Tools.getIPAddr(req) + ", but configFile not exists !";
 		} else {
 			content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(), Constants.resumePath), Tools.DEFAULT_CHARSET );
 			logInfo = "your resume be seen by : " + Tools.getIPAddr(req);

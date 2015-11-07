@@ -32,7 +32,7 @@
 		
 		return sb.toString(EMPTY_STR)
 	}
-	Blog.prototype.getBlogObj = function() {
+	Blog.prototype.getObj = function() {
 		var blogObj = {
 				"id" : this.id,
 				"title" : this.title,
@@ -44,8 +44,12 @@
 	}	
 	
 	// commentBean
-	function Comment(userName, email, imageIdx, comment) {
+	function Comment(blogIdx, floorIdx, userName, to, email, imageIdx, comment) {
+		this.blogIdx = blogIdx
+		this.floorIdx = floorIdx
+//		this.commentIdx = commentIdx
 		this.userName = userName
+		this.to = to
 		this.email = email
 		this.imageIdx = imageIdx
 		this.comment = comment
@@ -53,8 +57,16 @@
 	Comment.prototype.toString = function() {
 		var sb = new StringBuilder()
 		sb.append("{ ")
-		sb.append("userName : \"")
+		sb.append("blogIdx : \"")
+		sb.append(this.blogIdx)		
+		sb.append("\", floorIdx : \"")
+		sb.append(this.floorIdx)		
+//		sb.append("\", commentIdx : \"")
+//		sb.append(this.commentIdx)			
+		sb.append("\", userName : \"")
 		sb.append(this.userName)		
+		sb.append("\", to : \"")
+		sb.append(this.to)			
 		sb.append("\", email : \"")
 		sb.append(this.email)
 		sb.append("\", imageIdx : \"")
@@ -65,9 +77,13 @@
 		
 		return sb.toString(EMPTY_STR)
 	}
-	Comment.prototype.getBlogObj = function() {
+	Comment.prototype.getObj = function() {
 		var blogObj = {
+				"blogIdx" : this.blogIdx,
+				"floorIdx" : this.floorIdx,
+//				"commentIdx" : this.commentIdx,
 				"userName" : this.userName,
+				"to" : this.to,
 				"email" : this.email,
 				"imageIdx" : this.imageIdx,
 				"comment" : this.comment
@@ -134,5 +150,60 @@
     	
     	return true
     }	
+    
+    // 添加一楼的评论
+    function appendNewFloorComment(commentPath, comment, data) {
+    	$(commentPath).last().after(
+    			"<hr />" +
+				"<dl class='comment_item comment_topic' >" +
+				"<dt class='comment_head'>" +
+					"<span id='floorId' >" + comment.floorIdx + "楼</span>&nbsp;&nbsp;&nbsp;&nbsp;" + 
+					"<span class='user' floorIdx='" + comment.floorIdx + "' commentIdx='" + data.comment.commentIdx + "' userName='" + data.comment.userInfo.name + "' >" +
+						"<span id='commenter' class='text-warning' >" + data.comment.userInfo.name + "</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+						"<span id='privilege' class='text-error' >[" + data.comment.userInfo.privilege + "]</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+						"<span id='date' class='text-success'>发表于  " + data.comment.date + "</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+						"<span class='commentReply' ><a href='javascript:void(0)' class='cmt_btn reply' title='回复'>[回复]</a></span>" + 
+						"<a href='javascript:void(0)' class='cmt_btn quote' title='引用'>[引用]</a>" +
+						"<a href='javascript:void(0)' class='cmt_btn report' title='举报'>[举报]</a>" +
+					"</span>" +
+				"</dt>" +
+				
+				"<dd class='comment_userface'>" +
+					"<img src='./images/avatar/btn_avatar_a" + data.comment.userInfo.imageIdx + ".png' width='40' height='40' title='默认' />" +
+				"</dd>  :"+ 
+				"<dd class='comment_body'>" + data.comment.comment + "</dd>" +
+				
+				"<div class='replyDiv comment_reply' > </div>" +
+				"</dl>"
+			)
+    }
+    
+    function appendNewReplyComment(commentPath, floorIdx, replyDivPath, comment, data) {
+//		var eles = $("dl.comment_topic").get(0).getElementsByClassName("replyDiv")
+//		console.log(eles[eles.length-1])
+//		eles[eles.length-1].innerHTML = 
+		// 通过索引获取请使用.eq(idx), get方法获取的是dom元素
+		$(commentPath).eq(floorIdx).find(replyDivPath).last().html(
+				"<dl class='comment_item'>" +
+				"<dt class='comment_head' >" + 
+				"Re: " + 
+				"<span class='user' floorIdx='" + comment.floorIdx + "' commentIdx='" + data.comment.commentIdx + "' userName='" + data.comment.userInfo.name + "' > " +
+					"<span id='commenter' class='text-warning' >" + data.comment.userInfo.name + "</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+					"<span id='privilege' class='text-error' >[" + data.comment.userInfo.privilege + "]</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+					"<span id='date' class='text-success'>发表于  " + data.comment.date + "</span>&nbsp;&nbsp;&nbsp;&nbsp; " +  
+					"<span class='commentReply' ><a href='javascript:void(0)' class='cmt_btn reply' title='回复'>[回复]</a></span>" +
+					"<a href='javascript:void(0)' class='cmt_btn quote' title='引用'>[引用]</a> " + 
+					"<a href='javascript:void(0)' class='cmt_btn report' title='举报'>[举报]</a>" +
+				"</span>" +
+				"</dt>" +
+				"<dd class='comment_userface'>" +
+					"<a href='/singwhatiwanna' target='_blank'><img src='./images/avatar/btn_avatar_a" + data.comment.userInfo.imageIdx + ".png' width='40' height='40'></a>" +
+				"</dd>" +
+				"<dd class='comment_body'>回复 " + data.comment.to + " : " + data.comment.comment + "</dd>" +
+				
+				"<div class='replyDiv comment_reply' > </div>" +
+				"</dl>" 
+				)
+    }
     
 	

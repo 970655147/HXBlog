@@ -3,6 +3,8 @@ package com.hx.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,9 +37,9 @@ public class BlogPublishAction extends HttpServlet {
 						String createTime = Constants.createDateFormat.format(now );
 						String blogName = Tools.getBlogFileName(Constants.dateFormat.format(now), title);
 						
-						Blog newBlog = new Blog(BlogManager.nextBlogId(), title, blogName, tags, createTime, 0, 0, 0);
+						Blog newBlog = new Blog(BlogManager.nextBlogId(), title, blogName, tags, createTime, new AtomicInteger(0), new AtomicInteger(0), 0);
 						Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), blogName) );
-						BlogManager.publishBlog(newBlog, req.getServletContext());
+						BlogManager.publishBlog(newBlog);
 						
 						respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
 					}

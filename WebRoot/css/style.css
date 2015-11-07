@@ -90,3 +90,7 @@ body {
 .comment_userface {display : inline}
 .comment_body {display : inline}
 
+/* comment style */
+.comment_item{margin:2px 10px; font:normal 12px/26px Arial, Helvetica, sans-serif;}
+.comment_item fieldset{border:solid 1px; font:normal 12px/26px Arial, Helvetica, sans-serif;}
+.comment_reply{margin-left:50px;}

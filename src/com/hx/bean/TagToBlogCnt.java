@@ -1,5 +1,7 @@
 package com.hx.bean;
 
+import com.hx.util.EncapJSON;
+
 import net.sf.json.JSONObject;
 
 // ÓÃÓÚÅÅĞòµÄbean

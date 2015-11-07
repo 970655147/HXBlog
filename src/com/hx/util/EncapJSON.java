@@ -1,4 +1,4 @@
-package com.hx.bean;
+package com.hx.util;
 
 import net.sf.json.JSONObject;
 

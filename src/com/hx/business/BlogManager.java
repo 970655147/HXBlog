@@ -30,16 +30,19 @@ import com.hx.util.Tools;
 public class BlogManager {
 
 	// blogList, tagList, tag到tag对应的博客数的集合
-	// 增加的播客的集合, 更新的播客的集合, 更新sense visited的播客集合,  删除的播客的集合
+	// 增加的播客的集合 , 增加的播客的顺序[需要维护], 更新的播客的集合, 更新sense visited的播客集合,  删除的播客的集合
 	// 增加的(blogId -> [tag])的映射, 删除的(blogId -> [tag])的映射
 	// 是否需要初始化, 同步用的对象
 	private static Map<Integer, Blog> blogList = new ConcurrentHashMap<>();
 	private static Map<String, List<Integer>> tagList = new ConcurrentHashMap<>();
 	private static Set<TagToBlogCnt> tagToBlogCnt = new TreeSet<>();
-	private static Map<Integer, Blog> addedList = new ConcurrentHashMap<>();
+	private static List<Blog> addedList = new ArrayList<>();
+//	private static Map<Integer, Blog> addedList = new ConcurrentHashMap<>();
+//	private static List<Integer> addOrder = new ArrayList<>(Constants.addedBlogsListSize);
 	private static Map<Integer, Blog> updatedList = new ConcurrentHashMap<>();
 	private static Map<Integer, Blog> visitSenseUpdatedList = new ConcurrentHashMap<>();
-	private static Map<Integer, Blog> deletedList = new ConcurrentHashMap<>();
+	private static List<Blog> deletedList = new ArrayList<>();
+//	private static Map<Integer, Blog> deletedList = new ConcurrentHashMap<>();
 	private static Map<Integer, List<String>> addedBlogIdToTagMap = new HashMap<>();
 	private static Map<Integer, List<String>> deletedBlogIdToTagMap = new HashMap<>();
 	private static boolean needInit = true;
@@ -169,24 +172,27 @@ public class BlogManager {
 		return curBlogId.incrementAndGet();
 	}
 
-	public static void publishBlog(Blog newBlog, ServletContext servletContext) {
+	public static void publishBlog(Blog newBlog) {
 		publishBlog0(newBlog);
-		checkIfNeedFlush(servletContext);
+		checkIfNeedFlush();
 	}
-	public static void reviseBlog(Blog newBlog, ServletContext servletContext) {
+	public static void reviseBlog(Blog newBlog) {
 		reviseBlog0(newBlog);
-		checkIfNeedFlush(servletContext);
+		checkIfNeedFlush();
 	}
-	public static void deleteBlog(Blog newBlog, ServletContext servletContext) {
+	public static void deleteBlog(Blog newBlog) {
 		deleteBlog0(newBlog);
-		checkIfNeedFlush(servletContext);
+		checkIfNeedFlush();
 	}
 	
 	// 添加了一个博客
 	private static void publishBlog0(Blog newBlog) {
 		blogList.put(newBlog.getId(), newBlog);
-		if(newBlog.getTags().size() > 0) {
-			synchronized (updateLock) {
+		synchronized (updateLock) {
+//			addOrder.add(newBlog.getId() );
+//			addedList.put(newBlog.getId(), newBlog);
+			addedList.add(newBlog);
+			if(newBlog.getTags().size() > 0) {
 				List<String> addedTagsOfBlog = addedBlogIdToTagMap.get(newBlog.getId());
 				if(addedTagsOfBlog == null) {
 					addedTagsOfBlog = new ArrayList<>();
@@ -197,12 +203,11 @@ public class BlogManager {
 					addedTagsOfBlog.add(tag);
 					updateTagCntInTagToBlogCnt(tag, true);
 				}
-				addedList.put(newBlog.getId(), newBlog);
 			}
-			
-			for(String tag : newBlog.getTags()) {
-				updateBlogIdToTagList(newBlog, tag, true);
-			}
+		}
+		
+		for(String tag : newBlog.getTags()) {
+			updateBlogIdToTagList(newBlog, tag, true);
 		}
 		
 		// ---------------------------------------------------
@@ -264,7 +269,8 @@ public class BlogManager {
 					deletedTagsOfBlog.add(tag);
 					updateTagCntInTagToBlogCnt(tag, false);
 				}
-				deletedList.put(newBlog.getId(), newBlog);
+//				deletedList.put(newBlog.getId(), newBlog);
+				deletedList.add(newBlog);
 			}
 			
 			for(String tag : newBlog.getTags()) {
@@ -275,10 +281,10 @@ public class BlogManager {
 		// ---------------------------------------------------
 	}
 	// 检查是否需要刷出缓存的数据到数据库
-	private static void checkIfNeedFlush(ServletContext servletContext) {
+	private static void checkIfNeedFlush() {
 //		Log.log("updated : " + getUpdated() );
-		if(getUpdated() >= Constants.updateThreashold) {
-			flushToDB(servletContext);
+		if(getUpdated() >= Constants.updateBlogThreashold) {
+			flushToDB();
 		}
 	}
 	
@@ -329,6 +335,7 @@ public class BlogManager {
 	
 	// 通过id获取对应的blog
 	public static Blog getBlog(Integer id) {
+		CommentManager.incBlogGetFrequency(id);
 		return blogList.get(id);
 	}
 	
@@ -345,26 +352,36 @@ public class BlogManager {
 		// 刷新数据库期间, 不允许对数据库进行操作
 		// 之前是使用addList, reviseList, ... 等待刷新到数据库完毕再释放updateLock
 		// 现在更新为建立addList, reviseList, ..的缓存, 缓存之后, 直接释放updateLock 
-	public static void flushToDB(ServletContext servletContext) {
+	public static void flushToDB() {
 		int updated = getUpdated();
 		if(updated > 0) {
-			Map<Integer, Blog> addedListTmp = new HashMap<>(); 
-			Map<Integer, Blog> deletedListTmp = new HashMap<>(); 
+//			Map<Integer, Blog> addedListTmp = new HashMap<>(); 
+//			Map<Integer, Blog> deletedListTmp = new HashMap<>(); 
+			List<Blog> addedListTmp = new ArrayList<>(); 
+			List<Blog> deletedListTmp = new ArrayList<>(); 
 			Map<Integer, Blog> updatedListTmp = new HashMap<>();
 			Map<Integer, Blog> visitSenseUpdatedListTmp = new HashMap<>();
+			List<Integer> addOrderTmp = new ArrayList<>();
 			Map<Integer, List<String>> addedBlogIdToTagMapTmp = new HashMap<>();
 			Map<Integer, List<String>> deletedBlogIdToTagMapTmp = new HashMap<>();
-			addedListTmp.putAll(addedList);
-			deletedListTmp.putAll(deletedList);
+//			addedListTmp.putAll(addedList);
+//			deletedListTmp.putAll(deletedList);
 			updatedListTmp.putAll(updatedList);
 			visitSenseUpdatedListTmp.putAll(visitSenseUpdatedList);
-			addedList.clear();
+//			addedList.clear();
+//			deletedList.clear();	
 			updatedList.clear();
-			deletedList.clear();	
 			visitSenseUpdatedList.clear();
 			synchronized (updateLock) {
+//				addOrderTmp.addAll(addOrder);
+				addedListTmp.addAll(addedList);
+				deletedListTmp.addAll(deletedList);
 				addedBlogIdToTagMapTmp.putAll(addedBlogIdToTagMap);
 				deletedBlogIdToTagMapTmp.putAll(deletedBlogIdToTagMap);
+				
+//				addOrder.clear();
+				addedList.clear();
+				deletedList.clear();
 				addedBlogIdToTagMap.clear();
 				deletedBlogIdToTagMap.clear();
 			}
@@ -372,10 +389,12 @@ public class BlogManager {
 			synchronized (initLock) {
 				Connection con = null;
 				try {
-					con = Tools.getConnection(Tools.getProjectPath(servletContext));			
+					con = Tools.getConnection(Tools.getProjectPath());			
+//					flushAddedRecords(con, addedListTmp, addOrderTmp, addedBlogIdToTagMapTmp);
 					flushAddedRecords(con, addedListTmp, addedBlogIdToTagMapTmp);
-					flushDeletedRecords(con, deletedListTmp, deletedBlogIdToTagMapTmp);
 					flushRevisedRecords(con, updatedListTmp, visitSenseUpdatedListTmp);
+//					flushDeletedRecords(con, deletedListTmp, deletedBlogIdToTagMapTmp);
+					flushDeletedRecords(con, deletedListTmp, deletedBlogIdToTagMapTmp);
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
@@ -422,10 +441,11 @@ public class BlogManager {
 	}
 	
 	// 刷新添加的记录到db
-	private static void flushAddedRecords(Connection con, Map<Integer, Blog> addedList, Map<Integer, List<String>> addedBlogIdToTagMap) throws Exception {
+	private static void flushAddedRecords(Connection con, List<Blog> addedList, Map<Integer, List<String>> addedBlogIdToTagMap) throws Exception {
 		updated[Constants.addBlogCnt] = 0;
 		updated[Constants.addTagCnt] = 0;
 		if((addedList != null) && (addedList.size() > 0) ) {		
+//			String addSelectedSql = Tools.getAddSelectedBlogsSql(addedList, addOrder);
 			String addSelectedSql = Tools.getAddSelectedBlogsSql(addedList);
 			Tools.log(BlogManager.class, addSelectedSql);
 			PreparedStatement delBlogPs = con.prepareStatement(addSelectedSql);
@@ -449,7 +469,7 @@ public class BlogManager {
 	}	
 	
 	// 刷新删除的记录到db
-	private static void flushDeletedRecords(Connection con, Map<Integer, Blog> deletedList, Map<Integer, List<String>> deletedBlogIdToTagMap) throws Exception {
+	private static void flushDeletedRecords(Connection con, List<Blog> deletedList, Map<Integer, List<String>> deletedBlogIdToTagMap) throws Exception {
 		updated[Constants.deletedBlogCnt] = 0;
 		updated[Constants.deletedTagCnt] = 0;
 		if((deletedList != null) && (deletedList.size() > 0) ) {

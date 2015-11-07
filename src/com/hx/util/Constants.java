@@ -23,12 +23,17 @@ public class Constants {
 	public final static String addMultiBlogListSql = "insert into blogList (id, path, tag, createTime, good, notGood, visited) %s;";
 	public final static String addTagListSql = "insert into tagToBlog (tag, blogId) values ('%s', '%d');";
 	public final static String addMultiTagListSql = "insert into tagToBlog (tag, blogId) %s;";
+	public final static String addMultiCommentListSql = "insert into commentList (blogIdx, floorIdx, commentIdx, name, email, headImgIdx, date, toUser, privilege, comment) %s;";	
 	public final static String deleteBlogListSql = "delete from blogList where id = '%d'";
 	public final static String deleteMultiBlogListSql = "delete from blogList where id in (%s)";
 	public final static String deleteTagListSql = "delete from tagToBlog where blogId = '%d'";
 	public final static String deleteMultiTagListSql = "delete from tagToBlog where blogId = '%d' and tag in (%s)";
 	public final static String updateBlogListSql = "update blogList set path='%s', tag='%s', good=%d, notGood=%d, visited=%d where id = %d";
-	public final static String deleteByTagAndIdTagListSql = "delete from tagToBlog where tag = '%s' and blogId = '%d'";	
+	public final static String deleteByTagAndIdTagListSql = "delete from tagToBlog where tag = '%s' and blogId = '%d'";
+
+	// 获取给定的播客的所有评论
+	public final static String getBlogCommentByBlogIdSql = "select * from commentList where blogIdx = %d";
+	
 	// 帖子相对于项目路径的路径, uEditor的index.html的位置
 	public final static String blogFolder = "WEB-INF/post";
 	public final static String uEditorIdx = "ueditorLib/index.html";
@@ -58,10 +63,16 @@ public class Constants {
 	// 检查刷新到数据库的周期, 更新个数的阈值 [超过阈值, 直接刷新到数据库], 更新tag的时候, 删除所有标签的阈值 [未用]
 //	public final static long checkUpdateInterval = 60 * 1000;
 	public final static long checkUpdateInterval = 10 * 60 * 1000;
-	public final static int updateThreashold = 10;
+	public final static int updateBlogThreashold = 10;
+	public final static int concurrencyOff = 10;
+	public final static int updateCachedCommentsOff = 4;
+	public final static int addedBlogsListSize = updateBlogThreashold >> 1 + concurrencyOff;
 	public static int getDeleteAllTagThreshold(int allTag) {
 		return allTag >> 1;
 	}
+	public final static int cachedComments = 20;
+	public final static int updateCommentsThreshold = 20;
+	public final static int addedCommentsListSize = updateCommentsThreshold + concurrencyOff;
 	
 	// 表示更新的数据的索引 [添加, 删除, 修改]
 	public final static int addBlogCnt = 0;
@@ -119,5 +130,16 @@ public class Constants {
 	public final static String senseGood = "good";
 	public final static String senseNotGood = "notGood";
 	
+	// 评论的privilege
+	public final static String admin = "admin";
+	public final static String guest = "guest";
+	public final static int defaultFloorIdx = 1;
+	public final static int defaultCommentIdx = 1;
+	public final static String defaultTo = account;
+	public final static int defaultMaxCommentIdx = 2;
+	
+	// reply的开始部分, 结束部分 
+	public final static String replyStart = "[re]";
+	public final static String replyEnd = "[/re]";
 	
 }

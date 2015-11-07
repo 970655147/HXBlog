@@ -64,7 +64,7 @@
     			
 				$.ajax({
 					url: postUrl, type : "post",
-					data : blogObj.getBlogObj(),
+					data : blogObj.getObj(),
 					success : function(data){
 						data = JSON.parse(data)
 						

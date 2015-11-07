@@ -36,7 +36,7 @@ public class BlogLoginAction extends HttpServlet {
 			HttpSession session = req.getSession();
 			session.setAttribute(Constants.ACCOUNT_NAME, Constants.account);
 			session.setAttribute(Constants.TOKEN, Constants.token);
-			session.setAttribute(Constants.preferInfo, new UserInfo(Constants.adminUserName, Constants.adminEmail, Constants.adminImageIdx) );
+			session.setAttribute(Constants.preferInfo, new UserInfo(Constants.adminUserName, Constants.adminEmail, Constants.adminImageIdx, Tools.getPrivilege(Tools.isLogin(req))) );
 			sb.append("login success !");
 			isLogin = true;
 		} else {

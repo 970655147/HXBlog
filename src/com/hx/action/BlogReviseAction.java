@@ -49,7 +49,7 @@ public class BlogReviseAction extends HttpServlet {
 								Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBlogName), Tools.getBlogPath(Tools.getProjectPath(), blogName) );
 							}
 					
-							BlogManager.reviseBlog(newBlog, req.getServletContext());
+							BlogManager.reviseBlog(newBlog);
 							respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
 						}
 					}

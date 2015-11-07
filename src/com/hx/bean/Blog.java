@@ -2,6 +2,7 @@ package com.hx.bean;
 
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import net.sf.json.JSONObject;
 
@@ -9,15 +10,15 @@ import com.hx.business.BlogManager;
 import com.hx.util.Tools;
 
 // 对应于数据库中的blogList的每一条记录
-public class Blog implements EncapJSON {
-
+public class Blog {
+	
 	private Integer id;
 	private String title;
 	private String path;
 	private List<String> tags;
 	private String createTime;
-	private int good;
-	private int notGood;
+	private AtomicInteger good;
+	private AtomicInteger notGood;
 	private int visited;
 	private String content;
 	private JSONObject comments;
@@ -26,7 +27,7 @@ public class Blog implements EncapJSON {
 	public Blog() {
 		
 	}
-	public Blog(Integer id, String title, String path, String tags, String createTime, int good, int notGood, int visited) {
+	public Blog(Integer id, String title, String path, String tags, String createTime, AtomicInteger good, AtomicInteger notGood, int visited) {
 		set(id, title, path, tags, createTime, good, notGood, visited);
 		this.content = null;
 	}
@@ -38,7 +39,7 @@ public class Blog implements EncapJSON {
 	// 利用给定的resultSet 初始化当前blog对象
 	public void init(ResultSet rs) throws Exception {
 		String path = rs.getString("path");
-		set(rs.getInt("id"), null, path, rs.getString("tag"), rs.getString("createTime"), rs.getInt("good"), rs.getInt("notGood"), rs.getInt("visited") );
+		set(rs.getInt("id"), null, path, rs.getString("tag"), rs.getString("createTime"), new AtomicInteger(rs.getInt("good")), new AtomicInteger(rs.getInt("notGood") ), rs.getInt("visited") );
 		this.title = Tools.getTitleFromBlogFileName(path);
 	}
 	
@@ -72,20 +73,26 @@ public class Blog implements EncapJSON {
 	public String getCreateTime() {
 		return createTime;
 	}
-	public Integer getGood() {
-		return good;
+	public int getGood() {
+		return good.intValue();
 	}
-	public Integer getNotGood() {
-		return notGood;
+	public int getNotGood() {
+		return notGood.intValue();
 	}
 	public Integer getVisited() {
 		return visited;
 	}
 	public void incGood() {
-		good ++;
+		good.incrementAndGet();
+	}
+	public void decGood() {
+		good.decrementAndGet();
 	}
 	public void incNotGood() {
-		notGood ++;
+		notGood.incrementAndGet();
+	}
+	public void decNotGood() {
+		notGood.decrementAndGet();
 	}
 	public void incVisited() {
 		visited ++;
@@ -102,7 +109,7 @@ public class Blog implements EncapJSON {
 			this.createTime = createTime;
 		}
 	}
-	public void set(Integer id, String title, String path, String tags, String createTime, int good, int notGood, int visited) {
+	public void set(Integer id, String title, String path, String tags, String createTime, AtomicInteger good, AtomicInteger notGood, int visited) {
 		set(id, title, path, tags, createTime);
 		this.good = good;
 		this.notGood = notGood;

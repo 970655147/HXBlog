@@ -1,3 +1,6 @@
 本博客 参考自 : http://lvkun.github.io/ [前台页面, 以及部分js 基本上是来自于这位朋友]
 login.html 来自 : http://www.17sucai.com/preview/364088/2015-06-24/html/index.html
 																			--2015.11.04
+																			
+js setTimeout 使用局部全局变量																			
+http://www.jb51.net/article/43904.htm										--2015.11.07																

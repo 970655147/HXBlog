@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,8 +18,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -33,6 +32,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.hx.bean.Blog;
+import com.hx.bean.Comment;
 import com.hx.bean.ResponseMsg;
 import com.hx.business.BlogManager;
 
@@ -393,10 +393,10 @@ public class Tools {
 	}
 	
 	// 获取删除给定的blog, tags的sql
-	public static String getDeleteSelectedBlogsSql(Map<Integer, Blog> deletedBlog) {
+	public static String getDeleteSelectedBlogsSql(List<Blog> deletedBlog) {
 		JSONArray arr = new JSONArray();
-		for(Entry<Integer, Blog> entry : deletedBlog.entrySet()) {
-			arr.element(entry.getKey() );
+		for(Blog blog : deletedBlog) {
+			arr.element(blog.getId() );
 		}
 		String blogIds = arr.toString();
 		String in = blogIds.substring(1, blogIds.length()-1 );
@@ -408,14 +408,35 @@ public class Tools {
 	}
 	
 	// 获取添加给定的blog, tags的sql
-	public static String getAddSelectedBlogsSql(Map<Integer, Blog> addedBlog) {
+//	public static String getAddSelectedBlogsSql(Map<Integer, Blog> addedBlog, List<Integer> addOrder) {
+//		if(addedBlog.size() < 1) {
+//			return EMPTY_STR;
+//		}
+//		
+//		StringBuilder sb = new StringBuilder();
+//		for(Integer blogId : addOrder) {
+//			Blog blog = addedBlog.get(blogId);
+//			sb.append(" select ");	
+//			sb.append(blog.getId());	sb.append(" , '");
+//			sb.append(blog.getPath());	sb.append("' , '");
+//			sb.append(tagsToStringTripBracket(blog.getTags()) );	sb.append("' , '");
+//			sb.append(blog.getCreateTime());	sb.append("' , '");
+//			sb.append(blog.getGood());	sb.append("' , '");
+//			sb.append(blog.getNotGood());	sb.append("' , '");
+//			sb.append(blog.getVisited());	
+//			sb.append("' union all ");
+//		}
+//		
+//		String unionAll = sb.substring(0, sb.lastIndexOf("union"));
+//		return String.format(Constants.addMultiBlogListSql, unionAll);
+//	}
+	public static String getAddSelectedBlogsSql(List<Blog> addedBlog) {
 		if(addedBlog.size() < 1) {
 			return EMPTY_STR;
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		for(Entry<Integer, Blog> entry : addedBlog.entrySet()) {
-			Blog blog = entry.getValue();
+		for(Blog blog : addedBlog) {
 			sb.append(" select ");	
 			sb.append(blog.getId());	sb.append(" , '");
 			sb.append(blog.getPath());	sb.append("' , '");
@@ -429,7 +450,7 @@ public class Tools {
 		
 		String unionAll = sb.substring(0, sb.lastIndexOf("union"));
 		return String.format(Constants.addMultiBlogListSql, unionAll);
-	}
+	}	
 	public static String getAddSelectedTagsSql(Integer blogId, List<String> tags) {
 		if(tags.size() < 1) {
 			return EMPTY_STR;
@@ -451,6 +472,30 @@ public class Tools {
 	public static String getUpdateBlogListSql(Integer blogId, Blog blog) {
 		return String.format(Constants.updateBlogListSql, blog.getPath(), tagsToStringTripBracket(blog.getTags()), blog.getGood(), blog.getNotGood(), blog.getVisited(), blog.getId());
 	}
+	public static String getAddSelectedCommentsSql(List<Comment> addedComments) {
+		if(addedComments.size() < 1) {
+			return EMPTY_STR;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		for(Comment comment : addedComments) {
+			sb.append(" select ");	
+			sb.append(comment.getBlogIdx());	sb.append(" , ");
+			sb.append(comment.getFloorIdx());	sb.append(" , ");
+			sb.append(comment.getCommentIdx());	sb.append(" , '");
+			sb.append(comment.getUserInfo().getName());	sb.append("' , '");
+			sb.append(comment.getUserInfo().getEmail());	sb.append("' , ");
+			sb.append(comment.getUserInfo().getImageIdx());	sb.append(" , '");
+			sb.append(comment.getDate());	sb.append("' , '");
+			sb.append(comment.getTo());	sb.append("' , '");
+			sb.append(comment.getUserInfo().getPrivilege());	sb.append("' , '");
+			sb.append(comment.getComment());	
+			sb.append("' union all ");
+		}
+		
+		String unionAll = sb.substring(0, sb.lastIndexOf("union"));
+		return String.format(Constants.addMultiCommentListSql, unionAll);
+	}	
 	
 	// 判断给定的两个字符串是否相同
 	public static boolean equalsIgnorecase(String str01, String str02) {
@@ -689,18 +734,18 @@ public class Tools {
 	}
 	
 	// 判断是否评点过 顶 /踩
-	public static boolean validateIsSensed(HttpServletRequest req, Integer blogId, ResponseMsg respMsg) {
-		boolean isSensed = Constants.senseCookieValue.equals(Tools.getCookieByName(req.getCookies(), Tools.getSensedCookieName(blogId)) );
-		if(isSensed) {
-			respMsg.set(false, Constants.defaultResponseCode, "your have already clicked good/ notGood !", Tools.getIPAddr(req) );
-			return false;
-		}
-		
-		return true;
-	}
+//	public static boolean validateIsSensed(HttpServletRequest req, Integer blogId, ResponseMsg respMsg) {
+//		boolean isSensed = Constants.senseCookieValue.equals(Tools.getCookieByName(req.getCookies(), Tools.getSensedCookieName(blogId)) );
+//		if(isSensed) {
+//			respMsg.set(false, Constants.defaultResponseCode, "your have already clicked good/ notGood !", Tools.getIPAddr(req) );
+//			return false;
+//		}
+//		
+//		return true;
+//	}
 	
 	// 找到名为cookieName的Cookie对应的值
-	public static String getCookieByName(Cookie[] cookies, String cookieName) {
+	public static String getCookieValByName(Cookie[] cookies, String cookieName) {
 		String res = Constants.defaultCookieValue;
 		for(Cookie cookie : cookies) {
 			if(cookie.getName().equals(cookieName) ) {
@@ -711,6 +756,17 @@ public class Tools {
 		
 		return res;
 	}
+	public static Cookie getCookieByName(Cookie[] cookies, String cookieName) {
+		Cookie res = null;
+		for(Cookie cookie : cookies) {
+			if(cookie.getName().equals(cookieName) ) {
+				res = cookie;
+				break ;
+			}
+		}
+		
+		return res;
+	}	
 	
 	// 获取给定的blogId的访问session的名称
 	public static String getVisitedCookieName(Integer blogId) {
@@ -720,6 +776,70 @@ public class Tools {
 	// 获取点过顶踩的cookie的名称
 	public static String getSensedCookieName(Integer blogId) {
 		return Constants.senseCookieName + UNDER_LINE + blogId.toString();
+	}
+	
+	// 根据是否登录, 获取头衔
+	public static String getPrivilege(boolean isLogin) {
+		if(isLogin) {
+			return Constants.admin;
+		} else {
+			return Constants.guest;
+		}
+	}
+	
+	// 获取给定的resultSet的记录数
+		// java.sql.SQLException: ResultSet is TYPE_FORWARD_ONLY
+	public static int getRows(ResultSet rs) throws Exception {
+		rs.last();
+		int rows = rs.getRow();
+		rs.beforeFirst();
+		return rows;
+	}
+	
+	// 校验给定的comment是否是回复别人的comment
+	public static boolean isReply(String commentBody) {
+		int startIdx = commentBody.indexOf(Constants.replyStart);
+		int endIdx = commentBody.indexOf(Constants.replyEnd, startIdx + Constants.replyStart.length() );
+		if((startIdx == -1) || (endIdx == -1) ) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	// 获取给定的reply的comment的主体内容
+	public static String getReplyComment(String commentBody) {
+		int endIdx = commentBody.indexOf(Constants.replyEnd);
+		if(endIdx > 0) {
+			return commentBody.substring(endIdx + Constants.replyEnd.length() );
+		}
+		
+		return EMPTY_STR;
+	}
+	
+	// 封装播客的评论
+	public static String encapBlogComments(List<List<Comment>> blogComments) {
+		JSONObject res = new JSONObject();
+		for(int i=1; i<blogComments.size(); i++) {
+			List<Comment> curFloor = blogComments.get(i);
+			JSONObject curFloorRes = new JSONObject();
+			// .. NullPointer 出现在了测试场景, 因为1楼是在页面上, 没有存放数据库
+			if(curFloor != null) {
+				for(int j=0; j<curFloor.size(); j++) {
+					curFloorRes.element(String.valueOf(j), curFloor.get(j).toString() );
+				}
+			}
+			res.element(String.valueOf(i), curFloorRes.toString() );
+		}
+		
+		return res.toString();
+	}
+	
+	// 初始化res
+	public static <T> void init(List<T> res, int size, T initVal) {
+		for(int i=0; i<size; i++) {
+			res.add(initVal);
+		}
 	}
 	
 	

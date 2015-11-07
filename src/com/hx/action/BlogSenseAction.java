@@ -36,7 +36,9 @@ public class BlogSenseAction extends HttpServlet {
 				Blog blog = BlogManager.getBlog(blogId);
 				respMsg.setOthers(sense);
 				if(Tools.validateBlog(req, blog, respMsg) ) {
-					if(Tools.validateIsSensed(req, blog.getId(), respMsg) ) {
+					Cookie sensedToBlog = Tools.getCookieByName(req.getCookies(), Tools.getSensedCookieName(blogId) );
+					boolean isSensed = (sensedToBlog != null) && (! Constants.defaultCookieValue.equals(sensedToBlog.getValue()) );
+					if(! isSensed) {
 						respMsg.set(true, Constants.defaultResponseCode, "sense to : " + sense, Tools.getIPAddr(req) );
 						if(sense.equals(Constants.senseGood) ) {
 							blog.incGood();
@@ -44,7 +46,32 @@ public class BlogSenseAction extends HttpServlet {
 							blog.incNotGood();
 						}
 						BlogManager.addVisitSense(blog);
-						resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.senseCookieValue) );
+						resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), sense) );
+					} else {
+						sensedToBlog.setMaxAge(-1);
+						if(sense.equals(Constants.senseGood) ) {
+							if(! sensedToBlog.getValue().equals(sense) ) {
+								respMsg.set(true, Constants.defaultResponseCode, "sense to : " + sense, Tools.getIPAddr(req) );
+								blog.incGood();
+								blog.decNotGood();
+								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.senseGood) );
+							} else {
+								respMsg.set(true, Constants.defaultResponseCode, "cancel sense to : " + sense, Tools.getIPAddr(req) );
+								blog.decGood();
+//								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.defaultCookieValue) );
+							}
+						} else {
+							if(! sensedToBlog.getValue().equals(sense) ) {
+								respMsg.set(true, Constants.defaultResponseCode, "sense to : " + sense, Tools.getIPAddr(req) );
+								blog.incNotGood();
+								blog.decGood();
+								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.senseNotGood) );
+							} else {
+								respMsg.set(true, Constants.defaultResponseCode, "cancel sense to : " + sense, Tools.getIPAddr(req) );
+								blog.decNotGood();
+//								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.defaultCookieValue) );
+							}
+						}
 					}
 				}
 			}

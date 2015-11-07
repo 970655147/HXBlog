@@ -32,14 +32,19 @@ insert into tagToBlog (tag, blogId) values ("IDE", "2");
 
 ##################### commentList  ################################
 
+drop table commentList;
+
 create table if not exists commentList(
        id integer primary key autoincrement,
-       blogId integer,       
-       floorId integer,       
-       commentId integer,
+       blogIdx integer,       
+       floorIdx integer,       
+       commentIdx integer,
        name varchar(64),
-       date varchar(64),
+       email varchar(64),
        headImgIdx integer,
+       date varchar(64),
+       toUser varchar(64),
+       privilege varchar(64),
        comment varchar(256)
 );
 

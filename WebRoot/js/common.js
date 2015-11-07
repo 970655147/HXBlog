@@ -115,7 +115,7 @@
 				var blogObj = new Blog($scope.postId, null, null, null)
 				$.ajax({
 					url: postUrl, type : "post",
-					data : blogObj.getBlogObj(),
+					data : blogObj.getObj(),
 					success : function(data){
 						data = JSON.parse(data)
 						
@@ -149,55 +149,112 @@
 	 			}
 			 })
 			
+			 // 当前是否可以点击顶踩按钮
+			 var couldClickGoodOrNotGood = true
+			 
+			// 更新couldClickGoodOrNotGood
+			function updateCouldClickGoodOrNotGood() {
+				couldClickGoodOrNotGood = true
+			}
+			
 			 // 顶踩按钮
 			 $("dl[dataId='btnSense']").click( function() {
-				 if(! sensed) {
-					 sensed = true;
+				 if(couldClickGoodOrNotGood) {
+					 couldClickGoodOrNotGood = false
+					 
 					 var postUrl = "/HXBlog/action/blogSenseAction"
 					 var sense = $(this).attr("data")
-					 var cur = parseInt($(this).find("dd").html() )
-					 $(this).find("dd").html(cur + 1)
-						$.ajax({
-							url: postUrl, type : "post",
-							data : {
-								"blogId" : data.blog.id,
-								"sense" : sense
-							},
-							success : function(data){
-					        }
-						});    
+					 var other = $(this).siblings("dl[dataId='btnSense']")
+					 if(isEmpty(sensed) ) {
+						 sensed = sense;
+						 var cur = parseInt($(this).find("dd").html() )
+						  $(this).find("dd").html(cur + 1)
+					 } else {
+						 if(sense == sensed) {
+							 sensed = EMPTY_STR
+							 var cur = parseInt($(this).find("dd").html() )
+							 $(this).find("dd").html(cur - 1)						 
+						 } else {
+							 sensed = sense
+							 var cur = parseInt(other.find("dd").html() )
+							 other.find("dd").html(cur - 1)									 
+							 cur = parseInt($(this).find("dd").html() )
+							 $(this).find("dd").html(cur + 1)
+						 }  
+					 }
+					$.ajax({
+						url: postUrl, type : "post",
+						data : {
+							"blogId" : data.blog.id,
+							"sense" : sense
+						},
+						success : function(data){
+				        }
+					});  	
 				 } else {
-					 console.log("you have already click good / notGood !")
+					 console.log(couldClickGoodOrNotGood)
+					 setTimeout(updateCouldClickGoodOrNotGood, 200)
+//					 couldClickGoodOrNotGood = true
+					 console.log("please do not click so quickly, robot ?")
 				 }
+			 
 			})
+			
 			
 			// 常量
 			var submitNoticePath = "#submitNotice"
+			var commentPath = "dl.comment_topic"
+			var replyDivPath = "div.replyDiv"
+			var floorIdx = $(commentPath).length + 1
+//			var commentIdx = -1
+			var to = EMPTY_STR
 				
 			// 校验, 提交评论
+				// 浏览器端的展现, 是应该是当前页面为准, 刷新一下即编程服务器端的真正的回帖顺序
 			$("#submitBtn").click(function() {
 		    	$(submitNoticePath).html(EMPTY_STR)
 		    	var userName = $("#userName").val().trim()
-		    	var comment = $("#comment").val()
+		    	var commentBody = $("#comment").val()
 		    	var imageIdx = $("#imageIdx").find("option[selected='selected']").attr("id")
 		    	if(validateTitle(userName, "userName", submitNoticePath)) {
-		    		if(validateContent(comment, "comment", submitNoticePath)) {
-						var comment = new Comment(userName, $("#email").val().trim(), imageIdx, comment )
+		    		if(validateContent(commentBody, "comment", submitNoticePath)) {
+						var comment = new Comment(data.blog.id, floorIdx, userName, to, $("#email").val().trim(), imageIdx, commentBody)
 		    			var postUrl = "/HXBlog/action/blogCommentAction"
-		    			
+		    			console.log(comment.getObj() )
+		    				
 						$.ajax({
 							url: postUrl, type : "post",
-							data : comment.getBlogObj(),
+							data : comment.getObj(),
 							success : function(data){
 								data = JSON.parse(data)
 								
-								$("#submitCommentMsg").html(data.msg)
+								$("#submitCommentMsg").html(data.respMsg.msg)
 								$("#submitCommentModal").modal()
+								if(data.respMsg.isSuccess) {
+									$("#comment").val(EMPTY_STR)
+									if(! commentBody.startsWith("[re]")) {
+										appendNewFloorComment(commentPath, comment, data)
+									} else {
+										appendNewReplyComment(commentPath, floorIdx-1, replyDivPath, comment, data)
+									}
+								}
+								
+								$(".commentReply").click(replayFunction)
+								floorIdx = $(commentPath).length + 1
 					        }
-						});    			
+						});   
 		    		}
 		    	}
 			})
+			
+			$(".commentReply").click(replayFunction)
+			// 所有的回复按钮的click事件
+			function replayFunction() {
+				to = $(this).parent().attr("userName")
+				floorIdx = parseInt($(this).parent().attr("floorIdx") )
+//				commentIdx = $(this).parent().attr("commentIdx")
+				$("#comment").val("[re]" + to + "[/re]")
+			}
 			 
 		  })		  
 	  }

@@ -32,7 +32,7 @@ public class BlogDeleteAction extends HttpServlet {
 				if(Tools.isFileExists(Tools.getBlogPath(Tools.getProjectPath(), (oldBLog.getPath()) )) ) {	
 					Tools.delete(Tools.getBlogPath(Tools.getProjectPath(), oldBLog.getPath()) );
 				}
-				BlogManager.deleteBlog(oldBLog, req.getServletContext());
+				BlogManager.deleteBlog(oldBLog);
 				respMsg.set(true, Constants.defaultResponseCode, Tools.getDeleteSuccMsg(oldBLog), null);
 			}
 		}
