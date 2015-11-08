@@ -9,37 +9,16 @@
             "period" : "2012/09 - 2016/06",
             "university" : "cduestc",
             "college" : "cduestc",
-            "description" : "Bachelor Degree in Mechanical Engineering and Automation"
+            "description" : "Bachelor Degree in cduestc"
         }
     ],
     "workExperience" : [
         {
-            "period" : "2012/06 每 Now",
-            "company" : "Nokia MP",
-            "title" : "Senior Software Engineer",
+            "period" : "2015/06 每 2015/09",
+            "company" : "XXX",
+            "title" : "java practice engineer",
             "description" : [
-                "Responsible for new concept handwriting Chinese input method on new s40 platform",
-                "Demo version had been completed in two weeks and shown in department all-hands meeting",
-                "Final version has been accepted by product (Asha 501), and no bugs reported after development finished"
-            ]
-        },
-        {
-            "period" : "2010/07 每 2012/05",
-            "company" : "Nokia MP",
-            "title" : "Software Engineer",
-            "description" : [
-                "Responsible for Chinese input development in S40 full-touch product",
-                "Achieved 0 bugs target two month ahead"
-            ]
-        },
-        {
-            "period" : "2008/01 每 2010/06",
-            "company" : "Dayang Technology Development Inc",
-            "title" : "Software Engineer",
-            "description" : [
-                "Responsible for Edit-Net related product & project development",
-                "Finished BTV project development by myself, praised by client",
-                "Leading new staff in several projects"
+                "crawler tasks"
             ]
         }
     ],
@@ -67,6 +46,6 @@
         }
     ],
     "projects" : [
-        {"name" : "HXBlog", "description" : "A static blog on github. Using JavaScript to load blog article in Markdown format and render it dynamically."}
+        {"name" : "HXBlog", "description" : "A static blog on github. using javascript comminication with server ."}
     ]
 }

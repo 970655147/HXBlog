@@ -4,7 +4,7 @@ import com.hx.util.EncapJSON;
 
 import net.sf.json.JSONObject;
 
-// 用于排序的bean
+// 用于排序tag的bean
 public class TagToBlogCnt implements Comparable<TagToBlogCnt>, EncapJSON {
 
 	// 标签的id, 标签对应的播客的个数
@@ -48,6 +48,7 @@ public class TagToBlogCnt implements Comparable<TagToBlogCnt>, EncapJSON {
 		obj.element("text", tag);
 		obj.element("cnt", blogCnt);
 	}
+	
 	// setter & getter
 	public String getTag() {
 		return tag;

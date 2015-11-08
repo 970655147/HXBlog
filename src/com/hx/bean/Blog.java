@@ -12,6 +12,7 @@ import com.hx.util.Tools;
 // 对应于数据库中的blogList的每一条记录
 public class Blog {
 	
+	// id, title, path, tags, createTime, 顶踩值, 访问数, 当前播客的内容, 评论[未用]
 	private Integer id;
 	private String title;
 	private String path;

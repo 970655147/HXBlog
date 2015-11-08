@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 
 import net.sf.json.JSONObject;
 
+import com.hx.util.Constants;
 import com.hx.util.EncapJSON;
 import com.hx.util.Tools;
 
@@ -32,7 +33,7 @@ public class Comment implements EncapJSON {
 	public void init(ResultSet rs) throws Exception {
 		UserInfo userInfo = new UserInfo();
 		userInfo.init(rs);
-		set(rs.getInt("blogIdx"), rs.getInt("floorIdx"), rs.getInt("commentIdx"), userInfo, rs.getString("date"), rs.getString("toUser"), rs.getString("comment"));
+		set(rs.getInt("blogIdx"), rs.getInt("floorIdx"), rs.getInt("commentIdx"), userInfo, rs.getString("date"), rs.getString("toUser"), Tools.detransfer(rs.getString("comment"), Constants.needToBeDeformat) );
 	}
 	
 	// setter & getter
@@ -76,7 +77,7 @@ public class Comment implements EncapJSON {
 		this.comment = comment;
 	}
 	
-	
+	// 封装当前对象中的数据到obj中
 	@Override
 	public void encapJSON(JSONObject obj) {
 		obj.element("blogIdx", blogIdx);

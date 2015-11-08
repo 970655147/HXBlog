@@ -109,6 +109,33 @@
 				 $("#deleteBtn").remove()
 			 }
 			 
+			 // 添加从服务器获取到的评论
+			var submitNoticePath = "#submitNotice"
+			var commentPath = "dl.comment_topic"
+			var replyDivPath = "div.replyDiv"
+			var blogComments = data.comments
+			console.log(blogComments)
+			var floorLen = getLength(blogComments)
+			if(floorLen > 0) {
+				$("#haveNoComment").hide()
+				for(i=0; i<floorLen; i++) {
+					var curFloor = blogComments[i.toString() ]
+					var commentLen = getLength(curFloor)
+					appendNewFloorComment(commentPath, curFloor["0"])
+					for(j=1; j<commentLen; j++) {
+						appendNewReplyComment(commentPath, i+1, replyDivPath, curFloor[j.toString() ])
+					}	
+				}
+			}
+			
+			// 回复, 引用, 举报按钮的效果
+			$(".comment_manage").find("a").mouseover(function() {
+				$(this).css("color", "red")	
+			})
+			$(".comment_manage").find("a").mouseout(function() {
+				$(this).css("color", "#3366B1")	
+			})
+			 
 			 // 删除帖子按钮
 			$("#deleteAction").click(function() {
 				var postUrl = "/HXBlog/action/blogDeleteAction"
@@ -202,10 +229,7 @@
 			
 			
 			// 常量
-			var submitNoticePath = "#submitNotice"
-			var commentPath = "dl.comment_topic"
-			var replyDivPath = "div.replyDiv"
-			var floorIdx = $(commentPath).length + 1
+			var floorIdx = $(commentPath).length
 //			var commentIdx = -1
 			var to = EMPTY_STR
 				
@@ -221,39 +245,48 @@
 						var comment = new Comment(data.blog.id, floorIdx, userName, to, $("#email").val().trim(), imageIdx, commentBody)
 		    			var postUrl = "/HXBlog/action/blogCommentAction"
 		    			console.log(comment.getObj() )
-		    				
+		    			
 						$.ajax({
 							url: postUrl, type : "post",
 							data : comment.getObj(),
 							success : function(data){
+								$("#haveNoComment").hide()
 								data = JSON.parse(data)
+								comment = data.comment
 								
 								$("#submitCommentMsg").html(data.respMsg.msg)
 								$("#submitCommentModal").modal()
 								if(data.respMsg.isSuccess) {
 									$("#comment").val(EMPTY_STR)
 									if(! commentBody.startsWith("[re]")) {
-										appendNewFloorComment(commentPath, comment, data)
+										appendNewFloorComment(commentPath, comment)
 									} else {
-										appendNewReplyComment(commentPath, floorIdx-1, replyDivPath, comment, data)
+										appendNewReplyComment(commentPath, floorIdx, replyDivPath, comment)
 									}
 								}
 								
 								$(".commentReply").click(replayFunction)
-								floorIdx = $(commentPath).length + 1
+								floorIdx = $(commentPath).length
 					        }
 						});   
 		    		}
 		    	}
 			})
 			
+			// 改变了头像的事件
+			$("#imageIdx").change(function() {
+				var curVal = $("#imageIdx").val()
+				$("#imageIdx").find("option").attr("selected", false)
+				$("#imageIdx").find("option[value='"+ curVal +"']").attr("selected", true)
+			})
+			
 			$(".commentReply").click(replayFunction)
 			// 所有的回复按钮的click事件
 			function replayFunction() {
-				to = $(this).parent().attr("userName")
-				floorIdx = parseInt($(this).parent().attr("floorIdx") )
+				to = $(this).parent().parent().attr("userName")
+				floorIdx = parseInt($(this).parent().parent().attr("floorIdx") )
 //				commentIdx = $(this).parent().attr("commentIdx")
-				$("#comment").val("[re]" + to + "[/re]")
+				$("#comment").val("[re]" + to + "[/re] : ")
 			}
 			 
 		  })		  
@@ -266,7 +299,7 @@
   
   // 获取简历信息的ctrl
   app.controller('resumeCtrl', function($scope, $http) {
-    return $http.get("/HXBlog/action/resumeConfigAction").success(function(data) {
+    return $http.get("/HXBlog/action/blogResumeAction").success(function(data) {
       return $scope.resume = data;
     });
   });  

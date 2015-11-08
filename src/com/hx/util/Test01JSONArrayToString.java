@@ -10,6 +10,8 @@ import net.sf.json.JSONObject;
 public class Test01JSONArrayToString {
 	
 	// 测试jsonArray的toString
+	// 获取config, resume 的压缩字符串
+	// 测试Arraylist, JSONObject, JSONArray 的toString
 	public static void main(String []args) throws IOException {
 		
 //		JSONArray arr = new JSONArray().element("df").element("DFfd");

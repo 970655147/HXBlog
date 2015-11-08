@@ -34,6 +34,9 @@ import com.hx.util.Tools;
 public class BlogListAction extends HttpServlet {
 
 	// 获取config.conf中的配置
+	// 获取tag, 如果其为空, 其默认值为"all"
+	// 获取该tag相关的所有blog, 以及所有的tag
+	// 返回 响应结果, 记录日志		
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		BlogManager.initIfNeeded();
 		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);

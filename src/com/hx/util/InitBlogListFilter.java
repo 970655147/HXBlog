@@ -18,6 +18,7 @@ public class InitBlogListFilter implements Filter {
 		
 	}
 
+	// 每一个action调用之前, 初始化BlogManager的 [如果初始化了, 则不用了]
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
 		BlogManager.initIfNeeded();

@@ -1,5 +1,9 @@
 package com.hx.util;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,10 +22,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
@@ -32,8 +38,10 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.hx.bean.Blog;
+import com.hx.bean.CheckCode;
 import com.hx.bean.Comment;
 import com.hx.bean.ResponseMsg;
+import com.hx.bean.UserInfo;
 import com.hx.business.BlogManager;
 
 // 工具函数
@@ -44,6 +52,9 @@ public class Tools {
 	public final static String NULL = "null";
 	public static final Character SLASH = '\\';
 	public static final Character INV_SLASH = '/';
+	static Character DOUBLE_QUOTION = '"';
+	static Character QUOTION = '\'';
+	static Character TRANSFER_CHAR = SLASH;
 	public static final Character DOT = '.';
 	public static final Character SPACE = ' ';
 	public static final Character TAB = '\t';
@@ -181,6 +192,15 @@ public class Tools {
 		}
 	}
 	
+	// 注销driver
+	// The web application [/HXBlog] registered the JDBC driver [org.sqlite.JDBC] but failed to unregister it when the web application was stopped. To prevent a memory leak, the JDBC Driver has been forcibly unregistered.
+	// site : http://blog.sina.com.cn/s/blog_4550f3ca0101byg1.html
+	public static void closeDataSource(String basePath) throws Exception {
+		String dbPath = Tools.getPackagePath(basePath, Constants.dbPath);
+		String conUrl  = "jdbc:sqlite://" + dbPath;
+		DriverManager.deregisterDriver(DriverManager.getDriver(conUrl) );
+	}
+	
 	// 获取当前项目的地址
 	public static String getProjectPath() {
 		return projectPath;
@@ -218,7 +238,7 @@ public class Tools {
 		String[] splits = tagListStr.split(tagsSep);
 		List<String> res = new ArrayList<>(splits.length);
 		for(String tag : splits) {
-			if(! Tools.isEmpty(tag) ) {
+			if((! Tools.isEmpty(tag)) && (! res.contains(tag)) ) {
 				res.add(tag );
 			}
 		}
@@ -489,7 +509,7 @@ public class Tools {
 			sb.append(comment.getDate());	sb.append("' , '");
 			sb.append(comment.getTo());	sb.append("' , '");
 			sb.append(comment.getUserInfo().getPrivilege());	sb.append("' , '");
-			sb.append(comment.getComment());	
+			sb.append(Tools.transfer(comment.getComment(), Constants.needToBeFormatMap) );	
 			sb.append("' union all ");
 		}
 		
@@ -672,6 +692,27 @@ public class Tools {
 		return true;
 	}
 	
+	// 校验校验码
+	public static boolean validateCheckCode(HttpServletRequest req, ResponseMsg respMsg) {
+		String checkCode = req.getParameter("checkCode");
+		if(Tools.isEmpty(checkCode)) {
+			respMsg.set(false, Constants.defaultResponseCode, "sorry, please input checkCode　!", Tools.getIPAddr(req) );
+			return false;
+		}
+		String realCheckCode = Tools.getStrFromSession(req, Constants.checkCode);
+		respMsg.setOthers(checkCode);
+		if(Tools.isEmpty(realCheckCode) ) {
+			respMsg.set(false, Constants.defaultResponseCode, "sorry, you didn't even have a checkCode store here　!", Tools.getIPAddr(req) );
+			return false;
+		}
+		if(! equalsIgnorecase(checkCode, realCheckCode) ) {
+			respMsg.set(false, Constants.defaultResponseCode, "sorry, your checkCode is not right　!", Tools.getIPAddr(req) );
+			return false;
+		}
+		
+		return true;
+	}
+	
 	// 校验博客是否合法
 	public static boolean validateBlog(HttpServletRequest req, Blog blog, ResponseMsg respMsg) {
 		if(blog == null) {
@@ -699,18 +740,18 @@ public class Tools {
 	}	
 	
 	// 校验用户传输过来的title
-	public static boolean validateTitle(HttpServletRequest req, String title, ResponseMsg respMsg) {
+	public static boolean validateTitle(HttpServletRequest req, String title, String key, ResponseMsg respMsg) {
 		if(Tools.isEmpty(title) ) {
-			respMsg.set(false, Constants.defaultResponseCode, "please input title　!", Tools.getIPAddr(req) );
+			respMsg.set(false, Constants.defaultResponseCode, "please input " + key + "　!", Tools.getIPAddr(req) );
 			return false;
 		}
 		if(title.length() > Constants.titleMaxLength) {
-			respMsg.set(false, Constants.defaultResponseCode, "your title is to long [0 - 30], please check it !", Tools.getIPAddr(req) );
+			respMsg.set(false, Constants.defaultResponseCode, "your " + key + " is to long [0 - 30], please check it !", Tools.getIPAddr(req) );
 			return false;
 		}
 		Matcher matcher = Constants.specCharPattern.matcher(title);
 		if(matcher.matches() ) {
-			respMsg.set(false, Constants.defaultResponseCode, "your title contains special character [eg : ! - /], please check it !", Tools.getIPAddr(req) );
+			respMsg.set(false, Constants.defaultResponseCode, "your " + key + " contains special character [eg : ! - /], please check it !", Tools.getIPAddr(req) );
 			return false;
 		}
 		
@@ -731,6 +772,37 @@ public class Tools {
 	// 校验content
 	public static boolean validateContent(HttpServletRequest req, String tag, ResponseMsg respMsg) {
 		return true;
+	}
+	
+	// 校验userInfo
+	public static boolean validateUserInfo(HttpServletRequest req, UserInfo userInfo, ResponseMsg respMsg) {
+		if(! validateTitle(req, userInfo.getName(), "userName", respMsg) ) {
+			return false;
+		}
+		if(! completeMatch(Constants.emailPattern, userInfo.getEmail()) ) {
+			respMsg.set(false, Constants.defaultResponseCode, "userEmail not valid　!", Tools.getIPAddr(req) );
+			return false;
+		}
+		
+		return true;
+	}
+	
+	// 校验评论内容
+	public static boolean validateCommentBody(HttpServletRequest req, String commentBody, ResponseMsg respMsg) {
+		
+		return true;
+	}
+	
+	// 判断给定的字符串是否完全匹配给定的Pattern
+	public static boolean completeMatch(Pattern pat, String str) {
+		Matcher matcher = pat.matcher(str);
+		if(matcher.matches() ) {
+			if(str.length() == matcher.group(0).length()) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	// 判断是否评点过 顶 /踩
@@ -820,7 +892,8 @@ public class Tools {
 	// 封装播客的评论
 	public static String encapBlogComments(List<List<Comment>> blogComments) {
 		JSONObject res = new JSONObject();
-		for(int i=1; i<blogComments.size(); i++) {
+		int idx = 0;
+		for(int i=0; i<blogComments.size(); i++) {
 			List<Comment> curFloor = blogComments.get(i);
 			JSONObject curFloorRes = new JSONObject();
 			// .. NullPointer 出现在了测试场景, 因为1楼是在页面上, 没有存放数据库
@@ -828,8 +901,8 @@ public class Tools {
 				for(int j=0; j<curFloor.size(); j++) {
 					curFloorRes.element(String.valueOf(j), curFloor.get(j).toString() );
 				}
+				res.element(String.valueOf(idx ++), curFloorRes.toString() );
 			}
-			res.element(String.valueOf(i), curFloorRes.toString() );
 		}
 		
 		return res.toString();
@@ -841,6 +914,157 @@ public class Tools {
 			res.add(initVal);
 		}
 	}
+	
+	// 常量, 以及需要转义的字符
+	static Set<Character> needToBeFormat = new HashSet<Character>();
+	static {
+		needToBeFormat.add(DOUBLE_QUOTION);
+		needToBeFormat.add(QUOTION);
+		needToBeFormat.add(SLASH);
+	}
+	
+	// 格式化字符串   为每一个'"', '\' 前面加上一个转义字符['\']
+	public static String transfer(String xPath01) {
+		return transfer(xPath01, TRANSFER_CHAR);
+	}	
+	public static String transfer(String xPath01, Character transferChar) {
+		return transfer(xPath01, needToBeFormat, transferChar);
+	}		
+	public static String transfer(String xPath01, Set<Character> needToBeFormat, Character transferChar) {
+		if(Tools.isEmpty(xPath01)) {
+			return EMPTY_STR;
+		}
+		
+		StringBuilder sb = new StringBuilder(xPath01.length());
+		for(int i=0; i<xPath01.length(); i++) {
+			if(needToBeFormat.contains(xPath01.charAt(i)) ) {
+				sb.append(transferChar);
+			}
+			sb.append(xPath01.charAt(i));
+		}
+		
+//		Log.log(sb.toString());
+		return sb.toString();
+	}	
+	public static String transfer(String xPath01, Map<Character, Character> needToBeFormat) {
+		if(Tools.isEmpty(xPath01)) {
+			return EMPTY_STR;
+		}
+		
+		StringBuilder sb = new StringBuilder(xPath01.length());
+		for(int i=0; i<xPath01.length(); i++) {
+			if(needToBeFormat.containsKey(xPath01.charAt(i)) ) {
+				sb.append(needToBeFormat.get(xPath01.charAt(i)) );
+			}
+			sb.append(xPath01.charAt(i));
+		}
+		
+//		Log.log(sb.toString());
+		return sb.toString();
+	}
+	
+	// 去除格式化字符串   为每一个'"', '\' 前面加上一个转义字符['\']
+	public static String detransfer(String xPath01, Set<Character> needToBeDeformat) {
+		if(Tools.isEmpty(xPath01)) {
+			return null;
+		}
+		
+		StringBuilder sb = new StringBuilder(xPath01.length());
+		for(int i=0; i<xPath01.length(); i++) {
+			if(needToBeDeformat.contains(xPath01.charAt(i)) ) {
+				sb.append(xPath01.charAt(++ i) );
+				continue ;
+			}
+			sb.append(xPath01.charAt(i));
+		}
+		
+//		Log.log(sb.toString());
+		return sb.toString();
+	}
+	
+	// 将commentBody中包含脚本的部分转义掉
+	public static String replaceCommentBody(String commentBody, Map<Character, Character> needToBeFormat) {
+		if(Tools.isEmpty(commentBody)) {
+			return EMPTY_STR;
+		}
+		
+		StringBuilder sb = new StringBuilder(commentBody.length());
+		for(int i=0; i<commentBody.length(); i++) {
+			sb.append(commentBody.charAt(i));
+			if(needToBeFormat.containsKey(commentBody.charAt(i)) && isAlphaOrInvSlash(commentBody.charAt(i+1)) ) {
+				sb.append(needToBeFormat.get(commentBody.charAt(i)) );
+			}
+		}
+		
+		return sb.toString();
+	}
+	
+	// 判断给定的字符是否是字母
+	public static boolean isAlphaOrInvSlash(char ch) {
+		return (ch == INV_SLASH || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch<= 'Z') );
+	}
+	
+	// 获取简单的验证码
+	public static CheckCode getCheckCode() {
+		BufferedImage checkCodeImg = new BufferedImage(80, 30, BufferedImage.TYPE_INT_RGB);
+		Graphics g = checkCodeImg.getGraphics();
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, 80, 30);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font(null, Font.BOLD, 20));
+		
+		String checkCodeStr = Tools.makeCheckCode(Constants.checkCodeLength);
+		g.drawString(checkCodeStr, 0, 20);
+		
+		CheckCode checkCode = new CheckCode(checkCodeStr, checkCodeImg);
+		return checkCode;
+	}
+	// 生成验证码
+	public static String makeCheckCode(int length) {
+		StringBuffer sb = new StringBuffer();
+		for(int i=0; i<length; i++){
+			sb.append(Constants.checkCodes.get(ran.nextInt(Constants.checkCodeBackUpSize)) );
+		}
+		
+		return sb.toString();	
+	}
+	
+	// 生成验证码图片
+	public static CheckCode getCheckCode(int width, int height, Color bgColor, Font font, int validateCodeLength, List<Character> checkCodes, int minInterference, int interferenceOff) {
+		int checkCodeY = height - (height >> 2);
+		int checkCodeXOff = width / (validateCodeLength+2);
+		
+		BufferedImage checkCodeImg = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+		Graphics g = checkCodeImg.getGraphics();
+		g.setColor(bgColor);
+		g.fillRect(0, 0, width, height);
+		g.setFont(font);
+		StringBuilder checkCodeStr = new StringBuilder();
+		while(checkCodeStr.length() < validateCodeLength){
+			g.setColor(randomColor() );
+			Character curChar = checkCodes.get(random(checkCodes.size()) );
+			g.drawString(curChar.toString(), (checkCodeStr.length() + 1) * checkCodeXOff, checkCodeY);
+			checkCodeStr.append(curChar );
+		}
+		
+		//draw the interference line
+		int interferenceSize = (ran.nextInt(interferenceOff) + minInterference);
+		for(int i = 0; i < interferenceSize; i++){
+			g.setColor(randomColor() );
+			g.drawLine(random(width), random(height), random(width), random(height));
+		}	
+		
+		CheckCode checkCode = new CheckCode(checkCodeStr.toString(), checkCodeImg);
+		return checkCode;
+	}
+	// 获取给定范围内的随机数
+	public static int random(int range) {
+		return ran.nextInt(range);
+	}
+	// 获取一个随机的颜色
+	public static Color randomColor() {
+		return new Color(random(255)+1, random(255)+1, random(255)+1);
+	}	
 	
 	
 }

@@ -34,13 +34,28 @@ public class InitAndCheckUpdateListener implements ServletContextListener {
 	}
 	
 	// context被销毁的时候调用
+	// 去掉定时任务, 刷新未刷新的数据
+	// 释放BlogManager, Comment的资源, 注销driver
 	public void contextDestroyed(ServletContextEvent scv) {
 		updateCheckTimer.cancel();
 		Tools.log(this, "HXBlog destroyed !");
 		checkUpdate(scv.getServletContext() );
+		BlogManager.clear();
+		CommentManager.clear();
+		try {
+			Tools.closeDataSource(Tools.getProjectPath() );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	// 定期检查更新的任务
+	// 定时检查对于blog, tag的更新
+		// 如果存在更新将其刷新到数据库
+		// 否则  检查是否存在, 顶踩, visite的更新, 如果有 将其刷新到数据库
+	// 检查对于comment的更新
+		// 如果存在更新将其刷新到数据库
+	// 如果存在更新的日志, 将日志刷到日志文件
 	private void checkUpdate(ServletContext servletContext) {
 		int updated = BlogManager.getUpdated();
 		if(updated > 0) {

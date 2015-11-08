@@ -24,6 +24,14 @@ import com.hx.util.Tools;
 public class BlogGetAction extends HttpServlet {
 	
 	// 给定播客的名称
+	// 获取blogId, 确保其为整数
+	// 获取blogId对应的blog, 确保该blog存在
+	// 确保blog对应的文件是否存在
+		// 按情况 更新该播客的visited, 并返回该博客的信息
+	// 添加登录信息, 播客信息
+	// 如果blogId不为null, 获取顶踩信息, 以及该博客的评论信息, 以及用户的偏好信息 [姓名, 邮箱]
+		// 如果登录, 则获取修改, 删除按钮信息, 在获取当前播客的上一页, 以及下一页的播客id
+	// 返回 响应结果, 记录日志	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
 		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
@@ -74,12 +82,9 @@ public class BlogGetAction extends HttpServlet {
 			res.element("sense", Tools.getCookieValByName(req.getCookies(), Tools.getSensedCookieName(blogId)) );
 			List<List<Comment>> blogComments = CommentManager.getCommentByBlogId(blogId);
 			if(blogComments != null) {
-				res.element("comment", Tools.encapBlogComments(blogComments) );
+				res.element("comments", Tools.encapBlogComments(blogComments) );
 			}
-			HttpSession session = req.getSession();
-			if(session != null) {
-				Tools.addIfNotEmpty(res, "user", session.getAttribute(Constants.preferInfo) );
-			}
+			Tools.addIfNotEmpty(res, "user", Tools.getStrFromSession(req, Constants.preferInfo) );
 			if(isLogin) {
 				res.element("reviseBtn", String.format(Constants.reviseBtn, blog.getId()) );
 				res.element("deleteBtn", Constants.deleteBtn);

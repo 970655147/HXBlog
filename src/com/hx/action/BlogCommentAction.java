@@ -21,35 +21,63 @@ import com.hx.util.Tools;
 public class BlogCommentAction extends HttpServlet {
 	
 	// 处理评论相关业务
+	// 获取blogIdx, floorIdx, imageIdx  如果发生异常, 将imageIdx置空 [必然过不了校验]
+	// 校验blogIdx, floorIdx, imageIdx, userInfo, commentBody
+	// 校验通过后, 设置用户的userInfo
+		// 将comment信息添加到CommentManager中
+	// 返回 响应结果, 记录日志
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
 		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
 		
 		ResponseMsg respMsg = new ResponseMsg();
-		Integer blogIdx = Integer.parseInt(req.getParameter("blogIdx") );
-		Integer floorIdx = Integer.parseInt(req.getParameter("floorIdx") );
-		UserInfo userInfo = new UserInfo(req.getParameter("userName"), req.getParameter("email"), Integer.parseInt(req.getParameter("imageIdx")), Tools.getPrivilege(Tools.isLogin(req)) );
-		req.getSession().setAttribute(Constants.preferInfo, userInfo);
-		String to = req.getParameter("to");
-		String commentBody = req.getParameter("comment");
-		Comment comment = new Comment(blogIdx, floorIdx, Constants.defaultCommentIdx, userInfo, Constants.dateFormat.format(new Date()), to, commentBody);
+		Integer blogIdx = null;
+		Integer floorIdx = null;
+		Integer imageIdx = null;
 		try {
-			if(! Tools.isReply(commentBody) ) {
-				CommentManager.updateCommentIdx(comment);
-			} else {
-				comment.setComment(Tools.getReplyComment(commentBody));
-				CommentManager.updateFloorIdx(comment);
-			}
-			CommentManager.addComment(blogIdx, comment);
+			blogIdx = Integer.parseInt(req.getParameter("blogIdx") );
+			floorIdx = Integer.parseInt(req.getParameter("floorIdx") );
+			imageIdx = Integer.parseInt(req.getParameter("imageIdx") );
 		} catch (Exception e) {
-			e.printStackTrace();
+			imageIdx = null;
 		}
-		
-		respMsg.set(true, Constants.defaultResponseCode, "comment success !", Tools.getIPAddr(req) );
+		String to = req.getParameter("to");
+		if(Tools.isEmpty(to)) {
+			to = Constants.defaultTo;
+		}
+		String commentBody = req.getParameter("comment");
+		Comment comment = null;
+		if(Tools.validateObjectBeNull(req, blogIdx, "blogIdx", respMsg) ) {
+			if(Tools.validateObjectBeNull(req, floorIdx, "floorIdx", respMsg) ) {
+				if(Tools.validateObjectBeNull(req, imageIdx, "imageIdx", respMsg) ) {
+					UserInfo userInfo = new UserInfo(req.getParameter("userName"), req.getParameter("email"), imageIdx, Tools.getPrivilege(Tools.isLogin(req)) );
+					if(Tools.validateTitle(req, to, "to's userName", respMsg) ) {					
+						if(Tools.validateUserInfo(req, userInfo, respMsg) ) {
+							if(Tools.validateCommentBody(req, commentBody, respMsg) ) {
+								req.getSession().setAttribute(Constants.preferInfo, userInfo);
+								comment = new Comment(blogIdx, floorIdx, Constants.defaultCommentIdx, userInfo, Constants.createDateFormat.format(new Date()), to, Tools.replaceCommentBody(commentBody, Constants.scriptCharacterMap) );
+								try {
+									CommentManager.addComment(blogIdx, comment);
+									if(! Tools.isReply(commentBody) ) {
+										CommentManager.updateFloorIdx(comment);
+									} else {
+										comment.setComment(Tools.getReplyComment(commentBody));
+										CommentManager.updateCommentIdx(comment);
+									}
+								} catch (Exception e) {
+									e.printStackTrace();
+								}
+								respMsg.set(true, Constants.defaultResponseCode, "comment success !", Tools.getIPAddr(req) );
+							}
+						}
+					}
+				}
+			}
+		}
 		
 		JSONObject res = new JSONObject();
 		res.element("respMsg", respMsg.toString() );
-		res.element("comment", comment.toString() );
+		res.element("comment", String.valueOf(comment) );
 		
 		PrintWriter out = resp.getWriter();
 		String respInfo = res.toString();

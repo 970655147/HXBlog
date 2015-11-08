@@ -19,6 +19,14 @@ import com.hx.util.Tools;
 public class BlogSenseAction extends HttpServlet {
 
 	// 播客顶/ 踩处理的action
+	// 获取blogId
+	// 校验blogId, sense, 确保sense为Constants.senseGood / Constants.senseNotGood 二者之一
+	// 校验blog
+	// 如果没有sense过  则根据sense更新对应的good / notGood, 并且"sense到"当前sense
+		// 否则  如果sense为保存的sense, 则取消"sense当前"sense
+		// 否则 取消之前缓存sense, 并且"sense到"当前sense
+	// 并将其该blog加入visitedSensedBlogList, 待刷新到数据库
+	// 返回 响应结果, 记录日志
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
 		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
@@ -33,46 +41,49 @@ public class BlogSenseAction extends HttpServlet {
 		String sense = req.getParameter("sense");
 		if(Tools.validateObjectBeNull(req, blogId, "blogId", respMsg)) {
 			if(Tools.validateStringBeNull(req, sense, "sense", respMsg) ) {
-				Blog blog = BlogManager.getBlog(blogId);
 				respMsg.setOthers(sense);
-				if(Tools.validateBlog(req, blog, respMsg) ) {
-					Cookie sensedToBlog = Tools.getCookieByName(req.getCookies(), Tools.getSensedCookieName(blogId) );
-					boolean isSensed = (sensedToBlog != null) && (! Constants.defaultCookieValue.equals(sensedToBlog.getValue()) );
-					if(! isSensed) {
-						respMsg.set(true, Constants.defaultResponseCode, "sense to : " + sense, Tools.getIPAddr(req) );
-						if(sense.equals(Constants.senseGood) ) {
-							blog.incGood();
-						} else {
-							blog.incNotGood();
-						}
-						BlogManager.addVisitSense(blog);
-						resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), sense) );
-					} else {
-						sensedToBlog.setMaxAge(-1);
-						if(sense.equals(Constants.senseGood) ) {
-							if(! sensedToBlog.getValue().equals(sense) ) {
-								respMsg.set(true, Constants.defaultResponseCode, "sense to : " + sense, Tools.getIPAddr(req) );
+				Blog blog = BlogManager.getBlog(blogId);
+				if((Tools.equalsIgnorecase(sense, Constants.senseGood)) || (Tools.equalsIgnorecase(sense, Constants.senseNotGood)) ) {
+					if(Tools.validateBlog(req, blog, respMsg) ) {
+						BlogManager.addVisitSense(blog);					
+						Cookie sensedToBlog = Tools.getCookieByName(req.getCookies(), Tools.getSensedCookieName(blogId) );
+						boolean isSensed = (sensedToBlog != null) && (! Constants.defaultCookieValue.equals(sensedToBlog.getValue()) );
+						if(! isSensed) {
+							respMsg.set(true, Constants.defaultResponseCode, "sense to : " + sense, Tools.getIPAddr(req) );
+							if(sense.equals(Constants.senseGood) ) {
 								blog.incGood();
-								blog.decNotGood();
-								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.senseGood) );
 							} else {
-								respMsg.set(true, Constants.defaultResponseCode, "cancel sense to : " + sense, Tools.getIPAddr(req) );
-								blog.decGood();
-//								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.defaultCookieValue) );
-							}
-						} else {
-							if(! sensedToBlog.getValue().equals(sense) ) {
-								respMsg.set(true, Constants.defaultResponseCode, "sense to : " + sense, Tools.getIPAddr(req) );
 								blog.incNotGood();
-								blog.decGood();
-								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.senseNotGood) );
+							}
+							resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), sense) );
+						} else {
+							sensedToBlog.setMaxAge(-1);
+							if(sense.equals(Constants.senseGood) ) {
+								if(! sensedToBlog.getValue().equals(sense) ) {
+									respMsg.set(true, Constants.defaultResponseCode, "sense to : " + sense, Tools.getIPAddr(req) );
+									blog.incGood();
+									blog.decNotGood();
+									resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.senseGood) );
+								} else {
+									respMsg.set(true, Constants.defaultResponseCode, "cancel sense to : " + sense, Tools.getIPAddr(req) );
+									blog.decGood();
+	//								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.defaultCookieValue) );
+								}
 							} else {
-								respMsg.set(true, Constants.defaultResponseCode, "cancel sense to : " + sense, Tools.getIPAddr(req) );
-								blog.decNotGood();
-//								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.defaultCookieValue) );
+								if(! sensedToBlog.getValue().equals(sense) ) {
+									respMsg.set(true, Constants.defaultResponseCode, "sense to : " + sense, Tools.getIPAddr(req) );
+									blog.incNotGood();
+									blog.decGood();
+									resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.senseNotGood) );
+								} else {
+									respMsg.set(true, Constants.defaultResponseCode, "cancel sense to : " + sense, Tools.getIPAddr(req) );
+									blog.decNotGood();
+	//								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.defaultCookieValue) );
+								}
 							}
 						}
 					}
+					
 				}
 			}
 		}

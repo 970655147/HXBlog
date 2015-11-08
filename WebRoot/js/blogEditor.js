@@ -49,32 +49,54 @@
     // 校验, 提交
     $("#submitBtn").click(function() {
     	var title = $("input#title").val().trim()
+    	var checkCode = $("#checkCode").val().trim()
     	var content = ue.getContent()
     	$(submitNoticePath).html(EMPTY_STR)
     	
     	if(validateTitle(title, "title", submitNoticePath)) {
-    		if(validateContent(content, "content", submitNoticePath)) {
-    			var blogObj = new Blog(post, title, getTags(tagsPath), content)
-    			var postUrl = EMPTY_STR
-    			if(! isRevise) {
-    				postUrl = "/HXBlog/action/blogPublishAction"
-    			} else {
-    				postUrl = "/HXBlog/action/blogReviseAction"
-    			}
-    			
-				$.ajax({
-					url: postUrl, type : "post",
-					data : blogObj.getObj(),
-					success : function(data){
-						data = JSON.parse(data)
-						
-						$("#respMsg").html(data.msg)
-						$("#myModal").modal()
-			        }
-				});    			
+    		if(validateTitle(checkCode, "checkCode", submitNoticePath)) {
+	    		if(validateContent(content, "content", submitNoticePath)) {
+	    			freshCheckCode()
+	    			ts += 1
+	    			var blogObj = new Blog(post, title, getTags(tagsPath), checkCode, content)
+	    			var postUrl = EMPTY_STR
+	    			if(! isRevise) {
+	    				postUrl = "/HXBlog/action/blogPublishAction"
+	    			} else {
+	    				postUrl = "/HXBlog/action/blogReviseAction"
+	    			}
+	    			
+					$.ajax({
+						url: postUrl, type : "post",
+						data : blogObj.getObj(),
+						success : function(data){
+							data = JSON.parse(data)
+							
+							$("#respMsg").html(data.msg)
+							$("#myModal").modal()
+							if(data.isSuccess) {
+						    	$("input#title").val("")
+						    	ue.setContent("")
+						    	console.log($("#tags").find("span.btn").length )
+						    	$("#tags").find("span.btn").remove()
+						    	$("#tagInput").val("")
+							}
+							$("#checkCode").val("")
+				        }
+					});    			
+	    		}
     		}
     	}
     })
+    
+    // 刷新验证码
+    var ts = 0
+    function freshCheckCode() {
+		$("#checkCodeImg").attr("src", "/HXBlog/action/blogCheckCodeAction?ts=" + ts )
+		ts += 1
+	}
+	$("#checkCodeImg").click(freshCheckCode)
+	$("#freshCheckCode").click(freshCheckCode)
 //	// 提交任务
 //	function submit() {
 //		if(postUrl != EMPTY_STR) {

@@ -11,10 +11,11 @@
 	}
 	
 	// blogBean
-	function Blog(id, title, tags, content) {
+	function Blog(id, title, tags, checkCode, content) {
 		this.id = id
 		this.title = title
 		this.tags = tags
+		this.checkCode = checkCode
 		this.content = content
 	}
 	Blog.prototype.toString = function() {
@@ -26,6 +27,8 @@
 		sb.append(this.title)
 		sb.append("\", tags : \"")
 		sb.append(this.tags)		
+		sb.append("\", checkCode : \"")
+		sb.append(this.checkCode)				
 		sb.append("\", content : \"")
 		sb.append(this.content)		
 		sb.append("\" }")
@@ -37,6 +40,7 @@
 				"id" : this.id,
 				"title" : this.title,
 				"tags" : this.tags,
+				"checkCode" : this.checkCode,
 				"content" : this.content
 		}
 		
@@ -151,34 +155,49 @@
     	return true
     }	
     
+	// 获取给定的对象的长度
+	function getLength(o){
+	   var n, count = 0;
+	   for(n in o){
+	      if(o.hasOwnProperty(n)){
+	         count++;
+	      }
+	   }
+
+	   return count;
+	}
+    
     // 添加一楼的评论
-    function appendNewFloorComment(commentPath, comment, data) {
+    function appendNewFloorComment(commentPath, comment) {
     	$(commentPath).last().after(
     			"<hr />" +
 				"<dl class='comment_item comment_topic' >" +
 				"<dt class='comment_head'>" +
 					"<span id='floorId' >" + comment.floorIdx + "楼</span>&nbsp;&nbsp;&nbsp;&nbsp;" + 
-					"<span class='user' floorIdx='" + comment.floorIdx + "' commentIdx='" + data.comment.commentIdx + "' userName='" + data.comment.userInfo.name + "' >" +
-						"<span id='commenter' class='text-warning' >" + data.comment.userInfo.name + "</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
-						"<span id='privilege' class='text-error' >[" + data.comment.userInfo.privilege + "]</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
-						"<span id='date' class='text-success'>发表于  " + data.comment.date + "</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
-						"<span class='commentReply' ><a href='javascript:void(0)' class='cmt_btn reply' title='回复'>[回复]</a></span>" + 
-						"<a href='javascript:void(0)' class='cmt_btn quote' title='引用'>[引用]</a>" +
-						"<a href='javascript:void(0)' class='cmt_btn report' title='举报'>[举报]</a>" +
+					"<span class='user' floorIdx='" + comment.floorIdx + "' commentIdx='" + comment.commentIdx + "' userName='" + comment.userInfo.name + "' >" +
+						"<span id='commenter' class='text-warning' >" + comment.userInfo.name + "</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+						"<span id='privilege' class='text-error' >[" + comment.userInfo.privilege + "]</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+						"<span id='date' class='text-success'>发表于  " + comment.date + "</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+						"<span class='comment_manage' > " +
+							"<span class='commentReply' ><a href='javascript:void(0)' class='cmt_btn reply' title='回复'>[回复]</a></span>&nbsp;&nbsp;" +
+							"<a href='javascript:void(0)' class='cmt_btn quote' title='引用'>[引用]</a>&nbsp;&nbsp;" +
+							"<a href='javascript:void(0)' class='cmt_btn report' title='举报'>[举报]</a>&nbsp;&nbsp;" +
+						"</span>" +
 					"</span>" +
 				"</dt>" +
 				
 				"<dd class='comment_userface'>" +
-					"<img src='./images/avatar/btn_avatar_a" + data.comment.userInfo.imageIdx + ".png' width='40' height='40' title='默认' />" +
+					"<a href='javascript:void(0)' > <img src='./images/avatar/btn_avatar_a" + comment.userInfo.imageIdx + ".png' width='40' height='40' title='" + comment.userInfo.email + "' /> </a> " +
 				"</dd>  :"+ 
-				"<dd class='comment_body'>" + data.comment.comment + "</dd>" +
+				"<dd class='comment_body'>" + comment.comment + "</dd>" +
 				
 				"<div class='replyDiv comment_reply' > </div>" +
 				"</dl>"
 			)
     }
     
-    function appendNewReplyComment(commentPath, floorIdx, replyDivPath, comment, data) {
+    // 添加回复的评论 [与上一个评论存在offset]
+    function appendNewReplyComment(commentPath, floorIdx, replyDivPath, comment) {
 //		var eles = $("dl.comment_topic").get(0).getElementsByClassName("replyDiv")
 //		console.log(eles[eles.length-1])
 //		eles[eles.length-1].innerHTML = 
@@ -187,19 +206,21 @@
 				"<dl class='comment_item'>" +
 				"<dt class='comment_head' >" + 
 				"Re: " + 
-				"<span class='user' floorIdx='" + comment.floorIdx + "' commentIdx='" + data.comment.commentIdx + "' userName='" + data.comment.userInfo.name + "' > " +
-					"<span id='commenter' class='text-warning' >" + data.comment.userInfo.name + "</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
-					"<span id='privilege' class='text-error' >[" + data.comment.userInfo.privilege + "]</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
-					"<span id='date' class='text-success'>发表于  " + data.comment.date + "</span>&nbsp;&nbsp;&nbsp;&nbsp; " +  
-					"<span class='commentReply' ><a href='javascript:void(0)' class='cmt_btn reply' title='回复'>[回复]</a></span>" +
-					"<a href='javascript:void(0)' class='cmt_btn quote' title='引用'>[引用]</a> " + 
-					"<a href='javascript:void(0)' class='cmt_btn report' title='举报'>[举报]</a>" +
+				"<span class='user' floorIdx='" + comment.floorIdx + "' commentIdx='" + comment.commentIdx + "' userName='" + comment.userInfo.name + "' > " +
+					"<span id='commenter' class='text-warning' >" + comment.userInfo.name + "</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+					"<span id='privilege' class='text-error' >[" + comment.userInfo.privilege + "]</span>&nbsp;&nbsp;&nbsp;&nbsp;" +
+					"<span id='date' class='text-success'>发表于  " + comment.date + "</span>&nbsp;&nbsp;&nbsp;&nbsp; " +  
+					"<span class='comment_manage' > " +
+						"<span class='commentReply' ><a href='javascript:void(0)' class='cmt_btn reply' title='回复'>[回复]</a></span>&nbsp;&nbsp;" +
+						"<a href='javascript:void(0)' class='cmt_btn quote' title='引用'>[引用]</a>&nbsp;&nbsp;" + 
+						"<a href='javascript:void(0)' class='cmt_btn report' title='举报'>[举报]</a>&nbsp;&nbsp;" +
+					"</span>" +
 				"</span>" +
 				"</dt>" +
 				"<dd class='comment_userface'>" +
-					"<a href='/singwhatiwanna' target='_blank'><img src='./images/avatar/btn_avatar_a" + data.comment.userInfo.imageIdx + ".png' width='40' height='40'></a>" +
+					"<a href='javascript:void(0)'><img src='./images/avatar/btn_avatar_a" + comment.userInfo.imageIdx + ".png' width='40' height='40' title='" + comment.userInfo.email + "' ></a>" +
 				"</dd>" +
-				"<dd class='comment_body'>回复 " + data.comment.to + " : " + data.comment.comment + "</dd>" +
+				"<dd class='comment_body'>回复 " + comment.to + " : " + comment.comment + "</dd>" +
 				
 				"<div class='replyDiv comment_reply' > </div>" +
 				"</dl>" 

@@ -1,11 +1,12 @@
 package com.hx.bean;
 
+import com.hx.util.EncapJSON;
 import com.hx.util.Tools;
 
 import net.sf.json.JSONObject;
 
 // 响应消息
-public class ResponseMsg {
+public class ResponseMsg implements EncapJSON {
 
 	// 是否成功, 响应码, 响应消息
 	private boolean isSuccess;
@@ -49,14 +50,20 @@ public class ResponseMsg {
 		this.ip = ip;
 	}
 	
-	// for debug & response
-	public String toString() {
-		JSONObject res = new JSONObject();
+	// 封装当前对象中的数据到obj中	
+	@Override
+	public void encapJSON(JSONObject res) {
 		res.element("isSuccess", isSuccess);
 		res.element("respCode", respCode);
 		Tools.addIfNotEmpty(res, "msg", msg);
 		Tools.addIfNotEmpty(res, "ip", ip);
 		Tools.addIfNotEmpty(res, "others", others);
+	}
+	
+	// for debug & response
+	public String toString() {
+		JSONObject res = new JSONObject();
+		encapJSON(res);
 		
 		return res.toString();
 	}
