@@ -34,6 +34,7 @@ public class BlogDeleteAction extends HttpServlet {
 			blogId = null;
 		}
 		ResponseMsg respMsg = new ResponseMsg();
+//		respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "sorry, delete blog is not a good children¡¡!", Tools.getIPAddr(req) );
 		if(Tools.validateObjectBeNull(req, blogId, "blogId", respMsg) ) {
 			if(Tools.validateUserLogin(req, respMsg)) {
 				Blog oldBLog = BlogManager.getBlog(blogId);
@@ -43,7 +44,7 @@ public class BlogDeleteAction extends HttpServlet {
 						Tools.delete(Tools.getBlogPath(Tools.getProjectPath(), oldBLog.getPath()) );
 					}
 					BlogManager.deleteBlog(oldBLog);
-					respMsg.set(true, Constants.defaultResponseCode, Tools.getDeleteSuccMsg(oldBLog), null);
+					respMsg.set(Constants.respSucc, Constants.defaultResponseCode, Tools.getDeleteSuccMsg(oldBLog), null);
 				}
 			}
 		}

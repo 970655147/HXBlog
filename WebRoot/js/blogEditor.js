@@ -56,7 +56,6 @@
     	if(validateTitle(title, "title", submitNoticePath)) {
     		if(validateTitle(checkCode, "checkCode", submitNoticePath)) {
 	    		if(validateContent(content, "content", submitNoticePath)) {
-	    			freshCheckCode()
 	    			ts += 1
 	    			var blogObj = new Blog(post, title, getTags(tagsPath), checkCode, content)
 	    			var postUrl = EMPTY_STR
@@ -70,6 +69,7 @@
 						url: postUrl, type : "post",
 						data : blogObj.getObj(),
 						success : function(data){
+			    			freshCheckCode()							
 							data = JSON.parse(data)
 							
 							$("#respMsg").html(data.msg)
@@ -77,7 +77,6 @@
 							if(data.isSuccess) {
 						    	$("input#title").val("")
 						    	ue.setContent("")
-						    	console.log($("#tags").find("span.btn").length )
 						    	$("#tags").find("span.btn").remove()
 						    	$("#tagInput").val("")
 							}

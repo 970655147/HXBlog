@@ -33,7 +33,7 @@ public class BlogResumeAction extends HttpServlet {
 		String logInfo = null;
 		if((! isFirst) || (! Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath))) ) {
 			content = Constants.defaultResume.toString();
-			logInfo = "your resume be seen by : " + Tools.getIPAddr(req) + ", but configFile not exists !";
+			logInfo = "your resume be seen by : " + Tools.getIPAddr(req) + ", but read from defaultResume !";
 		} else {
 			content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(), Constants.resumePath), Tools.DEFAULT_CHARSET );
 			Constants.defaultResume = JSONObject.fromObject(content);

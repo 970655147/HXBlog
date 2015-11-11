@@ -1,8 +1,12 @@
 package com.hx.bean;
 
-import com.hx.util.EncapJSON;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import net.sf.json.JSONObject;
+
+import com.hx.util.EncapJSON;
+import com.hx.util.Tools;
 
 // ”√”⁄≈≈–Útagµƒbean
 public class TagToBlogCnt implements Comparable<TagToBlogCnt>, EncapJSON {

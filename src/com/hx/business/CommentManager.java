@@ -13,9 +13,11 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.hx.action.BlogListAction;
+import com.hx.bean.Blog;
 import com.hx.bean.Comment;
 import com.hx.bean.CommentEntry;
 import com.hx.util.Constants;
@@ -38,6 +40,15 @@ public class CommentManager {
 	private static Map<Integer, Integer> addBlogsId = new HashMap<>();
 	private static Object updateAddBlogsCommentLock = new Object();
 	private static Object dbLock = new Object();
+	private static List<Integer> deleteCommentsByBlogIdx = new ArrayList<>(Constants.addedCommentsListSize);
+	private static Map<Integer, List<Integer>> deleteCommentsByFloorIdx = new HashMap<>(Constants.addedCommentsListSize);
+	private static Map<Integer, List<Integer>> deleteCommentsByCommentIdx = new HashMap<>(Constants.addedCommentsListSize);
+	// 这里为了简单, 就将这三个更新的对象关联在一起了..
+	private static Object deleteCommentsLock = new Object();
+	// 各个更新的数据 
+	// [0] 表示添加的评论记录数, [1] 表示根据blogIdx删除的记录数
+	// [2] 表示根据floorIdx删除的记录数, [3] 表示根据commentIdx删除的记录数
+	private static int[] updated = new int[4];
 	
 	// 初始化 [初始化CommentEntry.blogGetFrequency]
 	static {
@@ -96,6 +107,40 @@ public class CommentManager {
 		return null;
 	}
 	
+	// 删除给定的blog的评论
+	public static void delete(Blog blog) {
+		if(cachedCommentsBlogId.contains(blog.getId()) ) {
+			synchronized (updateCacheLock) {
+				if(cachedCommentsBlogId.contains(blog.getId()) ) {
+					Iterator<CommentEntry> it = cachedComments.iterator();
+					while(it.hasNext()) {
+						CommentEntry blogComments = it.next();
+						Integer curBlogId = getBlogIdByCommentsEntry(blogComments);
+						if(curBlogId.equals(blog.getId()) ) {
+							cachedComments.remove(blogComments);
+							cachedCommentsBlogId.remove(blog.getId());
+							break ;
+						}
+					}
+				}
+			}
+		}
+		
+		if(addBlogsId.containsKey(blog.getId()) ) {
+			synchronized (updateAddBlogsCommentLock) {
+				if(addBlogsId.containsKey(blog.getId()) ) {
+					addBlogsComments.remove(addBlogsId.get(blog.getId()) );
+					addBlogsId.remove(blog.getId() );
+				}
+			}
+		}
+		
+		synchronized (deleteCommentsLock) {
+			deleteCommentsByBlogIdx.add(blog.getId() );
+		}
+		
+	}
+	
 	// 更新当前评论内容的commentIdx
 	// 分为在addBlogsComments, cachedComments, 数据库中获取
 	// 然后 更新当前comment的commentIdx
@@ -135,9 +180,9 @@ public class CommentManager {
 		updateFloorIdx0(blogComments, comment, false);
 	}
 	
-	// 获取更新的comment的个数
+	// 获取更新的comment的个数 加上删除的blog的个数
 	public static int getUpdated() {
-		return addComments.size();
+		return addComments.size() + deleteCommentsByBlogIdx.size();
 	}
 	
 	// 刷新更新的数据到数据库
@@ -155,12 +200,24 @@ public class CommentManager {
 				addBlogsComments.clear();
 				addBlogsId.clear();
 			}
+			List<Integer> deleteCommentsByBlogIdxTmp = new ArrayList<>();
+			Map<Integer, List<Integer>> deleteCommentsByFloorIdxTmp = new HashMap<>();
+			Map<Integer, List<Integer>> deleteCommentsByCommentIdxTmp = new HashMap<>();
+			synchronized (deleteCommentsLock) {
+				deleteCommentsByBlogIdxTmp.addAll(deleteCommentsByBlogIdx);
+				deleteCommentsByFloorIdxTmp.putAll(deleteCommentsByFloorIdx);
+				deleteCommentsByCommentIdxTmp.putAll(deleteCommentsByCommentIdx);
+				deleteCommentsByBlogIdx.clear();
+				deleteCommentsByFloorIdx.clear();
+				deleteCommentsByCommentIdx.clear();
+			}
 			
 			synchronized (dbLock) {
 				Connection con = null;
 				try {
 					con = Tools.getConnection(Tools.getProjectPath());			
 					flushAddedRecords(con, addedCommentTmp);
+					flushDeletedRecords(con, deleteCommentsByBlogIdxTmp, deleteCommentsByFloorIdxTmp, deleteCommentsByCommentIdxTmp);
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
@@ -178,7 +235,6 @@ public class CommentManager {
 		}		
 	}
 
-	
 	// 清理(blogId -> visitFrequency), 由ContextListener定期清理
 	public static void clearFrequencyMap() {
 		blogGetFrequency.clear();
@@ -333,20 +389,69 @@ public class CommentManager {
 	
 	// 刷新更新的评论到数据库
 	private static void flushAddedRecords(Connection con, List<Comment> addComments) throws Exception {
-		int updatedRows = 0;
+		updated[Constants.addCommentCnt] = 0;
 		if((addComments != null) && (addComments.size() > 0) ) {		
 			String addSelectedSql = Tools.getAddSelectedCommentsSql(addComments);
 			Tools.log(BlogManager.class, addSelectedSql);
 			PreparedStatement delBlogPs = con.prepareStatement(addSelectedSql);
-			updatedRows = delBlogPs.executeUpdate();
+			updated[Constants.addCommentCnt] += delBlogPs.executeUpdate();
 		}
 		
-		Tools.log(BlogListAction.class, "added " + updatedRows + " commentRecords to db !");
+		Tools.log(BlogListAction.class, "added " + updated[Constants.addCommentCnt] + " commentRecords to db !");
 	}
 	
-	// 获取刷新数据到数据库的相关信息
+	// 根据对应的blogIdx, 或者floorIdx, commentIdx 删除对应的comment
+	private static void flushDeletedRecords(Connection con, List<Integer> deleteCommentsByBlogIdxTmp, Map<Integer, List<Integer>> deleteCommentsByFloorIdxTmp, Map<Integer, List<Integer>> deleteCommentsByCommentIdxTmp) throws Exception {
+		updated[Constants.deleteCommentByBlogIdxCnt] = 0;
+		updated[Constants.deleteCommentByFloorIdxCnt] = 0;
+		updated[Constants.deleteCommentByCommentIdxCnt] = 0;
+		if((deleteCommentsByBlogIdxTmp != null) && (deleteCommentsByBlogIdxTmp.size() > 0) ) {
+			for(Integer blogIdx : deleteCommentsByBlogIdxTmp) {
+				String deleteSelectedSql = Tools.getDeleteCommentByBlogIdxSql(blogIdx);
+				Tools.log(CommentManager.class, deleteSelectedSql);
+				PreparedStatement delCommentPs = con.prepareStatement(deleteSelectedSql);
+				updated[Constants.deleteCommentByBlogIdxCnt] += delCommentPs.executeUpdate();
+			}
+		}
+		
+		if((deleteCommentsByFloorIdxTmp != null) && (deleteCommentsByFloorIdxTmp.size() > 0) ) {
+			String deleteSelectedSql = null;
+			PreparedStatement delTagsPs = null;
+			for(Entry<Integer, List<Integer>> entry : deleteCommentsByFloorIdxTmp.entrySet()) {
+				if(entry.getValue().size() > 0) {
+					deleteSelectedSql = Tools.getDeleteCommentByFloorIdxSql(entry.getKey(), entry.getValue());
+					Tools.log(BlogManager.class, deleteSelectedSql);
+					delTagsPs = con.prepareStatement(deleteSelectedSql);
+					updated[Constants.deleteCommentByFloorIdxCnt] += delTagsPs.executeUpdate();
+				}
+			}
+		}
+
+		if((deleteCommentsByCommentIdxTmp != null) && (deleteCommentsByCommentIdxTmp.size() > 0) ) {
+			String deleteSelectedSql = null;
+			PreparedStatement delTagsPs = null;
+			for(Entry<Integer, List<Integer>> entry : deleteCommentsByCommentIdxTmp.entrySet()) {
+				if(entry.getValue().size() > 0) {
+					deleteSelectedSql = Tools.getDeleteCommentByFloorIdxSql(entry.getKey(), entry.getValue());
+					Tools.log(BlogManager.class, deleteSelectedSql);
+					delTagsPs = con.prepareStatement(deleteSelectedSql);
+					updated[Constants.deleteCommentByCommentIdxCnt] += delTagsPs.executeUpdate();
+				}
+			}
+		}
+		
+		Tools.log(BlogListAction.class, "delete byBlogIdx " + updated[Constants.deleteCommentByBlogIdxCnt] + " commentRecoreds , delete byFloorIdx " + updated[Constants.deleteCommentByFloorIdxCnt] + " commentRecoreds, delete byCommentIdx " + updated[Constants.deleteCommentByCommentIdxCnt] + " commentRecoreds" );
+	}
+	
+	// 获取更新的记录信息 [日志]
 	private static String getFlushInfo() {
-		return "flush comments success !";
+		StringBuilder sb = new StringBuilder();
+		sb.append("addComment : ");	sb.append(updated[Constants.addCommentCnt] );
+		sb.append(", deleteCommentByBlogIdx : ");	sb.append(updated[Constants.deleteCommentByBlogIdxCnt] );
+		sb.append(", deleteCommentByFloorIdx : ");	sb.append(updated[Constants.deleteCommentByFloorIdxCnt] );
+		sb.append(", deleteCommentByCommentIdx : ");	sb.append(updated[Constants.deleteCommentByCommentIdxCnt] );
+		
+		return sb.toString();
 	}
 	
 	// 根据已有的播客评论列表, 更新当前comment的commentIdx
@@ -410,6 +515,6 @@ public class CommentManager {
 				}
 			}
 		}
-	}		
+	}	
 	
 }

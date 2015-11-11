@@ -45,7 +45,7 @@ public class BlogPublishAction extends HttpServlet {
 							Blog newBlog = new Blog(BlogManager.nextBlogId(), title, blogName, tags, createTime, new AtomicInteger(0), new AtomicInteger(0), 0);
 							Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), blogName) );
 							BlogManager.publishBlog(newBlog);
-							respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
+							respMsg = new ResponseMsg(Constants.respSucc, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
 						}
 					}
 				}

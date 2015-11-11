@@ -1,5 +1,5 @@
 
-<div id="index" ng-controller="tagListCtrl" >
+<div id="index" ng-controller="blogListCtrl" >
   <div id="tag-panel">
       <div id="current-tag" class="btn btn-info"><a href="{{currentTag.href}}">{{currentTag.text}}</a></div>
       <button id="extend-btn" class="btn pull-right" ng-click="showTagPanel = !showTagPanel" >
@@ -14,7 +14,7 @@
   </ul>
   
   <table id="index-list" class="table table-hover">
-    <tr class="index-item-row" ng-repeat="item in blogList">
+    <tr class="index-item-row" ng-repeat="item in blogList" >
       <td class="post-title"><a href="#!/post/{{item.id}}{{tagSep}}{{currentTag.text}}">{{item.title}}</a></td>
       <td class="post-date">{{item.date}}</td>
       <td class="post-tags">
@@ -27,5 +27,8 @@
     </tr>
   </table>
 
-
+  <div id="pageBtn" >
+  	
+  </div>
+  
 </div>

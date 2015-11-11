@@ -2,19 +2,19 @@
 
 
 /**
- * @fileOverview è®©å†…éƒ¨å„ä¸ªéƒ¨ä»¶çš„ä»£ç å¯ä»¥ç”¨[amd](https://github.com/amdjs/amdjs-api/wiki/AMD)æ¨¡å—å®šä¹‰æ–¹å¼ç»„ç»‡èµ·æ¥ã€‚
+ * @fileOverview ÈÃÄÚ²¿¸÷¸ö²¿¼şµÄ´úÂë¿ÉÒÔÓÃ[amd](https://github.com/amdjs/amdjs-api/wiki/AMD)Ä£¿é¶¨Òå·½Ê½×éÖ¯ÆğÀ´¡£
  *
- * AMD API å†…éƒ¨çš„ç®€å•ä¸å®Œå…¨å®ç°ï¼Œè¯·å¿½ç•¥ã€‚åªæœ‰å½“WebUploaderè¢«åˆå¹¶æˆä¸€ä¸ªæ–‡ä»¶çš„æ—¶å€™æ‰ä¼šå¼•å…¥ã€‚
+ * AMD API ÄÚ²¿µÄ¼òµ¥²»ÍêÈ«ÊµÏÖ£¬ÇëºöÂÔ¡£Ö»ÓĞµ±WebUploader±»ºÏ²¢³ÉÒ»¸öÎÄ¼şµÄÊ±ºò²Å»áÒıÈë¡£
  */
 (function( root, factory ) {
     var modules = {},
 
-        // å†…éƒ¨require, ç®€å•ä¸å®Œå…¨å®ç°ã€‚
+        // ÄÚ²¿require, ¼òµ¥²»ÍêÈ«ÊµÏÖ¡£
         // https://github.com/amdjs/amdjs-api/wiki/require
         _require = function( deps, callback ) {
             var args, len, i;
 
-            // å¦‚æœdepsä¸æ˜¯æ•°ç»„ï¼Œåˆ™ç›´æ¥è¿”å›æŒ‡å®šmodule
+            // Èç¹ûdeps²»ÊÇÊı×é£¬ÔòÖ±½Ó·µ»ØÖ¸¶¨module
             if ( typeof deps === 'string' ) {
                 return getModule( deps );
             } else {
@@ -27,7 +27,7 @@
             }
         },
 
-        // å†…éƒ¨defineï¼Œæš‚æ—¶ä¸æ”¯æŒä¸æŒ‡å®šid.
+        // ÄÚ²¿define£¬ÔİÊ±²»Ö§³Ö²»Ö¸¶¨id.
         _define = function( id, deps, factory ) {
             if ( arguments.length === 2 ) {
                 factory = deps;
@@ -39,7 +39,7 @@
             });
         },
 
-        // è®¾ç½®module, å…¼å®¹CommonJså†™æ³•ã€‚
+        // ÉèÖÃmodule, ¼æÈİCommonJsĞ´·¨¡£
         setModule = function( id, factory, args ) {
             var module = {
                     exports: factory
@@ -55,7 +55,7 @@
             modules[ id ] = module.exports;
         },
 
-        // æ ¹æ®idè·å–module
+        // ¸ù¾İid»ñÈ¡module
         getModule = function( id ) {
             var module = modules[ id ] || root[ id ];
 
@@ -66,7 +66,7 @@
             return module;
         },
 
-        // å°†æ‰€æœ‰modulesï¼Œå°†è·¯å¾„idsè£…æ¢æˆå¯¹è±¡ã€‚
+        // ½«ËùÓĞmodules£¬½«Â·¾¶ids×°»»³É¶ÔÏó¡£
         exportsTo = function( obj ) {
             var key, host, parts, part, last, ucFirst;
 
@@ -131,7 +131,7 @@
         return window.jQuery || window.Zepto;
     });
     /**
-     * @fileOverview Dom æ“ä½œç›¸å…³
+     * @fileOverview Dom ²Ù×÷Ïà¹Ø
      */
     define('dollar',[
         'dollar-third'
@@ -139,7 +139,7 @@
         return _;
     });
     /**
-     * @fileOverview ä½¿ç”¨jQueryçš„Promise
+     * @fileOverview Ê¹ÓÃjQueryµÄPromise
      */
     define('promise-third',[
         'dollar'
@@ -162,24 +162,24 @@
         return _;
     });
     /**
-     * @fileOverview åŸºç¡€ç±»æ–¹æ³•ã€‚
+     * @fileOverview »ù´¡Àà·½·¨¡£
      */
     
     /**
-     * Web Uploaderå†…éƒ¨ç±»çš„è¯¦ç»†è¯´æ˜ï¼Œä»¥ä¸‹æåŠçš„åŠŸèƒ½ç±»ï¼Œéƒ½å¯ä»¥åœ¨`WebUploader`è¿™ä¸ªå˜é‡ä¸­è®¿é—®åˆ°ã€‚
+     * Web UploaderÄÚ²¿ÀàµÄÏêÏ¸ËµÃ÷£¬ÒÔÏÂÌá¼°µÄ¹¦ÄÜÀà£¬¶¼¿ÉÒÔÔÚ`WebUploader`Õâ¸ö±äÁ¿ÖĞ·ÃÎÊµ½¡£
      *
-     * As you know, Web Uploaderçš„æ¯ä¸ªæ–‡ä»¶éƒ½æ˜¯ç”¨è¿‡[AMD](https://github.com/amdjs/amdjs-api/wiki/AMD)è§„èŒƒä¸­çš„`define`ç»„ç»‡èµ·æ¥çš„, æ¯ä¸ªModuleéƒ½ä¼šæœ‰ä¸ªmodule id.
-     * é»˜è®¤module idè¯¥æ–‡ä»¶çš„è·¯å¾„ï¼Œè€Œæ­¤è·¯å¾„å°†ä¼šè½¬åŒ–æˆåå­—ç©ºé—´å­˜æ”¾åœ¨WebUploaderä¸­ã€‚å¦‚ï¼š
+     * As you know, Web UploaderµÄÃ¿¸öÎÄ¼ş¶¼ÊÇÓÃ¹ı[AMD](https://github.com/amdjs/amdjs-api/wiki/AMD)¹æ·¶ÖĞµÄ`define`×éÖ¯ÆğÀ´µÄ, Ã¿¸öModule¶¼»áÓĞ¸ömodule id.
+     * Ä¬ÈÏmodule id¸ÃÎÄ¼şµÄÂ·¾¶£¬¶ø´ËÂ·¾¶½«»á×ª»¯³ÉÃû×Ö¿Õ¼ä´æ·ÅÔÚWebUploaderÖĞ¡£Èç£º
      *
-     * * module `base`ï¼šWebUploader.Base
+     * * module `base`£ºWebUploader.Base
      * * module `file`: WebUploader.File
      * * module `lib/dnd`: WebUploader.Lib.Dnd
      * * module `runtime/html5/dnd`: WebUploader.Runtime.Html5.Dnd
      *
      *
-     * ä»¥ä¸‹æ–‡æ¡£å°†å¯èƒ½çœç•¥`WebUploader`å‰ç¼€ã€‚
+     * ÒÔÏÂÎÄµµ½«¿ÉÄÜÊ¡ÂÔ`WebUploader`Ç°×º¡£
      * @module WebUploader
-     * @title WebUploader APIæ–‡æ¡£
+     * @title WebUploader APIÎÄµµ
      */
     define('base',[
         'dollar',
@@ -190,7 +190,7 @@
             call = Function.call;
     
         // http://jsperf.com/uncurrythis
-        // åç§‘é‡ŒåŒ–
+        // ·´¿ÆÀï»¯
         function uncurryThis( fn ) {
             return function() {
                 return call.apply( fn, arguments );
@@ -217,18 +217,18 @@
     
     
         /**
-         * åŸºç¡€ç±»ï¼Œæä¾›ä¸€äº›ç®€å•å¸¸ç”¨çš„æ–¹æ³•ã€‚
+         * »ù´¡Àà£¬Ìá¹©Ò»Ğ©¼òµ¥³£ÓÃµÄ·½·¨¡£
          * @class Base
          */
         return {
     
             /**
-             * @property {String} version å½“å‰ç‰ˆæœ¬å·ã€‚
+             * @property {String} version µ±Ç°°æ±¾ºÅ¡£
              */
             version: '0.1.2',
     
             /**
-             * @property {jQuery|Zepto} $ å¼•ç”¨ä¾èµ–çš„jQueryæˆ–è€…Zeptoå¯¹è±¡ã€‚
+             * @property {jQuery|Zepto} $ ÒıÓÃÒÀÀµµÄjQuery»òÕßZepto¶ÔÏó¡£
              */
             $: $,
     
@@ -239,14 +239,14 @@
             when: promise.when,
     
             /**
-             * @description  ç®€å•çš„æµè§ˆå™¨æ£€æŸ¥ç»“æœã€‚
+             * @description  ¼òµ¥µÄä¯ÀÀÆ÷¼ì²é½á¹û¡£
              *
-             * * `webkit`  webkitç‰ˆæœ¬å·ï¼Œå¦‚æœæµè§ˆå™¨ä¸ºéwebkitå†…æ ¸ï¼Œæ­¤å±æ€§ä¸º`undefined`ã€‚
-             * * `chrome`  chromeæµè§ˆå™¨ç‰ˆæœ¬å·ï¼Œå¦‚æœæµè§ˆå™¨ä¸ºchromeï¼Œæ­¤å±æ€§ä¸º`undefined`ã€‚
-             * * `ie`  ieæµè§ˆå™¨ç‰ˆæœ¬å·ï¼Œå¦‚æœæµè§ˆå™¨ä¸ºéieï¼Œæ­¤å±æ€§ä¸º`undefined`ã€‚**æš‚ä¸æ”¯æŒie10+**
-             * * `firefox`  firefoxæµè§ˆå™¨ç‰ˆæœ¬å·ï¼Œå¦‚æœæµè§ˆå™¨ä¸ºéfirefoxï¼Œæ­¤å±æ€§ä¸º`undefined`ã€‚
-             * * `safari`  safariæµè§ˆå™¨ç‰ˆæœ¬å·ï¼Œå¦‚æœæµè§ˆå™¨ä¸ºésafariï¼Œæ­¤å±æ€§ä¸º`undefined`ã€‚
-             * * `opera`  operaæµè§ˆå™¨ç‰ˆæœ¬å·ï¼Œå¦‚æœæµè§ˆå™¨ä¸ºéoperaï¼Œæ­¤å±æ€§ä¸º`undefined`ã€‚
+             * * `webkit`  webkit°æ±¾ºÅ£¬Èç¹ûä¯ÀÀÆ÷Îª·ÇwebkitÄÚºË£¬´ËÊôĞÔÎª`undefined`¡£
+             * * `chrome`  chromeä¯ÀÀÆ÷°æ±¾ºÅ£¬Èç¹ûä¯ÀÀÆ÷Îªchrome£¬´ËÊôĞÔÎª`undefined`¡£
+             * * `ie`  ieä¯ÀÀÆ÷°æ±¾ºÅ£¬Èç¹ûä¯ÀÀÆ÷Îª·Çie£¬´ËÊôĞÔÎª`undefined`¡£**Ôİ²»Ö§³Öie10+**
+             * * `firefox`  firefoxä¯ÀÀÆ÷°æ±¾ºÅ£¬Èç¹ûä¯ÀÀÆ÷Îª·Çfirefox£¬´ËÊôĞÔÎª`undefined`¡£
+             * * `safari`  safariä¯ÀÀÆ÷°æ±¾ºÅ£¬Èç¹ûä¯ÀÀÆ÷Îª·Çsafari£¬´ËÊôĞÔÎª`undefined`¡£
+             * * `opera`  operaä¯ÀÀÆ÷°æ±¾ºÅ£¬Èç¹ûä¯ÀÀÆ÷Îª·Çopera£¬´ËÊôĞÔÎª`undefined`¡£
              *
              * @property {Object} [browser]
              */
@@ -273,10 +273,10 @@
             })( navigator.userAgent ),
     
             /**
-             * @description  æ“ä½œç³»ç»Ÿæ£€æŸ¥ç»“æœã€‚
+             * @description  ²Ù×÷ÏµÍ³¼ì²é½á¹û¡£
              *
-             * * `android`  å¦‚æœåœ¨androidæµè§ˆå™¨ç¯å¢ƒä¸‹ï¼Œæ­¤å€¼ä¸ºå¯¹åº”çš„androidç‰ˆæœ¬å·ï¼Œå¦åˆ™ä¸º`undefined`ã€‚
-             * * `ios` å¦‚æœåœ¨iosæµè§ˆå™¨ç¯å¢ƒä¸‹ï¼Œæ­¤å€¼ä¸ºå¯¹åº”çš„iosç‰ˆæœ¬å·ï¼Œå¦åˆ™ä¸º`undefined`ã€‚
+             * * `android`  Èç¹ûÔÚandroidä¯ÀÀÆ÷»·¾³ÏÂ£¬´ËÖµÎª¶ÔÓ¦µÄandroid°æ±¾ºÅ£¬·ñÔòÎª`undefined`¡£
+             * * `ios` Èç¹ûÔÚiosä¯ÀÀÆ÷»·¾³ÏÂ£¬´ËÖµÎª¶ÔÓ¦µÄios°æ±¾ºÅ£¬·ñÔòÎª`undefined`¡£
              * @property {Object} [os]
              */
             os: (function( ua ) {
@@ -294,16 +294,16 @@
             })( navigator.userAgent ),
     
             /**
-             * å®ç°ç±»ä¸ç±»ä¹‹é—´çš„ç»§æ‰¿ã€‚
+             * ÊµÏÖÀàÓëÀàÖ®¼äµÄ¼Ì³Ğ¡£
              * @method inherits
              * @grammar Base.inherits( super ) => child
              * @grammar Base.inherits( super, protos ) => child
              * @grammar Base.inherits( super, protos, statics ) => child
-             * @param  {Class} super çˆ¶ç±»
-             * @param  {Object | Function} [protos] å­ç±»æˆ–è€…å¯¹è±¡ã€‚å¦‚æœå¯¹è±¡ä¸­åŒ…å«constructorï¼Œå­ç±»å°†æ˜¯ç”¨æ­¤å±æ€§å€¼ã€‚
-             * @param  {Function} [protos.constructor] å­ç±»æ„é€ å™¨ï¼Œä¸æŒ‡å®šçš„è¯å°†åˆ›å»ºä¸ªä¸´æ—¶çš„ç›´æ¥æ‰§è¡Œçˆ¶ç±»æ„é€ å™¨çš„æ–¹æ³•ã€‚
-             * @param  {Object} [statics] é™æ€å±æ€§æˆ–æ–¹æ³•ã€‚
-             * @return {Class} è¿”å›å­ç±»ã€‚
+             * @param  {Class} super ¸¸Àà
+             * @param  {Object | Function} [protos] ×ÓÀà»òÕß¶ÔÏó¡£Èç¹û¶ÔÏóÖĞ°üº¬constructor£¬×ÓÀà½«ÊÇÓÃ´ËÊôĞÔÖµ¡£
+             * @param  {Function} [protos.constructor] ×ÓÀà¹¹ÔìÆ÷£¬²»Ö¸¶¨µÄ»°½«´´½¨¸öÁÙÊ±µÄÖ±½ÓÖ´ĞĞ¸¸Àà¹¹ÔìÆ÷µÄ·½·¨¡£
+             * @param  {Object} [statics] ¾²Ì¬ÊôĞÔ»ò·½·¨¡£
+             * @return {Class} ·µ»Ø×ÓÀà¡£
              * @example
              * function Person() {
              *     console.log( 'Super' );
@@ -318,14 +318,14 @@
              *     }
              * });
              *
-             * // å› ä¸ºæ²¡æœ‰æŒ‡å®šæ„é€ å™¨ï¼Œçˆ¶ç±»çš„æ„é€ å™¨å°†ä¼šæ‰§è¡Œã€‚
+             * // ÒòÎªÃ»ÓĞÖ¸¶¨¹¹ÔìÆ÷£¬¸¸ÀàµÄ¹¹ÔìÆ÷½«»áÖ´ĞĞ¡£
              * var instance = new Manager();    // => Super
              *
-             * // ç»§æ‰¿å­çˆ¶ç±»çš„æ–¹æ³•
+             * // ¼Ì³Ğ×Ó¸¸ÀàµÄ·½·¨
              * instance.hello();    // => hello
              * instance.world();    // => World
              *
-             * // å­ç±»çš„__super__å±æ€§æŒ‡å‘çˆ¶ç±»
+             * // ×ÓÀàµÄ__super__ÊôĞÔÖ¸Ïò¸¸Àà
              * console.log( Manager.__super__ === Person );    // => true
              */
             inherits: function( Super, protos, staticProtos ) {
@@ -342,16 +342,16 @@
                     };
                 }
     
-                // å¤åˆ¶é™æ€æ–¹æ³•
+                // ¸´ÖÆ¾²Ì¬·½·¨
                 $.extend( true, child, Super, staticProtos || {} );
     
                 /* jshint camelcase: false */
     
-                // è®©å­ç±»çš„__super__å±æ€§æŒ‡å‘çˆ¶ç±»ã€‚
+                // ÈÃ×ÓÀàµÄ__super__ÊôĞÔÖ¸Ïò¸¸Àà¡£
                 child.__super__ = Super.prototype;
     
-                // æ„å»ºåŸå‹ï¼Œæ·»åŠ åŸå‹æ–¹æ³•æˆ–å±æ€§ã€‚
-                // æš‚æ—¶ç”¨Object.createå®ç°ã€‚
+                // ¹¹½¨Ô­ĞÍ£¬Ìí¼ÓÔ­ĞÍ·½·¨»òÊôĞÔ¡£
+                // ÔİÊ±ÓÃObject.createÊµÏÖ¡£
                 child.prototype = createObject( Super.prototype );
                 protos && $.extend( true, child.prototype, protos );
     
@@ -359,13 +359,13 @@
             },
     
             /**
-             * ä¸€ä¸ªä¸åšä»»ä½•äº‹æƒ…çš„æ–¹æ³•ã€‚å¯ä»¥ç”¨æ¥èµ‹å€¼ç»™é»˜è®¤çš„callback.
+             * Ò»¸ö²»×öÈÎºÎÊÂÇéµÄ·½·¨¡£¿ÉÒÔÓÃÀ´¸³Öµ¸øÄ¬ÈÏµÄcallback.
              * @method noop
              */
             noop: noop,
     
             /**
-             * è¿”å›ä¸€ä¸ªæ–°çš„æ–¹æ³•ï¼Œæ­¤æ–¹æ³•å°†å·²æŒ‡å®šçš„`context`æ¥æ‰§è¡Œã€‚
+             * ·µ»ØÒ»¸öĞÂµÄ·½·¨£¬´Ë·½·¨½«ÒÑÖ¸¶¨µÄ`context`À´Ö´ĞĞ¡£
              * @grammar Base.bindFn( fn, context ) => Function
              * @method bindFn
              * @example
@@ -383,7 +383,7 @@
             bindFn: bindFn,
     
             /**
-             * å¼•ç”¨Console.logå¦‚æœå­˜åœ¨çš„è¯ï¼Œå¦åˆ™å¼•ç”¨ä¸€ä¸ª[ç©ºå‡½æ•°loop](#WebUploader:Base.log)ã€‚
+             * ÒıÓÃConsole.logÈç¹û´æÔÚµÄ»°£¬·ñÔòÒıÓÃÒ»¸ö[¿Õº¯Êıloop](#WebUploader:Base.log)¡£
              * @grammar Base.log( args... ) => undefined
              * @method log
              */
@@ -400,7 +400,7 @@
                     setTimeout( cb, 1 );
                 };
     
-                // @bug å½“æµè§ˆå™¨ä¸åœ¨å½“å‰çª—å£æ—¶å°±åœäº†ã€‚
+                // @bug µ±ä¯ÀÀÆ÷²»ÔÚµ±Ç°´°¿ÚÊ±¾ÍÍ£ÁË¡£
                 // var next = window.requestAnimationFrame ||
                 //     window.webkitRequestAnimationFrame ||
                 //     window.mozRequestAnimationFrame ||
@@ -413,8 +413,8 @@
             })(),
     
             /**
-             * è¢«[uncurrythis](http://www.2ality.com/2011/11/uncurrying-this.html)çš„æ•°ç»„sliceæ–¹æ³•ã€‚
-             * å°†ç”¨æ¥å°†éæ•°ç»„å¯¹è±¡è½¬åŒ–æˆæ•°ç»„å¯¹è±¡ã€‚
+             * ±»[uncurrythis](http://www.2ality.com/2011/11/uncurrying-this.html)µÄÊı×éslice·½·¨¡£
+             * ½«ÓÃÀ´½«·ÇÊı×é¶ÔÏó×ª»¯³ÉÊı×é¶ÔÏó¡£
              * @grammar Base.slice( target, start[, end] ) => Array
              * @method slice
              * @example
@@ -428,7 +428,7 @@
             slice: uncurryThis( [].slice ),
     
             /**
-             * ç”Ÿæˆå”¯ä¸€çš„ID
+             * Éú³ÉÎ¨Ò»µÄID
              * @method guid
              * @grammar Base.guid() => String
              * @grammar Base.guid( prefx ) => String
@@ -449,14 +449,14 @@
             })(),
     
             /**
-             * æ ¼å¼åŒ–æ–‡ä»¶å¤§å°, è¾“å‡ºæˆå¸¦å•ä½çš„å­—ç¬¦ä¸²
+             * ¸ñÊ½»¯ÎÄ¼ş´óĞ¡, Êä³ö³É´øµ¥Î»µÄ×Ö·û´®
              * @method formatSize
              * @grammar Base.formatSize( size ) => String
              * @grammar Base.formatSize( size, pointLength ) => String
              * @grammar Base.formatSize( size, pointLength, units ) => String
-             * @param {Number} size æ–‡ä»¶å¤§å°
-             * @param {Number} [pointLength=2] ç²¾ç¡®åˆ°çš„å°æ•°ç‚¹æ•°ã€‚
-             * @param {Array} [units=[ 'B', 'K', 'M', 'G', 'TB' ]] å•ä½æ•°ç»„ã€‚ä»å­—èŠ‚ï¼Œåˆ°åƒå­—èŠ‚ï¼Œä¸€ç›´å¾€ä¸ŠæŒ‡å®šã€‚å¦‚æœå•ä½æ•°ç»„é‡Œé¢åªæŒ‡å®šäº†åˆ°äº†K(åƒå­—èŠ‚)ï¼ŒåŒæ—¶æ–‡ä»¶å¤§å°å¤§äºM, æ­¤æ–¹æ³•çš„è¾“å‡ºå°†è¿˜æ˜¯æ˜¾ç¤ºæˆå¤šå°‘K.
+             * @param {Number} size ÎÄ¼ş´óĞ¡
+             * @param {Number} [pointLength=2] ¾«È·µ½µÄĞ¡ÊıµãÊı¡£
+             * @param {Array} [units=[ 'B', 'K', 'M', 'G', 'TB' ]] µ¥Î»Êı×é¡£´Ó×Ö½Ú£¬µ½Ç§×Ö½Ú£¬Ò»Ö±ÍùÉÏÖ¸¶¨¡£Èç¹ûµ¥Î»Êı×éÀïÃæÖ»Ö¸¶¨ÁËµ½ÁËK(Ç§×Ö½Ú)£¬Í¬Ê±ÎÄ¼ş´óĞ¡´óÓÚM, ´Ë·½·¨µÄÊä³ö½«»¹ÊÇÏÔÊ¾³É¶àÉÙK.
              * @example
              * console.log( Base.formatSize( 100 ) );    // => 100B
              * console.log( Base.formatSize( 1024 ) );    // => 1.00K
@@ -480,7 +480,7 @@
         };
     });
     /**
-     * äº‹ä»¶å¤„ç†ç±»ï¼Œå¯ä»¥ç‹¬ç«‹ä½¿ç”¨ï¼Œä¹Ÿå¯ä»¥æ‰©å±•ç»™å¯¹è±¡ä½¿ç”¨ã€‚
+     * ÊÂ¼ş´¦ÀíÀà£¬¿ÉÒÔ¶ÀÁ¢Ê¹ÓÃ£¬Ò²¿ÉÒÔÀ©Õ¹¸ø¶ÔÏóÊ¹ÓÃ¡£
      * @fileOverview Mediator
      */
     define('mediator',[
@@ -491,7 +491,7 @@
             separator = /\s+/,
             protos;
     
-        // æ ¹æ®æ¡ä»¶è¿‡æ»¤å‡ºäº‹ä»¶handlers.
+        // ¸ù¾İÌõ¼ş¹ıÂË³öÊÂ¼şhandlers.
         function findHandlers( arr, name, callback, context ) {
             return $.grep( arr, function( handler ) {
                 return handler &&
@@ -503,7 +503,7 @@
         }
     
         function eachEvent( events, callback, iterator ) {
-            // ä¸æ”¯æŒå¯¹è±¡ï¼Œåªæ”¯æŒå¤šä¸ªeventç”¨ç©ºæ ¼éš”å¼€
+            // ²»Ö§³Ö¶ÔÏó£¬Ö»Ö§³Ö¶à¸öeventÓÃ¿Õ¸ñ¸ô¿ª
             $.each( (events || '').split( separator ), function( _, key ) {
                 iterator( key, callback );
             });
@@ -530,13 +530,13 @@
         protos = {
     
             /**
-             * ç»‘å®šäº‹ä»¶ã€‚
+             * °ó¶¨ÊÂ¼ş¡£
              *
-             * `callback`æ–¹æ³•åœ¨æ‰§è¡Œæ—¶ï¼Œargumentså°†ä¼šæ¥æºäºtriggerçš„æ—¶å€™æºå¸¦çš„å‚æ•°ã€‚å¦‚
+             * `callback`·½·¨ÔÚÖ´ĞĞÊ±£¬arguments½«»áÀ´Ô´ÓÚtriggerµÄÊ±ºòĞ¯´øµÄ²ÎÊı¡£Èç
              * ```javascript
              * var obj = {};
              *
-             * // ä½¿å¾—objæœ‰äº‹ä»¶è¡Œä¸º
+             * // Ê¹µÃobjÓĞÊÂ¼şĞĞÎª
              * Mediator.installTo( obj );
              *
              * obj.on( 'testa', function( arg1, arg2 ) {
@@ -546,11 +546,11 @@
              * obj.trigger( 'testa', 'arg1', 'arg2' );
              * ```
              *
-             * å¦‚æœ`callback`ä¸­ï¼ŒæŸä¸€ä¸ªæ–¹æ³•`return false`äº†ï¼Œåˆ™åç»­çš„å…¶ä»–`callback`éƒ½ä¸ä¼šè¢«æ‰§è¡Œåˆ°ã€‚
-             * åˆ‡ä¼šå½±å“åˆ°`trigger`æ–¹æ³•çš„è¿”å›å€¼ï¼Œä¸º`false`ã€‚
+             * Èç¹û`callback`ÖĞ£¬Ä³Ò»¸ö·½·¨`return false`ÁË£¬ÔòºóĞøµÄÆäËû`callback`¶¼²»»á±»Ö´ĞĞµ½¡£
+             * ÇĞ»áÓ°Ïìµ½`trigger`·½·¨µÄ·µ»ØÖµ£¬Îª`false`¡£
              *
-             * `on`è¿˜å¯ä»¥ç”¨æ¥æ·»åŠ ä¸€ä¸ªç‰¹æ®Šäº‹ä»¶`all`, è¿™æ ·æ‰€æœ‰çš„äº‹ä»¶è§¦å‘éƒ½ä¼šå“åº”åˆ°ã€‚åŒæ—¶æ­¤ç±»`callback`ä¸­çš„argumentsæœ‰ä¸€ä¸ªä¸åŒå¤„ï¼Œ
-             * å°±æ˜¯ç¬¬ä¸€ä¸ªå‚æ•°ä¸º`type`ï¼Œè®°å½•å½“å‰æ˜¯ä»€ä¹ˆäº‹ä»¶åœ¨è§¦å‘ã€‚æ­¤ç±»`callback`çš„ä¼˜å…ˆçº§æ¯”è„šä½ï¼Œä¼šå†æ­£å¸¸`callback`æ‰§è¡Œå®Œåè§¦å‘ã€‚
+             * `on`»¹¿ÉÒÔÓÃÀ´Ìí¼ÓÒ»¸öÌØÊâÊÂ¼ş`all`, ÕâÑùËùÓĞµÄÊÂ¼ş´¥·¢¶¼»áÏìÓ¦µ½¡£Í¬Ê±´ËÀà`callback`ÖĞµÄargumentsÓĞÒ»¸ö²»Í¬´¦£¬
+             * ¾ÍÊÇµÚÒ»¸ö²ÎÊıÎª`type`£¬¼ÇÂ¼µ±Ç°ÊÇÊ²Ã´ÊÂ¼şÔÚ´¥·¢¡£´ËÀà`callback`µÄÓÅÏÈ¼¶±È½ÅµÍ£¬»áÔÙÕı³£`callback`Ö´ĞĞÍêºó´¥·¢¡£
              * ```javascript
              * obj.on( 'all', function( type, arg1, arg2 ) {
              *     console.log( type, arg1, arg2 ); // => 'testa', 'arg1', 'arg2'
@@ -559,10 +559,10 @@
              *
              * @method on
              * @grammar on( name, callback[, context] ) => self
-             * @param  {String}   name     äº‹ä»¶åï¼Œæ”¯æŒå¤šä¸ªäº‹ä»¶ç”¨ç©ºæ ¼éš”å¼€
-             * @param  {Function} callback äº‹ä»¶å¤„ç†å™¨
-             * @param  {Object}   [context]  äº‹ä»¶å¤„ç†å™¨çš„ä¸Šä¸‹æ–‡ã€‚
-             * @return {self} è¿”å›è‡ªèº«ï¼Œæ–¹ä¾¿é“¾å¼
+             * @param  {String}   name     ÊÂ¼şÃû£¬Ö§³Ö¶à¸öÊÂ¼şÓÃ¿Õ¸ñ¸ô¿ª
+             * @param  {Function} callback ÊÂ¼ş´¦ÀíÆ÷
+             * @param  {Object}   [context]  ÊÂ¼ş´¦ÀíÆ÷µÄÉÏÏÂÎÄ¡£
+             * @return {self} ·µ»Ø×ÔÉí£¬·½±ãÁ´Ê½
              * @chainable
              * @class Mediator
              */
@@ -591,13 +591,13 @@
             },
     
             /**
-             * ç»‘å®šäº‹ä»¶ï¼Œä¸”å½“handleræ‰§è¡Œå®Œåï¼Œè‡ªåŠ¨è§£é™¤ç»‘å®šã€‚
+             * °ó¶¨ÊÂ¼ş£¬ÇÒµ±handlerÖ´ĞĞÍêºó£¬×Ô¶¯½â³ı°ó¶¨¡£
              * @method once
              * @grammar once( name, callback[, context] ) => self
-             * @param  {String}   name     äº‹ä»¶å
-             * @param  {Function} callback äº‹ä»¶å¤„ç†å™¨
-             * @param  {Object}   [context]  äº‹ä»¶å¤„ç†å™¨çš„ä¸Šä¸‹æ–‡ã€‚
-             * @return {self} è¿”å›è‡ªèº«ï¼Œæ–¹ä¾¿é“¾å¼
+             * @param  {String}   name     ÊÂ¼şÃû
+             * @param  {Function} callback ÊÂ¼ş´¦ÀíÆ÷
+             * @param  {Object}   [context]  ÊÂ¼ş´¦ÀíÆ÷µÄÉÏÏÂÎÄ¡£
+             * @return {self} ·µ»Ø×ÔÉí£¬·½±ãÁ´Ê½
              * @chainable
              */
             once: function( name, callback, context ) {
@@ -621,13 +621,13 @@
             },
     
             /**
-             * è§£é™¤äº‹ä»¶ç»‘å®š
+             * ½â³ıÊÂ¼ş°ó¶¨
              * @method off
              * @grammar off( [name[, callback[, context] ] ] ) => self
-             * @param  {String}   [name]     äº‹ä»¶å
-             * @param  {Function} [callback] äº‹ä»¶å¤„ç†å™¨
-             * @param  {Object}   [context]  äº‹ä»¶å¤„ç†å™¨çš„ä¸Šä¸‹æ–‡ã€‚
-             * @return {self} è¿”å›è‡ªèº«ï¼Œæ–¹ä¾¿é“¾å¼
+             * @param  {String}   [name]     ÊÂ¼şÃû
+             * @param  {Function} [callback] ÊÂ¼ş´¦ÀíÆ÷
+             * @param  {Object}   [context]  ÊÂ¼ş´¦ÀíÆ÷µÄÉÏÏÂÎÄ¡£
+             * @return {self} ·µ»Ø×ÔÉí£¬·½±ãÁ´Ê½
              * @chainable
              */
             off: function( name, cb, ctx ) {
@@ -652,12 +652,12 @@
             },
     
             /**
-             * è§¦å‘äº‹ä»¶
+             * ´¥·¢ÊÂ¼ş
              * @method trigger
              * @grammar trigger( name[, args...] ) => self
-             * @param  {String}   type     äº‹ä»¶å
-             * @param  {*} [...] ä»»æ„å‚æ•°
-             * @return {Boolean} å¦‚æœhandlerä¸­return falseäº†ï¼Œåˆ™è¿”å›false, å¦åˆ™è¿”å›true
+             * @param  {String}   type     ÊÂ¼şÃû
+             * @param  {*} [...] ÈÎÒâ²ÎÊı
+             * @return {Boolean} Èç¹ûhandlerÖĞreturn falseÁË£¬Ôò·µ»Øfalse, ·ñÔò·µ»Øtrue
              */
             trigger: function( type ) {
                 var args, events, allEvents;
@@ -676,18 +676,18 @@
         };
     
         /**
-         * ä¸­ä»‹è€…ï¼Œå®ƒæœ¬èº«æ˜¯ä¸ªå•ä¾‹ï¼Œä½†å¯ä»¥é€šè¿‡[installTo](#WebUploader:Mediator:installTo)æ–¹æ³•ï¼Œä½¿ä»»ä½•å¯¹è±¡å…·å¤‡äº‹ä»¶è¡Œä¸ºã€‚
-         * ä¸»è¦ç›®çš„æ˜¯è´Ÿè´£æ¨¡å—ä¸æ¨¡å—ä¹‹é—´çš„åˆä½œï¼Œé™ä½è€¦åˆåº¦ã€‚
+         * ÖĞ½éÕß£¬Ëü±¾ÉíÊÇ¸öµ¥Àı£¬µ«¿ÉÒÔÍ¨¹ı[installTo](#WebUploader:Mediator:installTo)·½·¨£¬Ê¹ÈÎºÎ¶ÔÏó¾ß±¸ÊÂ¼şĞĞÎª¡£
+         * Ö÷ÒªÄ¿µÄÊÇ¸ºÔğÄ£¿éÓëÄ£¿éÖ®¼äµÄºÏ×÷£¬½µµÍñîºÏ¶È¡£
          *
          * @class Mediator
          */
         return $.extend({
     
             /**
-             * å¯ä»¥é€šè¿‡è¿™ä¸ªæ¥å£ï¼Œä½¿ä»»ä½•å¯¹è±¡å…·å¤‡äº‹ä»¶åŠŸèƒ½ã€‚
+             * ¿ÉÒÔÍ¨¹ıÕâ¸ö½Ó¿Ú£¬Ê¹ÈÎºÎ¶ÔÏó¾ß±¸ÊÂ¼ş¹¦ÄÜ¡£
              * @method installTo
-             * @param  {Object} obj éœ€è¦å…·å¤‡äº‹ä»¶è¡Œä¸ºçš„å¯¹è±¡ã€‚
-             * @return {Object} è¿”å›obj.
+             * @param  {Object} obj ĞèÒª¾ß±¸ÊÂ¼şĞĞÎªµÄ¶ÔÏó¡£
+             * @return {Object} ·µ»Øobj.
              */
             installTo: function( obj ) {
                 return $.extend( obj, protos );
@@ -696,7 +696,7 @@
         }, protos );
     });
     /**
-     * @fileOverview Uploaderä¸Šä¼ ç±»
+     * @fileOverview UploaderÉÏ´«Àà
      */
     define('uploader',[
         'base',
@@ -706,7 +706,7 @@
         var $ = Base.$;
     
         /**
-         * ä¸Šä¼ å…¥å£ç±»ã€‚
+         * ÉÏ´«Èë¿ÚÀà¡£
          * @class Uploader
          * @constructor
          * @grammar new Uploader( opts ) => Uploader
@@ -714,7 +714,7 @@
          * var uploader = WebUploader.Uploader({
          *     swf: 'path_of_swf/Uploader.swf',
          *
-         *     // å¼€èµ·åˆ†ç‰‡ä¸Šä¼ ã€‚
+         *     // ¿ªÆğ·ÖÆ¬ÉÏ´«¡£
          *     chunked: true
          * });
          */
@@ -724,11 +724,11 @@
         }
     
         // default Options
-        // widgetsä¸­æœ‰ç›¸åº”æ‰©å±•
+        // widgetsÖĞÓĞÏàÓ¦À©Õ¹
         Uploader.options = {};
         Mediator.installTo( Uploader.prototype );
     
-        // æ‰¹é‡æ·»åŠ çº¯å‘½ä»¤å¼æ–¹æ³•ã€‚
+        // ÅúÁ¿Ìí¼Ó´¿ÃüÁîÊ½·½·¨¡£
         $.each({
             upload: 'start-upload',
             stop: 'stop-upload',
@@ -768,18 +768,18 @@
             },
     
             /**
-             * è·å–æˆ–è€…è®¾ç½®Uploaderé…ç½®é¡¹ã€‚
+             * »ñÈ¡»òÕßÉèÖÃUploaderÅäÖÃÏî¡£
              * @method option
              * @grammar option( key ) => *
              * @grammar option( key, val ) => self
              * @example
              *
-             * // åˆå§‹çŠ¶æ€å›¾ç‰‡ä¸Šä¼ å‰ä¸ä¼šå‹ç¼©
+             * // ³õÊ¼×´Ì¬Í¼Æ¬ÉÏ´«Ç°²»»áÑ¹Ëõ
              * var uploader = new WebUploader.Uploader({
              *     resize: null;
              * });
              *
-             * // ä¿®æ”¹åå›¾ç‰‡ä¸Šä¼ å‰ï¼Œå°è¯•å°†å›¾ç‰‡å‹ç¼©åˆ°1600 * 1600
+             * // ĞŞ¸ÄºóÍ¼Æ¬ÉÏ´«Ç°£¬³¢ÊÔ½«Í¼Æ¬Ñ¹Ëõµ½1600 * 1600
              * uploader.options( 'resize', {
              *     width: 1600,
              *     height: 1600
@@ -804,12 +804,12 @@
             },
     
             /**
-             * è·å–æ–‡ä»¶ç»Ÿè®¡ä¿¡æ¯ã€‚è¿”å›ä¸€ä¸ªåŒ…å«ä¸€ä¸‹ä¿¡æ¯çš„å¯¹è±¡ã€‚
-             * * `successNum` ä¸Šä¼ æˆåŠŸçš„æ–‡ä»¶æ•°
-             * * `uploadFailNum` ä¸Šä¼ å¤±è´¥çš„æ–‡ä»¶æ•°
-             * * `cancelNum` è¢«åˆ é™¤çš„æ–‡ä»¶æ•°
-             * * `invalidNum` æ— æ•ˆçš„æ–‡ä»¶æ•°
-             * * `queueNum` è¿˜åœ¨é˜Ÿåˆ—ä¸­çš„æ–‡ä»¶æ•°
+             * »ñÈ¡ÎÄ¼şÍ³¼ÆĞÅÏ¢¡£·µ»ØÒ»¸ö°üº¬Ò»ÏÂĞÅÏ¢µÄ¶ÔÏó¡£
+             * * `successNum` ÉÏ´«³É¹¦µÄÎÄ¼şÊı
+             * * `uploadFailNum` ÉÏ´«Ê§°ÜµÄÎÄ¼şÊı
+             * * `cancelNum` ±»É¾³ıµÄÎÄ¼şÊı
+             * * `invalidNum` ÎŞĞ§µÄÎÄ¼şÊı
+             * * `queueNum` »¹ÔÚ¶ÓÁĞÖĞµÄÎÄ¼şÊı
              * @method getStats
              * @grammar getStats() => Object
              */
@@ -829,7 +829,7 @@
                 };
             },
     
-            // éœ€è¦é‡å†™æ­¤æ–¹æ³•æ¥æ¥æ”¯æŒopts.onEventå’Œinstance.onEventçš„å¤„ç†å™¨
+            // ĞèÒªÖØĞ´´Ë·½·¨À´À´Ö§³Öopts.onEventºÍinstance.onEventµÄ´¦ÀíÆ÷
             trigger: function( type/*, args...*/ ) {
                 var args = [].slice.call( arguments, 1 ),
                     opts = this.options,
@@ -837,18 +837,18 @@
                         type.substring( 1 );
     
                 if (
-                        // è°ƒç”¨é€šè¿‡onæ–¹æ³•æ³¨å†Œçš„handler.
+                        // µ÷ÓÃÍ¨¹ıon·½·¨×¢²áµÄhandler.
                         Mediator.trigger.apply( this, arguments ) === false ||
     
-                        // è°ƒç”¨opts.onEvent
+                        // µ÷ÓÃopts.onEvent
                         $.isFunction( opts[ name ] ) &&
                         opts[ name ].apply( this, args ) === false ||
     
-                        // è°ƒç”¨this.onEvent
+                        // µ÷ÓÃthis.onEvent
                         $.isFunction( this[ name ] ) &&
                         this[ name ].apply( this, args ) === false ||
     
-                        // å¹¿æ’­æ‰€æœ‰uploaderçš„äº‹ä»¶ã€‚
+                        // ¹ã²¥ËùÓĞuploaderµÄÊÂ¼ş¡£
                         Mediator.trigger.apply( Mediator,
                         [ this, type ].concat( args ) ) === false ) {
     
@@ -858,12 +858,12 @@
                 return true;
             },
     
-            // widgets/widget.jså°†è¡¥å……æ­¤æ–¹æ³•çš„è¯¦ç»†æ–‡æ¡£ã€‚
+            // widgets/widget.js½«²¹³ä´Ë·½·¨µÄÏêÏ¸ÎÄµµ¡£
             request: Base.noop
         });
     
         /**
-         * åˆ›å»ºUploaderå®ä¾‹ï¼Œç­‰åŒäºnew Uploader( opts );
+         * ´´½¨UploaderÊµÀı£¬µÈÍ¬ÓÚnew Uploader( opts );
          * @method create
          * @class Base
          * @static
@@ -873,13 +873,13 @@
             return new Uploader( opts );
         };
     
-        // æš´éœ²Uploaderï¼Œå¯ä»¥é€šè¿‡å®ƒæ¥æ‰©å±•ä¸šåŠ¡é€»è¾‘ã€‚
+        // ±©Â¶Uploader£¬¿ÉÒÔÍ¨¹ıËüÀ´À©Õ¹ÒµÎñÂß¼­¡£
         Base.Uploader = Uploader;
     
         return Uploader;
     });
     /**
-     * @fileOverview Runtimeç®¡ç†å™¨ï¼Œè´Ÿè´£Runtimeçš„é€‰æ‹©, è¿æ¥
+     * @fileOverview Runtime¹ÜÀíÆ÷£¬¸ºÔğRuntimeµÄÑ¡Ôñ, Á¬½Ó
      */
     define('runtime/runtime',[
         'base',
@@ -889,7 +889,7 @@
         var $ = Base.$,
             factories = {},
     
-            // è·å–å¯¹è±¡çš„ç¬¬ä¸€ä¸ªkey
+            // »ñÈ¡¶ÔÏóµÄµÚÒ»¸ökey
             getFirstKey = function( obj ) {
                 for ( var key in obj ) {
                     if ( obj.hasOwnProperty( key ) ) {
@@ -899,7 +899,7 @@
                 return null;
             };
     
-        // æ¥å£ç±»ã€‚
+        // ½Ó¿ÚÀà¡£
         function Runtime( options ) {
             this.options = $.extend({
                 container: document.body
@@ -952,9 +952,9 @@
     
     
         /**
-         * æ·»åŠ Runtimeå®ç°ã€‚
-         * @param {String} type    ç±»å‹
-         * @param {Runtime} factory å…·ä½“Runtimeå®ç°ã€‚
+         * Ìí¼ÓRuntimeÊµÏÖ¡£
+         * @param {String} type    ÀàĞÍ
+         * @param {Runtime} factory ¾ßÌåRuntimeÊµÏÖ¡£
          */
         Runtime.addRuntime = function( type, factory ) {
             factories[ type ] = factory;
@@ -990,7 +990,7 @@
     });
     
     /**
-     * @fileOverview Runtimeç®¡ç†å™¨ï¼Œè´Ÿè´£Runtimeçš„é€‰æ‹©, è¿æ¥
+     * @fileOverview Runtime¹ÜÀíÆ÷£¬¸ºÔğRuntimeµÄÑ¡Ôñ, Á¬½Ó
      */
     define('runtime/client',[
         'base',
@@ -1016,7 +1016,7 @@
                     }
     
                     for ( i in obj ) {
-                        // æœ‰äº›ç±»å‹ä¸èƒ½é‡ç”¨ï¼Œæ¯”å¦‚filepicker.
+                        // ÓĞĞ©ÀàĞÍ²»ÄÜÖØÓÃ£¬±ÈÈçfilepicker.
                         if ( standalone && obj[ i ].__standalone ) {
                             continue;
                         }
@@ -1039,7 +1039,7 @@
     
             this.uid = Base.guid('client_');
     
-            // å…è®¸runtimeæ²¡æœ‰åˆå§‹åŒ–ä¹‹å‰ï¼Œæ³¨å†Œä¸€äº›æ–¹æ³•åœ¨åˆå§‹åŒ–åæ‰§è¡Œã€‚
+            // ÔÊĞíruntimeÃ»ÓĞ³õÊ¼»¯Ö®Ç°£¬×¢²áÒ»Ğ©·½·¨ÔÚ³õÊ¼»¯ºóÖ´ĞĞ¡£
             this.runtimeReady = function( cb ) {
                 return deferred.done( cb );
             };
@@ -1057,10 +1057,10 @@
                     runtime = cache.get( opts );
                 }
     
-                // åƒfilePickeråªèƒ½ç‹¬ç«‹å­˜åœ¨ï¼Œä¸èƒ½å…¬ç”¨ã€‚
+                // ÏñfilePickerÖ»ÄÜ¶ÀÁ¢´æÔÚ£¬²»ÄÜ¹«ÓÃ¡£
                 runtime = runtime || cache.get( null, standalone );
     
-                // éœ€è¦åˆ›å»º
+                // ĞèÒª´´½¨
                 if ( !runtime ) {
                     runtime = Runtime.create( opts, opts.runtimeOrder );
                     runtime.__promise = deferred.promise();
@@ -1069,7 +1069,7 @@
                     cache.add( runtime );
                     runtime.__client = 1;
                 } else {
-                    // æ¥è‡ªcache
+                    // À´×Ôcache
                     Base.$.extend( runtime.options, opts );
                     runtime.__promise.then( deferred.resolve );
                     runtime.__client++;
@@ -1168,8 +1168,8 @@
         return Blob;
     });
     /**
-     * ä¸ºäº†ç»Ÿä¸€åŒ–Flashçš„Fileå’ŒHTML5çš„Fileè€Œå­˜åœ¨ã€‚
-     * ä»¥è‡³äºè¦è°ƒç”¨Flashé‡Œé¢çš„Fileï¼Œä¹Ÿå¯ä»¥åƒè°ƒç”¨HTML5ç‰ˆæœ¬çš„Fileä¸€ä¸‹ã€‚
+     * ÎªÁËÍ³Ò»»¯FlashµÄFileºÍHTML5µÄFile¶ø´æÔÚ¡£
+     * ÒÔÖÁÓÚÒªµ÷ÓÃFlashÀïÃæµÄFile£¬Ò²¿ÉÒÔÏñµ÷ÓÃHTML5°æ±¾µÄFileÒ»ÏÂ¡£
      * @fileOverview File
      */
     define('lib/file',[
@@ -1187,16 +1187,16 @@
             this.name = file.name || ('untitled' + uid++);
             ext = rExt.exec( file.name ) ? RegExp.$1.toLowerCase() : '';
     
-            // todo æ”¯æŒå…¶ä»–ç±»å‹æ–‡ä»¶çš„è½¬æ¢ã€‚
+            // todo Ö§³ÖÆäËûÀàĞÍÎÄ¼şµÄ×ª»»¡£
     
-            // å¦‚æœæœ‰mimetype, ä½†æ˜¯æ–‡ä»¶åé‡Œé¢æ²¡æœ‰æ‰¾å‡ºåç¼€è§„å¾‹
+            // Èç¹ûÓĞmimetype, µ«ÊÇÎÄ¼şÃûÀïÃæÃ»ÓĞÕÒ³öºó×º¹æÂÉ
             if ( !ext && this.type ) {
                 ext = /\/(jpg|jpeg|png|gif|bmp)$/i.exec( this.type ) ?
                         RegExp.$1.toLowerCase() : '';
                 this.name += '.' + ext;
             }
     
-            // å¦‚æœæ²¡æœ‰æŒ‡å®šmimetype, ä½†æ˜¯çŸ¥é“æ–‡ä»¶åç¼€ã€‚
+            // Èç¹ûÃ»ÓĞÖ¸¶¨mimetype, µ«ÊÇÖªµÀÎÄ¼şºó×º¡£
             if ( !this.type &&  ~'jpg,jpeg,png,gif,bmp'.indexOf( ext ) ) {
                 this.type = 'image/' + (ext === 'jpg' ? 'jpeg' : ext);
             }
@@ -1210,7 +1210,7 @@
     });
     
     /**
-     * @fileOverview é”™è¯¯ä¿¡æ¯
+     * @fileOverview ´íÎóĞÅÏ¢
      */
     define('lib/filepicker',[
         'base',
@@ -1226,7 +1226,7 @@
             opts.container = $( opts.id );
     
             if ( !opts.container.length ) {
-                throw new Error('æŒ‰é’®æŒ‡å®šé”™è¯¯');
+                throw new Error('°´Å¥Ö¸¶¨´íÎó');
             }
     
             opts.innerHTML = opts.innerHTML || opts.label ||
@@ -1276,7 +1276,7 @@
                             me.trigger( 'select', $.map( files, function( file ) {
                                 file = new File( me.getRuid(), file );
     
-                                // è®°å½•æ¥æºã€‚
+                                // ¼ÇÂ¼À´Ô´¡£
                                 file._refer = opts.container;
                                 return file;
                             }), opts.container );
@@ -1343,7 +1343,7 @@
     });
     
     /**
-     * @fileOverview ç»„ä»¶åŸºç±»ã€‚
+     * @fileOverview ×é¼ş»ùÀà¡£
      */
     define('widgets/widget',[
         'base',
@@ -1381,8 +1381,8 @@
     
             init: Base.noop,
     
-            // ç±»Backboneçš„äº‹ä»¶ç›‘å¬å£°æ˜ï¼Œç›‘å¬uploaderå®ä¾‹ä¸Šçš„äº‹ä»¶
-            // widgetç›´æ¥æ— æ³•ç›‘å¬äº‹ä»¶ï¼Œäº‹ä»¶åªèƒ½é€šè¿‡uploaderæ¥ä¼ é€’
+            // ÀàBackboneµÄÊÂ¼ş¼àÌıÉùÃ÷£¬¼àÌıuploaderÊµÀıÉÏµÄÊÂ¼ş
+            // widgetÖ±½ÓÎŞ·¨¼àÌıÊÂ¼ş£¬ÊÂ¼şÖ»ÄÜÍ¨¹ıuploaderÀ´´«µİ
             invoke: function( apiName, args ) {
     
                 /*
@@ -1392,7 +1392,7 @@
                  */
                 var map = this.responseMap;
     
-                // å¦‚æœæ— APIå“åº”å£°æ˜åˆ™å¿½ç•¥
+                // Èç¹ûÎŞAPIÏìÓ¦ÉùÃ÷ÔòºöÂÔ
                 if ( !map || !(apiName in map) || !(map[ apiName ] in this) ||
                         !$.isFunction( this[ map[ apiName ] ] ) ) {
     
@@ -1404,7 +1404,7 @@
             },
     
             /**
-             * å‘é€å‘½ä»¤ã€‚å½“ä¼ å…¥`callback`æˆ–è€…`handler`ä¸­è¿”å›`promise`æ—¶ã€‚è¿”å›ä¸€ä¸ªå½“æ‰€æœ‰`handler`ä¸­çš„promiseéƒ½å®Œæˆåå®Œæˆçš„æ–°`promise`ã€‚
+             * ·¢ËÍÃüÁî¡£µ±´«Èë`callback`»òÕß`handler`ÖĞ·µ»Ø`promise`Ê±¡£·µ»ØÒ»¸öµ±ËùÓĞ`handler`ÖĞµÄpromise¶¼Íê³ÉºóÍê³ÉµÄĞÂ`promise`¡£
              * @method request
              * @grammar request( command, args ) => * | Promise
              * @grammar request( command, args, callback ) => Promise
@@ -1415,10 +1415,10 @@
             }
         });
     
-        // æ‰©å±•Uploader.
+        // À©Õ¹Uploader.
         $.extend( Uploader.prototype, {
     
-            // è¦†å†™_initç”¨æ¥åˆå§‹åŒ–widgets
+            // ¸²Ğ´_initÓÃÀ´³õÊ¼»¯widgets
             _init: function() {
                 var me = this,
                     widgets = me._widgets = [];
@@ -1446,7 +1446,7 @@
     
                     if ( rlt !== IGNORE ) {
     
-                        // Deferredå¯¹è±¡
+                        // Deferred¶ÔÏó
                         if ( Base.isPromise( rlt ) ) {
                             dfds.push( rlt );
                         } else {
@@ -1455,13 +1455,13 @@
                     }
                 }
     
-                // å¦‚æœæœ‰callbackï¼Œåˆ™ç”¨å¼‚æ­¥æ–¹å¼ã€‚
+                // Èç¹ûÓĞcallback£¬ÔòÓÃÒì²½·½Ê½¡£
                 if ( callback || dfds.length ) {
                     promise = Base.when.apply( Base, dfds );
                     key = promise.pipe ? 'pipe' : 'then';
     
-                    // å¾ˆé‡è¦ä¸èƒ½åˆ é™¤ã€‚åˆ é™¤äº†ä¼šæ­»å¾ªç¯ã€‚
-                    // ä¿è¯æ‰§è¡Œé¡ºåºã€‚è®©callbackæ€»æ˜¯åœ¨ä¸‹ä¸€ä¸ªtickä¸­æ‰§è¡Œã€‚
+                    // ºÜÖØÒª²»ÄÜÉ¾³ı¡£É¾³ıÁË»áËÀÑ­»·¡£
+                    // ±£Ö¤Ö´ĞĞË³Ğò¡£ÈÃcallback×ÜÊÇÔÚÏÂÒ»¸ötickÖĞÖ´ĞĞ¡£
                     return promise[ key ](function() {
                                 var deferred = Base.Deferred(),
                                     args = arguments;
@@ -1479,9 +1479,9 @@
         });
     
         /**
-         * æ·»åŠ ç»„ä»¶
-         * @param  {object} widgetProto ç»„ä»¶åŸå‹ï¼Œæ„é€ å‡½æ•°é€šè¿‡constructorå±æ€§å®šä¹‰
-         * @param  {object} responseMap APIåç§°ä¸å‡½æ•°å®ç°çš„æ˜ å°„
+         * Ìí¼Ó×é¼ş
+         * @param  {object} widgetProto ×é¼şÔ­ĞÍ£¬¹¹Ôìº¯ÊıÍ¨¹ıconstructorÊôĞÔ¶¨Òå
+         * @param  {object} responseMap APIÃû³ÆÓëº¯ÊıÊµÏÖµÄÓ³Éä
          * @example
          *     Uploader.register( {
          *         init: function( options ) {},
@@ -1510,7 +1510,7 @@
         return Widget;
     });
     /**
-     * @fileOverview æ–‡ä»¶é€‰æ‹©ç›¸å…³
+     * @fileOverview ÎÄ¼şÑ¡ÔñÏà¹Ø
      */
     define('widgets/filepicker',[
         'base',
@@ -1526,12 +1526,12 @@
              * @property {Selector | Object} [pick=undefined]
              * @namespace options
              * @for Uploader
-             * @description æŒ‡å®šé€‰æ‹©æ–‡ä»¶çš„æŒ‰é’®å®¹å™¨ï¼Œä¸æŒ‡å®šåˆ™ä¸åˆ›å»ºæŒ‰é’®ã€‚
+             * @description Ö¸¶¨Ñ¡ÔñÎÄ¼şµÄ°´Å¥ÈİÆ÷£¬²»Ö¸¶¨Ôò²»´´½¨°´Å¥¡£
              *
-             * * `id` {Seletor} æŒ‡å®šé€‰æ‹©æ–‡ä»¶çš„æŒ‰é’®å®¹å™¨ï¼Œä¸æŒ‡å®šåˆ™ä¸åˆ›å»ºæŒ‰é’®ã€‚
-             * * `label` {String} è¯·é‡‡ç”¨ `innerHTML` ä»£æ›¿
-             * * `innerHTML` {String} æŒ‡å®šæŒ‰é’®æ–‡å­—ã€‚ä¸æŒ‡å®šæ—¶ä¼˜å…ˆä»æŒ‡å®šçš„å®¹å™¨ä¸­çœ‹æ˜¯å¦è‡ªå¸¦æ–‡å­—ã€‚
-             * * `multiple` {Boolean} æ˜¯å¦å¼€èµ·åŒæ—¶é€‰æ‹©å¤šä¸ªæ–‡ä»¶èƒ½åŠ›ã€‚
+             * * `id` {Seletor} Ö¸¶¨Ñ¡ÔñÎÄ¼şµÄ°´Å¥ÈİÆ÷£¬²»Ö¸¶¨Ôò²»´´½¨°´Å¥¡£
+             * * `label` {String} Çë²ÉÓÃ `innerHTML` ´úÌæ
+             * * `innerHTML` {String} Ö¸¶¨°´Å¥ÎÄ×Ö¡£²»Ö¸¶¨Ê±ÓÅÏÈ´ÓÖ¸¶¨µÄÈİÆ÷ÖĞ¿´ÊÇ·ñ×Ô´øÎÄ×Ö¡£
+             * * `multiple` {Boolean} ÊÇ·ñ¿ªÆğÍ¬Ê±Ñ¡Ôñ¶à¸öÎÄ¼şÄÜÁ¦¡£
              */
             pick: null,
     
@@ -1539,13 +1539,13 @@
              * @property {Arroy} [accept=null]
              * @namespace options
              * @for Uploader
-             * @description æŒ‡å®šæ¥å—å“ªäº›ç±»å‹çš„æ–‡ä»¶ã€‚ ç”±äºç›®å‰è¿˜æœ‰extè½¬mimeTypeè¡¨ï¼Œæ‰€ä»¥è¿™é‡Œéœ€è¦åˆ†å¼€æŒ‡å®šã€‚
+             * @description Ö¸¶¨½ÓÊÜÄÄĞ©ÀàĞÍµÄÎÄ¼ş¡£ ÓÉÓÚÄ¿Ç°»¹ÓĞext×ªmimeType±í£¬ËùÒÔÕâÀïĞèÒª·Ö¿ªÖ¸¶¨¡£
              *
-             * * `title` {String} æ–‡å­—æè¿°
-             * * `extensions` {String} å…è®¸çš„æ–‡ä»¶åç¼€ï¼Œä¸å¸¦ç‚¹ï¼Œå¤šä¸ªç”¨é€—å·åˆ†å‰²ã€‚
-             * * `mimeTypes` {String} å¤šä¸ªç”¨é€—å·åˆ†å‰²ã€‚
+             * * `title` {String} ÎÄ×ÖÃèÊö
+             * * `extensions` {String} ÔÊĞíµÄÎÄ¼şºó×º£¬²»´øµã£¬¶à¸öÓÃ¶ººÅ·Ö¸î¡£
+             * * `mimeTypes` {String} ¶à¸öÓÃ¶ººÅ·Ö¸î¡£
              *
-             * å¦‚ï¼š
+             * Èç£º
              *
              * ```
              * {
@@ -1585,11 +1585,11 @@
              * @for Uploader
              * @grammar addButton( pick ) => Promise
              * @description
-             * æ·»åŠ æ–‡ä»¶é€‰æ‹©æŒ‰é’®ï¼Œå¦‚æœä¸€ä¸ªæŒ‰é’®ä¸å¤Ÿï¼Œéœ€è¦è°ƒç”¨æ­¤æ–¹æ³•æ¥æ·»åŠ ã€‚å‚æ•°è·Ÿ[options.pick](#WebUploader:Uploader:options)ä¸€è‡´ã€‚
+             * Ìí¼ÓÎÄ¼şÑ¡Ôñ°´Å¥£¬Èç¹ûÒ»¸ö°´Å¥²»¹»£¬ĞèÒªµ÷ÓÃ´Ë·½·¨À´Ìí¼Ó¡£²ÎÊı¸ú[options.pick](#WebUploader:Uploader:options)Ò»ÖÂ¡£
              * @example
              * uploader.addButton({
              *     id: '#btnContainer',
-             *     innerHTML: 'é€‰æ‹©æ–‡ä»¶'
+             *     innerHTML: 'Ñ¡ÔñÎÄ¼ş'
              * });
              */
             addButton: function( pick ) {
@@ -1649,7 +1649,7 @@
     ], function( Base, RuntimeClient, Blob ) {
         var $ = Base.$;
     
-        // æ„é€ å™¨ã€‚
+        // ¹¹ÔìÆ÷¡£
         function Image( opts ) {
             this.options = $.extend({}, Image.options, opts );
             RuntimeClient.call( this, 'Image' );
@@ -1660,23 +1660,23 @@
             });
         }
     
-        // é»˜è®¤é€‰é¡¹ã€‚
+        // Ä¬ÈÏÑ¡Ïî¡£
         Image.options = {
     
-            // é»˜è®¤çš„å›¾ç‰‡å¤„ç†è´¨é‡
+            // Ä¬ÈÏµÄÍ¼Æ¬´¦ÀíÖÊÁ¿
             quality: 90,
     
-            // æ˜¯å¦è£å‰ª
+            // ÊÇ·ñ²Ã¼ô
             crop: false,
     
-            // æ˜¯å¦ä¿ç•™å¤´éƒ¨ä¿¡æ¯
+            // ÊÇ·ñ±£ÁôÍ·²¿ĞÅÏ¢
             preserveHeaders: true,
     
-            // æ˜¯å¦å…è®¸æ”¾å¤§ã€‚
+            // ÊÇ·ñÔÊĞí·Å´ó¡£
             allowMagnify: true
         };
     
-        // ç»§æ‰¿RuntimeClient.
+        // ¼Ì³ĞRuntimeClient.
         Base.inherits( RuntimeClient, {
             constructor: Image,
     
@@ -1733,7 +1733,7 @@
         return Image;
     });
     /**
-     * @fileOverview å›¾ç‰‡æ“ä½œ, è´Ÿè´£é¢„è§ˆå›¾ç‰‡å’Œä¸Šä¼ å‰å‹ç¼©å›¾ç‰‡
+     * @fileOverview Í¼Æ¬²Ù×÷, ¸ºÔğÔ¤ÀÀÍ¼Æ¬ºÍÉÏ´«Ç°Ñ¹ËõÍ¼Æ¬
      */
     define('widgets/image',[
         'base',
@@ -1745,7 +1745,7 @@
         var $ = Base.$,
             throttle;
     
-        // æ ¹æ®è¦å¤„ç†çš„æ–‡ä»¶å¤§å°æ¥èŠ‚æµï¼Œä¸€æ¬¡ä¸èƒ½å¤„ç†å¤ªå¤šï¼Œä¼šå¡ã€‚
+        // ¸ù¾İÒª´¦ÀíµÄÎÄ¼ş´óĞ¡À´½ÚÁ÷£¬Ò»´Î²»ÄÜ´¦ÀíÌ«¶à£¬»á¿¨¡£
         throttle = (function( max ) {
             var occupied = 0,
                 waiting = [],
@@ -1775,29 +1775,29 @@
              * @property {Object} [thumb]
              * @namespace options
              * @for Uploader
-             * @description é…ç½®ç”Ÿæˆç¼©ç•¥å›¾çš„é€‰é¡¹ã€‚
+             * @description ÅäÖÃÉú³ÉËõÂÔÍ¼µÄÑ¡Ïî¡£
              *
-             * é»˜è®¤ä¸ºï¼š
+             * Ä¬ÈÏÎª£º
              *
              * ```javascript
              * {
              *     width: 110,
              *     height: 110,
              *
-             *     // å›¾ç‰‡è´¨é‡ï¼Œåªæœ‰typeä¸º`image/jpeg`çš„æ—¶å€™æ‰æœ‰æ•ˆã€‚
+             *     // Í¼Æ¬ÖÊÁ¿£¬Ö»ÓĞtypeÎª`image/jpeg`µÄÊ±ºò²ÅÓĞĞ§¡£
              *     quality: 70,
              *
-             *     // æ˜¯å¦å…è®¸æ”¾å¤§ï¼Œå¦‚æœæƒ³è¦ç”Ÿæˆå°å›¾çš„æ—¶å€™ä¸å¤±çœŸï¼Œæ­¤é€‰é¡¹åº”è¯¥è®¾ç½®ä¸ºfalse.
+             *     // ÊÇ·ñÔÊĞí·Å´ó£¬Èç¹ûÏëÒªÉú³ÉĞ¡Í¼µÄÊ±ºò²»Ê§Õæ£¬´ËÑ¡ÏîÓ¦¸ÃÉèÖÃÎªfalse.
              *     allowMagnify: true,
              *
-             *     // æ˜¯å¦å…è®¸è£å‰ªã€‚
+             *     // ÊÇ·ñÔÊĞí²Ã¼ô¡£
              *     crop: true,
              *
-             *     // æ˜¯å¦ä¿ç•™å¤´éƒ¨metaä¿¡æ¯ã€‚
+             *     // ÊÇ·ñ±£ÁôÍ·²¿metaĞÅÏ¢¡£
              *     preserveHeaders: false,
              *
-             *     // ä¸ºç©ºçš„è¯åˆ™ä¿ç•™åŸæœ‰å›¾ç‰‡æ ¼å¼ã€‚
-             *     // å¦åˆ™å¼ºåˆ¶è½¬æ¢æˆæŒ‡å®šçš„ç±»å‹ã€‚
+             *     // Îª¿ÕµÄ»°Ôò±£ÁôÔ­ÓĞÍ¼Æ¬¸ñÊ½¡£
+             *     // ·ñÔòÇ¿ÖÆ×ª»»³ÉÖ¸¶¨µÄÀàĞÍ¡£
              *     type: 'image/jpeg'
              * }
              * ```
@@ -1810,10 +1810,10 @@
                 crop: true,
                 preserveHeaders: false,
     
-                // ä¸ºç©ºçš„è¯åˆ™ä¿ç•™åŸæœ‰å›¾ç‰‡æ ¼å¼ã€‚
-                // å¦åˆ™å¼ºåˆ¶è½¬æ¢æˆæŒ‡å®šçš„ç±»å‹ã€‚
-                // IE 8ä¸‹é¢ base64 å¤§å°ä¸èƒ½è¶…è¿‡ 32K å¦åˆ™é¢„è§ˆå¤±è´¥ï¼Œè€Œé jpeg ç¼–ç çš„å›¾ç‰‡å¾ˆå¯
-                // èƒ½ä¼šè¶…è¿‡ 32k, æ‰€ä»¥è¿™é‡Œè®¾ç½®æˆé¢„è§ˆçš„æ—¶å€™éƒ½æ˜¯ image/jpeg
+                // Îª¿ÕµÄ»°Ôò±£ÁôÔ­ÓĞÍ¼Æ¬¸ñÊ½¡£
+                // ·ñÔòÇ¿ÖÆ×ª»»³ÉÖ¸¶¨µÄÀàĞÍ¡£
+                // IE 8ÏÂÃæ base64 ´óĞ¡²»ÄÜ³¬¹ı 32K ·ñÔòÔ¤ÀÀÊ§°Ü£¬¶ø·Ç jpeg ±àÂëµÄÍ¼Æ¬ºÜ¿É
+                // ÄÜ»á³¬¹ı 32k, ËùÒÔÕâÀïÉèÖÃ³ÉÔ¤ÀÀµÄÊ±ºò¶¼ÊÇ image/jpeg
                 type: 'image/jpeg'
             },
     
@@ -1821,25 +1821,25 @@
              * @property {Object} [compress]
              * @namespace options
              * @for Uploader
-             * @description é…ç½®å‹ç¼©çš„å›¾ç‰‡çš„é€‰é¡¹ã€‚å¦‚æœæ­¤é€‰é¡¹ä¸º`false`, åˆ™å›¾ç‰‡åœ¨ä¸Šä¼ å‰ä¸è¿›è¡Œå‹ç¼©ã€‚
+             * @description ÅäÖÃÑ¹ËõµÄÍ¼Æ¬µÄÑ¡Ïî¡£Èç¹û´ËÑ¡ÏîÎª`false`, ÔòÍ¼Æ¬ÔÚÉÏ´«Ç°²»½øĞĞÑ¹Ëõ¡£
              *
-             * é»˜è®¤ä¸ºï¼š
+             * Ä¬ÈÏÎª£º
              *
              * ```javascript
              * {
              *     width: 1600,
              *     height: 1600,
              *
-             *     // å›¾ç‰‡è´¨é‡ï¼Œåªæœ‰typeä¸º`image/jpeg`çš„æ—¶å€™æ‰æœ‰æ•ˆã€‚
+             *     // Í¼Æ¬ÖÊÁ¿£¬Ö»ÓĞtypeÎª`image/jpeg`µÄÊ±ºò²ÅÓĞĞ§¡£
              *     quality: 90,
              *
-             *     // æ˜¯å¦å…è®¸æ”¾å¤§ï¼Œå¦‚æœæƒ³è¦ç”Ÿæˆå°å›¾çš„æ—¶å€™ä¸å¤±çœŸï¼Œæ­¤é€‰é¡¹åº”è¯¥è®¾ç½®ä¸ºfalse.
+             *     // ÊÇ·ñÔÊĞí·Å´ó£¬Èç¹ûÏëÒªÉú³ÉĞ¡Í¼µÄÊ±ºò²»Ê§Õæ£¬´ËÑ¡ÏîÓ¦¸ÃÉèÖÃÎªfalse.
              *     allowMagnify: false,
              *
-             *     // æ˜¯å¦å…è®¸è£å‰ªã€‚
+             *     // ÊÇ·ñÔÊĞí²Ã¼ô¡£
              *     crop: false,
              *
-             *     // æ˜¯å¦ä¿ç•™å¤´éƒ¨metaä¿¡æ¯ã€‚
+             *     // ÊÇ·ñ±£ÁôÍ·²¿metaĞÅÏ¢¡£
              *     preserveHeaders: true
              * }
              * ```
@@ -1861,15 +1861,15 @@
     
     
             /**
-             * ç”Ÿæˆç¼©ç•¥å›¾ï¼Œæ­¤è¿‡ç¨‹ä¸ºå¼‚æ­¥ï¼Œæ‰€ä»¥éœ€è¦ä¼ å…¥`callback`ã€‚
-             * é€šå¸¸æƒ…å†µåœ¨å›¾ç‰‡åŠ å…¥é˜Ÿé‡Œåè°ƒç”¨æ­¤æ–¹æ³•æ¥ç”Ÿæˆé¢„è§ˆå›¾ä»¥å¢å¼ºäº¤äº’æ•ˆæœã€‚
+             * Éú³ÉËõÂÔÍ¼£¬´Ë¹ı³ÌÎªÒì²½£¬ËùÒÔĞèÒª´«Èë`callback`¡£
+             * Í¨³£Çé¿öÔÚÍ¼Æ¬¼ÓÈë¶ÓÀïºóµ÷ÓÃ´Ë·½·¨À´Éú³ÉÔ¤ÀÀÍ¼ÒÔÔöÇ¿½»»¥Ğ§¹û¡£
              *
-             * `callback`ä¸­å¯ä»¥æ¥æ”¶åˆ°ä¸¤ä¸ªå‚æ•°ã€‚
-             * * ç¬¬ä¸€ä¸ªä¸ºerrorï¼Œå¦‚æœç”Ÿæˆç¼©ç•¥å›¾æœ‰é”™è¯¯ï¼Œæ­¤errorå°†ä¸ºçœŸã€‚
-             * * ç¬¬äºŒä¸ªä¸ºret, ç¼©ç•¥å›¾çš„Data URLå€¼ã€‚
+             * `callback`ÖĞ¿ÉÒÔ½ÓÊÕµ½Á½¸ö²ÎÊı¡£
+             * * µÚÒ»¸öÎªerror£¬Èç¹ûÉú³ÉËõÂÔÍ¼ÓĞ´íÎó£¬´Ëerror½«ÎªÕæ¡£
+             * * µÚ¶ş¸öÎªret, ËõÂÔÍ¼µÄData URLÖµ¡£
              *
-             * **æ³¨æ„**
-             * Date URLåœ¨IE6/7ä¸­ä¸æ”¯æŒï¼Œæ‰€ä»¥ä¸ç”¨è°ƒç”¨æ­¤æ–¹æ³•äº†ï¼Œç›´æ¥æ˜¾ç¤ºä¸€å¼ æš‚ä¸æ”¯æŒé¢„è§ˆå›¾ç‰‡å¥½äº†ã€‚
+             * **×¢Òâ**
+             * Date URLÔÚIE6/7ÖĞ²»Ö§³Ö£¬ËùÒÔ²»ÓÃµ÷ÓÃ´Ë·½·¨ÁË£¬Ö±½ÓÏÔÊ¾Ò»ÕÅÔİ²»Ö§³ÖÔ¤ÀÀÍ¼Æ¬ºÃÁË¡£
              *
              *
              * @method makeThumb
@@ -1883,7 +1883,7 @@
              *
              *     uploader.makeThumb( file, function( error, ret ) {
              *         if ( error ) {
-             *             $li.text('é¢„è§ˆé”™è¯¯');
+             *             $li.text('Ô¤ÀÀ´íÎó');
              *         } else {
              *             $li.append('<img alt="" src="' + ret + '" />');
              *         }
@@ -1896,7 +1896,7 @@
     
                 file = this.request( 'get-file', file );
     
-                // åªé¢„è§ˆå›¾ç‰‡æ ¼å¼ã€‚
+                // Ö»Ô¤ÀÀÍ¼Æ¬¸ñÊ½¡£
                 if ( !file.type.match( /^image/ ) ) {
                     cb( true );
                     return;
@@ -1904,7 +1904,7 @@
     
                 opts = $.extend({}, this.options.thumb );
     
-                // å¦‚æœä¼ å…¥çš„æ˜¯object.
+                // Èç¹û´«ÈëµÄÊÇobject.
                 if ( $.isPlainObject( width ) ) {
                     opts = $.extend( opts, width );
                     width = null;
@@ -1945,7 +1945,7 @@
     
                 file = this.request( 'get-file', file );
     
-                // åªé¢„è§ˆå›¾ç‰‡æ ¼å¼ã€‚
+                // Ö»Ô¤ÀÀÍ¼Æ¬¸ñÊ½¡£
                 if ( !opts || !~'image/jpeg,image/jpg'.indexOf( file.type ) ||
                         file.size < compressSize ||
                         file._compressed ) {
@@ -1971,15 +1971,15 @@
                 image.once( 'complete', function() {
                     var blob, size;
     
-                    // ç§»åŠ¨ç«¯ UC / qq æµè§ˆå™¨çš„æ— å›¾æ¨¡å¼ä¸‹
-                    // ctx.getImageData å¤„ç†å¤§å›¾çš„æ—¶å€™ä¼šæŠ¥ Exception
+                    // ÒÆ¶¯¶Ë UC / qq ä¯ÀÀÆ÷µÄÎŞÍ¼Ä£Ê½ÏÂ
+                    // ctx.getImageData ´¦Àí´óÍ¼µÄÊ±ºò»á±¨ Exception
                     // INDEX_SIZE_ERR: DOM Exception 1
                     try {
                         blob = image.getAsBlob( opts.type );
     
                         size = file.size;
     
-                        // å¦‚æœå‹ç¼©åï¼Œæ¯”åŸæ¥è¿˜å¤§åˆ™ä¸ç”¨å‹ç¼©åçš„ã€‚
+                        // Èç¹ûÑ¹Ëõºó£¬±ÈÔ­À´»¹´óÔò²»ÓÃÑ¹ËõºóµÄ¡£
                         if ( blob.size < size ) {
                             // file.source.destroy && file.source.destroy();
                             file.source = blob;
@@ -1988,11 +1988,11 @@
                             file.trigger( 'resize', blob.size, size );
                         }
     
-                        // æ ‡è®°ï¼Œé¿å…é‡å¤å‹ç¼©ã€‚
+                        // ±ê¼Ç£¬±ÜÃâÖØ¸´Ñ¹Ëõ¡£
                         file._compressed = true;
                         deferred.resolve();
                     } catch ( e ) {
-                        // å‡ºé”™äº†ç›´æ¥ç»§ç»­ï¼Œè®©å…¶ä¸Šä¼ åŸå§‹å›¾ç‰‡
+                        // ³ö´íÁËÖ±½Ó¼ÌĞø£¬ÈÃÆäÉÏ´«Ô­Ê¼Í¼Æ¬
                         deferred.resolve();
                     }
                 });
@@ -2006,7 +2006,7 @@
         });
     });
     /**
-     * @fileOverview æ–‡ä»¶å±æ€§å°è£…
+     * @fileOverview ÎÄ¼şÊôĞÔ·â×°
      */
     define('file',[
         'base',
@@ -2024,23 +2024,23 @@
         }
     
         /**
-         * æ–‡ä»¶ç±»
+         * ÎÄ¼şÀà
          * @class File
-         * @constructor æ„é€ å‡½æ•°
+         * @constructor ¹¹Ôìº¯Êı
          * @grammar new File( source ) => File
-         * @param {Lib.File} source [lib.File](#Lib.File)å®ä¾‹, æ­¤sourceå¯¹è±¡æ˜¯å¸¦æœ‰Runtimeä¿¡æ¯çš„ã€‚
+         * @param {Lib.File} source [lib.File](#Lib.File)ÊµÀı, ´Ësource¶ÔÏóÊÇ´øÓĞRuntimeĞÅÏ¢µÄ¡£
          */
         function WUFile( source ) {
     
             /**
-             * æ–‡ä»¶åï¼ŒåŒ…æ‹¬æ‰©å±•åï¼ˆåç¼€ï¼‰
+             * ÎÄ¼şÃû£¬°üÀ¨À©Õ¹Ãû£¨ºó×º£©
              * @property name
              * @type {string}
              */
             this.name = source.name || 'Untitled';
     
             /**
-             * æ–‡ä»¶ä½“ç§¯ï¼ˆå­—èŠ‚ï¼‰
+             * ÎÄ¼şÌå»ı£¨×Ö½Ú£©
              * @property size
              * @type {uint}
              * @default 0
@@ -2048,7 +2048,7 @@
             this.size = source.size || 0;
     
             /**
-             * æ–‡ä»¶MIMETYPEç±»å‹ï¼Œä¸æ–‡ä»¶ç±»å‹çš„å¯¹åº”å…³ç³»è¯·å‚è€ƒ[http://t.cn/z8ZnFny](http://t.cn/z8ZnFny)
+             * ÎÄ¼şMIMETYPEÀàĞÍ£¬ÓëÎÄ¼şÀàĞÍµÄ¶ÔÓ¦¹ØÏµÇë²Î¿¼[http://t.cn/z8ZnFny](http://t.cn/z8ZnFny)
              * @property type
              * @type {string}
              * @default 'application'
@@ -2056,22 +2056,22 @@
             this.type = source.type || 'application';
     
             /**
-             * æ–‡ä»¶æœ€åä¿®æ”¹æ—¥æœŸ
+             * ÎÄ¼ş×îºóĞŞ¸ÄÈÕÆÚ
              * @property lastModifiedDate
              * @type {int}
-             * @default å½“å‰æ—¶é—´æˆ³
+             * @default µ±Ç°Ê±¼ä´Á
              */
             this.lastModifiedDate = source.lastModifiedDate || (new Date() * 1);
     
             /**
-             * æ–‡ä»¶IDï¼Œæ¯ä¸ªå¯¹è±¡å…·æœ‰å”¯ä¸€IDï¼Œä¸æ–‡ä»¶åæ— å…³
+             * ÎÄ¼şID£¬Ã¿¸ö¶ÔÏó¾ßÓĞÎ¨Ò»ID£¬ÓëÎÄ¼şÃûÎŞ¹Ø
              * @property id
              * @type {string}
              */
             this.id = gid();
     
             /**
-             * æ–‡ä»¶æ‰©å±•åï¼Œé€šè¿‡æ–‡ä»¶åè·å–ï¼Œä¾‹å¦‚test.pngçš„æ‰©å±•åä¸ºpng
+             * ÎÄ¼şÀ©Õ¹Ãû£¬Í¨¹ıÎÄ¼şÃû»ñÈ¡£¬ÀıÈçtest.pngµÄÀ©Õ¹ÃûÎªpng
              * @property ext
              * @type {string}
              */
@@ -2079,13 +2079,13 @@
     
     
             /**
-             * çŠ¶æ€æ–‡å­—è¯´æ˜ã€‚åœ¨ä¸åŒçš„statusè¯­å¢ƒä¸‹æœ‰ä¸åŒçš„ç”¨é€”ã€‚
+             * ×´Ì¬ÎÄ×ÖËµÃ÷¡£ÔÚ²»Í¬µÄstatusÓï¾³ÏÂÓĞ²»Í¬µÄÓÃÍ¾¡£
              * @property statusText
              * @type {string}
              */
             this.statusText = '';
     
-            // å­˜å‚¨æ–‡ä»¶çŠ¶æ€ï¼Œé˜²æ­¢é€šè¿‡å±æ€§ç›´æ¥ä¿®æ”¹
+            // ´æ´¢ÎÄ¼ş×´Ì¬£¬·ÀÖ¹Í¨¹ıÊôĞÔÖ±½ÓĞŞ¸Ä
             statusMap[ this.id ] = WUFile.Status.INITED;
     
             this.source = source;
@@ -2099,11 +2099,11 @@
         $.extend( WUFile.prototype, {
     
             /**
-             * è®¾ç½®çŠ¶æ€ï¼ŒçŠ¶æ€å˜åŒ–æ—¶ä¼šè§¦å‘`change`äº‹ä»¶ã€‚
+             * ÉèÖÃ×´Ì¬£¬×´Ì¬±ä»¯Ê±»á´¥·¢`change`ÊÂ¼ş¡£
              * @method setStatus
              * @grammar setStatus( status[, statusText] );
-             * @param {File.Status|String} status [æ–‡ä»¶çŠ¶æ€å€¼](#WebUploader:File:File.Status)
-             * @param {String} [statusText=''] çŠ¶æ€è¯´æ˜ï¼Œå¸¸åœ¨erroræ—¶ä½¿ç”¨ï¼Œç”¨http, abort,serverç­‰æ¥æ ‡è®°æ˜¯ç”±äºä»€ä¹ˆåŸå› å¯¼è‡´æ–‡ä»¶é”™è¯¯ã€‚
+             * @param {File.Status|String} status [ÎÄ¼ş×´Ì¬Öµ](#WebUploader:File:File.Status)
+             * @param {String} [statusText=''] ×´Ì¬ËµÃ÷£¬³£ÔÚerrorÊ±Ê¹ÓÃ£¬ÓÃhttp, abort,serverµÈÀ´±ê¼ÇÊÇÓÉÓÚÊ²Ã´Ô­Òòµ¼ÖÂÎÄ¼ş´íÎó¡£
              */
             setStatus: function( status, text ) {
     
@@ -2114,7 +2114,7 @@
                 if ( status !== prevStatus ) {
                     statusMap[ this.id ] = status;
                     /**
-                     * æ–‡ä»¶çŠ¶æ€å˜åŒ–
+                     * ÎÄ¼ş×´Ì¬±ä»¯
                      * @event statuschange
                      */
                     this.trigger( 'statuschange', status, prevStatus );
@@ -2123,22 +2123,22 @@
             },
     
             /**
-             * è·å–æ–‡ä»¶çŠ¶æ€
+             * »ñÈ¡ÎÄ¼ş×´Ì¬
              * @return {File.Status}
              * @example
-                     æ–‡ä»¶çŠ¶æ€å…·ä½“åŒ…æ‹¬ä»¥ä¸‹å‡ ç§ç±»å‹ï¼š
+                     ÎÄ¼ş×´Ì¬¾ßÌå°üÀ¨ÒÔÏÂ¼¸ÖÖÀàĞÍ£º
                      {
-                         // åˆå§‹åŒ–
+                         // ³õÊ¼»¯
                         INITED:     0,
-                        // å·²å…¥é˜Ÿåˆ—
+                        // ÒÑÈë¶ÓÁĞ
                         QUEUED:     1,
-                        // æ­£åœ¨ä¸Šä¼ 
+                        // ÕıÔÚÉÏ´«
                         PROGRESS:     2,
-                        // ä¸Šä¼ å‡ºé”™
+                        // ÉÏ´«³ö´í
                         ERROR:         3,
-                        // ä¸Šä¼ æˆåŠŸ
+                        // ÉÏ´«³É¹¦
                         COMPLETE:     4,
-                        // ä¸Šä¼ å–æ¶ˆ
+                        // ÉÏ´«È¡Ïû
                         CANCELLED:     5
                     }
              */
@@ -2147,7 +2147,7 @@
             },
     
             /**
-             * è·å–æ–‡ä»¶åŸå§‹ä¿¡æ¯ã€‚
+             * »ñÈ¡ÎÄ¼şÔ­Ê¼ĞÅÏ¢¡£
              * @return {*}
              */
             getSource: function() {
@@ -2162,36 +2162,36 @@
         Mediator.installTo( WUFile.prototype );
     
         /**
-         * æ–‡ä»¶çŠ¶æ€å€¼ï¼Œå…·ä½“åŒ…æ‹¬ä»¥ä¸‹å‡ ç§ç±»å‹ï¼š
-         * * `inited` åˆå§‹çŠ¶æ€
-         * * `queued` å·²ç»è¿›å…¥é˜Ÿåˆ—, ç­‰å¾…ä¸Šä¼ 
-         * * `progress` ä¸Šä¼ ä¸­
-         * * `complete` ä¸Šä¼ å®Œæˆã€‚
-         * * `error` ä¸Šä¼ å‡ºé”™ï¼Œå¯é‡è¯•
-         * * `interrupt` ä¸Šä¼ ä¸­æ–­ï¼Œå¯ç»­ä¼ ã€‚
-         * * `invalid` æ–‡ä»¶ä¸åˆæ ¼ï¼Œä¸èƒ½é‡è¯•ä¸Šä¼ ã€‚ä¼šè‡ªåŠ¨ä»é˜Ÿåˆ—ä¸­ç§»é™¤ã€‚
-         * * `cancelled` æ–‡ä»¶è¢«ç§»é™¤ã€‚
+         * ÎÄ¼ş×´Ì¬Öµ£¬¾ßÌå°üÀ¨ÒÔÏÂ¼¸ÖÖÀàĞÍ£º
+         * * `inited` ³õÊ¼×´Ì¬
+         * * `queued` ÒÑ¾­½øÈë¶ÓÁĞ, µÈ´ıÉÏ´«
+         * * `progress` ÉÏ´«ÖĞ
+         * * `complete` ÉÏ´«Íê³É¡£
+         * * `error` ÉÏ´«³ö´í£¬¿ÉÖØÊÔ
+         * * `interrupt` ÉÏ´«ÖĞ¶Ï£¬¿ÉĞø´«¡£
+         * * `invalid` ÎÄ¼ş²»ºÏ¸ñ£¬²»ÄÜÖØÊÔÉÏ´«¡£»á×Ô¶¯´Ó¶ÓÁĞÖĞÒÆ³ı¡£
+         * * `cancelled` ÎÄ¼ş±»ÒÆ³ı¡£
          * @property {Object} Status
          * @namespace File
          * @class File
          * @static
          */
         WUFile.Status = {
-            INITED:     'inited',    // åˆå§‹çŠ¶æ€
-            QUEUED:     'queued',    // å·²ç»è¿›å…¥é˜Ÿåˆ—, ç­‰å¾…ä¸Šä¼ 
-            PROGRESS:   'progress',    // ä¸Šä¼ ä¸­
-            ERROR:      'error',    // ä¸Šä¼ å‡ºé”™ï¼Œå¯é‡è¯•
-            COMPLETE:   'complete',    // ä¸Šä¼ å®Œæˆã€‚
-            CANCELLED:  'cancelled',    // ä¸Šä¼ å–æ¶ˆã€‚
-            INTERRUPT:  'interrupt',    // ä¸Šä¼ ä¸­æ–­ï¼Œå¯ç»­ä¼ ã€‚
-            INVALID:    'invalid'    // æ–‡ä»¶ä¸åˆæ ¼ï¼Œä¸èƒ½é‡è¯•ä¸Šä¼ ã€‚
+            INITED:     'inited',    // ³õÊ¼×´Ì¬
+            QUEUED:     'queued',    // ÒÑ¾­½øÈë¶ÓÁĞ, µÈ´ıÉÏ´«
+            PROGRESS:   'progress',    // ÉÏ´«ÖĞ
+            ERROR:      'error',    // ÉÏ´«³ö´í£¬¿ÉÖØÊÔ
+            COMPLETE:   'complete',    // ÉÏ´«Íê³É¡£
+            CANCELLED:  'cancelled',    // ÉÏ´«È¡Ïû¡£
+            INTERRUPT:  'interrupt',    // ÉÏ´«ÖĞ¶Ï£¬¿ÉĞø´«¡£
+            INVALID:    'invalid'    // ÎÄ¼ş²»ºÏ¸ñ£¬²»ÄÜÖØÊÔÉÏ´«¡£
         };
     
         return WUFile;
     });
     
     /**
-     * @fileOverview æ–‡ä»¶é˜Ÿåˆ—
+     * @fileOverview ÎÄ¼ş¶ÓÁĞ
      */
     define('queue',[
         'base',
@@ -2203,20 +2203,20 @@
             STATUS = WUFile.Status;
     
         /**
-         * æ–‡ä»¶é˜Ÿåˆ—, ç”¨æ¥å­˜å‚¨å„ä¸ªçŠ¶æ€ä¸­çš„æ–‡ä»¶ã€‚
+         * ÎÄ¼ş¶ÓÁĞ, ÓÃÀ´´æ´¢¸÷¸ö×´Ì¬ÖĞµÄÎÄ¼ş¡£
          * @class Queue
          * @extends Mediator
          */
         function Queue() {
     
             /**
-             * ç»Ÿè®¡æ–‡ä»¶æ•°ã€‚
-             * * `numOfQueue` é˜Ÿåˆ—ä¸­çš„æ–‡ä»¶æ•°ã€‚
-             * * `numOfSuccess` ä¸Šä¼ æˆåŠŸçš„æ–‡ä»¶æ•°
-             * * `numOfCancel` è¢«ç§»é™¤çš„æ–‡ä»¶æ•°
-             * * `numOfProgress` æ­£åœ¨ä¸Šä¼ ä¸­çš„æ–‡ä»¶æ•°
-             * * `numOfUploadFailed` ä¸Šä¼ é”™è¯¯çš„æ–‡ä»¶æ•°ã€‚
-             * * `numOfInvalid` æ— æ•ˆçš„æ–‡ä»¶æ•°ã€‚
+             * Í³¼ÆÎÄ¼şÊı¡£
+             * * `numOfQueue` ¶ÓÁĞÖĞµÄÎÄ¼şÊı¡£
+             * * `numOfSuccess` ÉÏ´«³É¹¦µÄÎÄ¼şÊı
+             * * `numOfCancel` ±»ÒÆ³ıµÄÎÄ¼şÊı
+             * * `numOfProgress` ÕıÔÚÉÏ´«ÖĞµÄÎÄ¼şÊı
+             * * `numOfUploadFailed` ÉÏ´«´íÎóµÄÎÄ¼şÊı¡£
+             * * `numOfInvalid` ÎŞĞ§µÄÎÄ¼şÊı¡£
              * @property {Object} stats
              */
             this.stats = {
@@ -2228,20 +2228,20 @@
                 numOfInvalid: 0
             };
     
-            // ä¸Šä¼ é˜Ÿåˆ—ï¼Œä»…åŒ…æ‹¬ç­‰å¾…ä¸Šä¼ çš„æ–‡ä»¶
+            // ÉÏ´«¶ÓÁĞ£¬½ö°üÀ¨µÈ´ıÉÏ´«µÄÎÄ¼ş
             this._queue = [];
     
-            // å­˜å‚¨æ‰€æœ‰æ–‡ä»¶
+            // ´æ´¢ËùÓĞÎÄ¼ş
             this._map = {};
         }
     
         $.extend( Queue.prototype, {
     
             /**
-             * å°†æ–°æ–‡ä»¶åŠ å…¥å¯¹é˜Ÿåˆ—å°¾éƒ¨
+             * ½«ĞÂÎÄ¼ş¼ÓÈë¶Ô¶ÓÁĞÎ²²¿
              *
              * @method append
-             * @param  {File} file   æ–‡ä»¶å¯¹è±¡
+             * @param  {File} file   ÎÄ¼ş¶ÔÏó
              */
             append: function( file ) {
                 this._queue.push( file );
@@ -2250,10 +2250,10 @@
             },
     
             /**
-             * å°†æ–°æ–‡ä»¶åŠ å…¥å¯¹é˜Ÿåˆ—å¤´éƒ¨
+             * ½«ĞÂÎÄ¼ş¼ÓÈë¶Ô¶ÓÁĞÍ·²¿
              *
              * @method prepend
-             * @param  {File} file   æ–‡ä»¶å¯¹è±¡
+             * @param  {File} file   ÎÄ¼ş¶ÔÏó
              */
             prepend: function( file ) {
                 this._queue.unshift( file );
@@ -2262,10 +2262,10 @@
             },
     
             /**
-             * è·å–æ–‡ä»¶å¯¹è±¡
+             * »ñÈ¡ÎÄ¼ş¶ÔÏó
              *
              * @method getFile
-             * @param  {String} fileId   æ–‡ä»¶ID
+             * @param  {String} fileId   ÎÄ¼şID
              * @return {File}
              */
             getFile: function( fileId ) {
@@ -2276,10 +2276,10 @@
             },
     
             /**
-             * ä»é˜Ÿåˆ—ä¸­å–å‡ºä¸€ä¸ªæŒ‡å®šçŠ¶æ€çš„æ–‡ä»¶ã€‚
+             * ´Ó¶ÓÁĞÖĞÈ¡³öÒ»¸öÖ¸¶¨×´Ì¬µÄÎÄ¼ş¡£
              * @grammar fetch( status ) => File
              * @method fetch
-             * @param {String} status [æ–‡ä»¶çŠ¶æ€å€¼](#WebUploader:File:File.Status)
+             * @param {String} status [ÎÄ¼ş×´Ì¬Öµ](#WebUploader:File:File.Status)
              * @return {File} [File](#WebUploader:File)
              */
             fetch: function( status ) {
@@ -2300,10 +2300,10 @@
             },
     
             /**
-             * å¯¹é˜Ÿåˆ—è¿›è¡Œæ’åºï¼Œèƒ½å¤Ÿæ§åˆ¶æ–‡ä»¶ä¸Šä¼ é¡ºåºã€‚
+             * ¶Ô¶ÓÁĞ½øĞĞÅÅĞò£¬ÄÜ¹»¿ØÖÆÎÄ¼şÉÏ´«Ë³Ğò¡£
              * @grammar sort( fn ) => undefined
              * @method sort
-             * @param {Function} fn æ’åºæ–¹æ³•
+             * @param {Function} fn ÅÅĞò·½·¨
              */
             sort: function( fn ) {
                 if ( typeof fn === 'function' ) {
@@ -2312,10 +2312,10 @@
             },
     
             /**
-             * è·å–æŒ‡å®šç±»å‹çš„æ–‡ä»¶åˆ—è¡¨, åˆ—è¡¨ä¸­æ¯ä¸€ä¸ªæˆå‘˜ä¸º[File](#WebUploader:File)å¯¹è±¡ã€‚
+             * »ñÈ¡Ö¸¶¨ÀàĞÍµÄÎÄ¼şÁĞ±í, ÁĞ±íÖĞÃ¿Ò»¸ö³ÉÔ±Îª[File](#WebUploader:File)¶ÔÏó¡£
              * @grammar getFiles( [status1[, status2 ...]] ) => Array
              * @method getFiles
-             * @param {String} [status] [æ–‡ä»¶çŠ¶æ€å€¼](#WebUploader:File:File.Status)
+             * @param {String} [status] [ÎÄ¼ş×´Ì¬Öµ](#WebUploader:File:File.Status)
              */
             getFiles: function() {
                 var sts = [].slice.call( arguments, 0 ),
@@ -2407,7 +2407,7 @@
         return Queue;
     });
     /**
-     * @fileOverview é˜Ÿåˆ—
+     * @fileOverview ¶ÓÁĞ
      */
     define('widgets/queue',[
         'base',
@@ -2444,7 +2444,7 @@
                     opts.accept = [ opts.accept ];
                 }
     
-                // acceptä¸­çš„ä¸­ç”ŸæˆåŒ¹é…æ­£åˆ™ã€‚
+                // acceptÖĞµÄÖĞÉú³ÉÆ¥ÅäÕıÔò¡£
                 if ( opts.accept ) {
                     arr = [];
     
@@ -2465,14 +2465,14 @@
                 me.queue = new Queue();
                 me.stats = me.queue.stats;
     
-                // å¦‚æœå½“å‰ä¸æ˜¯html5è¿è¡Œæ—¶ï¼Œé‚£å°±ç®—äº†ã€‚
-                // ä¸æ‰§è¡Œåç»­æ“ä½œ
+                // Èç¹ûµ±Ç°²»ÊÇhtml5ÔËĞĞÊ±£¬ÄÇ¾ÍËãÁË¡£
+                // ²»Ö´ĞĞºóĞø²Ù×÷
                 if ( this.request('predict-runtime-type') !== 'html5' ) {
                     return;
                 }
     
-                // åˆ›å»ºä¸€ä¸ª html5 è¿è¡Œæ—¶çš„ placeholder
-                // ä»¥è‡³äºå¤–éƒ¨æ·»åŠ åŸç”Ÿ File å¯¹è±¡çš„æ—¶å€™èƒ½æ­£ç¡®åŒ…è£¹ä¸€ä¸‹ä¾› webuploader ä½¿ç”¨ã€‚
+                // ´´½¨Ò»¸ö html5 ÔËĞĞÊ±µÄ placeholder
+                // ÒÔÖÁÓÚÍâ²¿Ìí¼ÓÔ­Éú File ¶ÔÏóµÄÊ±ºòÄÜÕıÈ·°ü¹üÒ»ÏÂ¹© webuploader Ê¹ÓÃ¡£
                 deferred = Base.Deferred();
                 runtime = new RuntimeClient('Placeholder');
                 runtime.connectRuntime({
@@ -2485,7 +2485,7 @@
             },
     
     
-            // ä¸ºäº†æ”¯æŒå¤–éƒ¨ç›´æ¥æ·»åŠ ä¸€ä¸ªåŸç”ŸFileå¯¹è±¡ã€‚
+            // ÎªÁËÖ§³ÖÍâ²¿Ö±½ÓÌí¼ÓÒ»¸öÔ­ÉúFile¶ÔÏó¡£
             _wrapFile: function( file ) {
                 if ( !(file instanceof WUFile) ) {
     
@@ -2502,11 +2502,11 @@
                 return file;
             },
     
-            // åˆ¤æ–­æ–‡ä»¶æ˜¯å¦å¯ä»¥è¢«åŠ å…¥é˜Ÿåˆ—
+            // ÅĞ¶ÏÎÄ¼şÊÇ·ñ¿ÉÒÔ±»¼ÓÈë¶ÓÁĞ
             acceptFile: function( file ) {
                 var invalid = !file || file.size < 6 || this.accept &&
     
-                        // å¦‚æœåå­—ä¸­æœ‰åç¼€ï¼Œæ‰åšåç¼€ç™½åå•å¤„ç†ã€‚
+                        // Èç¹ûÃû×ÖÖĞÓĞºó×º£¬²Å×öºó×º°×Ãûµ¥´¦Àí¡£
                         rExt.exec( file.name ) && !this.accept.test( file.name );
     
                 return !invalid;
@@ -2515,15 +2515,15 @@
     
             /**
              * @event beforeFileQueued
-             * @param {File} file Fileå¯¹è±¡
-             * @description å½“æ–‡ä»¶è¢«åŠ å…¥é˜Ÿåˆ—ä¹‹å‰è§¦å‘ï¼Œæ­¤äº‹ä»¶çš„handlerè¿”å›å€¼ä¸º`false`ï¼Œåˆ™æ­¤æ–‡ä»¶ä¸ä¼šè¢«æ·»åŠ è¿›å…¥é˜Ÿåˆ—ã€‚
+             * @param {File} file File¶ÔÏó
+             * @description µ±ÎÄ¼ş±»¼ÓÈë¶ÓÁĞÖ®Ç°´¥·¢£¬´ËÊÂ¼şµÄhandler·µ»ØÖµÎª`false`£¬Ôò´ËÎÄ¼ş²»»á±»Ìí¼Ó½øÈë¶ÓÁĞ¡£
              * @for  Uploader
              */
     
             /**
              * @event fileQueued
-             * @param {File} file Fileå¯¹è±¡
-             * @description å½“æ–‡ä»¶è¢«åŠ å…¥é˜Ÿåˆ—ä»¥åè§¦å‘ã€‚
+             * @param {File} file File¶ÔÏó
+             * @description µ±ÎÄ¼ş±»¼ÓÈë¶ÓÁĞÒÔºó´¥·¢¡£
              * @for  Uploader
              */
     
@@ -2532,12 +2532,12 @@
     
                 file = me._wrapFile( file );
     
-                // ä¸è¿‡ç±»å‹åˆ¤æ–­å…è®¸ä¸å…è®¸ï¼Œå…ˆæ´¾é€ `beforeFileQueued`
+                // ²»¹ıÀàĞÍÅĞ¶ÏÔÊĞí²»ÔÊĞí£¬ÏÈÅÉËÍ `beforeFileQueued`
                 if ( !me.owner.trigger( 'beforeFileQueued', file ) ) {
                     return;
                 }
     
-                // ç±»å‹ä¸åŒ¹é…ï¼Œåˆ™æ´¾é€é”™è¯¯äº‹ä»¶ï¼Œå¹¶è¿”å›ã€‚
+                // ÀàĞÍ²»Æ¥Åä£¬ÔòÅÉËÍ´íÎóÊÂ¼ş£¬²¢·µ»Ø¡£
                 if ( !me.acceptFile( file ) ) {
                     me.owner.trigger( 'error', 'Q_TYPE_DENIED', file );
                     return;
@@ -2554,8 +2554,8 @@
     
             /**
              * @event filesQueued
-             * @param {File} files æ•°ç»„ï¼Œå†…å®¹ä¸ºåŸå§‹File(lib/Fileï¼‰å¯¹è±¡ã€‚
-             * @description å½“ä¸€æ‰¹æ–‡ä»¶æ·»åŠ è¿›é˜Ÿåˆ—ä»¥åè§¦å‘ã€‚
+             * @param {File} files Êı×é£¬ÄÚÈİÎªÔ­Ê¼File(lib/File£©¶ÔÏó¡£
+             * @description µ±Ò»ÅúÎÄ¼şÌí¼Ó½ø¶ÓÁĞÒÔºó´¥·¢¡£
              * @for  Uploader
              */
     
@@ -2563,8 +2563,8 @@
              * @method addFiles
              * @grammar addFiles( file ) => undefined
              * @grammar addFiles( [file1, file2 ...] ) => undefined
-             * @param {Array of File or File} [files] Files å¯¹è±¡ æ•°ç»„
-             * @description æ·»åŠ æ–‡ä»¶åˆ°é˜Ÿåˆ—
+             * @param {Array of File or File} [files] Files ¶ÔÏó Êı×é
+             * @description Ìí¼ÓÎÄ¼şµ½¶ÓÁĞ
              * @for  Uploader
              */
             addFiles: function( files ) {
@@ -2591,8 +2591,8 @@
     
             /**
              * @event fileDequeued
-             * @param {File} file Fileå¯¹è±¡
-             * @description å½“æ–‡ä»¶è¢«ç§»é™¤é˜Ÿåˆ—åè§¦å‘ã€‚
+             * @param {File} file File¶ÔÏó
+             * @description µ±ÎÄ¼ş±»ÒÆ³ı¶ÓÁĞºó´¥·¢¡£
              * @for  Uploader
              */
     
@@ -2600,8 +2600,8 @@
              * @method removeFile
              * @grammar removeFile( file ) => undefined
              * @grammar removeFile( id ) => undefined
-             * @param {File|id} file Fileå¯¹è±¡æˆ–è¿™Fileå¯¹è±¡çš„id
-             * @description ç§»é™¤æŸä¸€æ–‡ä»¶ã€‚
+             * @param {File|id} file File¶ÔÏó»òÕâFile¶ÔÏóµÄid
+             * @description ÒÆ³ıÄ³Ò»ÎÄ¼ş¡£
              * @for  Uploader
              * @example
              *
@@ -2622,7 +2622,7 @@
              * @method getFiles
              * @grammar getFiles() => Array
              * @grammar getFiles( status1, status2, status... ) => Array
-             * @description è¿”å›æŒ‡å®šçŠ¶æ€çš„æ–‡ä»¶é›†åˆï¼Œä¸ä¼ å‚æ•°å°†è¿”å›æ‰€æœ‰çŠ¶æ€çš„æ–‡ä»¶ã€‚
+             * @description ·µ»ØÖ¸¶¨×´Ì¬µÄÎÄ¼ş¼¯ºÏ£¬²»´«²ÎÊı½«·µ»ØËùÓĞ×´Ì¬µÄÎÄ¼ş¡£
              * @for  Uploader
              * @example
              * console.log( uploader.getFiles() );    // => all files
@@ -2640,7 +2640,7 @@
              * @method retry
              * @grammar retry() => undefined
              * @grammar retry( file ) => undefined
-             * @description é‡è¯•ä¸Šä¼ ï¼Œé‡è¯•æŒ‡å®šæ–‡ä»¶ï¼Œæˆ–è€…ä»å‡ºé”™çš„æ–‡ä»¶å¼€å§‹é‡æ–°ä¸Šä¼ ã€‚
+             * @description ÖØÊÔÉÏ´«£¬ÖØÊÔÖ¸¶¨ÎÄ¼ş£¬»òÕß´Ó³ö´íµÄÎÄ¼ş¿ªÊ¼ÖØĞÂÉÏ´«¡£
              * @for  Uploader
              * @example
              * function retry() {
@@ -2673,7 +2673,7 @@
             /**
              * @method sort
              * @grammar sort( fn ) => undefined
-             * @description æ’åºé˜Ÿåˆ—ä¸­çš„æ–‡ä»¶ï¼Œåœ¨ä¸Šä¼ ä¹‹å‰è°ƒæ•´å¯ä»¥æ§åˆ¶ä¸Šä¼ é¡ºåºã€‚
+             * @description ÅÅĞò¶ÓÁĞÖĞµÄÎÄ¼ş£¬ÔÚÉÏ´«Ö®Ç°µ÷Õû¿ÉÒÔ¿ØÖÆÉÏ´«Ë³Ğò¡£
              * @for  Uploader
              */
             sortFiles: function() {
@@ -2683,7 +2683,7 @@
             /**
              * @method reset
              * @grammar reset() => undefined
-             * @description é‡ç½®uploaderã€‚ç›®å‰åªé‡ç½®äº†é˜Ÿåˆ—ã€‚
+             * @description ÖØÖÃuploader¡£Ä¿Ç°Ö»ÖØÖÃÁË¶ÓÁĞ¡£
              * @for  Uploader
              * @example
              * uploader.reset();
@@ -2696,7 +2696,7 @@
     
     });
     /**
-     * @fileOverview æ·»åŠ è·å–Runtimeç›¸å…³ä¿¡æ¯çš„æ–¹æ³•ã€‚
+     * @fileOverview Ìí¼Ó»ñÈ¡RuntimeÏà¹ØĞÅÏ¢µÄ·½·¨¡£
      */
     define('widgets/runtime',[
         'uploader',
@@ -2719,7 +2719,7 @@
             },
     
             /**
-             * é¢„æµ‹Uploaderå°†é‡‡ç”¨å“ªä¸ª`Runtime`
+             * Ô¤²âUploader½«²ÉÓÃÄÄ¸ö`Runtime`
              * @grammar predictRuntmeType() => String
              * @method predictRuntmeType
              * @for  Uploader
@@ -2776,10 +2776,10 @@
             server: '',
             method: 'POST',
     
-            // è·¨åŸŸæ—¶ï¼Œæ˜¯å¦å…è®¸æºå¸¦cookie, åªæœ‰html5 runtimeæ‰æœ‰æ•ˆ
+            // ¿çÓòÊ±£¬ÊÇ·ñÔÊĞíĞ¯´øcookie, Ö»ÓĞhtml5 runtime²ÅÓĞĞ§
             withCredentials: false,
             fileVal: 'file',
-            timeout: 2 * 60 * 1000,    // 2åˆ†é’Ÿ
+            timeout: 2 * 60 * 1000,    // 2·ÖÖÓ
             formData: {},
             headers: {},
             sendAsBinary: false
@@ -2787,7 +2787,7 @@
     
         $.extend( Transport.prototype, {
     
-            // æ·»åŠ Blob, åªèƒ½æ·»åŠ ä¸€æ¬¡ï¼Œæœ€åä¸€æ¬¡æœ‰æ•ˆã€‚
+            // Ìí¼ÓBlob, Ö»ÄÜÌí¼ÓÒ»´Î£¬×îºóÒ»´ÎÓĞĞ§¡£
             appendBlob: function( key, blob, filename ) {
                 var me = this,
                     opts = me.options;
@@ -2796,7 +2796,7 @@
                     me.disconnectRuntime();
                 }
     
-                // è¿æ¥åˆ°blobå½’å±çš„åŒä¸€ä¸ªruntime.
+                // Á¬½Óµ½blob¹éÊôµÄÍ¬Ò»¸öruntime.
                 me.connectRuntime( blob.ruid, function() {
                     me.exec('init');
                 });
@@ -2806,7 +2806,7 @@
                 opts.filename = filename || opts.filename;
             },
     
-            // æ·»åŠ å…¶ä»–å­—æ®µ
+            // Ìí¼ÓÆäËû×Ö¶Î
             append: function( key, value ) {
                 if ( typeof key === 'object' ) {
                     $.extend( this._formData, key );
@@ -2869,13 +2869,13 @@
     
         });
     
-        // è®©Transportå…·å¤‡äº‹ä»¶åŠŸèƒ½ã€‚
+        // ÈÃTransport¾ß±¸ÊÂ¼ş¹¦ÄÜ¡£
         Mediator.installTo( Transport.prototype );
     
         return Transport;
     });
     /**
-     * @fileOverview è´Ÿè´£æ–‡ä»¶ä¸Šä¼ ç›¸å…³ã€‚
+     * @fileOverview ¸ºÔğÎÄ¼şÉÏ´«Ïà¹Ø¡£
      */
     define('widgets/upload',[
         'base',
@@ -2889,7 +2889,7 @@
             isPromise = Base.isPromise,
             Status = WUFile.Status;
     
-        // æ·»åŠ é»˜è®¤é…ç½®é¡¹
+        // Ìí¼ÓÄ¬ÈÏÅäÖÃÏî
         $.extend( Uploader.options, {
     
     
@@ -2897,9 +2897,9 @@
              * @property {Boolean} [prepareNextFile=false]
              * @namespace options
              * @for Uploader
-             * @description æ˜¯å¦å…è®¸åœ¨æ–‡ä»¶ä¼ è¾“æ—¶æå‰æŠŠä¸‹ä¸€ä¸ªæ–‡ä»¶å‡†å¤‡å¥½ã€‚
-             * å¯¹äºä¸€ä¸ªæ–‡ä»¶çš„å‡†å¤‡å·¥ä½œæ¯”è¾ƒè€—æ—¶ï¼Œæ¯”å¦‚å›¾ç‰‡å‹ç¼©ï¼Œmd5åºåˆ—åŒ–ã€‚
-             * å¦‚æœèƒ½æå‰åœ¨å½“å‰æ–‡ä»¶ä¼ è¾“æœŸå¤„ç†ï¼Œå¯ä»¥èŠ‚çœæ€»ä½“è€—æ—¶ã€‚
+             * @description ÊÇ·ñÔÊĞíÔÚÎÄ¼ş´«ÊäÊ±ÌáÇ°°ÑÏÂÒ»¸öÎÄ¼ş×¼±¸ºÃ¡£
+             * ¶ÔÓÚÒ»¸öÎÄ¼şµÄ×¼±¸¹¤×÷±È½ÏºÄÊ±£¬±ÈÈçÍ¼Æ¬Ñ¹Ëõ£¬md5ĞòÁĞ»¯¡£
+             * Èç¹ûÄÜÌáÇ°ÔÚµ±Ç°ÎÄ¼ş´«ÊäÆÚ´¦Àí£¬¿ÉÒÔ½ÚÊ¡×ÜÌåºÄÊ±¡£
              */
             prepareNextFile: false,
     
@@ -2907,7 +2907,7 @@
              * @property {Boolean} [chunked=false]
              * @namespace options
              * @for Uploader
-             * @description æ˜¯å¦è¦åˆ†ç‰‡å¤„ç†å¤§æ–‡ä»¶ä¸Šä¼ ã€‚
+             * @description ÊÇ·ñÒª·ÖÆ¬´¦Àí´óÎÄ¼şÉÏ´«¡£
              */
             chunked: false,
     
@@ -2915,7 +2915,7 @@
              * @property {Boolean} [chunkSize=5242880]
              * @namespace options
              * @for Uploader
-             * @description å¦‚æœè¦åˆ†ç‰‡ï¼Œåˆ†å¤šå¤§ä¸€ç‰‡ï¼Ÿ é»˜è®¤å¤§å°ä¸º5M.
+             * @description Èç¹ûÒª·ÖÆ¬£¬·Ö¶à´óÒ»Æ¬£¿ Ä¬ÈÏ´óĞ¡Îª5M.
              */
             chunkSize: 5 * 1024 * 1024,
     
@@ -2923,7 +2923,7 @@
              * @property {Boolean} [chunkRetry=2]
              * @namespace options
              * @for Uploader
-             * @description å¦‚æœæŸä¸ªåˆ†ç‰‡ç”±äºç½‘ç»œé—®é¢˜å‡ºé”™ï¼Œå…è®¸è‡ªåŠ¨é‡ä¼ å¤šå°‘æ¬¡ï¼Ÿ
+             * @description Èç¹ûÄ³¸ö·ÖÆ¬ÓÉÓÚÍøÂçÎÊÌâ³ö´í£¬ÔÊĞí×Ô¶¯ÖØ´«¶àÉÙ´Î£¿
              */
             chunkRetry: 2,
     
@@ -2931,7 +2931,7 @@
              * @property {Boolean} [threads=3]
              * @namespace options
              * @for Uploader
-             * @description ä¸Šä¼ å¹¶å‘æ•°ã€‚å…è®¸åŒæ—¶æœ€å¤§ä¸Šä¼ è¿›ç¨‹æ•°ã€‚
+             * @description ÉÏ´«²¢·¢Êı¡£ÔÊĞíÍ¬Ê±×î´óÉÏ´«½ø³ÌÊı¡£
              */
             threads: 3,
     
@@ -2940,7 +2940,7 @@
              * @property {Object} [formData]
              * @namespace options
              * @for Uploader
-             * @description æ–‡ä»¶ä¸Šä¼ è¯·æ±‚çš„å‚æ•°è¡¨ï¼Œæ¯æ¬¡å‘é€éƒ½ä¼šå‘é€æ­¤å¯¹è±¡ä¸­çš„å‚æ•°ã€‚
+             * @description ÎÄ¼şÉÏ´«ÇëÇóµÄ²ÎÊı±í£¬Ã¿´Î·¢ËÍ¶¼»á·¢ËÍ´Ë¶ÔÏóÖĞµÄ²ÎÊı¡£
              */
             formData: null
     
@@ -2948,26 +2948,26 @@
              * @property {Object} [fileVal='file']
              * @namespace options
              * @for Uploader
-             * @description è®¾ç½®æ–‡ä»¶ä¸Šä¼ åŸŸçš„nameã€‚
+             * @description ÉèÖÃÎÄ¼şÉÏ´«ÓòµÄname¡£
              */
     
             /**
              * @property {Object} [method='POST']
              * @namespace options
              * @for Uploader
-             * @description æ–‡ä»¶ä¸Šä¼ æ–¹å¼ï¼Œ`POST`æˆ–è€…`GET`ã€‚
+             * @description ÎÄ¼şÉÏ´«·½Ê½£¬`POST`»òÕß`GET`¡£
              */
     
             /**
              * @property {Object} [sendAsBinary=false]
              * @namespace options
              * @for Uploader
-             * @description æ˜¯å¦å·²äºŒè¿›åˆ¶çš„æµçš„æ–¹å¼å‘é€æ–‡ä»¶ï¼Œè¿™æ ·æ•´ä¸ªä¸Šä¼ å†…å®¹`php://input`éƒ½ä¸ºæ–‡ä»¶å†…å®¹ï¼Œ
-             * å…¶ä»–å‚æ•°åœ¨$_GETæ•°ç»„ä¸­ã€‚
+             * @description ÊÇ·ñÒÑ¶ş½øÖÆµÄÁ÷µÄ·½Ê½·¢ËÍÎÄ¼ş£¬ÕâÑùÕû¸öÉÏ´«ÄÚÈİ`php://input`¶¼ÎªÎÄ¼şÄÚÈİ£¬
+             * ÆäËû²ÎÊıÔÚ$_GETÊı×éÖĞ¡£
              */
         });
     
-        // è´Ÿè´£å°†æ–‡ä»¶åˆ‡ç‰‡ã€‚
+        // ¸ºÔğ½«ÎÄ¼şÇĞÆ¬¡£
         function CuteFile( file, chunkSize ) {
             var pending = [],
                 blob = file.source,
@@ -3019,18 +3019,18 @@
     
                 this.runing = false;
     
-                // è®°å½•å½“å‰æ­£åœ¨ä¼ çš„æ•°æ®ï¼Œè·Ÿthreadsç›¸å…³
+                // ¼ÇÂ¼µ±Ç°ÕıÔÚ´«µÄÊı¾İ£¬¸úthreadsÏà¹Ø
                 this.pool = [];
     
-                // ç¼“å­˜å³å°†ä¸Šä¼ çš„æ–‡ä»¶ã€‚
+                // »º´æ¼´½«ÉÏ´«µÄÎÄ¼ş¡£
                 this.pending = [];
     
-                // è·Ÿè¸ªè¿˜æœ‰å¤šå°‘åˆ†ç‰‡æ²¡æœ‰å®Œæˆä¸Šä¼ ã€‚
+                // ¸ú×Ù»¹ÓĞ¶àÉÙ·ÖÆ¬Ã»ÓĞÍê³ÉÉÏ´«¡£
                 this.remaning = 0;
                 this.__tick = Base.bindFn( this._tick, this );
     
                 owner.on( 'uploadComplete', function( file ) {
-                    // æŠŠå…¶ä»–å—å–æ¶ˆäº†ã€‚
+                    // °ÑÆäËû¿éÈ¡ÏûÁË¡£
                     file.blocks && $.each( file.blocks, function( _, v ) {
                         v.transport && (v.transport.abort(), v.transport.destroy());
                         delete v.transport;
@@ -3043,12 +3043,12 @@
     
             /**
              * @event startUpload
-             * @description å½“å¼€å§‹ä¸Šä¼ æµç¨‹æ—¶è§¦å‘ã€‚
+             * @description µ±¿ªÊ¼ÉÏ´«Á÷³ÌÊ±´¥·¢¡£
              * @for  Uploader
              */
     
             /**
-             * å¼€å§‹ä¸Šä¼ ã€‚æ­¤æ–¹æ³•å¯ä»¥ä»åˆå§‹çŠ¶æ€è°ƒç”¨å¼€å§‹ä¸Šä¼ æµç¨‹ï¼Œä¹Ÿå¯ä»¥ä»æš‚åœçŠ¶æ€è°ƒç”¨ï¼Œç»§ç»­ä¸Šä¼ æµç¨‹ã€‚
+             * ¿ªÊ¼ÉÏ´«¡£´Ë·½·¨¿ÉÒÔ´Ó³õÊ¼×´Ì¬µ÷ÓÃ¿ªÊ¼ÉÏ´«Á÷³Ì£¬Ò²¿ÉÒÔ´ÓÔİÍ£×´Ì¬µ÷ÓÃ£¬¼ÌĞøÉÏ´«Á÷³Ì¡£
              * @grammar upload() => undefined
              * @method upload
              * @for  Uploader
@@ -3056,7 +3056,7 @@
             start: function() {
                 var me = this;
     
-                // ç§»å‡ºinvalidçš„æ–‡ä»¶
+                // ÒÆ³öinvalidµÄÎÄ¼ş
                 $.each( me.request( 'get-files', Status.INVALID ), function() {
                     me.request( 'remove-file', this );
                 });
@@ -3067,7 +3067,7 @@
     
                 me.runing = true;
     
-                // å¦‚æœæœ‰æš‚åœçš„ï¼Œåˆ™ç»­ä¼ 
+                // Èç¹ûÓĞÔİÍ£µÄ£¬ÔòĞø´«
                 $.each( me.pool, function( _, v ) {
                     var file = v.file;
     
@@ -3085,12 +3085,12 @@
     
             /**
              * @event stopUpload
-             * @description å½“å¼€å§‹ä¸Šä¼ æµç¨‹æš‚åœæ—¶è§¦å‘ã€‚
+             * @description µ±¿ªÊ¼ÉÏ´«Á÷³ÌÔİÍ£Ê±´¥·¢¡£
              * @for  Uploader
              */
     
             /**
-             * æš‚åœä¸Šä¼ ã€‚ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºæ˜¯å¦ä¸­æ–­ä¸Šä¼ å½“å‰æ­£åœ¨ä¸Šä¼ çš„æ–‡ä»¶ã€‚
+             * ÔİÍ£ÉÏ´«¡£µÚÒ»¸ö²ÎÊıÎªÊÇ·ñÖĞ¶ÏÉÏ´«µ±Ç°ÕıÔÚÉÏ´«µÄÎÄ¼ş¡£
              * @grammar stop() => undefined
              * @grammar stop( true ) => undefined
              * @method stop
@@ -3114,7 +3114,7 @@
             },
     
             /**
-             * åˆ¤æ–­`Uplaode`ræ˜¯å¦æ­£åœ¨ä¸Šä¼ ä¸­ã€‚
+             * ÅĞ¶Ï`Uplaode`rÊÇ·ñÕıÔÚÉÏ´«ÖĞ¡£
              * @grammar isInProgress() => Boolean
              * @method isInProgress
              * @for  Uploader
@@ -3128,7 +3128,7 @@
             },
     
             /**
-             * æ‰è¿‡ä¸€ä¸ªæ–‡ä»¶ä¸Šä¼ ï¼Œç›´æ¥æ ‡è®°æŒ‡å®šæ–‡ä»¶ä¸ºå·²ä¸Šä¼ çŠ¶æ€ã€‚
+             * µô¹ıÒ»¸öÎÄ¼şÉÏ´«£¬Ö±½Ó±ê¼ÇÖ¸¶¨ÎÄ¼şÎªÒÑÉÏ´«×´Ì¬¡£
              * @grammar skipFile( file ) => undefined
              * @method skipFile
              * @for  Uploader
@@ -3139,7 +3139,7 @@
                 file.setStatus( status || Status.COMPLETE );
                 file.skipped = true;
     
-                // å¦‚æœæ­£åœ¨ä¸Šä¼ ã€‚
+                // Èç¹ûÕıÔÚÉÏ´«¡£
                 file.blocks && $.each( file.blocks, function( _, v ) {
                     var _tr = v.transport;
     
@@ -3155,7 +3155,7 @@
     
             /**
              * @event uploadFinished
-             * @description å½“æ‰€æœ‰æ–‡ä»¶ä¸Šä¼ ç»“æŸæ—¶è§¦å‘ã€‚
+             * @description µ±ËùÓĞÎÄ¼şÉÏ´«½áÊøÊ±´¥·¢¡£
              * @for  Uploader
              */
             _tick: function() {
@@ -3163,26 +3163,26 @@
                     opts = me.options,
                     fn, val;
     
-                // ä¸Šä¸€ä¸ªpromiseè¿˜æ²¡æœ‰ç»“æŸï¼Œåˆ™ç­‰å¾…å®Œæˆåå†æ‰§è¡Œã€‚
+                // ÉÏÒ»¸öpromise»¹Ã»ÓĞ½áÊø£¬ÔòµÈ´ıÍê³ÉºóÔÙÖ´ĞĞ¡£
                 if ( me._promise ) {
                     return me._promise.always( me.__tick );
                 }
     
-                // è¿˜æœ‰ä½ç½®ï¼Œä¸”è¿˜æœ‰æ–‡ä»¶è¦å¤„ç†çš„è¯ã€‚
+                // »¹ÓĞÎ»ÖÃ£¬ÇÒ»¹ÓĞÎÄ¼şÒª´¦ÀíµÄ»°¡£
                 if ( me.pool.length < opts.threads && (val = me._nextBlock()) ) {
                     me._trigged = false;
     
                     fn = function( val ) {
                         me._promise = null;
     
-                        // æœ‰å¯èƒ½æ˜¯rejectè¿‡æ¥çš„ï¼Œæ‰€ä»¥è¦æ£€æµ‹valçš„ç±»å‹ã€‚
+                        // ÓĞ¿ÉÄÜÊÇreject¹ıÀ´µÄ£¬ËùÒÔÒª¼ì²âvalµÄÀàĞÍ¡£
                         val && val.file && me._startSend( val );
                         Base.nextTick( me.__tick );
                     };
     
                     me._promise = isPromise( val ) ? val.always( fn ) : fn( val );
     
-                // æ²¡æœ‰è¦ä¸Šä¼ çš„äº†ï¼Œä¸”æ²¡æœ‰æ­£åœ¨ä¼ è¾“çš„äº†ã€‚
+                // Ã»ÓĞÒªÉÏ´«µÄÁË£¬ÇÒÃ»ÓĞÕıÔÚ´«ÊäµÄÁË¡£
                 } else if ( !me.remaning && !me.getStats().numOfQueue ) {
                     me.runing = false;
     
@@ -3199,21 +3199,21 @@
                     opts = me.options,
                     next, done;
     
-                // å¦‚æœå½“å‰æ–‡ä»¶è¿˜æœ‰æ²¡æœ‰éœ€è¦ä¼ è¾“çš„ï¼Œåˆ™ç›´æ¥è¿”å›å‰©ä¸‹çš„ã€‚
+                // Èç¹ûµ±Ç°ÎÄ¼ş»¹ÓĞÃ»ÓĞĞèÒª´«ÊäµÄ£¬ÔòÖ±½Ó·µ»ØÊ£ÏÂµÄ¡£
                 if ( act && act.has() &&
                         act.file.getStatus() === Status.PROGRESS ) {
     
-                    // æ˜¯å¦æå‰å‡†å¤‡ä¸‹ä¸€ä¸ªæ–‡ä»¶
+                    // ÊÇ·ñÌáÇ°×¼±¸ÏÂÒ»¸öÎÄ¼ş
                     if ( opts.prepareNextFile && !me.pending.length ) {
                         me._prepareNextFile();
                     }
     
                     return act.fetch();
     
-                // å¦åˆ™ï¼Œå¦‚æœæ­£åœ¨è¿è¡Œï¼Œåˆ™å‡†å¤‡ä¸‹ä¸€ä¸ªæ–‡ä»¶ï¼Œå¹¶ç­‰å¾…å®Œæˆåè¿”å›ä¸‹ä¸ªåˆ†ç‰‡ã€‚
+                // ·ñÔò£¬Èç¹ûÕıÔÚÔËĞĞ£¬Ôò×¼±¸ÏÂÒ»¸öÎÄ¼ş£¬²¢µÈ´ıÍê³Éºó·µ»ØÏÂ¸ö·ÖÆ¬¡£
                 } else if ( me.runing ) {
     
-                    // å¦‚æœç¼“å­˜ä¸­æœ‰ï¼Œåˆ™ç›´æ¥åœ¨ç¼“å­˜ä¸­å–ï¼Œæ²¡æœ‰åˆ™å»queueä¸­å–ã€‚
+                    // Èç¹û»º´æÖĞÓĞ£¬ÔòÖ±½ÓÔÚ»º´æÖĞÈ¡£¬Ã»ÓĞÔòÈ¥queueÖĞÈ¡¡£
                     if ( !me.pending.length && me.getStats().numOfQueue ) {
                         me._prepareNextFile();
                     }
@@ -3229,7 +3229,7 @@
                         return act.fetch();
                     };
     
-                    // æ–‡ä»¶å¯èƒ½è¿˜åœ¨prepareä¸­ï¼Œä¹Ÿæœ‰å¯èƒ½å·²ç»å®Œå…¨å‡†å¤‡å¥½äº†ã€‚
+                    // ÎÄ¼ş¿ÉÄÜ»¹ÔÚprepareÖĞ£¬Ò²ÓĞ¿ÉÄÜÒÑ¾­ÍêÈ«×¼±¸ºÃÁË¡£
                     return isPromise( next ) ?
                             next[ next.pipe ? 'pipe' : 'then']( done ) :
                             done( next );
@@ -3239,8 +3239,8 @@
     
             /**
              * @event uploadStart
-             * @param {File} file Fileå¯¹è±¡
-             * @description æŸä¸ªæ–‡ä»¶å¼€å§‹ä¸Šä¼ å‰è§¦å‘ï¼Œä¸€ä¸ªæ–‡ä»¶åªä¼šè§¦å‘ä¸€æ¬¡ã€‚
+             * @param {File} file File¶ÔÏó
+             * @description Ä³¸öÎÄ¼ş¿ªÊ¼ÉÏ´«Ç°´¥·¢£¬Ò»¸öÎÄ¼şÖ»»á´¥·¢Ò»´Î¡£
              * @for  Uploader
              */
             _prepareNextFile: function() {
@@ -3252,7 +3252,7 @@
                 if ( file ) {
                     promise = me.request( 'before-send-file', file, function() {
     
-                        // æœ‰å¯èƒ½æ–‡ä»¶è¢«skipæ‰äº†ã€‚æ–‡ä»¶è¢«skipæ‰åï¼ŒçŠ¶æ€å‘å®šä¸æ˜¯Queued.
+                        // ÓĞ¿ÉÄÜÎÄ¼ş±»skipµôÁË¡£ÎÄ¼ş±»skipµôºó£¬×´Ì¬¿Ó¶¨²»ÊÇQueued.
                         if ( file.getStatus() === Status.QUEUED ) {
                             me.owner.trigger( 'uploadStart', file );
                             file.setStatus( Status.PROGRESS );
@@ -3262,14 +3262,14 @@
                         return me._finishFile( file );
                     });
     
-                    // å¦‚æœè¿˜åœ¨pendingä¸­ï¼Œåˆ™æ›¿æ¢æˆæ–‡ä»¶æœ¬èº«ã€‚
+                    // Èç¹û»¹ÔÚpendingÖĞ£¬ÔòÌæ»»³ÉÎÄ¼ş±¾Éí¡£
                     promise.done(function() {
                         var idx = $.inArray( promise, pending );
     
                         ~idx && pending.splice( idx, 1, file );
                     });
     
-                    // befeore-send-fileçš„é’©å­å°±æœ‰é”™è¯¯å‘ç”Ÿã€‚
+                    // befeore-send-fileµÄ¹³×Ó¾ÍÓĞ´íÎó·¢Éú¡£
                     promise.fail(function( reason ) {
                         file.setStatus( Status.ERROR, reason );
                         me.owner.trigger( 'uploadError', file, reason );
@@ -3280,7 +3280,7 @@
                 }
             },
     
-            // è®©å‡ºä½ç½®äº†ï¼Œå¯ä»¥è®©å…¶ä»–åˆ†ç‰‡å¼€å§‹ä¸Šä¼ 
+            // ÈÃ³öÎ»ÖÃÁË£¬¿ÉÒÔÈÃÆäËû·ÖÆ¬¿ªÊ¼ÉÏ´«
             _popBlock: function( block ) {
                 var idx = $.inArray( block, this.pool );
     
@@ -3289,7 +3289,7 @@
                 this.remaning--;
             },
     
-            // å¼€å§‹ä¸Šä¼ ï¼Œå¯ä»¥è¢«æ‰è¿‡ã€‚å¦‚æœpromiseè¢«rejectäº†ï¼Œåˆ™è¡¨ç¤ºè·³è¿‡æ­¤åˆ†ç‰‡ã€‚
+            // ¿ªÊ¼ÉÏ´«£¬¿ÉÒÔ±»µô¹ı¡£Èç¹ûpromise±»rejectÁË£¬Ôò±íÊ¾Ìø¹ı´Ë·ÖÆ¬¡£
             _startSend: function( block ) {
                 var me = this,
                     file = block.file,
@@ -3298,15 +3298,15 @@
                 me.pool.push( block );
                 me.remaning++;
     
-                // å¦‚æœæ²¡æœ‰åˆ†ç‰‡ï¼Œåˆ™ç›´æ¥ä½¿ç”¨åŸå§‹çš„ã€‚
-                // ä¸ä¼šä¸¢å¤±content-typeä¿¡æ¯ã€‚
+                // Èç¹ûÃ»ÓĞ·ÖÆ¬£¬ÔòÖ±½ÓÊ¹ÓÃÔ­Ê¼µÄ¡£
+                // ²»»á¶ªÊ§content-typeĞÅÏ¢¡£
                 block.blob = block.chunks === 1 ? file.source :
                         file.source.slice( block.start, block.end );
     
-                // hook, æ¯ä¸ªåˆ†ç‰‡å‘é€ä¹‹å‰å¯èƒ½è¦åšäº›å¼‚æ­¥çš„äº‹æƒ…ã€‚
+                // hook, Ã¿¸ö·ÖÆ¬·¢ËÍÖ®Ç°¿ÉÄÜÒª×öĞ©Òì²½µÄÊÂÇé¡£
                 promise = me.request( 'before-send', block, function() {
     
-                    // æœ‰å¯èƒ½æ–‡ä»¶å·²ç»ä¸Šä¼ å‡ºé”™äº†ï¼Œæ‰€ä»¥ä¸éœ€è¦å†ä¼ è¾“äº†ã€‚
+                    // ÓĞ¿ÉÄÜÎÄ¼şÒÑ¾­ÉÏ´«³ö´íÁË£¬ËùÒÔ²»ĞèÒªÔÙ´«ÊäÁË¡£
                     if ( file.getStatus() === Status.PROGRESS ) {
                         me._doSend( block );
                     } else {
@@ -3315,7 +3315,7 @@
                     }
                 });
     
-                // å¦‚æœä¸ºfailäº†ï¼Œåˆ™è·³è¿‡æ­¤åˆ†ç‰‡ã€‚
+                // Èç¹ûÎªfailÁË£¬ÔòÌø¹ı´Ë·ÖÆ¬¡£
                 promise.fail(function() {
                     if ( file.remaning === 1 ) {
                         me._finishFile( file ).always(function() {
@@ -3336,52 +3336,52 @@
             /**
              * @event uploadBeforeSend
              * @param {Object} object
-             * @param {Object} data é»˜è®¤çš„ä¸Šä¼ å‚æ•°ï¼Œå¯ä»¥æ‰©å±•æ­¤å¯¹è±¡æ¥æ§åˆ¶ä¸Šä¼ å‚æ•°ã€‚
-             * @description å½“æŸä¸ªæ–‡ä»¶çš„åˆ†å—åœ¨å‘é€å‰è§¦å‘ï¼Œä¸»è¦ç”¨æ¥è¯¢é—®æ˜¯å¦è¦æ·»åŠ é™„å¸¦å‚æ•°ï¼Œå¤§æ–‡ä»¶åœ¨å¼€èµ·åˆ†ç‰‡ä¸Šä¼ çš„å‰æä¸‹æ­¤äº‹ä»¶å¯èƒ½ä¼šè§¦å‘å¤šæ¬¡ã€‚
+             * @param {Object} data Ä¬ÈÏµÄÉÏ´«²ÎÊı£¬¿ÉÒÔÀ©Õ¹´Ë¶ÔÏóÀ´¿ØÖÆÉÏ´«²ÎÊı¡£
+             * @description µ±Ä³¸öÎÄ¼şµÄ·Ö¿éÔÚ·¢ËÍÇ°´¥·¢£¬Ö÷ÒªÓÃÀ´Ñ¯ÎÊÊÇ·ñÒªÌí¼Ó¸½´ø²ÎÊı£¬´óÎÄ¼şÔÚ¿ªÆğ·ÖÆ¬ÉÏ´«µÄÇ°ÌáÏÂ´ËÊÂ¼ş¿ÉÄÜ»á´¥·¢¶à´Î¡£
              * @for  Uploader
              */
     
             /**
              * @event uploadAccept
              * @param {Object} object
-             * @param {Object} ret æœåŠ¡ç«¯çš„è¿”å›æ•°æ®ï¼Œjsonæ ¼å¼ï¼Œå¦‚æœæœåŠ¡ç«¯ä¸æ˜¯jsonæ ¼å¼ï¼Œä»ret._rawä¸­å–æ•°æ®ï¼Œè‡ªè¡Œè§£æã€‚
-             * @description å½“æŸä¸ªæ–‡ä»¶ä¸Šä¼ åˆ°æœåŠ¡ç«¯å“åº”åï¼Œä¼šæ´¾é€æ­¤äº‹ä»¶æ¥è¯¢é—®æœåŠ¡ç«¯å“åº”æ˜¯å¦æœ‰æ•ˆã€‚å¦‚æœæ­¤äº‹ä»¶handlerè¿”å›å€¼ä¸º`false`, åˆ™æ­¤æ–‡ä»¶å°†æ´¾é€`server`ç±»å‹çš„`uploadError`äº‹ä»¶ã€‚
+             * @param {Object} ret ·şÎñ¶ËµÄ·µ»ØÊı¾İ£¬json¸ñÊ½£¬Èç¹û·şÎñ¶Ë²»ÊÇjson¸ñÊ½£¬´Óret._rawÖĞÈ¡Êı¾İ£¬×ÔĞĞ½âÎö¡£
+             * @description µ±Ä³¸öÎÄ¼şÉÏ´«µ½·şÎñ¶ËÏìÓ¦ºó£¬»áÅÉËÍ´ËÊÂ¼şÀ´Ñ¯ÎÊ·şÎñ¶ËÏìÓ¦ÊÇ·ñÓĞĞ§¡£Èç¹û´ËÊÂ¼şhandler·µ»ØÖµÎª`false`, Ôò´ËÎÄ¼ş½«ÅÉËÍ`server`ÀàĞÍµÄ`uploadError`ÊÂ¼ş¡£
              * @for  Uploader
              */
     
             /**
              * @event uploadProgress
-             * @param {File} file Fileå¯¹è±¡
-             * @param {Number} percentage ä¸Šä¼ è¿›åº¦
-             * @description ä¸Šä¼ è¿‡ç¨‹ä¸­è§¦å‘ï¼Œæºå¸¦ä¸Šä¼ è¿›åº¦ã€‚
+             * @param {File} file File¶ÔÏó
+             * @param {Number} percentage ÉÏ´«½ø¶È
+             * @description ÉÏ´«¹ı³ÌÖĞ´¥·¢£¬Ğ¯´øÉÏ´«½ø¶È¡£
              * @for  Uploader
              */
     
     
             /**
              * @event uploadError
-             * @param {File} file Fileå¯¹è±¡
-             * @param {String} reason å‡ºé”™çš„code
-             * @description å½“æ–‡ä»¶ä¸Šä¼ å‡ºé”™æ—¶è§¦å‘ã€‚
+             * @param {File} file File¶ÔÏó
+             * @param {String} reason ³ö´íµÄcode
+             * @description µ±ÎÄ¼şÉÏ´«³ö´íÊ±´¥·¢¡£
              * @for  Uploader
              */
     
             /**
              * @event uploadSuccess
-             * @param {File} file Fileå¯¹è±¡
-             * @param {Object} response æœåŠ¡ç«¯è¿”å›çš„æ•°æ®
-             * @description å½“æ–‡ä»¶ä¸Šä¼ æˆåŠŸæ—¶è§¦å‘ã€‚
+             * @param {File} file File¶ÔÏó
+             * @param {Object} response ·şÎñ¶Ë·µ»ØµÄÊı¾İ
+             * @description µ±ÎÄ¼şÉÏ´«³É¹¦Ê±´¥·¢¡£
              * @for  Uploader
              */
     
             /**
              * @event uploadComplete
-             * @param {File} [file] Fileå¯¹è±¡
-             * @description ä¸ç®¡æˆåŠŸæˆ–è€…å¤±è´¥ï¼Œæ–‡ä»¶ä¸Šä¼ å®Œæˆæ—¶è§¦å‘ã€‚
+             * @param {File} [file] File¶ÔÏó
+             * @description ²»¹Ü³É¹¦»òÕßÊ§°Ü£¬ÎÄ¼şÉÏ´«Íê³ÉÊ±´¥·¢¡£
              * @for  Uploader
              */
     
-            // åšä¸Šä¼ æ“ä½œã€‚
+            // ×öÉÏ´«²Ù×÷¡£
             _doSend: function( block ) {
                 var me = this,
                     owner = me.owner,
@@ -3400,19 +3400,19 @@
                     Base.nextTick( me.__tick );
                 });
     
-                // å¹¿æ’­ä¸Šä¼ è¿›åº¦ã€‚ä»¥æ–‡ä»¶ä¸ºå•ä½ã€‚
+                // ¹ã²¥ÉÏ´«½ø¶È¡£ÒÔÎÄ¼şÎªµ¥Î»¡£
                 tr.on( 'progress', function( percentage ) {
                     var totalPercent = 0,
                         uploaded = 0;
     
-                    // å¯èƒ½æ²¡æœ‰abortæ‰ï¼Œprogressè¿˜æ˜¯æ‰§è¡Œè¿›æ¥äº†ã€‚
+                    // ¿ÉÄÜÃ»ÓĞabortµô£¬progress»¹ÊÇÖ´ĞĞ½øÀ´ÁË¡£
                     // if ( !file.blocks ) {
                     //     return;
                     // }
     
                     totalPercent = block.percentage = percentage;
     
-                    if ( block.chunks > 1 ) {    // è®¡ç®—æ–‡ä»¶çš„æ•´ä½“é€Ÿåº¦ã€‚
+                    if ( block.chunks > 1 ) {    // ¼ÆËãÎÄ¼şµÄÕûÌåËÙ¶È¡£
                         $.each( file.blocks, function( _, v ) {
                             uploaded += (v.percentage || 0) * (v.end - v.start);
                         });
@@ -3423,7 +3423,7 @@
                     owner.trigger( 'uploadProgress', file, totalPercent || 0 );
                 });
     
-                // ç”¨æ¥è¯¢é—®ï¼Œæ˜¯å¦è¿”å›çš„ç»“æœæ˜¯æœ‰é”™è¯¯çš„ã€‚
+                // ÓÃÀ´Ñ¯ÎÊ£¬ÊÇ·ñ·µ»ØµÄ½á¹ûÊÇÓĞ´íÎóµÄ¡£
                 requestAccept = function( reject ) {
                     var fn;
     
@@ -3433,7 +3433,7 @@
                         reject = value;
                     };
     
-                    // æœåŠ¡ç«¯å“åº”äº†ï¼Œä¸ä»£è¡¨æˆåŠŸäº†ï¼Œè¯¢é—®æ˜¯å¦å“åº”æ­£ç¡®ã€‚
+                    // ·şÎñ¶ËÏìÓ¦ÁË£¬²»´ú±í³É¹¦ÁË£¬Ñ¯ÎÊÊÇ·ñÏìÓ¦ÕıÈ·¡£
                     if ( !owner.trigger( 'uploadAccept', block, ret, fn ) ) {
                         reject = reject || 'server';
                     }
@@ -3441,11 +3441,11 @@
                     return reject;
                 };
     
-                // å°è¯•é‡è¯•ï¼Œç„¶åå¹¿æ’­æ–‡ä»¶ä¸Šä¼ å‡ºé”™ã€‚
+                // ³¢ÊÔÖØÊÔ£¬È»ºó¹ã²¥ÎÄ¼şÉÏ´«³ö´í¡£
                 tr.on( 'error', function( type, flag ) {
                     block.retried = block.retried || 0;
     
-                    // è‡ªåŠ¨é‡è¯•
+                    // ×Ô¶¯ÖØÊÔ
                     if ( block.chunks > 1 && ~'http,abort'.indexOf( type ) &&
                             block.retried < opts.chunkRetry ) {
     
@@ -3465,17 +3465,17 @@
                     }
                 });
     
-                // ä¸Šä¼ æˆåŠŸ
+                // ÉÏ´«³É¹¦
                 tr.on( 'load', function() {
                     var reason;
     
-                    // å¦‚æœéé¢„æœŸï¼Œè½¬å‘ä¸Šä¼ å‡ºé”™ã€‚
+                    // Èç¹û·ÇÔ¤ÆÚ£¬×ªÏòÉÏ´«³ö´í¡£
                     if ( (reason = requestAccept()) ) {
                         tr.trigger( 'error', reason, true );
                         return;
                     }
     
-                    // å…¨éƒ¨ä¸Šä¼ å®Œæˆã€‚
+                    // È«²¿ÉÏ´«Íê³É¡£
                     if ( file.remaning === 1 ) {
                         me._finishFile( file, ret );
                     } else {
@@ -3483,7 +3483,7 @@
                     }
                 });
     
-                // é…ç½®é»˜è®¤çš„ä¸Šä¼ å­—æ®µã€‚
+                // ÅäÖÃÄ¬ÈÏµÄÉÏ´«×Ö¶Î¡£
                 data = $.extend( data, {
                     id: file.id,
                     name: file.name,
@@ -3497,18 +3497,18 @@
                     chunk: block.chunk
                 });
     
-                // åœ¨å‘é€ä¹‹é—´å¯ä»¥æ·»åŠ å­—æ®µä»€ä¹ˆçš„ã€‚ã€‚ã€‚
-                // å¦‚æœé»˜è®¤çš„å­—æ®µä¸å¤Ÿä½¿ç”¨ï¼Œå¯ä»¥é€šè¿‡ç›‘å¬æ­¤äº‹ä»¶æ¥æ‰©å±•
+                // ÔÚ·¢ËÍÖ®¼ä¿ÉÒÔÌí¼Ó×Ö¶ÎÊ²Ã´µÄ¡£¡£¡£
+                // Èç¹ûÄ¬ÈÏµÄ×Ö¶Î²»¹»Ê¹ÓÃ£¬¿ÉÒÔÍ¨¹ı¼àÌı´ËÊÂ¼şÀ´À©Õ¹
                 owner.trigger( 'uploadBeforeSend', block, data, headers );
     
-                // å¼€å§‹å‘é€ã€‚
+                // ¿ªÊ¼·¢ËÍ¡£
                 tr.appendBlob( opts.fileVal, block.blob, file.name );
                 tr.append( data );
                 tr.setRequestHeader( headers );
                 tr.send();
             },
     
-            // å®Œæˆä¸Šä¼ ã€‚
+            // Íê³ÉÉÏ´«¡£
             _finishFile: function( file, ret, hds ) {
                 var owner = this.owner;
     
@@ -3519,7 +3519,7 @@
                         })
                         .fail(function( reason ) {
     
-                            // å¦‚æœå¤–éƒ¨å·²ç»æ ‡è®°ä¸ºinvalidä»€ä¹ˆçš„ï¼Œä¸å†æ”¹çŠ¶æ€ã€‚
+                            // Èç¹ûÍâ²¿ÒÑ¾­±ê¼ÇÎªinvalidÊ²Ã´µÄ£¬²»ÔÙ¸Ä×´Ì¬¡£
                             if ( file.getStatus() === Status.PROGRESS ) {
                                 file.setStatus( Status.ERROR, reason );
                             }
@@ -3534,7 +3534,7 @@
         });
     });
     /**
-     * @fileOverview å„ç§éªŒè¯ï¼ŒåŒ…æ‹¬æ–‡ä»¶æ€»å¤§å°æ˜¯å¦è¶…å‡ºã€å•æ–‡ä»¶æ˜¯å¦è¶…å‡ºå’Œæ–‡ä»¶æ˜¯å¦é‡å¤ã€‚
+     * @fileOverview ¸÷ÖÖÑéÖ¤£¬°üÀ¨ÎÄ¼ş×Ü´óĞ¡ÊÇ·ñ³¬³ö¡¢µ¥ÎÄ¼şÊÇ·ñ³¬³öºÍÎÄ¼şÊÇ·ñÖØ¸´¡£
      */
     
     define('widgets/validator',[
@@ -3550,29 +3550,29 @@
     
         /**
          * @event error
-         * @param {String} type é”™è¯¯ç±»å‹ã€‚
-         * @description å½“validateä¸é€šè¿‡æ—¶ï¼Œä¼šä»¥æ´¾é€é”™è¯¯äº‹ä»¶çš„å½¢å¼é€šçŸ¥è°ƒç”¨è€…ã€‚é€šè¿‡`upload.on('error', handler)`å¯ä»¥æ•è·åˆ°æ­¤ç±»é”™è¯¯ï¼Œç›®å‰æœ‰ä»¥ä¸‹é”™è¯¯ä¼šåœ¨ç‰¹å®šçš„æƒ…å†µä¸‹æ´¾é€é”™æ¥ã€‚
+         * @param {String} type ´íÎóÀàĞÍ¡£
+         * @description µ±validate²»Í¨¹ıÊ±£¬»áÒÔÅÉËÍ´íÎóÊÂ¼şµÄĞÎÊ½Í¨Öªµ÷ÓÃÕß¡£Í¨¹ı`upload.on('error', handler)`¿ÉÒÔ²¶»ñµ½´ËÀà´íÎó£¬Ä¿Ç°ÓĞÒÔÏÂ´íÎó»áÔÚÌØ¶¨µÄÇé¿öÏÂÅÉËÍ´íÀ´¡£
          *
-         * * `Q_EXCEED_NUM_LIMIT` åœ¨è®¾ç½®äº†`fileNumLimit`ä¸”å°è¯•ç»™`uploader`æ·»åŠ çš„æ–‡ä»¶æ•°é‡è¶…å‡ºè¿™ä¸ªå€¼æ—¶æ´¾é€ã€‚
-         * * `Q_EXCEED_SIZE_LIMIT` åœ¨è®¾ç½®äº†`Q_EXCEED_SIZE_LIMIT`ä¸”å°è¯•ç»™`uploader`æ·»åŠ çš„æ–‡ä»¶æ€»å¤§å°è¶…å‡ºè¿™ä¸ªå€¼æ—¶æ´¾é€ã€‚
+         * * `Q_EXCEED_NUM_LIMIT` ÔÚÉèÖÃÁË`fileNumLimit`ÇÒ³¢ÊÔ¸ø`uploader`Ìí¼ÓµÄÎÄ¼şÊıÁ¿³¬³öÕâ¸öÖµÊ±ÅÉËÍ¡£
+         * * `Q_EXCEED_SIZE_LIMIT` ÔÚÉèÖÃÁË`Q_EXCEED_SIZE_LIMIT`ÇÒ³¢ÊÔ¸ø`uploader`Ìí¼ÓµÄÎÄ¼ş×Ü´óĞ¡³¬³öÕâ¸öÖµÊ±ÅÉËÍ¡£
          * @for  Uploader
          */
     
-        // æš´éœ²ç»™å¤–é¢çš„api
+        // ±©Â¶¸øÍâÃæµÄapi
         api = {
     
-            // æ·»åŠ éªŒè¯å™¨
+            // Ìí¼ÓÑéÖ¤Æ÷
             addValidator: function( type, cb ) {
                 validators[ type ] = cb;
             },
     
-            // ç§»é™¤éªŒè¯å™¨
+            // ÒÆ³ıÑéÖ¤Æ÷
             removeValidator: function( type ) {
                 delete validators[ type ];
             }
         };
     
-        // åœ¨Uploaderåˆå§‹åŒ–çš„æ—¶å€™å¯åŠ¨Validatorsçš„åˆå§‹åŒ–
+        // ÔÚUploader³õÊ¼»¯µÄÊ±ºòÆô¶¯ValidatorsµÄ³õÊ¼»¯
         Uploader.register({
             init: function() {
                 var me = this;
@@ -3586,7 +3586,7 @@
          * @property {int} [fileNumLimit=undefined]
          * @namespace options
          * @for Uploader
-         * @description éªŒè¯æ–‡ä»¶æ€»æ•°é‡, è¶…å‡ºåˆ™ä¸å…è®¸åŠ å…¥é˜Ÿåˆ—ã€‚
+         * @description ÑéÖ¤ÎÄ¼ş×ÜÊıÁ¿, ³¬³öÔò²»ÔÊĞí¼ÓÈë¶ÓÁĞ¡£
          */
         api.addValidator( 'fileNumLimit', function() {
             var uploader = this,
@@ -3630,7 +3630,7 @@
          * @property {int} [fileSizeLimit=undefined]
          * @namespace options
          * @for Uploader
-         * @description éªŒè¯æ–‡ä»¶æ€»å¤§å°æ˜¯å¦è¶…å‡ºé™åˆ¶, è¶…å‡ºåˆ™ä¸å…è®¸åŠ å…¥é˜Ÿåˆ—ã€‚
+         * @description ÑéÖ¤ÎÄ¼ş×Ü´óĞ¡ÊÇ·ñ³¬³öÏŞÖÆ, ³¬³öÔò²»ÔÊĞí¼ÓÈë¶ÓÁĞ¡£
          */
         api.addValidator( 'fileSizeLimit', function() {
             var uploader = this,
@@ -3674,7 +3674,7 @@
          * @property {int} [fileSingleSizeLimit=undefined]
          * @namespace options
          * @for Uploader
-         * @description éªŒè¯å•ä¸ªæ–‡ä»¶å¤§å°æ˜¯å¦è¶…å‡ºé™åˆ¶, è¶…å‡ºåˆ™ä¸å…è®¸åŠ å…¥é˜Ÿåˆ—ã€‚
+         * @description ÑéÖ¤µ¥¸öÎÄ¼ş´óĞ¡ÊÇ·ñ³¬³öÏŞÖÆ, ³¬³öÔò²»ÔÊĞí¼ÓÈë¶ÓÁĞ¡£
          */
         api.addValidator( 'fileSingleSizeLimit', function() {
             var uploader = this,
@@ -3701,7 +3701,7 @@
          * @property {int} [duplicate=undefined]
          * @namespace options
          * @for Uploader
-         * @description å»é‡ï¼Œ æ ¹æ®æ–‡ä»¶åå­—ã€æ–‡ä»¶å¤§å°å’Œæœ€åä¿®æ”¹æ—¶é—´æ¥ç”Ÿæˆhash Key.
+         * @description È¥ÖØ£¬ ¸ù¾İÎÄ¼şÃû×Ö¡¢ÎÄ¼ş´óĞ¡ºÍ×îºóĞŞ¸ÄÊ±¼äÀ´Éú³Éhash Key.
          */
         api.addValidator( 'duplicate', function() {
             var uploader = this,
@@ -3730,7 +3730,7 @@
                 var hash = file.__hash || (file.__hash = hashString( file.name +
                         file.size + file.lastModifiedDate ));
     
-                // å·²ç»é‡å¤äº†
+                // ÒÑ¾­ÖØ¸´ÁË
                 if ( mapping[ hash ] ) {
                     this.trigger( 'error', 'F_DUPLICATE', file );
                     return false;
@@ -3754,7 +3754,7 @@
     });
     
     /**
-     * @fileOverview Runtimeç®¡ç†å™¨ï¼Œè´Ÿè´£Runtimeçš„é€‰æ‹©, è¿æ¥
+     * @fileOverview Runtime¹ÜÀíÆ÷£¬¸ºÔğRuntimeµÄÑ¡Ôñ, Á¬½Ó
      */
     define('runtime/compbase',[],function() {
     
@@ -3821,7 +3821,7 @@
             me.type = type;
     
     
-            // è¿™ä¸ªæ–¹æ³•çš„è°ƒç”¨è€…ï¼Œå®é™…ä¸Šæ˜¯RuntimeClient
+            // Õâ¸ö·½·¨µÄµ÷ÓÃÕß£¬Êµ¼ÊÉÏÊÇRuntimeClient
             me.exec = function( comp, fn/*, args...*/ ) {
                 var client = this,
                     uid = client.uid,
@@ -3864,11 +3864,11 @@
                 // Base.log( evt, obj );
             }
     
-            // flashçš„æ¥å—å™¨ã€‚
+            // flashµÄ½ÓÊÜÆ÷¡£
             window[ jsreciver ] = function() {
                 var args = arguments;
     
-                // ä¸ºäº†èƒ½æ•è·å¾—åˆ°ã€‚
+                // ÎªÁËÄÜ²¶»ñµÃµ½¡£
                 setTimeout(function() {
                     handler.apply( null, args );
                 }, 1 );
@@ -3877,7 +3877,7 @@
             this.jsreciver = jsreciver;
     
             this.destory = function() {
-                // @todo åˆ é™¤æ± å­ä¸­çš„æ‰€æœ‰å®ä¾‹
+                // @todo É¾³ı³Ø×ÓÖĞµÄËùÓĞÊµÀı
                 return destory && destory.apply( this, arguments );
             };
     
@@ -3975,7 +3975,7 @@
                 var copy = $.extend({}, opts ),
                     len, i;
     
-                // ä¿®å¤Flashå†æ²¡æœ‰è®¾ç½®titleçš„æƒ…å†µä¸‹æ— æ³•å¼¹å‡ºflashæ–‡ä»¶é€‰æ‹©æ¡†çš„bug.
+                // ĞŞ¸´FlashÔÙÃ»ÓĞÉèÖÃtitleµÄÇé¿öÏÂÎŞ·¨µ¯³öflashÎÄ¼şÑ¡Ôñ¿òµÄbug.
                 len = copy.accept && copy.accept.length;
                 for (  i = 0; i < len; i++ ) {
                     if ( !copy.accept[ i ].title ) {
@@ -3995,7 +3995,7 @@
         });
     });
     /**
-     * @fileOverview å›¾ç‰‡å‹ç¼©
+     * @fileOverview Í¼Æ¬Ñ¹Ëõ
      */
     define('runtime/flash/image',[
         'runtime/flash/runtime'
@@ -4022,7 +4022,7 @@
         });
     });
     /**
-     * @fileOverview  Transport flashå®ç°
+     * @fileOverview  Transport flashÊµÏÖ
      */
     define('runtime/flash/transport',[
         'base',
@@ -4145,7 +4145,7 @@
         });
     });
     /**
-     * @fileOverview åªæœ‰flashå®ç°çš„æ–‡ä»¶ç‰ˆæœ¬ã€‚
+     * @fileOverview Ö»ÓĞflashÊµÏÖµÄÎÄ¼ş°æ±¾¡£
      */
     define('preset/flashonly',[
         'base',

@@ -48,7 +48,7 @@ public class Blog {
 	public void encapJSON(JSONObject obj) {
 		obj.element("id", id);
 		obj.element("title", title);
-		Tools.addIfNotEmpty(obj, "path", path);
+//		Tools.addIfNotEmpty(obj, "path", path);
 		obj.element("tags", Tools.tagsToString(tags));
 		Tools.addIfNotEmpty(obj, "date", createTime);
 		Tools.addIfNotEmpty(obj, "content", content);

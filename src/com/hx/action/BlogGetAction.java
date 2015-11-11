@@ -10,7 +10,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
@@ -109,7 +108,8 @@ public class BlogGetAction extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		String respInfo = res.toString();
 		out.write(respInfo );
-		Tools.log(this, respInfo );
+		res.getJSONObject("blog").element("content", Tools.compressBlogContent(blog.getContent()) );
+		Tools.log(this, res.toString() );
 		if(injectorInfo.size() > 0) {
 			Tools.log(this, injectorInfo.toString() );
 		}

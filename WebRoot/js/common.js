@@ -44,31 +44,74 @@
   })
   
   // 获取各个标签
-  app.controller('tagListCtrl', function($scope, $http, $routeParams) {
-	  var curTag = null
+  app.controller('blogListCtrl', function($scope, $http, $routeParams) {
+	  var path = null
       if (($routeParams.tag != null) && $routeParams.tag.length !== 0) {
-	    curTag = $routeParams.tag
+    	  path = $routeParams.tag
       } else {
-      	curTag = "all"
+    	  path = "all"
       }
-	  var blogListReq = "/HXBlog/action/blogListAction" + "?tag=" + curTag
-
-	  return $http.get(blogListReq).success(function(data) {
-		  var tags = data.tagList
-		  for(i=0; i<tags.length; i++) {
-			  tags[i].href = "#!/tag/" + tags[i].text
-		  }
-		  
-		  $scope.tagList = data.tagList
-		  $scope.blogList = data.blogList
-		  $scope.currentTag = {
-				  "text" : data.curTag,
-				  "href" : "#!/tag/" + data.curTag
-		  }
-		  $scope.tagSep = tagSep;
-//		  console.log(data.blogList)
-	  })
+	  var tagAndPageNo = path.split(tagSep)
+	  if(isEmpty(tagAndPageNo[1]) ) {
+		  tagAndPageNo[1] = "1"
+	  }
+	  
+	  if(tagAndPageNo.length == 2) {
+		  var blogListReq = "/HXBlog/action/blogListAction?tag=" + tagAndPageNo[0] + "&pageNo=" + tagAndPageNo[1]
+	
+		  return $http.get(blogListReq).success(function(data) {
+			  var tags = data.tagList
+			  for(i=0; i<tags.length; i++) {
+				  tags[i].href = "#!/tag/" + tags[i].text
+			  }
+			  
+			  $scope.tagList = data.tagList
+			  $scope.blogList = data.blogList
+			  $scope.currentTag = {
+					  "text" : data.curTag,
+					  "href" : "#!/tag/" + data.curTag
+			  }
+			  $scope.tagSep = tagSep;
+			  var pageSum = data.pageSum
+			  addPageNavi("#pageBtn", tagAndPageNo[0], pageSum, parseInt(tagAndPageNo[1]) )
+	//		  console.log(data.blogList)
+		  })
+	  }
   });
+  
+  // 增加页面导航标签
+  	// 确立startPage, endPage, 是否显示上一页, 下一页
+  // [上一页] [第一页] [第(pgeNow-2)页] [第(pgeNow-1)页] [第(pgeNow)页] [第(pgeNow+1)页] [第(pgeNow+2)页] [第(pgeNow+3)页] [最后页] [下一页]
+  function addPageNavi(pageBtnPath, curTag, pageSum, pageNow) {
+	  if(pageNow > 1) {
+		  $(pageBtnPath).append("<a class='btn btn-warning' href='#!/tag/" + curTag + tagSep + (pageNow-1) + "' >上一页</a>")  
+	  }
+	  var startPage = pageNow - 2
+	  if(startPage < 1) {
+		  startPage = 1
+	  }
+	  var endPage = startPage + 5
+	  if(endPage > pageSum) {
+		  endPage = pageSum
+	  }
+	  
+	  if(startPage > 1) {
+		  $(pageBtnPath).append("<a class='btn btn-warning' href='#!/tag/" + curTag + tagSep + (1) + "' >1</a>")
+		  $(pageBtnPath).append("<div class='btn btn-warning'> ... </div>")
+	  }
+	  for(i=startPage; i<=endPage; i++) {
+		  $(pageBtnPath).append("<a class='btn btn-warning' href='#!/tag/" + curTag + tagSep + i + "' >" + (i) + "</a>")
+	  }
+	  if(endPage < pageSum) {
+		  $(pageBtnPath).append("<div class='btn btn-warning'> ... </div>")
+		  $(pageBtnPath).append("<a class='btn btn-warning' href='#!/tag/" + curTag + tagSep + pageSum + "' > " + pageSum + " </a>")	  
+	  }
+	  
+	  if(pageNow < pageSum) {
+		  $(pageBtnPath).append("<a class='btn btn-warning' href='#!/tag/" + curTag + tagSep + (pageNow+1) + "' >下一页</a>")
+	  }
+	  $(pageBtnPath).find(".btn-warning").css("marginLeft", "20px")
+  }
   
   // 查看帖子的控制器
   	// $routeParams.postPath.length 是指/post/path, path的长度
@@ -78,6 +121,10 @@
     	  path = $routeParams.postPath
       }
 	  var idAndTag = path.split(tagSep)
+	  if(isEmpty(idAndTag[1]) ) {
+		  idAndTag[1] = "all"
+	  }
+	  
 	  if(idAndTag.length == 2) {
 		  var blogReq = "/HXBlog/action/blogGetAction?blogId=" + idAndTag[0] + "&tag=" + idAndTag[1]
 
@@ -114,7 +161,7 @@
 			var commentPath = "dl.comment_topic"
 			var replyDivPath = "div.replyDiv"
 			var blogComments = data.comments
-			console.log(blogComments)
+//			console.log(blogComments)
 			var floorLen = getLength(blogComments)
 			if(floorLen > 0) {
 				$("#haveNoComment").hide()
@@ -159,7 +206,10 @@
 			// 上一页按钮的事件
 			 $("div[data='prevBlog']").click(function() {
 				 if(typeof(data.prevBlogId) != UNDEFINED) {
-					 location = "/HXBlog/#!/post/" + data.prevBlogId + "," + idAndTag[1]	 
+					 location = "/HXBlog/#!/post/" + data.prevBlogId + "," + idAndTag[1]
+					 $(".modal-backdrop").remove()
+					 $("body").attr("class", "")
+//					 location.reload()
 				 } else {
 					 $("#warnning").html("have no prev blog !")
 					 $("#blogWarnning").show()
@@ -170,6 +220,8 @@
 	 		 $("[data='nextBlog']").click(function() {
 	 			if(typeof(data.nextBlogId) != UNDEFINED) {
 	 				location = "/HXBlog/#!/post/" + data.nextBlogId + "," + idAndTag[1]
+					 $(".modal-backdrop").remove()
+					 $("body").attr("class", "")
 	 			} else {
 	 				 $("#warnning").html("have no next blog !")
 	 				 $("#blogWarnning").show()
@@ -219,7 +271,7 @@
 				        }
 					});  	
 				 } else {
-					 console.log(couldClickGoodOrNotGood)
+//					 console.log(couldClickGoodOrNotGood)
 					 setTimeout(updateCouldClickGoodOrNotGood, 200)
 //					 couldClickGoodOrNotGood = true
 					 console.log("please do not click so quickly, robot ?")
@@ -244,7 +296,7 @@
 		    		if(validateContent(commentBody, "comment", submitNoticePath)) {
 						var comment = new Comment(data.blog.id, floorIdx, userName, to, $("#email").val().trim(), imageIdx, commentBody)
 		    			var postUrl = "/HXBlog/action/blogCommentAction"
-		    			console.log(comment.getObj() )
+//		    			console.log(comment.getObj() )
 		    			
 						$.ajax({
 							url: postUrl, type : "post",

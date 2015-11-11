@@ -22,7 +22,7 @@ public class InitAndCheckUpdateListener implements ServletContextListener {
 		// 定时检查BlogListAction中是否存在更新的数据, 如果有 则刷新到数据库
 		// 定期检查日志, 如果有日志缓存, 则刷新到日志文件
 	public void contextInitialized(final ServletContextEvent scv) {
-		Tools.setProjectPath(scv.getServletContext() );
+		Tools.init(scv.getServletContext() );
 		BlogManager.initIfNeeded();
 		updateCheckTimer.schedule(new TimerTask() {
 			public void run() {

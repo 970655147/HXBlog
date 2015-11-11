@@ -46,10 +46,11 @@ public class BlogReviseAction extends HttpServlet {
 					if(Tools.validateTitle(req, title, "title", respMsg)) {
 						if(Tools.validateTags(req, tags, respMsg)) {
 							if(Tools.validateContent(req, content, respMsg) ) {
-								Blog newBlog = BlogManager.getBlog(id);
-								// 对于修改这里, 不使用副本 [因为, 使不使用副本对于结果来说, 并没有影响]
-								if(Tools.validateBlog(req, newBlog, respMsg)) {
-									String oldBlogName = newBlog.getPath();
+								Blog blogInServer = BlogManager.getBlog(id);
+								// 对于修改这里, 需要使用副本 [因为 需要统计标签的增减]
+								if(Tools.validateBlog(req, blogInServer, respMsg)) {
+									Blog newBlog = new Blog(blogInServer);
+									String oldBlogName = blogInServer.getPath();
 									boolean isChangeName = ! Tools.equalsIgnorecase(oldBlogName.trim(), title.trim() );
 									
 									Date now = new Date();
@@ -64,7 +65,7 @@ public class BlogReviseAction extends HttpServlet {
 										Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBlogName), Tools.getBlogPath(Tools.getProjectPath(), blogName) );
 									}
 									BlogManager.reviseBlog(newBlog);
-									respMsg = new ResponseMsg(true, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
+									respMsg = new ResponseMsg(Constants.respSucc, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
 								}
 							}
 						}

@@ -66,7 +66,7 @@ public class Tools {
 	public final static Random ran = new Random();
 	public final static String DEFAULT_CHARSET = "GBK";
 	
-	// 项目的日志buffer, 阈值[128kb], 缓冲区大小[(128 + 16)kb], 日志文件
+	// 项目的日志buffer, 阈值[128kb], 缓冲区大小[(128 + 16)kb], 项目路径, 日志文件
 	public final static int logThreshold = 128 << 10;
 	public final static int logBuffSize = logThreshold + (logThreshold >> 3);
 	public static StringBuffer logBuffer = null;
@@ -85,11 +85,15 @@ public class Tools {
 	
 	// 日志文件相关
 	public static AtomicInteger TMP_IDX = new AtomicInteger(0);
+	public static AtomicInteger LOG_TMP_IDX = new AtomicInteger(0);
 	public static String TMP_DIR = null;
-	public static String TMP_NAME = "log";
-	public static String SUFFIX = LOG;
+	public static String LOG_TMP_DIR = null;
+	public static String TMP_NAME = "tmp";
+	public static String LOG_TMP_NAME = "log";
+	public static String SUFFIX = HTML;
+	public static String LOG_SUFFIX = LOG;
 	
-	// 加载jdbc
+	// 加载jdbc, 初始化日志文件
 	static {
 		if(Constants.logEnable) {
 			 logBuffer = new StringBuffer(logBuffSize);
@@ -101,6 +105,17 @@ public class Tools {
 		}
 	}
 	
+	// 初始化
+	public static void init(ServletContext servletContext) {
+		projectPath = servletContext.getRealPath("/");
+		LOG_TMP_DIR = projectPath + Constants.logFolder;
+		TMP_DIR = projectPath + Constants.tmpFolder;
+		logFile = getNextLogTmpPath();
+		while (shouldChangeLogFile(logFile) ) {
+			logFile = getNextLogTmpPath();
+		}
+	}
+	
 	// ---------------日志文件相关---------------
 	// 获取临时路径的下一个路径[返回文件路径]
 	public static void setTmpIdx(int idx) {
@@ -108,6 +123,9 @@ public class Tools {
 	}
 	public static String getNextTmpPath() {
 		return TMP_DIR + "\\" + getNextTmpName();
+	}
+	public static String getNextLogTmpPath() {
+		return LOG_TMP_DIR + "\\" + getNextLogTmpName();
 	}
 	public static String getNextTmpPath(String suffix) {
 		return TMP_DIR + "\\" + getNextTmpName(suffix);
@@ -125,6 +143,9 @@ public class Tools {
 	// 获取临时文件的下一个索引[生成文件名称]
 	private static String getNextTmpName() {
 		return TMP_NAME + (TMP_IDX.getAndIncrement() ) + SUFFIX;
+	}
+	private static String getNextLogTmpName() {
+		return LOG_TMP_NAME + (LOG_TMP_IDX.getAndIncrement() ) + LOG_SUFFIX;
 	}
 	private static String getNextTmpName(String suffix) {
 		return TMP_NAME + (TMP_IDX.getAndIncrement() ) + suffix;
@@ -174,7 +195,7 @@ public class Tools {
 		return basePath + Constants.blogFolder + Tools.SLASH + blogFileName + HTML;
 	}	
 	
-	// 获取到数据库的连接
+	// 获取 / 关闭 到数据库的连接
 	public static Connection getConnection(String basePath) throws Exception {
 		String dbPath = Tools.getPackagePath(basePath, Constants.dbPath);
 		String conUrl  = "jdbc:sqlite://" + dbPath;
@@ -208,13 +229,8 @@ public class Tools {
 	public static String getProjectPath(ServletContext servletContext) {
 		return servletContext.getRealPath("/");
 	}	
-	public static void setProjectPath(ServletContext servletContext) {
-		projectPath = servletContext.getRealPath("/");
-		TMP_DIR = projectPath + Constants.logFolder;
-		logFile = getNextTmpPath();
-	}
 	
-	// 各个tag的分隔符
+	// 各个tag的分隔符, 日期到播客名字的分隔符
 	static String tagsSep = ",";
 	static String dateBlogSep = "__dateBlogSep__";
 	
@@ -238,15 +254,24 @@ public class Tools {
 		String[] splits = tagListStr.split(tagsSep);
 		List<String> res = new ArrayList<>(splits.length);
 		for(String tag : splits) {
-			if((! Tools.isEmpty(tag)) && (! res.contains(tag)) ) {
+			if((validteTag(tag)) && (! res.contains(tag)) ) {
 				res.add(tag );
+				if(res.size() >= Constants.maxTagSize) {
+					break ;
+				}
 			}
 		}
 		
 		return res;
 	}
 	
-	// 根据给定的日期, 博客title, 获取其应该存储的文件名
+	// 校验tag
+	public static boolean validteTag(String tag) {
+		return (! isEmpty(tag)) && (tag.length() < Constants.maxTagLength);
+	}
+	
+	
+	// 根据给定的日期  博客title 获取其应该存储的文件名, 根据存储的文件名  获取日期 播客title
 	public static String getBlogFileName(String date, String title) {
 		return date + dateBlogSep + title;
 	}
@@ -272,6 +297,7 @@ public class Tools {
 	}
 	
 	// 将html字符串保存到指定的文件中
+	// 将html字符串添加到指定的文件中
 	public static void save(String html, String nextTmpName) throws IOException {
 		save(html, new File(nextTmpName) );
 	}
@@ -323,7 +349,7 @@ public class Tools {
 		return delete(new File(src) );
 	}
 	
-	// 判断给定的字符串是否为空
+	// 判断给定的字符串 / 集合 / JSONObject 是否为空
 	public static boolean isEmpty(String str) {
 		return (str == null) || (EMPTY_STR.equals(str.trim()) ) || NULL.equals(str.trim()); 
 	}
@@ -358,6 +384,7 @@ public class Tools {
 	public static String getPostFailedMsg(Blog newBlog) {
 		return "post \"" + newBlog.getTitle() + "\" failed ...";
 	}
+	
 	// 获取删除博客成功之后的响应消息
 	public static String getDeleteSuccMsg(Blog newBlog) {
 		return "delete \"" + newBlog.getTitle() + "\" success ...";
@@ -390,7 +417,7 @@ public class Tools {
 	// 获取JSONArray的字符串表示 [字符串不带双引号]
 		// 第一个while循环是为了定位到第一个不为tagFilter中的标签
 		// 然后  将之后的不在tagFilter中的tag添加到sb中
-	public static String tagsToStringTripBracket(List<String> arr) {
+	public static <T> String tagsToStringTripBracket(List<T> arr, boolean isAppendSingleQuotion) {
 		if(arr.size() == 0) {
 			return EMPTY_STR;
 		}
@@ -401,12 +428,25 @@ public class Tools {
 			idx ++;
 		}
 		if(idx < arr.size() ) {
-			sb.append(arr.get(idx) );
+			if(isAppendSingleQuotion) {
+				sb.append(Tools.QUOTION);
+			}
+			sb.append(arr.get(idx).toString() );
+			if(isAppendSingleQuotion) {
+				sb.append(Tools.QUOTION);
+			}
 		}
 		for(int i=idx+1; i<arr.size(); i++) {
-			String tag = arr.get(i);
+			String tag = arr.get(i).toString();
 			if(! tagFilter.contains(tag)) {
-				sb.append(tagsSep);		sb.append(tag);
+				sb.append(tagsSep);
+				if(isAppendSingleQuotion) {
+					sb.append(Tools.QUOTION);
+				}
+				sb.append(tag);
+				if(isAppendSingleQuotion) {
+					sb.append(Tools.QUOTION);
+				}
 			}
 		}
 		return sb.toString();
@@ -423,9 +463,21 @@ public class Tools {
 		return String.format(Constants.deleteMultiBlogListSql, in);
 	}
 	public static String getDeleteSelectedTagsSql(Integer blogId, List<String> deletedTag) {
-		String in = tagsToStringTripBracket(deletedTag);
+		String in = tagsToStringTripBracket(deletedTag, true);
 		return String.format(Constants.deleteMultiTagListSql, blogId, in);
 	}
+	// 删除评论 by blogIdx, floorIdx, commentIdx
+	public static String getDeleteCommentByBlogIdxSql(Integer blogId) {
+		return String.format(Constants.deleteCommentByBlogIdxSql, blogId);
+	}	
+	public static String getDeleteCommentByFloorIdxSql(Integer blogId, List<Integer> floorIdxes) {
+		String in = tagsToStringTripBracket(floorIdxes, false);
+		return String.format(Constants.deleteCommentByFloorIdxSql, blogId, in);
+	}	
+	public static String getDeleteCommentByCommentIdxSql(Integer blogId, List<Integer> commentIdxes) {
+		String in = tagsToStringTripBracket(commentIdxes, false);
+		return String.format(Constants.deleteCommentByCommentIdxSql, blogId, in);
+	}		
 	
 	// 获取添加给定的blog, tags的sql
 //	public static String getAddSelectedBlogsSql(Map<Integer, Blog> addedBlog, List<Integer> addOrder) {
@@ -460,7 +512,7 @@ public class Tools {
 			sb.append(" select ");	
 			sb.append(blog.getId());	sb.append(" , '");
 			sb.append(blog.getPath());	sb.append("' , '");
-			sb.append(tagsToStringTripBracket(blog.getTags()) );	sb.append("' , '");
+			sb.append(tagsToStringTripBracket(blog.getTags(), false) );	sb.append("' , '");
 			sb.append(blog.getCreateTime());	sb.append("' , '");
 			sb.append(blog.getGood());	sb.append("' , '");
 			sb.append(blog.getNotGood());	sb.append("' , '");
@@ -490,7 +542,7 @@ public class Tools {
 		return String.format(Constants.addMultiTagListSql, unionAll);
 	}
 	public static String getUpdateBlogListSql(Integer blogId, Blog blog) {
-		return String.format(Constants.updateBlogListSql, blog.getPath(), tagsToStringTripBracket(blog.getTags()), blog.getGood(), blog.getNotGood(), blog.getVisited(), blog.getId());
+		return String.format(Constants.updateBlogListSql, blog.getPath(), tagsToStringTripBracket(blog.getTags(), false), blog.getGood(), blog.getNotGood(), blog.getVisited(), blog.getId());
 	}
 	public static String getAddSelectedCommentsSql(List<Comment> addedComments) {
 		if(addedComments.size() < 1) {
@@ -517,7 +569,7 @@ public class Tools {
 		return String.format(Constants.addMultiCommentListSql, unionAll);
 	}	
 	
-	// 判断给定的两个字符串是否相同
+	// 判断给定的两个字符串是否相同 [忽略大小写]
 	public static boolean equalsIgnorecase(String str01, String str02) {
 		return str01.toUpperCase().equals(str02.toUpperCase() );
 	}
@@ -564,7 +616,7 @@ public class Tools {
 			Log.err("write log error at : " + timeNow);
 		}
 		if(shouldChangeLogFile(logFile)) {
-			logFile = getNextTmpPath();
+			logFile = getNextLogTmpPath();
 		}
 		
 		return logLength;
@@ -685,7 +737,7 @@ public class Tools {
 	public static boolean validateUserLogin(HttpServletRequest req, ResponseMsg respMsg) {
 		boolean isLogin = Tools.isLogin(req);
 		if(! isLogin) {
-			respMsg.set(false, Constants.defaultResponseCode, "sorry, you haven't login, please login first　!", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "sorry, you haven't login, please login first　!", Tools.getIPAddr(req) );
 			return false;
 		}
 		
@@ -696,17 +748,18 @@ public class Tools {
 	public static boolean validateCheckCode(HttpServletRequest req, ResponseMsg respMsg) {
 		String checkCode = req.getParameter("checkCode");
 		if(Tools.isEmpty(checkCode)) {
-			respMsg.set(false, Constants.defaultResponseCode, "sorry, please input checkCode　!", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "sorry, please input checkCode　!", Tools.getIPAddr(req) );
 			return false;
 		}
 		String realCheckCode = Tools.getStrFromSession(req, Constants.checkCode);
 		respMsg.setOthers(checkCode);
 		if(Tools.isEmpty(realCheckCode) ) {
-			respMsg.set(false, Constants.defaultResponseCode, "sorry, you didn't even have a checkCode store here　!", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "sorry, you didn't even have a checkCode store here　!", Tools.getIPAddr(req) );
 			return false;
 		}
 		if(! equalsIgnorecase(checkCode, realCheckCode) ) {
-			respMsg.set(false, Constants.defaultResponseCode, "sorry, your checkCode is not right　!", Tools.getIPAddr(req) );
+			Log.log(checkCode, realCheckCode);
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "sorry, your checkCode is not right　!", Tools.getIPAddr(req) );
 			return false;
 		}
 		
@@ -716,15 +769,17 @@ public class Tools {
 	// 校验博客是否合法
 	public static boolean validateBlog(HttpServletRequest req, Blog blog, ResponseMsg respMsg) {
 		if(blog == null) {
-			respMsg.set(false, Constants.defaultResponseCode, "sorry, have no this blog　!", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "sorry, have no this blog　!", Tools.getIPAddr(req) );
 			return false;
 		}
 		
 		return true;
 	}
+	
+	// 确保给定的Object, String 不为空
 	public static boolean validateObjectBeNull(HttpServletRequest req, Object obj, String key, ResponseMsg respMsg) {
 		if(obj == null) {
-			respMsg.set(false, Constants.defaultResponseCode, "sorry, " + key + " can't be null　!", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "sorry, " + key + " can't be null　!", Tools.getIPAddr(req) );
 			return false;
 		}
 		
@@ -732,7 +787,7 @@ public class Tools {
 	}
 	public static boolean validateStringBeNull(HttpServletRequest req, String str, String key, ResponseMsg respMsg) {
 		if(isEmpty(str)) {
-			respMsg.set(false, Constants.defaultResponseCode, "sorry, " + key + " can't be null　!", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "sorry, " + key + " can't be null　!", Tools.getIPAddr(req) );
 			return false;
 		}
 		
@@ -742,16 +797,16 @@ public class Tools {
 	// 校验用户传输过来的title
 	public static boolean validateTitle(HttpServletRequest req, String title, String key, ResponseMsg respMsg) {
 		if(Tools.isEmpty(title) ) {
-			respMsg.set(false, Constants.defaultResponseCode, "please input " + key + "　!", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "please input " + key + "　!", Tools.getIPAddr(req) );
 			return false;
 		}
 		if(title.length() > Constants.titleMaxLength) {
-			respMsg.set(false, Constants.defaultResponseCode, "your " + key + " is to long [0 - 30], please check it !", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "your " + key + " is to long [0 - 30], please check it !", Tools.getIPAddr(req) );
 			return false;
 		}
 		Matcher matcher = Constants.specCharPattern.matcher(title);
 		if(matcher.matches() ) {
-			respMsg.set(false, Constants.defaultResponseCode, "your " + key + " contains special character [eg : ! - /], please check it !", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "your " + key + " contains special character [eg : ! - /], please check it !", Tools.getIPAddr(req) );
 			return false;
 		}
 		
@@ -762,7 +817,7 @@ public class Tools {
 	public static boolean validateTags(HttpServletRequest req, String tag, ResponseMsg respMsg) {
 		Matcher matcher = Constants.specCharPattern.matcher(tag);
 		if(matcher.matches() ) {
-			respMsg.set(false, Constants.defaultResponseCode, "your tag contains special character [eg : ! - /], please check it !", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "your tag contains special character [eg : ! - /], please check it !", Tools.getIPAddr(req) );
 			return false;
 		}
 		
@@ -771,6 +826,7 @@ public class Tools {
 	
 	// 校验content
 	public static boolean validateContent(HttpServletRequest req, String tag, ResponseMsg respMsg) {
+		
 		return true;
 	}
 	
@@ -780,7 +836,7 @@ public class Tools {
 			return false;
 		}
 		if(! completeMatch(Constants.emailPattern, userInfo.getEmail()) ) {
-			respMsg.set(false, Constants.defaultResponseCode, "userEmail not valid　!", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "userEmail not valid　!", Tools.getIPAddr(req) );
 			return false;
 		}
 		
@@ -844,7 +900,6 @@ public class Tools {
 	public static String getVisitedCookieName(Integer blogId) {
 		return Constants.visitedCookieName + UNDER_LINE + blogId.toString();
 	}
-	
 	// 获取点过顶踩的cookie的名称
 	public static String getSensedCookieName(Integer blogId) {
 		return Constants.senseCookieName + UNDER_LINE + blogId.toString();
@@ -859,7 +914,7 @@ public class Tools {
 		}
 	}
 	
-	// 获取给定的resultSet的记录数
+	// 获取给定的resultSet的记录数 [未用]
 		// java.sql.SQLException: ResultSet is TYPE_FORWARD_ONLY
 	public static int getRows(ResultSet rs) throws Exception {
 		rs.last();
@@ -868,7 +923,7 @@ public class Tools {
 		return rows;
 	}
 	
-	// 校验给定的comment是否是回复别人的comment
+	// 校验给定的comment是否是回复[reply]别人的comment
 	public static boolean isReply(String commentBody) {
 		int startIdx = commentBody.indexOf(Constants.replyStart);
 		int endIdx = commentBody.indexOf(Constants.replyEnd, startIdx + Constants.replyStart.length() );
@@ -1066,5 +1121,18 @@ public class Tools {
 		return new Color(random(255)+1, random(255)+1, random(255)+1);
 	}	
 	
+	// 压缩播客的内容
+	public static String compressBlogContent(String content) {
+		if(content.length() > Constants.logBlogContentMaxLength) {
+			return content.substring(0, Constants.logBlogContentMaxLength) + " ...";
+		} else {
+			return content ;
+		}
+	}
+	
+	// 通过产品的数目, 以及每一页显示的产品的数目, 计算页数
+	public static int calcPageNums(int productNum, int numPerPage) {
+		return ((productNum-1) / numPerPage) + 1;
+	}
 	
 }

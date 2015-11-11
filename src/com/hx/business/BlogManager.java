@@ -1,5 +1,6 @@
 package com.hx.business;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,7 +25,6 @@ import com.hx.action.BlogListAction;
 import com.hx.bean.Blog;
 import com.hx.bean.TagToBlogCnt;
 import com.hx.util.Constants;
-import com.hx.util.Log;
 import com.hx.util.Tools;
 
 public class BlogManager {
@@ -67,16 +67,23 @@ public class BlogManager {
 	// 倒序获取当前tag对应过的blog是为了使最新的播客显示在前面 [这里 之后详细介绍]
 		// 然后 获取标签列表
 		// 最后将标签列表, 和播客列表封装起来, 返回
-	public static JSONObject getResByTag(String tag) {
+	public static JSONObject getResByTag(String tag, int pageNo) throws IOException {
 		List<Integer> blogIds = tagList.get(tag);
 		JSONArray blogList_ = new JSONArray();
+		int pageSum = 0;
 		if(! Tools.isEmpty(blogIds) ) {
-			for(int i=blogIds.size()-1; i>=0; i--) {
-				JSONObject obj = new JSONObject();
-				Blog blog = blogList.get(blogIds.get(i));
-				if(blog != null) {
-					blog.encapJSON(obj);
-					blogList_.add(obj);
+			pageSum = Tools.calcPageNums(blogIds.size(), Constants.blogPerPage);
+			if(pageNo >=0 && pageNo <= pageSum) {
+				int end = blogIds.size()-1 - ((pageNo-1) * Constants.blogPerPage);
+				int startTmp = end - Constants.blogPerPage + 1;
+				int start =  startTmp >= 0 ? startTmp : 0;
+				for(int i=end; i>=start; i--) {
+					JSONObject obj = new JSONObject();
+					Blog blog = blogList.get(blogIds.get(i));
+					if(blog != null) {
+						blog.encapJSON(obj);
+						blogList_.add(obj);
+					}
 				}
 			}
 		}
@@ -99,6 +106,7 @@ public class BlogManager {
 		JSONObject res = new JSONObject();
 		res.element("tagList", tagList_.toString() );
 		res.element("blogList", blogList_.toString() );
+		res.element("pageSum", pageSum );
 		res.element("curTag", curTag);
 		return res;
 	}
@@ -225,6 +233,8 @@ public class BlogManager {
 	}
 	
 	// 刷新更新了访问量, 顶踩的播客 的数据到数据库
+		// 还有一个问题, 我们只考虑了flushToDB的情况下面的刷出updatedList修改的时候, 删除visitSenseUpdatedList中对应的播客 [避免多次对同一个blog进行修改 [多条sql][效率]] [参见flushRevisedRecords]
+		// 而并没有考虑flushToDBForVisitedSensed的情况下面, 并没有删除updatedList中对应过的播客 [可能会对一个播客进行多次无意义的修改]
 	public static void flushToDBForVisitedSensed(ServletContext servletContext) {
 		int updated = getVistitedSensedUpdate();
 		if(updated > 0) {
@@ -461,6 +471,7 @@ public class BlogManager {
 			}
 		}
 		
+		CommentManager.delete(newBlog);
 		// ---------------------------------------------------
 	}
 	

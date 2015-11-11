@@ -39,6 +39,9 @@ public class Constants {
 	public final static String deleteMultiTagListSql = "delete from tagToBlog where blogId = '%d' and tag in (%s)";
 	public final static String updateBlogListSql = "update blogList set path='%s', tag='%s', good=%d, notGood=%d, visited=%d where id = %d";
 	public final static String deleteByTagAndIdTagListSql = "delete from tagToBlog where tag = '%s' and blogId = '%d'";
+	public final static String deleteCommentByBlogIdxSql = "delete from commentList where blogIdx=%d";	
+	public final static String deleteCommentByFloorIdxSql = "delete from commentList where blogIdx=%d and floorIdx in (%s)";	
+	public final static String deleteCommentByCommentIdxSql = "delete from commentList where blogIdx=%d and commentIdx in (%s)";	
 
 	// 获取给定的播客的所有评论
 	public final static String getBlogCommentByBlogIdSql = "select * from commentList where blogIdx = %d";
@@ -46,6 +49,7 @@ public class Constants {
 	// 帖子相对于项目路径的路径, uEditor的index.html的位置, 日志文件夹
 	public final static String blogFolder = "WEB-INF/post";
 	public final static String uEditorIdx = "ueditorLib/index.html";
+	public final static String tmpFolder = "WEB-INF/tmp";
 	public final static String logFolder = "WEB-INF/log";
 	
 	// 默认的blogId [未用], 默认的blogPath, 默认的blogTag, 默认的good的数量, notGood的数量, defaultVisited的数量
@@ -90,6 +94,10 @@ public class Constants {
 	public final static int deletedBlogCnt = 2;
 	public final static int deletedTagCnt = 3;
 	public final static int revisedBlogCnt = 4;
+	public final static int addCommentCnt = 0;
+	public final static int deleteCommentByBlogIdxCnt = 1;
+	public final static int deleteCommentByFloorIdxCnt = 2;
+	public final static int deleteCommentByCommentIdxCnt = 3;
 	
 	// 是否启动debug, 是否打印日志, 日志文件的阈值[到达一定程度, 切换日志文件]
 	public final static boolean debugEnable = true;
@@ -203,5 +211,10 @@ public class Constants {
 		}
 	}
 	
+	// 日志需要记录的blog的内容的长度
+	public final static int logBlogContentMaxLength = 100;
+	public final static int blogPerPage = 20;
+	public final static int maxTagLength = 10;
+	public final static int maxTagSize = 10;
 	
 }

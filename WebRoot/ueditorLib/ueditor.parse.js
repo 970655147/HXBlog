@@ -9,7 +9,7 @@
 (function(){
     UE = window.UE || {};
     var isIE = !!window.ActiveXObject;
-    //å®šä¹‰utilså·¥å…·
+    //¶¨Òåutils¹¤¾ß
     var utils = {
             removeLastbs : function(url){
                 return url.replace(/\/$/,'')
@@ -382,7 +382,7 @@ UE.parse.register('table', function (utils) {
         tables = root.getElementsByTagName('table');
     if (tables.length) {
         var selector = this.selector;
-        //è¿½åŠ é»˜è®¤çš„è¡¨æ ¼æ ·å¼
+        //×·¼ÓÄ¬ÈÏµÄ±í¸ñÑùÊ½
         utils.cssRule('table',
             selector + ' table.noBorderTable td,' +
                 selector + ' table.noBorderTable th,' +
@@ -399,7 +399,7 @@ UE.parse.register('table', function (utils) {
                 selector + ' tr.ue-table-interlace-color-double td{ background: #f7faff; }' +
                 selector + ' td p{margin:0;padding:0;}',
             document);
-        //å¡«å……ç©ºçš„å•å…ƒæ ¼
+        //Ìî³ä¿ÕµÄµ¥Ôª¸ñ
 
         utils.each('td th caption'.split(' '), function (tag) {
             var cells = root.getElementsByTagName(tag);
@@ -411,7 +411,7 @@ UE.parse.register('table', function (utils) {
             })
         });
 
-        //è¡¨æ ¼å¯æ’åº
+        //±í¸ñ¿ÉÅÅĞò
         var tables = root.getElementsByTagName('table');
         utils.each(tables, function (table) {
             if (/\bsortEnabled\b/.test(table.className)) {
@@ -429,7 +429,7 @@ UE.parse.register('table', function (utils) {
             }
         });
 
-        //æŒ‰ç…§æ ‡ç­¾åæŸ¥æ‰¾çˆ¶èŠ‚ç‚¹
+        //°´ÕÕ±êÇ©Ãû²éÕÒ¸¸½Úµã
         function findParentByTagName(target, tagNames) {
             var i, current = target;
             tagNames = utils.isArray(tagNames) ? tagNames:[tagNames];
@@ -441,7 +441,7 @@ UE.parse.register('table', function (utils) {
             }
             return null;
         }
-        //è¡¨æ ¼æ’åº
+        //±í¸ñÅÅĞò
         function sortTable(table, sortByCellIndex, compareFn) {
             var rows = table.rows,
                 trArray = [],
@@ -482,10 +482,10 @@ UE.parse.register('table', function (utils) {
                 }
             };
 
-            //å¯¹è¡¨æ ¼è®¾ç½®æ’åºçš„æ ‡è®°data-sort-type
+            //¶Ô±í¸ñÉèÖÃÅÅĞòµÄ±ê¼Çdata-sort-type
             table.setAttribute('data-sort-type', compareFn && typeof compareFn === "string" && Fn[compareFn] ? compareFn:'');
 
-            //thä¸å‚ä¸æ’åº
+            //th²»²ÎÓëÅÅĞò
             flag && trArray.splice(0, 1);
             trArray = sort(trArray,function (tr1, tr2) {
                 var result;
@@ -511,7 +511,7 @@ UE.parse.register('table', function (utils) {
                 tbody.insertBefore(fragment,rows[lastRowIndex- range.endRowIndex + range.beginRowIndex - 1])
             }
         }
-        //å†’æ³¡æ’åº
+        //Ã°ÅİÅÅĞò
         function sort(array, compareFn){
             compareFn = compareFn || function(item1, item2){ return item1.localeCompare(item2);};
             for(var i= 0,len = array.length; i<len; i++){
@@ -525,9 +525,9 @@ UE.parse.register('table', function (utils) {
             }
             return array;
         }
-        //æ›´æ–°è¡¨æ ¼
+        //¸üĞÂ±í¸ñ
         function updateTable(table) {
-            //ç»™ç¬¬ä¸€è¡Œè®¾ç½®firstRowçš„æ ·å¼åç§°,åœ¨æ’åºå›¾æ ‡çš„æ ·å¼ä¸Šä½¿ç”¨åˆ°
+            //¸øµÚÒ»ĞĞÉèÖÃfirstRowµÄÑùÊ½Ãû³Æ,ÔÚÅÅĞòÍ¼±êµÄÑùÊ½ÉÏÊ¹ÓÃµ½
             if(!utils.hasClass(table.rows[0], "firstRow")) {
                 for(var i = 1; i< table.rows.length; i++) {
                     utils.removeClass(table.rows[i], "firstRow");
@@ -544,7 +544,7 @@ UE.parse.register('charts',function( utils ){
         containers = this.root,
         sources = null;
 
-    //ä¸å­˜åœ¨æŒ‡å®šçš„æ ¹è·¯å¾„ï¼Œ åˆ™ç›´æ¥é€€å‡º
+    //²»´æÔÚÖ¸¶¨µÄ¸ùÂ·¾¶£¬ ÔòÖ±½ÓÍË³ö
     if ( !resourceRoot ) {
         return;
     }
@@ -567,7 +567,7 @@ UE.parse.register('charts',function( utils ){
     }
 
     /**
-     * æå–æ•°æ®
+     * ÌáÈ¡Êı¾İ
      */
     function extractChartData ( rootNode ) {
 
@@ -594,7 +594,7 @@ UE.parse.register('charts',function( utils ){
             metaConfig = {},
             data = [];
 
-        //æå–tableæ•°æ®
+        //ÌáÈ¡tableÊı¾İ
         for ( var i = 0, row; row = tableNode.rows[ i ]; i++ ) {
 
             var rowData = [];
@@ -610,7 +610,7 @@ UE.parse.register('charts',function( utils ){
 
         }
 
-        //è§£æå…ƒä¿¡æ¯
+        //½âÎöÔªĞÅÏ¢
         meta = meta.split( ";" );
         for ( var i = 0, metaData; metaData = meta[ i ]; i++ ) {
 
@@ -628,7 +628,7 @@ UE.parse.register('charts',function( utils ){
 
     }
 
-    //åŠ è½½èµ„æº
+    //¼ÓÔØ×ÊÔ´
     function loadResources () {
 
         loadJQuery();
@@ -637,7 +637,7 @@ UE.parse.register('charts',function( utils ){
 
     function loadJQuery () {
 
-        //ä¸å­˜åœ¨jqueryï¼Œ åˆ™åŠ è½½jquery
+        //²»´æÔÚjquery£¬ Ôò¼ÓÔØjquery
         if ( !window.jQuery ) {
 
             utils.loadFile(document,{
@@ -661,7 +661,7 @@ UE.parse.register('charts',function( utils ){
 
     function loadHighcharts () {
 
-        //ä¸å­˜åœ¨Highchartsï¼Œ åˆ™åŠ è½½Highcharts
+        //²»´æÔÚHighcharts£¬ Ôò¼ÓÔØHighcharts
         if ( !window.Highcharts ) {
 
             utils.loadFile(document,{
@@ -683,7 +683,7 @@ UE.parse.register('charts',function( utils ){
 
     }
 
-    //åŠ è½½å›¾è¡¨å·®å¼‚åŒ–é…ç½®æ–‡ä»¶
+    //¼ÓÔØÍ¼±í²îÒì»¯ÅäÖÃÎÄ¼ş
     function loadTypeConfig () {
 
         utils.loadFile(document,{
@@ -699,7 +699,7 @@ UE.parse.register('charts',function( utils ){
 
     }
 
-    //æ¸²æŸ“å›¾è¡¨
+    //äÖÈ¾Í¼±í
     function render () {
 
         var config = null,
@@ -722,10 +722,10 @@ UE.parse.register('charts',function( utils ){
     }
 
     /**
-     * æ¸²æŸ“å›¾è¡¨
-     * @param container å›¾è¡¨å®¹å™¨èŠ‚ç‚¹å¯¹è±¡
-     * @param typeConfig å›¾è¡¨ç±»å‹é…ç½®
-     * @param config å›¾è¡¨é€šç”¨é…ç½®
+     * äÖÈ¾Í¼±í
+     * @param container Í¼±íÈİÆ÷½Úµã¶ÔÏó
+     * @param typeConfig Í¼±íÀàĞÍÅäÖÃ
+     * @param config Í¼±íÍ¨ÓÃÅäÖÃ
      * */
     function renderChart ( container, typeConfig, config ) {
 
@@ -779,8 +779,8 @@ UE.parse.register('charts',function( utils ){
     }
 
     /**
-     * åˆ›å»ºå›¾è¡¨çš„å®¹å™¨
-     * æ–°åˆ›å»ºçš„å®¹å™¨ä¼šæ›¿æ¢æ‰å¯¹åº”çš„tableå¯¹è±¡
+     * ´´½¨Í¼±íµÄÈİÆ÷
+     * ĞÂ´´½¨µÄÈİÆ÷»áÌæ»»µô¶ÔÓ¦µÄtable¶ÔÏó
      * */
     function createContainer ( tableNode ) {
 
@@ -793,17 +793,17 @@ UE.parse.register('charts',function( utils ){
 
     }
 
-    //æ ¹æ®configè§£æå‡ºæ­£ç¡®çš„ç±»åˆ«å’Œå›¾è¡¨æ•°æ®ä¿¡æ¯
+    //¸ù¾İconfig½âÎö³öÕıÈ·µÄÀà±ğºÍÍ¼±íÊı¾İĞÅÏ¢
     function analysisConfig ( config ) {
 
         var series = [],
-        //æ•°æ®ç±»åˆ«
+        //Êı¾İÀà±ğ
             categories = [],
             result = [],
             data = config.data,
             meta = config.meta;
 
-        //æ•°æ®å¯¹é½æ–¹å¼ä¸ºç›¸åçš„æ–¹å¼ï¼Œ éœ€è¦åè½¬æ•°æ®
+        //Êı¾İ¶ÔÆë·½Ê½ÎªÏà·´µÄ·½Ê½£¬ ĞèÒª·´×ªÊı¾İ
         if ( meta.dataFormat != "1" ) {
 
             for ( var i = 0, len = data.length; i < len ; i++ ) {
@@ -826,7 +826,7 @@ UE.parse.register('charts',function( utils ){
 
         result = {};
 
-        //æ™®é€šå›¾è¡¨
+        //ÆÕÍ¨Í¼±í
         if ( meta.chartType != typeConfig.length - 1 ) {
 
             categories = data[ 0 ].slice( 1 );
@@ -856,7 +856,7 @@ UE.parse.register('charts',function( utils ){
 
             }
 
-            //é¥¼å›¾
+            //±ıÍ¼
             series[ 0 ] = {
                 type: 'pie',
                 name: meta.tip,
@@ -887,7 +887,7 @@ UE.parse.register('background', function (utils) {
         }
     }
 
-    //è¿½åŠ é»˜è®¤çš„è¡¨æ ¼æ ·å¼
+    //×·¼ÓÄ¬ÈÏµÄ±í¸ñÑùÊ½
     styles && utils.cssRule('ueditor_background', me.selector + '{' + styles + '}', document);
 });
 UE.parse.register('list',function(utils){

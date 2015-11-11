@@ -24,6 +24,8 @@ public class BlogCommentAction extends HttpServlet {
 	// 获取blogIdx, floorIdx, imageIdx  如果发生异常, 将imageIdx置空 [必然过不了校验]
 	// 校验blogIdx, floorIdx, imageIdx, userInfo, commentBody
 	// 校验通过后, 设置用户的userInfo
+		// 如果comment是新的楼层信息, 则确定他的楼层数[index]
+			// 否则  便是回复, 确定它在该楼层的回复数[index]
 		// 将comment信息添加到CommentManager中
 	// 返回 响应结果, 记录日志
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -67,7 +69,7 @@ public class BlogCommentAction extends HttpServlet {
 								} catch (Exception e) {
 									e.printStackTrace();
 								}
-								respMsg.set(true, Constants.defaultResponseCode, "comment success !", Tools.getIPAddr(req) );
+								respMsg.set(Constants.respSucc, Constants.defaultResponseCode, "comment success !", Tools.getIPAddr(req) );
 							}
 						}
 					}
