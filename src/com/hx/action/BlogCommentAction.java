@@ -29,8 +29,8 @@ public class BlogCommentAction extends HttpServlet {
 		// 将comment信息添加到CommentManager中
 	// 返回 响应结果, 记录日志
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
-		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		ResponseMsg respMsg = new ResponseMsg();
 		Integer blogIdx = null;

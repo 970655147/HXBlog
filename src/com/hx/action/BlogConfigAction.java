@@ -27,18 +27,18 @@ public class BlogConfigAction extends HttpServlet {
 		// 否则  发布login按钮信息
 	// 返回 响应结果, 记录日志
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
-		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		JSONObject config = null;
 		if((! isFirst) || (! Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath))) ) {
 			config = JSONObject.fromObject(Constants.defaultConfig);
 		} else {
-			String content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath), Tools.DEFAULT_CHARSET );
+			String content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath), Constants.DEFAULT_CHARSET );
 			Constants.defaultConfig = JSONObject.fromObject(content);
 			config = JSONObject.fromObject(Constants.defaultConfig);
-			isFirst = false;
 		}
+		isFirst = false;
 		boolean isLogin = Tools.isLogin(req);
 		if(isLogin) {
 			config.getJSONArray("quickLinks").add(Constants.publishBlogConf);

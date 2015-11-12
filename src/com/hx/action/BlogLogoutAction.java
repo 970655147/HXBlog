@@ -22,8 +22,8 @@ public class BlogLogoutAction extends HttpServlet {
 	// 如果登录了, 则移除用户的userName, token, 以及用户的偏好信息
 	// 重定向到首页
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
-		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		boolean isLogin = Tools.isLogin(req);
 		StringBuilder sb = new StringBuilder();

@@ -27,9 +27,10 @@ public class BlogSenseAction extends HttpServlet {
 		// 否则 取消之前缓存sense, 并且"sense到"当前sense
 	// 并将其该blog加入visitedSensedBlogList, 待刷新到数据库
 	// 返回 响应结果, 记录日志
+	// 注 : response.addCookie, 如果存在给定的名字的cookie的话, 后者会替换掉前者.. 这是我担心的地方, 但是经过这样一个测试, 就不用担心鸟
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
-		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		Integer blogId = null;
 		ResponseMsg respMsg = new ResponseMsg();
@@ -67,7 +68,7 @@ public class BlogSenseAction extends HttpServlet {
 								} else {
 									respMsg.set(Constants.respSucc, Constants.defaultResponseCode, "cancel sense to : " + sense, Tools.getIPAddr(req) );
 									blog.decGood();
-	//								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.defaultCookieValue) );
+									resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.defaultCookieValue) );
 								}
 							} else {
 								if(! sensedToBlog.getValue().equals(sense) ) {
@@ -78,7 +79,7 @@ public class BlogSenseAction extends HttpServlet {
 								} else {
 									respMsg.set(Constants.respSucc, Constants.defaultResponseCode, "cancel sense to : " + sense, Tools.getIPAddr(req) );
 									blog.decNotGood();
-	//								resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.defaultCookieValue) );
+									resp.addCookie(new Cookie(Tools.getSensedCookieName(blog.getId() ), Constants.defaultCookieValue) );
 								}
 							}
 						}

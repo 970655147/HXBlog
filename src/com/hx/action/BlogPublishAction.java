@@ -26,8 +26,8 @@ public class BlogPublishAction extends HttpServlet {
 	// 创建Blog对象, 持久化blog文件, 将blog保存到BlogManager中
 	// 返回 响应结果, 记录日志		
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
-		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		ResponseMsg respMsg = new ResponseMsg();
 		if(Tools.validateUserLogin(req, respMsg)) {

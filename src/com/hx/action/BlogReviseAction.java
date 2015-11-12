@@ -27,8 +27,8 @@ public class BlogReviseAction extends HttpServlet {
 		// 将blog交给BlogManager处理更新blog的业务
 	// 返回 响应结果, 记录日志
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
-		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		ResponseMsg respMsg = new ResponseMsg();
 		if(Tools.validateUserLogin(req, respMsg) ) {

@@ -32,8 +32,8 @@ public class BlogGetAction extends HttpServlet {
 		// 如果登录, 则获取修改, 删除按钮信息, 在获取当前播客的上一页, 以及下一页的播客id
 	// 返回 响应结果, 记录日志	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
-		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		JSONObject injectorInfo = new JSONObject();
 		Integer blogId = null;
@@ -67,7 +67,7 @@ public class BlogGetAction extends HttpServlet {
 						BlogManager.addVisitSense(blog);
 						resp.addCookie(new Cookie(Tools.getVisitedCookieName(blog.getId()), Constants.visitedCookieValue));
 					}
-					String content = Tools.getContent(blogPath, Tools.DEFAULT_CHARSET);
+					String content = Tools.getContent(blogPath, Constants.DEFAULT_CHARSET);
 					blog.setContent(content);
 				}
 			}

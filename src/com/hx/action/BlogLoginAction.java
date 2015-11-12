@@ -25,8 +25,8 @@ public class BlogLoginAction extends HttpServlet {
 	// 如果登录成功, 重定向到首页
 		// 否则  重定向到登录页面
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);
-		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);
+		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		String userName = req.getParameter("userName");
 		String pwd = req.getParameter("pwd");

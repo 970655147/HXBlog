@@ -17,6 +17,9 @@ import net.sf.json.JSONObject;
 // 常量
 public class Constants {
 
+	// 默认的字符集
+	public final static String DEFAULT_CHARSET = "GBK";
+	
 	// 数据库的位置, 配置文件的位置, 简历配置文件的位置
 	public final static String dbPath = "com/hx/config/HXBlog.db";
 	public final static String configPath = "com/hx/config/config.json";

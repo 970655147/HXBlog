@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import com.hx.business.BlogManager;
-import com.hx.util.Log;
+import com.hx.util.Constants;
 import com.hx.util.Tools;
 
 // 获取blog配置的action
@@ -23,8 +23,8 @@ public class BlogListAction extends HttpServlet {
 	// 返回 响应结果, 记录日志		
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //		BlogManager.initIfNeeded();
-		resp.setCharacterEncoding(Tools.DEFAULT_CHARSET);		
-		resp.setHeader("Content-Type","text/html;charset=" + Tools.DEFAULT_CHARSET);
+		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);		
+		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		String tag = req.getParameter("tag");
 		int pageNo = 0;

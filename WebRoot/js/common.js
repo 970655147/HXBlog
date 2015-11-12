@@ -270,11 +270,12 @@
 						success : function(data){
 				        }
 					});  	
+					
+					 setTimeout(updateCouldClickGoodOrNotGood, 2000)
 				 } else {
 //					 console.log(couldClickGoodOrNotGood)
-					 setTimeout(updateCouldClickGoodOrNotGood, 200)
 //					 couldClickGoodOrNotGood = true
-					 console.log("please do not click so quickly, robot ?")
+					 console.log("please do not click so quickly, robot ?")						 
 				 }
 			 
 			})

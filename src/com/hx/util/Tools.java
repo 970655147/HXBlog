@@ -64,7 +64,6 @@ public class Tools {
 	public static final String UNDER_LINE = "_";
 	public static final String CRLF = "\r\n";
 	public final static Random ran = new Random();
-	public final static String DEFAULT_CHARSET = "GBK";
 	
 	// 项目的日志buffer, 阈值[128kb], 缓冲区大小[(128 + 16)kb], 项目路径, 日志文件
 	public final static int logThreshold = 128 << 10;
@@ -171,13 +170,13 @@ public class Tools {
 		return getContent(new FileInputStream(file), charset);
 	}
 	public static String getContent(String path) throws IOException {
-		return getContent(new File(path), DEFAULT_CHARSET);
+		return getContent(new File(path), Constants.DEFAULT_CHARSET);
 	}
 	public static String getContent(File file) throws IOException {
-		return getContent(file, DEFAULT_CHARSET);
+		return getContent(file, Constants.DEFAULT_CHARSET);
 	}
 	public static String getContent(InputStream is) throws IOException {
-		return getContent(is, DEFAULT_CHARSET);
+		return getContent(is, Constants.DEFAULT_CHARSET);
 	}
 	
 	// 判断给定的路径的文件是否存在
@@ -303,7 +302,7 @@ public class Tools {
 	}
 	public static void save(String html, File nextTmpFile) throws IOException {
 		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(nextTmpFile) );
-		bos.write(html.getBytes(DEFAULT_CHARSET) );
+		bos.write(html.getBytes(Constants.DEFAULT_CHARSET) );
 		bos.close();
 		
 		Log.log("save content to \" " + nextTmpFile.getAbsolutePath() + " \" success ...");
@@ -313,7 +312,7 @@ public class Tools {
 	}
 	public static void append(String html, File nextTmpFile) throws IOException {
 		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(nextTmpFile, true) );
-		bos.write(html.getBytes(DEFAULT_CHARSET) );
+		bos.write(html.getBytes(Constants.DEFAULT_CHARSET) );
 		bos.close();
 		
 		Log.log("append content to \" " + nextTmpFile.getAbsolutePath() + " \" success ...");
