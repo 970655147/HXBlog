@@ -45,7 +45,7 @@ public class BlogListAction extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 		String respInfo = res.toString();
 		out.write(respInfo );
-		Tools.log(this, respInfo);
+		Tools.log(this, "getBlogList for tag : " + tag + ", pageNo : " + pageNo);
 		out.close();
 	}
 	

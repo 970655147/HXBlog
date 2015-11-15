@@ -24,6 +24,7 @@ public class Constants {
 	public final static String dbPath = "com/hx/config/HXBlog.db";
 	public final static String configPath = "com/hx/config/config.json";
 	public final static String resumePath = "com/hx/config/resume.json";
+	
 	// 查找blogList, tagList表 的sql
 	// 增加blogList, tagList表元素的sql [增加播客的场景]
 	// 删除blogList, tagList表元素的sql [删除播客的场景]
@@ -109,7 +110,7 @@ public class Constants {
 	public final static long logFileThreshold = 512 << 10;
 	
 	// "userName", "toekn"
-	// 用户名, token, 密码md5
+	// 用户名, token, 密码md5 [123]
 	public final static String ACCOUNT_NAME = "userName";
 	public final static String TOKEN = "token";
 	public final static String account = "970655";

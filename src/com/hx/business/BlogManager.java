@@ -118,10 +118,12 @@ public class BlogManager {
 	// 如果有必要的话, 初始化blogList, tagList
 	public static void initIfNeeded() {
 		if(needInit) {
+			// 2015.10.15 之前的时候, 居然没有注意观察播客显示的顺序, 今天fix了, 需要用一个List维护播客的顺序
+			List<Integer> blogListOrder = new ArrayList<>();
 			synchronized (initLock) {
 				if(needInit) {
 					try {
-						initBlogList();
+						initBlogList(blogListOrder);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -129,7 +131,7 @@ public class BlogManager {
 			}
 			
 			if(needInit) {
-				initTagListAndTagToBlogCnt();
+				initTagListAndTagToBlogCnt(blogListOrder);
 				needInit = false;
 			}
 		}
@@ -324,7 +326,7 @@ public class BlogManager {
 	}	
 	
 	// 初始化blogList, tagList, 以及tagToBlogCnt [TreeSet 维护顺序]
-	private static void initBlogList() throws Exception {
+	private static void initBlogList(List<Integer> blogListOrder) throws Exception {
 		Connection con = null;
 		try {
 			con = Tools.getConnection(Tools.getProjectPath());
@@ -342,6 +344,7 @@ public class BlogManager {
 				Blog blog = new Blog();
 				blog.init(blogRs);
 				blogList.put(blog.getId(), blog);
+				blogListOrder.add(blog.getId() );
 //				allBlogIds.add(blog.getId() );
 				maxBlogId = Math.max(maxBlogId, blog.getId());
 			}
@@ -371,12 +374,11 @@ public class BlogManager {
 	
 	// 根据blogList初始化tagList, 根据tagList初始化tagToBlogCnt
 	// 注意 : 这里tagList的初始化没有涉及的数据库查询
-	private static void initTagListAndTagToBlogCnt() {
+	private static void initTagListAndTagToBlogCnt(List<Integer> blogListOrder) {
 		// ------- getTagList with blogList -------- 
-		for(Entry<Integer, Blog> entry : blogList.entrySet()) {
-			Blog curBlog = entry.getValue();
+		for(Integer blogId : blogListOrder) {
+			Blog curBlog = blogList.get(blogId);
 			for(String tag : curBlog.getTags()) {
-				Integer blogId = curBlog.getId();
 				if(tagList.containsKey(tag)) {
 					tagList.get(tag).add(blogId);
 				} else {

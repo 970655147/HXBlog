@@ -50,7 +50,7 @@
     "videoActionName": "uploadvideo", /* 执行上传视频的action名称 */
     "videoFieldName": "upfile", /* 提交的视频表单名称 */
     "videoUrlPrefix": "/HXBlog", /* 图片访问路径前缀 */
-    "videoPathFormat": "/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+    "videoPathFormat": "/upload/videos/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
     "videoMaxSize": 102400000, /* 上传大小限制，单位B，默认100MB */
     "videoAllowFiles": [
         ".flv", ".swf", ".mkv", ".avi", ".rm", ".rmvb", ".mpeg", ".mpg",
@@ -60,7 +60,7 @@
     "fileActionName": "uploadfile", /* controller里,执行上传视频的action名称 */
     "fileFieldName": "upfile", /* 提交的文件表单名称 */
     "fileUrlPrefix": "/HXBlog", /* 图片访问路径前缀 */
-    "filePathFormat": "/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+    "filePathFormat": "/upload/files/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
     "fileMaxSize": 51200000, /* 上传大小限制，单位B，默认50MB */
     "fileAllowFiles": [
         ".png", ".jpg", ".jpeg", ".gif", ".bmp",
@@ -81,7 +81,7 @@
     /* 列出指定目录下的文件 */
     "fileManagerActionName": "listfile", /* 执行文件管理的action名称 */
     "fileManagerUrlPrefix": "/HXBlog", /* 图片访问路径前缀 */
-    "fileManagerPathFormat": "/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
+    "fileManagerPathFormat": "/upload/files/{yyyy}{mm}{dd}/{time}{rand:6}", /* 上传保存路径,可以自定义保存路径和文件名格式 */
     "fileManagerListSize": 20, /* 每次列出文件数量 */
     "fileManagerAllowFiles": [
         ".png", ".jpg", ".jpeg", ".gif", ".bmp",
