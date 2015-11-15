@@ -17,17 +17,17 @@ insert into blogList (path, tag, createTime, good, notGood, visited) values ("20
 
 
 ##################### tagToBlog  ################################
-create table if not exists tagToBlog(
-       id integer primary key autoincrement,
-       tag varchar(64),
-       blogId varchar(32)
-);
+#create table if not exists tagToBlog(
+#       id integer primary key autoincrement,
+#       tag varchar(64),
+#       blogId varchar(32)
+#);
 
-insert into tagToBlog (tag, blogId) values ("blog", "1");
-insert into tagToBlog (tag, blogId) values ("blog", "2");
-insert into tagToBlog (tag, blogId) values ("Angularjs", "1");
-insert into tagToBlog (tag, blogId) values ("Coursera", "2");
-insert into tagToBlog (tag, blogId) values ("IDE", "2");
+#insert into tagToBlog (tag, blogId) values ("blog", "1");
+#insert into tagToBlog (tag, blogId) values ("blog", "2");
+#insert into tagToBlog (tag, blogId) values ("Angularjs", "1");
+#insert into tagToBlog (tag, blogId) values ("Coursera", "2");
+#insert into tagToBlog (tag, blogId) values ("IDE", "2");
 
 
 ##################### commentList  ################################

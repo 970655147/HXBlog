@@ -1,7 +1,7 @@
 
 <div id="index" ng-controller="blogListCtrl" >
   <div id="tag-panel">
-      <div id="current-tag" class="btn btn-info"><a href="{{currentTag.href}}">{{currentTag.text}}</a></div>
+      <div id="current-tag" ng-click="showTagPanel = !showTagPanel" class="btn btn-info"><a href="javascript:void(0)">{{currentTag.text}}</a></div>
       <button id="extend-btn" class="btn pull-right" ng-click="showTagPanel = !showTagPanel" >
         <div id="extend-img" class="glyphicon glyphicon-circle-arrow-down"></div>
       </button>

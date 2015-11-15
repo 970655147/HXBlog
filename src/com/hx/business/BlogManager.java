@@ -29,6 +29,10 @@ import com.hx.util.Tools;
 
 public class BlogManager {
 
+	// 2015.10.15 : 移除了tagList表, 因为这张表中的数据是冗余的, 根据blogList可以不难得到
+	// 关联的对象, tagListSql, addedBlogIdToTagMap, deletedBlogIdToTagMap
+		// 前台点击当前标签的时候, 显示标签面板
+	
 	// blogList, tagList, tag到tag对应的博客数的集合
 	// 增加的播客的集合 , 增加的播客的顺序[需要维护], 更新的播客的集合, 更新sense, visited的播客集合,  删除的播客的集合
 	// 增加的(blogId -> [tag])的映射, 删除的(blogId -> [tag])的映射
@@ -43,8 +47,8 @@ public class BlogManager {
 	private static Map<Integer, Blog> visitSenseUpdatedList = new ConcurrentHashMap<>();
 	private static List<Blog> deletedList = new ArrayList<>();
 //	private static Map<Integer, Blog> deletedList = new ConcurrentHashMap<>();
-	private static Map<Integer, List<String>> addedBlogIdToTagMap = new HashMap<>();
-	private static Map<Integer, List<String>> deletedBlogIdToTagMap = new HashMap<>();
+//	private static Map<Integer, List<String>> addedBlogIdToTagMap = new HashMap<>();
+//	private static Map<Integer, List<String>> deletedBlogIdToTagMap = new HashMap<>();
 	private static boolean needInit = true;
 	public final static String ALL = "all";
 	public static Object initLock = new Object();
@@ -117,12 +121,16 @@ public class BlogManager {
 			synchronized (initLock) {
 				if(needInit) {
 					try {
-						initLists();
-						needInit = false;
+						initBlogList();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
+			}
+			
+			if(needInit) {
+				initTagListAndTagToBlogCnt();
+				needInit = false;
 			}
 		}
 	}
@@ -182,8 +190,8 @@ public class BlogManager {
 			Map<Integer, Blog> updatedListTmp = new HashMap<>();
 			Map<Integer, Blog> visitSenseUpdatedListTmp = new HashMap<>();
 //			List<Integer> addOrderTmp = new ArrayList<>();
-			Map<Integer, List<String>> addedBlogIdToTagMapTmp = new HashMap<>();
-			Map<Integer, List<String>> deletedBlogIdToTagMapTmp = new HashMap<>();
+//			Map<Integer, List<String>> addedBlogIdToTagMapTmp = new HashMap<>();
+//			Map<Integer, List<String>> deletedBlogIdToTagMapTmp = new HashMap<>();
 //			addedListTmp.putAll(addedList);
 //			deletedListTmp.putAll(deletedList);
 			updatedListTmp.putAll(updatedList);
@@ -196,14 +204,14 @@ public class BlogManager {
 //				addOrderTmp.addAll(addOrder);
 				addedListTmp.addAll(addedList);
 				deletedListTmp.addAll(deletedList);
-				addedBlogIdToTagMapTmp.putAll(addedBlogIdToTagMap);
-				deletedBlogIdToTagMapTmp.putAll(deletedBlogIdToTagMap);
+//				addedBlogIdToTagMapTmp.putAll(addedBlogIdToTagMap);
+//				deletedBlogIdToTagMapTmp.putAll(deletedBlogIdToTagMap);
 				
 //				addOrder.clear();
 				addedList.clear();
 				deletedList.clear();
-				addedBlogIdToTagMap.clear();
-				deletedBlogIdToTagMap.clear();
+//				addedBlogIdToTagMap.clear();
+//				deletedBlogIdToTagMap.clear();
 			}
 			
 			synchronized (initLock) {
@@ -211,10 +219,10 @@ public class BlogManager {
 				try {
 					con = Tools.getConnection(Tools.getProjectPath());			
 //					flushAddedRecords(con, addedListTmp, addOrderTmp, addedBlogIdToTagMapTmp);
-					flushAddedRecords(con, addedListTmp, addedBlogIdToTagMapTmp);
+					flushAddedRecords(con, addedListTmp);
 					flushRevisedRecords(con, updatedListTmp, visitSenseUpdatedListTmp);
 //					flushDeletedRecords(con, deletedListTmp, deletedBlogIdToTagMapTmp);
-					flushDeletedRecords(con, deletedListTmp, deletedBlogIdToTagMapTmp);
+					flushDeletedRecords(con, deletedListTmp);
 				} catch (Exception e) {
 					e.printStackTrace();
 				} finally {
@@ -300,13 +308,13 @@ public class BlogManager {
 			tagToBlogCnt.clear();
 			addedList.clear();
 			deletedList.clear();
-			addedBlogIdToTagMap.clear();
-			deletedBlogIdToTagMap.clear();
+//			addedBlogIdToTagMap.clear();
+//			deletedBlogIdToTagMap.clear();
 			tagToBlogCnt = null;
 			addedList = null;
 			deletedList = null;
-			addedBlogIdToTagMap = null;
-			deletedBlogIdToTagMap = null;
+//			addedBlogIdToTagMap = null;
+//			deletedBlogIdToTagMap = null;
 			initLock = null;
 			tagToBlogCntTmp = null;
 			curBlogId = null;
@@ -316,7 +324,7 @@ public class BlogManager {
 	}	
 	
 	// 初始化blogList, tagList, 以及tagToBlogCnt [TreeSet 维护顺序]
-	private static void initLists() throws Exception {
+	private static void initBlogList() throws Exception {
 		Connection con = null;
 		try {
 			con = Tools.getConnection(Tools.getProjectPath());
@@ -324,44 +332,65 @@ public class BlogManager {
 			tagList.clear();
 			tagToBlogCnt.clear();
 			PreparedStatement blogPS = con.prepareStatement(Constants.blogListSql);
-			PreparedStatement tagListPS = con.prepareStatement(Constants.tagListSql);
+//			PreparedStatement tagListPS = con.prepareStatement(Constants.tagListSql);
 			
 			// 初始化blogList, tagList, tagToBlogCnt
-			List<Integer> allBlogIds = new ArrayList<>();
+//			List<Integer> allBlogIds = new ArrayList<>();
 			ResultSet blogRs = blogPS.executeQuery();
 			int maxBlogId = -1;
 			while(blogRs.next() ) {
 				Blog blog = new Blog();
 				blog.init(blogRs);
 				blogList.put(blog.getId(), blog);
-				allBlogIds.add(blog.getId() );
+//				allBlogIds.add(blog.getId() );
 				maxBlogId = Math.max(maxBlogId, blog.getId());
 			}
 			curBlogId = new AtomicInteger(maxBlogId);
 			
-			ResultSet tagListRs = tagListPS.executeQuery();
-			while(tagListRs.next() ) {
-				String tagId = tagListRs.getString("tag");
-				Integer blogId = tagListRs.getInt("blogId");
-				if(tagList.containsKey(tagId)) {
-					tagList.get(tagId).add(blogId);
-				} else {
-					List<Integer> blogs = new ArrayList<>();
-					blogs.add(blogId);
-					tagList.put(tagId, blogs);
-				}
-			}
-			tagList.put(ALL, allBlogIds);
+			// ------- getTagList with tagListSql --------
+//			ResultSet tagListRs = tagListPS.executeQuery();
+//			while(tagListRs.next() ) {
+//				String tagId = tagListRs.getString("tag");
+//				Integer blogId = tagListRs.getInt("blogId");
+//				if(tagList.containsKey(tagId)) {
+//					tagList.get(tagId).add(blogId);
+//				} else {
+//					List<Integer> blogs = new ArrayList<>();
+//					blogs.add(blogId);
+//					tagList.put(tagId, blogs);
+//				}
+//			}
+//			tagList.put(ALL, allBlogIds);
+			
 		} finally {
 			if(con != null) {
 				con.close();
+			}
+		}
+	}	
+	
+	// 根据blogList初始化tagList, 根据tagList初始化tagToBlogCnt
+	// 注意 : 这里tagList的初始化没有涉及的数据库查询
+	private static void initTagListAndTagToBlogCnt() {
+		// ------- getTagList with blogList -------- 
+		for(Entry<Integer, Blog> entry : blogList.entrySet()) {
+			Blog curBlog = entry.getValue();
+			for(String tag : curBlog.getTags()) {
+				Integer blogId = curBlog.getId();
+				if(tagList.containsKey(tag)) {
+					tagList.get(tag).add(blogId);
+				} else {
+					List<Integer> blogs = new ArrayList<>();
+					blogs.add(blogId);
+					tagList.put(tag, blogs);
+				}
 			}
 		}
 		
 		for(Entry<String, List<Integer>> entry : tagList.entrySet()) {
 			tagToBlogCnt.add(new TagToBlogCnt(entry.getKey(), entry.getValue().size()) );
 		}
-	}	
+	}
 	
 	// 添加了一个博客
 	// 将播客添加到blogList
@@ -375,14 +404,14 @@ public class BlogManager {
 //			addedList.put(newBlog.getId(), newBlog);
 			addedList.add(newBlog);
 			if(newBlog.getTags().size() > 0) {
-				List<String> addedTagsOfBlog = addedBlogIdToTagMap.get(newBlog.getId());
-				if(addedTagsOfBlog == null) {
-					addedTagsOfBlog = new ArrayList<>();
-					addedBlogIdToTagMap.put(newBlog.getId(), addedTagsOfBlog);
-				}
+//				List<String> addedTagsOfBlog = addedBlogIdToTagMap.get(newBlog.getId());
+//				if(addedTagsOfBlog == null) {
+//					addedTagsOfBlog = new ArrayList<>();
+//					addedBlogIdToTagMap.put(newBlog.getId(), addedTagsOfBlog);
+//				}
 				
 				for(String tag : newBlog.getTags()) {
-					addedTagsOfBlog.add(tag);
+//					addedTagsOfBlog.add(tag);
 					updateTagCntInTagToBlogCnt(tag, true);
 				}
 			}
@@ -411,23 +440,23 @@ public class BlogManager {
 		removedTags.removeAll(newBlog.getTags() );
 		if((addedTags.size() > 0) || (removedTags.size() > 0) ) {
 			synchronized (updateLock) {
-				List<String> addedTagsOfBlog = addedBlogIdToTagMap.get(newBlog.getId());
-				List<String> deletedTagsOfBlog = deletedBlogIdToTagMap.get(newBlog.getId());
-				if(addedTagsOfBlog == null) {
-					addedTagsOfBlog = new ArrayList<>();
-					addedBlogIdToTagMap.put(newBlog.getId(), addedTagsOfBlog);
-				}
-				if(deletedTagsOfBlog == null) {
-					deletedTagsOfBlog = new ArrayList<>();
-					deletedBlogIdToTagMap.put(newBlog.getId(), deletedTagsOfBlog);
-				}				
+//				List<String> addedTagsOfBlog = addedBlogIdToTagMap.get(newBlog.getId());
+//				List<String> deletedTagsOfBlog = deletedBlogIdToTagMap.get(newBlog.getId());
+//				if(addedTagsOfBlog == null) {
+//					addedTagsOfBlog = new ArrayList<>();
+//					addedBlogIdToTagMap.put(newBlog.getId(), addedTagsOfBlog);
+//				}
+//				if(deletedTagsOfBlog == null) {
+//					deletedTagsOfBlog = new ArrayList<>();
+//					deletedBlogIdToTagMap.put(newBlog.getId(), deletedTagsOfBlog);
+//				}				
 				
 				for(String tag : addedTags) {
-					addedTagsOfBlog.add(tag);
+//					addedTagsOfBlog.add(tag);
 					updateTagCntInTagToBlogCnt(tag, true);
 				}
 				for(String tag : removedTags) {
-					deletedTagsOfBlog.add(tag);
+//					deletedTagsOfBlog.add(tag);
 					updateTagCntInTagToBlogCnt(tag, false);
 				}	
 				updatedList.put(newBlog.getId(), newBlog);
@@ -454,14 +483,14 @@ public class BlogManager {
 			synchronized (updateLock) {
 //				deletedList.put(newBlog.getId(), newBlog);
 				deletedList.add(newBlog);
-				List<String> deletedTagsOfBlog = deletedBlogIdToTagMap.get(newBlog.getId());
-				if(deletedTagsOfBlog == null) {
-					deletedTagsOfBlog = new ArrayList<>();
-					deletedBlogIdToTagMap.put(newBlog.getId(), deletedTagsOfBlog);
-				}	
+//				List<String> deletedTagsOfBlog = deletedBlogIdToTagMap.get(newBlog.getId());
+//				if(deletedTagsOfBlog == null) {
+//					deletedTagsOfBlog = new ArrayList<>();
+//					deletedBlogIdToTagMap.put(newBlog.getId(), deletedTagsOfBlog);
+//				}	
 				
 				for(String tag : newBlog.getTags()) {
-					deletedTagsOfBlog.add(tag);
+//					deletedTagsOfBlog.add(tag);
 					updateTagCntInTagToBlogCnt(tag, false);
 				}
 			}
@@ -525,7 +554,7 @@ public class BlogManager {
 	}	
 	
 	// 刷新添加的记录到db [blogList, tagList]
-	private static void flushAddedRecords(Connection con, List<Blog> addedList, Map<Integer, List<String>> addedBlogIdToTagMap) throws Exception {
+	private static void flushAddedRecords(Connection con, List<Blog> addedList) throws Exception {
 		updated[Constants.addBlogCnt] = 0;
 		updated[Constants.addTagCnt] = 0;
 		if((addedList != null) && (addedList.size() > 0) ) {		
@@ -536,24 +565,24 @@ public class BlogManager {
 			updated[Constants.addBlogCnt] = delBlogPs.executeUpdate();
 		}
 		
-		if((addedBlogIdToTagMap != null) && (addedBlogIdToTagMap.size() > 0) ) {
-			String addSelectedSql = null;
-			PreparedStatement addTagsPs = null;
-			for(Entry<Integer, List<String>> entry : addedBlogIdToTagMap.entrySet()) {
-				if(entry.getValue().size() > 0) {
-					addSelectedSql = Tools.getAddSelectedTagsSql(entry.getKey(), entry.getValue());
-					Tools.log(BlogManager.class, addSelectedSql);
-					addTagsPs = con.prepareStatement(addSelectedSql);
-					updated[Constants.addTagCnt] += addTagsPs.executeUpdate();
-				}
-			}
-		}
+//		if((addedBlogIdToTagMap != null) && (addedBlogIdToTagMap.size() > 0) ) {
+//			String addSelectedSql = null;
+//			PreparedStatement addTagsPs = null;
+//			for(Entry<Integer, List<String>> entry : addedBlogIdToTagMap.entrySet()) {
+//				if(entry.getValue().size() > 0) {
+//					addSelectedSql = Tools.getAddSelectedTagsSql(entry.getKey(), entry.getValue());
+//					Tools.log(BlogManager.class, addSelectedSql);
+//					addTagsPs = con.prepareStatement(addSelectedSql);
+//					updated[Constants.addTagCnt] += addTagsPs.executeUpdate();
+//				}
+//			}
+//		}
 		
 		Tools.log(BlogListAction.class, "added " + updated[Constants.addBlogCnt] + " blogRecoreds to db , added " + updated[Constants.addTagCnt] + " tagRecoreds to db !");
 	}	
 	
 	// 刷新删除的记录到db [blogList, tagList]
-	private static void flushDeletedRecords(Connection con, List<Blog> deletedList, Map<Integer, List<String>> deletedBlogIdToTagMap) throws Exception {
+	private static void flushDeletedRecords(Connection con, List<Blog> deletedList) throws Exception {
 		updated[Constants.deletedBlogCnt] = 0;
 		updated[Constants.deletedTagCnt] = 0;
 		if((deletedList != null) && (deletedList.size() > 0) ) {
@@ -563,18 +592,18 @@ public class BlogManager {
 			updated[Constants.deletedBlogCnt] = delBlogPs.executeUpdate();
 		}
 		
-		if((deletedBlogIdToTagMap != null) && (deletedBlogIdToTagMap.size() > 0) ) {
-			String deleteSelectedSql = null;
-			PreparedStatement delTagsPs = null;
-			for(Entry<Integer, List<String>> entry : deletedBlogIdToTagMap.entrySet()) {
-				if(entry.getValue().size() > 0) {
-					deleteSelectedSql = Tools.getDeleteSelectedTagsSql(entry.getKey(), entry.getValue());
-					Tools.log(BlogManager.class, deleteSelectedSql);
-					delTagsPs = con.prepareStatement(deleteSelectedSql);
-					updated[Constants.deletedTagCnt] += delTagsPs.executeUpdate();
-				}
-			}
-		}
+//		if((deletedBlogIdToTagMap != null) && (deletedBlogIdToTagMap.size() > 0) ) {
+//			String deleteSelectedSql = null;
+//			PreparedStatement delTagsPs = null;
+//			for(Entry<Integer, List<String>> entry : deletedBlogIdToTagMap.entrySet()) {
+//				if(entry.getValue().size() > 0) {
+//					deleteSelectedSql = Tools.getDeleteSelectedTagsSql(entry.getKey(), entry.getValue());
+//					Tools.log(BlogManager.class, deleteSelectedSql);
+//					delTagsPs = con.prepareStatement(deleteSelectedSql);
+//					updated[Constants.deletedTagCnt] += delTagsPs.executeUpdate();
+//				}
+//			}
+//		}
 		
 		Tools.log(BlogListAction.class, "deleted " + updated[Constants.deletedBlogCnt] + " blogRecoreds int db , deleted " + updated[Constants.deletedTagCnt] + " tagRecoreds int db !");
 	}
