@@ -43,7 +43,7 @@ public class BlogManager {
 	private static List<Blog> addedList = new ArrayList<>();
 //	private static Map<Integer, Blog> addedList = new ConcurrentHashMap<>();
 //	private static List<Integer> addOrder = new ArrayList<>(Constants.addedBlogsListSize);
-	private static Map<Integer, Blog> updatedList = new ConcurrentHashMap<>();
+	private static Map<Integer, Blog> updatedList = new HashMap<>();
 	private static Map<Integer, Blog> visitSenseUpdatedList = new ConcurrentHashMap<>();
 	private static List<Blog> deletedList = new ArrayList<>();
 //	private static Map<Integer, Blog> deletedList = new ConcurrentHashMap<>();
@@ -169,7 +169,9 @@ public class BlogManager {
 	
 	// 获取更新的元素的个数 [忽略, 顶踩更新的播客]
 	public static int getUpdated() {
-		return addedList.size() + updatedList.size() + deletedList.size();
+		synchronized (updateLock) {
+			return addedList.size() + updatedList.size() + deletedList.size();
+		}
 	}
 	
 	// 获取更新的顶踩 或者visited的blog的个数
@@ -196,22 +198,22 @@ public class BlogManager {
 //			Map<Integer, List<String>> deletedBlogIdToTagMapTmp = new HashMap<>();
 //			addedListTmp.putAll(addedList);
 //			deletedListTmp.putAll(deletedList);
-			updatedListTmp.putAll(updatedList);
 			visitSenseUpdatedListTmp.putAll(visitSenseUpdatedList);
 //			addedList.clear();
 //			deletedList.clear();	
-			updatedList.clear();
 			visitSenseUpdatedList.clear();
 			synchronized (updateLock) {
 //				addOrderTmp.addAll(addOrder);
 				addedListTmp.addAll(addedList);
 				deletedListTmp.addAll(deletedList);
+				updatedListTmp.putAll(updatedList);
 //				addedBlogIdToTagMapTmp.putAll(addedBlogIdToTagMap);
 //				deletedBlogIdToTagMapTmp.putAll(deletedBlogIdToTagMap);
 				
 //				addOrder.clear();
 				addedList.clear();
 				deletedList.clear();
+				updatedList.clear();
 //				addedBlogIdToTagMap.clear();
 //				deletedBlogIdToTagMap.clear();
 			}
@@ -299,22 +301,23 @@ public class BlogManager {
 	public static void clear() {
 		blogList.clear();
 		tagList.clear();
-		updatedList.clear();
 		visitSenseUpdatedList.clear();
 		blogList = null;
 		tagList = null;
-		updatedList = null;
 		visitSenseUpdatedList = null;
 		
 		synchronized (updateLock) {
 			tagToBlogCnt.clear();
 			addedList.clear();
 			deletedList.clear();
+			updatedList.clear();
 //			addedBlogIdToTagMap.clear();
 //			deletedBlogIdToTagMap.clear();
+			
 			tagToBlogCnt = null;
 			addedList = null;
 			deletedList = null;
+			updatedList = null;
 //			addedBlogIdToTagMap = null;
 //			deletedBlogIdToTagMap = null;
 			initLock = null;
@@ -580,7 +583,7 @@ public class BlogManager {
 //			}
 //		}
 		
-		Tools.log(BlogListAction.class, "added " + updated[Constants.addBlogCnt] + " blogRecoreds to db , added " + updated[Constants.addTagCnt] + " tagRecoreds to db !");
+//		Tools.log(BlogListAction.class, "added " + updated[Constants.addBlogCnt] + " blogRecoreds to db , added " + updated[Constants.addTagCnt] + " tagRecoreds to db !");
 	}	
 	
 	// 刷新删除的记录到db [blogList, tagList]
@@ -607,7 +610,7 @@ public class BlogManager {
 //			}
 //		}
 		
-		Tools.log(BlogListAction.class, "deleted " + updated[Constants.deletedBlogCnt] + " blogRecoreds int db , deleted " + updated[Constants.deletedTagCnt] + " tagRecoreds int db !");
+//		Tools.log(BlogListAction.class, "deleted " + updated[Constants.deletedBlogCnt] + " blogRecoreds int db , deleted " + updated[Constants.deletedTagCnt] + " tagRecoreds int db !");
 	}
 	
 	// 刷新更新的记录到db [blogList]
@@ -636,7 +639,7 @@ public class BlogManager {
 			}
 		}
 		
-		Tools.log(BlogListAction.class, "updated " + updated[Constants.revisedBlogCnt] + " blogRecoreds to db !");
+//		Tools.log(BlogListAction.class, "updated " + updated[Constants.revisedBlogCnt] + " blogRecoreds to db !");
 	}
 	
 	// 获取更新的记录信息 [日志]

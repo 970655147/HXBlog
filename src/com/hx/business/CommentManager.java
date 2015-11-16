@@ -45,6 +45,7 @@ public class CommentManager {
 	private static Map<Integer, List<Integer>> deleteCommentsByCommentIdx = new HashMap<>(Constants.addedCommentsListSize);
 	// 这里为了简单, 就将这三个更新的对象关联在一起了..
 	private static Object deleteCommentsLock = new Object();
+	
 	// 各个更新的数据 
 	// [0] 表示添加的评论记录数, [1] 表示根据blogIdx删除的记录数
 	// [2] 表示根据floorIdx删除的记录数, [3] 表示根据commentIdx删除的记录数

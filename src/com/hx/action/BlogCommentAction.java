@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import com.hx.bean.Blog;
 import com.hx.bean.Comment;
 import com.hx.bean.ResponseMsg;
 import com.hx.bean.UserInfo;
+import com.hx.business.BlogManager;
 import com.hx.business.CommentManager;
 import com.hx.util.Constants;
 import com.hx.util.Tools;
@@ -23,6 +25,7 @@ public class BlogCommentAction extends HttpServlet {
 	// 处理评论相关业务
 	// 获取blogIdx, floorIdx, imageIdx  如果发生异常, 将imageIdx置空 [必然过不了校验]
 	// 校验blogIdx, floorIdx, imageIdx, userInfo, commentBody
+	// 再校验这个播客是否存在
 	// 校验通过后, 设置用户的userInfo
 		// 如果comment是新的楼层信息, 则确定他的楼层数[index]
 			// 否则  便是回复, 确定它在该楼层的回复数[index]
@@ -56,20 +59,23 @@ public class BlogCommentAction extends HttpServlet {
 					if(Tools.validateTitle(req, to, "to's userName", respMsg) ) {					
 						if(Tools.validateUserInfo(req, userInfo, respMsg) ) {
 							if(Tools.validateCommentBody(req, commentBody, respMsg) ) {
-								req.getSession().setAttribute(Constants.preferInfo, userInfo);
-								comment = new Comment(blogIdx, floorIdx, Constants.defaultCommentIdx, userInfo, Constants.createDateFormat.format(new Date()), to, Tools.replaceCommentBody(commentBody, Constants.scriptCharacterMap) );
-								try {
-									CommentManager.addComment(blogIdx, comment);
-									if(! Tools.isReply(commentBody) ) {
-										CommentManager.updateFloorIdx(comment);
-									} else {
-										comment.setComment(Tools.getReplyComment(commentBody));
-										CommentManager.updateCommentIdx(comment);
+								Blog blogInServer = BlogManager.getBlog(blogIdx);
+								if(Tools.validateBlog(req, blogInServer, respMsg)) {
+									req.getSession().setAttribute(Constants.preferInfo, userInfo);
+									comment = new Comment(blogIdx, floorIdx, Constants.defaultCommentIdx, userInfo, Constants.createDateFormat.format(new Date()), to, Tools.replaceCommentBody(commentBody, Constants.scriptCharacterMap) );
+									try {
+										CommentManager.addComment(blogIdx, comment);
+										if(! Tools.isReply(commentBody) ) {
+											CommentManager.updateFloorIdx(comment);
+										} else {
+											comment.setComment(Tools.getReplyComment(commentBody));
+											CommentManager.updateCommentIdx(comment);
+										}
+									} catch (Exception e) {
+										e.printStackTrace();
 									}
-								} catch (Exception e) {
-									e.printStackTrace();
+									respMsg.set(Constants.respSucc, Constants.defaultResponseCode, "comment success !", Tools.getIPAddr(req) );
 								}
-								respMsg.set(Constants.respSucc, Constants.defaultResponseCode, "comment success !", Tools.getIPAddr(req) );
 							}
 						}
 					}
