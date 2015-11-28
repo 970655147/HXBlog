@@ -64,6 +64,7 @@ public class Tools {
 	public static final String UNDER_LINE = "_";
 	public static final String CRLF = "\r\n";
 	public final static Random ran = new Random();
+	public static String DEFAULT_CHARSET = "gbk";
 	
 	// 项目的日志buffer, 阈值[128kb], 缓冲区大小[(128 + 16)kb], 项目路径, 日志文件
 	public final static int logThreshold = 128 << 10;
@@ -153,13 +154,18 @@ public class Tools {
 	// 获取给定的输入流中的字符内容
 	public static String getContent(InputStream is, String charset) throws IOException {
 		StringBuilder sb = new StringBuilder(is.available() );
-		BufferedReader br = new BufferedReader(new InputStreamReader(is, charset) );
+		BufferedReader br = null;
 
-		String line = null;
-		while((line = br.readLine()) != null) {
-			sb.append(line );
+		try {
+			String line = null;
+			while((line = br.readLine()) != null) {
+				sb.append(line );
+			}
+		} finally {
+			if(br != null) {
+				br.close();
+			}
 		}
-		br.close();
 		
 		return sb.toString();
 	}
@@ -296,26 +302,30 @@ public class Tools {
 	}
 	
 	// 将html字符串保存到指定的文件中
-	// 将html字符串添加到指定的文件中
 	public static void save(String html, String nextTmpName) throws IOException {
 		save(html, new File(nextTmpName) );
 	}
 	public static void save(String html, File nextTmpFile) throws IOException {
-		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(nextTmpFile) );
-		bos.write(html.getBytes(Constants.DEFAULT_CHARSET) );
-		bos.close();
-		
+		write0(html, nextTmpFile, DEFAULT_CHARSET, false);
 		Log.log("save content to \" " + nextTmpFile.getAbsolutePath() + " \" success ...");
 	}	
 	public static void append(String html, String nextTmpName) throws IOException {
 		append(html, new File(nextTmpName) );
 	}
 	public static void append(String html, File nextTmpFile) throws IOException {
-		BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(nextTmpFile, true) );
-		bos.write(html.getBytes(Constants.DEFAULT_CHARSET) );
-		bos.close();
-		
+		write0(html, nextTmpFile, DEFAULT_CHARSET, true);
 		Log.log("append content to \" " + nextTmpFile.getAbsolutePath() + " \" success ...");
+	}
+	private static void write0(String html, File nextTmpFile, String charset, boolean isAppend) throws IOException {
+		BufferedOutputStream bos = null;
+		try {
+			bos = new BufferedOutputStream(new FileOutputStream(nextTmpFile, isAppend) );
+			bos.write(html.getBytes(charset) );
+		} finally {
+			if(bos != null) {
+				bos.close();
+			}
+		}
 	}
 	
 	// 重命名给定的文件
