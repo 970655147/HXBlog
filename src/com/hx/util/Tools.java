@@ -157,6 +157,8 @@ public class Tools {
 		BufferedReader br = null;
 
 		try {
+			// .. forget initialize "br" !			2015.12.08
+			br = new BufferedReader(new InputStreamReader(is, charset) );
 			String line = null;
 			while((line = br.readLine()) != null) {
 				sb.append(line );
@@ -725,7 +727,7 @@ public class Tools {
 	// 从req.session中获取attr对应过的值
 	public static String getStrFromSession(HttpServletRequest req, String attr) {
 		HttpSession session = req.getSession(false);
-		String res = NULL;
+		String res = EMPTY_STR;
 		if(session != null) {
 			res = String.valueOf(session.getAttribute(attr) );
 		}
@@ -741,6 +743,14 @@ public class Tools {
 		
 		return res;
 	}
+	// 移除session中给定的属性
+	public static void removeAttrFromSession(HttpServletRequest req, String attr) {
+		HttpSession session = req.getSession();
+		if(session != null) {
+			session.removeAttribute(attr);
+		}
+	}
+	
 	
 	// 校验是否用户登录
 	public static boolean validateUserLogin(HttpServletRequest req, ResponseMsg respMsg) {
@@ -883,6 +893,11 @@ public class Tools {
 	
 	// 找到名为cookieName的Cookie对应的值
 	public static String getCookieValByName(Cookie[] cookies, String cookieName) {
+		// fix if there is not exists "cookies" 		2015.12.08
+		if((cookies == null) || (cookieName == null) ) {
+			return Constants.defaultCookieValue;
+		}
+		
 		String res = Constants.defaultCookieValue;
 		for(Cookie cookie : cookies) {
 			if(cookie.getName().equals(cookieName) ) {
@@ -894,6 +909,10 @@ public class Tools {
 		return res;
 	}
 	public static Cookie getCookieByName(Cookie[] cookies, String cookieName) {
+		if((cookies == null) || (cookieName == null) ) {
+			return null;
+		}
+		
 		Cookie res = null;
 		for(Cookie cookie : cookies) {
 			if(cookie.getName().equals(cookieName) ) {
