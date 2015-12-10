@@ -67,7 +67,14 @@ public class BlogGetAction extends HttpServlet {
 						BlogManager.addVisitSense(blog);
 						resp.addCookie(new Cookie(Tools.getVisitedCookieName(blog.getId()), Constants.visitedCookieValue));
 					}
-					String content = Tools.getContent(blogPath, Constants.DEFAULT_CHARSET);
+					
+					// add try-catch in case of disk get fileContent while admin is revise blog !		2015.12.10
+					String content = null;
+					try {
+						content = Tools.getContent(blogPath, Constants.DEFAULT_CHARSET);
+					} catch (Exception e) {
+						content = "file maybe be locked now, please try again later !";
+					}
 					blog.setContent(content);
 				}
 			}

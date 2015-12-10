@@ -50,7 +50,7 @@ public class BlogPublishAction extends HttpServlet {
 					}
 				}
 			}
-			// fix "checkCode" in session's lifecycle [should be remove after checked !]		add at 2015.12.08
+			// fix "checkCode" in session's lifecycle [should be removed after checked !]		add at 2015.12.08
 			Tools.removeAttrFromSession(req, Constants.checkCode);
 		}
 		

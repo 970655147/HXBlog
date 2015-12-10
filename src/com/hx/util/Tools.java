@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.channels.FileLock;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -319,11 +320,18 @@ public class Tools {
 		Log.log("append content to \" " + nextTmpFile.getAbsolutePath() + " \" success ...");
 	}
 	private static void write0(String html, File nextTmpFile, String charset, boolean isAppend) throws IOException {
+		// add fileLock while publish or revise blog !		2015.12.10
 		BufferedOutputStream bos = null;
+		FileLock lock = null;
 		try {
-			bos = new BufferedOutputStream(new FileOutputStream(nextTmpFile, isAppend) );
+			FileOutputStream fos = new FileOutputStream(nextTmpFile, isAppend);
+			lock = fos.getChannel().lock();
+			bos = new BufferedOutputStream(fos );
 			bos.write(html.getBytes(charset) );
 		} finally {
+			if(lock != null) {
+				lock.release();
+			}
 			if(bos != null) {
 				bos.close();
 			}
