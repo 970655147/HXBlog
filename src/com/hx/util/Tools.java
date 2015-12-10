@@ -295,13 +295,20 @@ public class Tools {
 		return dateAndBlogTitle;
 	}
 	public static String getTitleFromBlogFileName(String fileName) {
-		String title = null;
-		int sepIdx = fileName.indexOf(dateBlogSep);
-		if(sepIdx >= 0) {
-			title = fileName.substring(sepIdx + dateBlogSep.length());
+		String[] dateAndTitle = getDateAndBlogTitleFromFileName(fileName);
+		if(dateAndTitle != null) {
+			return dateAndTitle[1];
 		}
 		
-		return title;
+		return null;
+	}
+	public static String getDateFromBlogFileName(String fileName) {
+		String[] dateAndTitle = getDateAndBlogTitleFromFileName(fileName);
+		if(dateAndTitle != null) {
+			return dateAndTitle[0];
+		}
+		
+		return null;
 	}
 	
 	// 将html字符串保存到指定的文件中

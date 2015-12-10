@@ -18,6 +18,7 @@ import com.hx.bean.Comment;
 import com.hx.business.BlogManager;
 import com.hx.business.CommentManager;
 import com.hx.util.Constants;
+import com.hx.util.Log;
 import com.hx.util.Tools;
 
 public class BlogGetAction extends HttpServlet {
@@ -58,6 +59,7 @@ public class BlogGetAction extends HttpServlet {
 			} else {
 				blog = new Blog(blogInServer);
 				String blogPath = Tools.getBlogPath(Tools.getProjectPath(), (blogInServer.getPath()) );
+//				Log.log(blogPath);
 				if(! Tools.isFileExists(blogPath) ) {
 					blog.setContent("this blog already be deleted, maybe by adminstrator !");
 				} else {

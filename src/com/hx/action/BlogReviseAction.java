@@ -50,17 +50,17 @@ public class BlogReviseAction extends HttpServlet {
 								// 对于修改这里, 需要使用副本 [因为 需要统计标签的增减]
 								if(Tools.validateBlog(req, blogInServer, respMsg)) {
 									Blog newBlog = new Blog(blogInServer);
-									String oldBlogName = blogInServer.getPath();
-									boolean isChangeName = ! Tools.equalsIgnorecase(oldBlogName.trim(), title.trim() );
+									String oldBlogPath = blogInServer.getPath();
+									boolean isChangeName = ! Tools.equalsIgnorecase(blogInServer.getTitle().trim(), title.trim() );
 									
-									Date now = new Date();
+//									Date now = new Date();
 //									String createTime = Constants.createDateFormat.format(now );
-									String blogName = Tools.getBlogFileName(Constants.dateFormat.format(now), title);	
-									newBlog.set(id, title, blogName, tags, null);
+									String blogPath = Tools.getBlogFileName(Tools.getDateFromBlogFileName(blogInServer.getPath()), title);	
+									newBlog.set(id, title, blogPath, tags, null);
 									
-									Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogName) );			
+									Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
 									if(isChangeName) {
-										Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(req.getServletContext()), oldBlogName), Tools.getBlogPath(Tools.getProjectPath(), blogName) );
+										Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath), Tools.getBlogPath(Tools.getProjectPath(), blogPath) );
 									}
 									BlogManager.reviseBlog(newBlog);
 									respMsg = new ResponseMsg(Constants.respSucc, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
