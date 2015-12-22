@@ -31,12 +31,12 @@ public class BlogResumeAction extends HttpServlet {
 
 		String content = null;
 		String logInfo = null;
-		if((! isFirst) || (! Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath))) ) {
-			content = Constants.defaultResume.toString();
-			logInfo = "your resume be seen by : " + Tools.getIPAddr(req) + ", but read from defaultResume !";
-		} else {
+		if((isFirst) && (Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath))) ) {
 			content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(), Constants.resumePath), Constants.DEFAULT_CHARSET );
 			Constants.defaultResume = JSONObject.fromObject(content);
+			logInfo = "your resume be seen by : " + Tools.getIPAddr(req) + ", read from 'resume.json' !";
+		} else {
+			content = Constants.defaultResume.toString();
 			logInfo = "your resume be seen by : " + Tools.getIPAddr(req);
 		}
 		isFirst = false;

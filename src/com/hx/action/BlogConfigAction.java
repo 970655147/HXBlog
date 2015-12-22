@@ -31,7 +31,7 @@ public class BlogConfigAction extends HttpServlet {
 		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		JSONObject config = null;
-		if((isFirst) && (! Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath))) ) {
+		if((isFirst) && (Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath))) ) {
 			String content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath), Constants.DEFAULT_CHARSET );
 			Constants.defaultConfig = JSONObject.fromObject(content);
 		}
