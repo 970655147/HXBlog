@@ -1,8 +1,10 @@
-package com.hx.util;
+package com.hx.test;
 
 import java.util.Iterator;
 import java.util.PriorityQueue;
 import java.util.Queue;
+
+import com.hx.util.Log;
 
 
 public class Test02PriorityTest {

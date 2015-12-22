@@ -31,13 +31,11 @@ public class BlogConfigAction extends HttpServlet {
 		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		JSONObject config = null;
-		if((! isFirst) || (! Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath))) ) {
-			config = JSONObject.fromObject(Constants.defaultConfig);
-		} else {
+		if((isFirst) && (! Tools.isFileExists(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath))) ) {
 			String content = Tools.getContent(Tools.getPackagePath(Tools.getProjectPath(), Constants.configPath), Constants.DEFAULT_CHARSET );
 			Constants.defaultConfig = JSONObject.fromObject(content);
-			config = JSONObject.fromObject(Constants.defaultConfig);
 		}
+		config = JSONObject.fromObject(Constants.defaultConfig);
 		isFirst = false;
 		boolean isLogin = Tools.isLogin(req);
 		if(isLogin) {

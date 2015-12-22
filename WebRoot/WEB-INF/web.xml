@@ -110,7 +110,7 @@
 
   <filter>
       <filter-name>initBlogListFilter</filter-name>
-      <filter-class>com.hx.util.InitBlogListFilter</filter-class>
+      <filter-class>com.hx.business.InitBlogListFilter</filter-class>
   </filter>      
       
     ==========================- sep ========================================      
@@ -126,7 +126,7 @@
       
   <listener>   
   	 <display-name>checkUpdateListener</display-name>
-	 <listener-class>com.hx.util.InitAndCheckUpdateListener</listener-class>   
+	 <listener-class>com.hx.business.InitAndCheckUpdateListener</listener-class>   
   </listener>          
       
 </web-app>

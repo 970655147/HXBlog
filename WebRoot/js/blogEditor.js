@@ -49,42 +49,47 @@
     // 校验, 提交
     $("#submitBtn").click(function() {
     	var title = $("input#title").val().trim()
+    	var tag = $(tagInputPath).val().trim()
     	var checkCode = $("#checkCode").val().trim()
     	var content = ue.getContent()
     	$(submitNoticePath).html(EMPTY_STR)
     	
     	if(validateTitle(title, "title", submitNoticePath)) {
-    		if(validateTitle(checkCode, "checkCode", submitNoticePath)) {
-	    		if(validateContent(content, "content", submitNoticePath)) {
-	    			ts += 1
-	    			var blogObj = new Blog(post, title, getTags(tagsPath), checkCode, content)
-	    			var postUrl = EMPTY_STR
-	    			if(! isRevise) {
-	    				postUrl = "/HXBlog/action/blogPublishAction"
-	    			} else {
-	    				postUrl = "/HXBlog/action/blogReviseAction"
-	    			}
-	    			
-					$.ajax({
-						url: postUrl, type : "post",
-						data : blogObj.getObj(),
-						success : function(data){
-			    			freshCheckCode()							
-							data = JSON.parse(data)
-							
-							$("#respMsg").html(data.msg)
-							$("#myModal").modal()
-							if(data.isSuccess) {
-						    	$("input#title").val("")
-						    	ue.setContent("")
-						    	$("#tags").find("span.btn").remove()
-						    	$("#tagInput").val("")
-							}
-							$("#checkCode").val("")
-				        }
-					});    			
-	    		}
-    		}
+        	if(validateTag(tag, tagNoticePath) ) {
+        		if(validateTags(tagsPath, tag, tagNoticePath)) {
+		    		if(validateTitle(checkCode, "checkCode", submitNoticePath)) {
+			    		if(validateContent(content, "content", submitNoticePath)) {
+			    			ts += 1
+			    			var blogObj = new Blog(post, title, getTags(tagsPath), checkCode, content)
+			    			var postUrl = EMPTY_STR
+			    			if(! isRevise) {
+			    				postUrl = "/HXBlog/action/blogPublishAction"
+			    			} else {
+			    				postUrl = "/HXBlog/action/blogReviseAction"
+			    			}
+			    			
+							$.ajax({
+								url: postUrl, type : "post",
+								data : blogObj.getObj(),
+								success : function(data){
+					    			freshCheckCode()							
+									data = JSON.parse(data)
+									
+									$("#respMsg").html(data.msg)
+									$("#myModal").modal()
+									if(data.isSuccess) {
+								    	$("input#title").val("")
+								    	ue.setContent("")
+								    	$("#tags").find("span.btn").remove()
+								    	$("#tagInput").val("")
+									}
+									$("#checkCode").val("")
+						        }
+							});    			
+			    		}
+		    		}
+        		}
+        	}
     	}
     })
     
@@ -179,41 +184,6 @@
     // 移除当前元素
     function removeThis() {
         $(this).remove()
-    }
-    
-    // 校验tag
-    function validateTag(tag, noticePath) {
-    	if(tag == EMPTY_STR) {
-//    		$(noticePath).html("tag can't be empty !")
-    		return false
-    	}
-    	if(tag.length >= maxTagLength) {
-    		$(noticePath).html("tag is too long !")
-    		return false
-    	}
-    	if(isMatch(specCharReg, tag)) {
-    		$(noticePath).html("tag can't contains spec character [eg : ! - /] !")
-    		return false
-    	}
-    		
-    	return true
-    }
-    
-    // 校验tags
-    function validateTags(tagsPath, tag, noticePath) {
-    	var tags = $(tagsPath)
-    	// "tags" include another "tags span", so use ">"
-    	if(tags.length > maxTagNum) {
-    		$(noticePath).html("tag is to much !")    	
-    		return false
-    	}    
-    	var isExists = isTagExists(tags, tag)
-    	if(isExists) {
-    		$(noticePath).html("this tag already exists !")    	
-    		return false
-    	}
-    	
-    	return true
     }
     
     // 获取所有的标签

@@ -4,7 +4,7 @@
  * created by 970655147
  */
 
-package com.hx.util;
+package com.hx.test;
 
 import java.awt.AWTException;
 import java.awt.Point;

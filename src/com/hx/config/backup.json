@@ -1,0 +1,9 @@
+{
+	"backupDir" : "D:\\Assist\\bak\\HXBlog",
+	"backupPathes" : [
+		"upload",
+		"WEB-INF/post",
+		"WEB-INF/log",
+		"WEB-INF/classes/com/hx/config"
+	]
+}

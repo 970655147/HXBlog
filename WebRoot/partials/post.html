@@ -2,16 +2,29 @@
 
   <h1>标题 : {{title}}</h1>
   <br/>
+  
+    <span class="pull-left" style="color:green" >
+ 		发表于 : {{date }} 
+ 	</span>  	  
+ 	<br />
+ 	<br />
   <div id="tags" >
   	  <ul id="tag-panel-list">
 	    <li class="tag-item btn btn-info" ng-repeat="tag in tagList">
 	      <a class="tag-href" href="/HXBlog/#!/tag/{{tag}}">{{tag}}</a>
 	    </li>
-  	</ul>
-  	
-  	<span class="pull-right" >
-  		{{visited}} 人阅读
-  	</span>
+	  <span class="pull-right" >
+	    <span style="color:#999999" >
+	  	   	 阅读({{visited}})
+	  	</span>
+	  	&nbsp;&nbsp;
+	  	<span style="color:#CA0000" >
+	  		评论({{commentNum}})
+	  	</span>
+	  </span>	    
+   
+  	  </ul>
+  	  
   </div>
 
   <br/>

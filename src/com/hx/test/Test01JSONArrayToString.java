@@ -1,8 +1,12 @@
-package com.hx.util;
+package com.hx.test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.hx.util.Constants;
+import com.hx.util.Log;
+import com.hx.util.Tools;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;

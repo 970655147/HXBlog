@@ -33,6 +33,9 @@ public class BlogReviseAction extends HttpServlet {
 		ResponseMsg respMsg = new ResponseMsg();
 		if(Tools.validateUserLogin(req, respMsg) ) {
 			if(Tools.validateCheckCode(req, respMsg) ) {
+				// fix "checkCode" in session's lifecycle [should be removed after checked !]		add at 2015.12.08
+				Tools.removeAttrFromSession(req, Constants.checkCode);
+				
 				Integer id = null;
 				try {
 					id = Integer.parseInt(req.getParameter("id") );
@@ -56,9 +59,9 @@ public class BlogReviseAction extends HttpServlet {
 //									Date now = new Date();
 //									String createTime = Constants.createDateFormat.format(now );
 									String blogPath = Tools.getBlogFileName(Tools.getDateFromBlogFileName(blogInServer.getPath()), title);	
-									newBlog.set(id, title, blogPath, tags, null);
+									newBlog.set(id, Tools.replaceCommentBody(title, Constants.needToBeFormatMap), blogPath, tags, null);
 									
-									Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
+									Tools.save(Tools.replaceCommentBody(content, Constants.needToBeFormatMap), Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
 									if(isChangeName) {
 										Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath), Tools.getBlogPath(Tools.getProjectPath(), blogPath) );
 									}

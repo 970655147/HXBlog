@@ -130,12 +130,16 @@
 
 		  return $http.get(blogReq).success(function(data) {
 //			 console.log(data)
+			 var blogComments = data.comments
+			 var floorLen = getLength(blogComments)
 			 $scope.postId = data.blog.id
 			 $scope.title = data.blog.title
+			 $scope.date = data.blog.date
 			 $scope.tagList = data.blog.tags
 			 $scope.good = data.blog.good
 			 $scope.notGood = data.blog.notGood
 			 $scope.visited = data.blog.visited
+			 $scope.commentNum = floorLen
 			 var sensed = data.sense
 			 
 			 $("#post").html(data.blog.content)
@@ -160,9 +164,7 @@
 			var submitNoticePath = "#submitNotice"
 			var commentPath = "dl.comment_topic"
 			var replyDivPath = "div.replyDiv"
-			var blogComments = data.comments
 //			console.log(blogComments)
-			var floorLen = getLength(blogComments)
 			if(floorLen > 0) {
 				$("#haveNoComment").hide()
 				for(i=0; i<floorLen; i++) {
@@ -316,6 +318,7 @@
 									} else {
 										appendNewReplyComment(commentPath, floorIdx, replyDivPath, comment)
 									}
+//									$scope.commentNum += 1
 								}
 								
 								$(".commentReply").click(replayFunction)

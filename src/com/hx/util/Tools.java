@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.nio.channels.FileLock;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -89,6 +91,7 @@ public class Tools {
 	public static AtomicInteger LOG_TMP_IDX = new AtomicInteger(0);
 	public static String TMP_DIR = null;
 	public static String LOG_TMP_DIR = null;
+	public static int BUFF_SIZE = 2048;
 	public static String TMP_NAME = "tmp";
 	public static String LOG_TMP_NAME = "log";
 	public static String SUFFIX = HTML;
@@ -196,12 +199,52 @@ public class Tools {
 	
 	// 获取包中的路径对应的文件的路径
 	public static String getPackagePath(String basePath, String packagePath) {
-		return basePath + "WEB-INF/classes" + Tools.SLASH + packagePath;
+		return Tools.appendIfNotEndsWith(basePath, "/") + "WEB-INF/classes" + Tools.SLASH + removeIfStartsWithSlash(packagePath);
 	}
 	// 获取给定的播客的地址
 	public static String getBlogPath(String basePath, String blogFileName) {
-		return basePath + Constants.blogFolder + Tools.SLASH + blogFileName + HTML;
-	}	
+		return Tools.appendIfNotEndsWith(basePath, "/") + Constants.blogFolder + Tools.SLASH + removeIfStartsWithSlash(blogFileName) + HTML;
+	}
+	// 获取给定的基路径 和相对路径对应的路径
+	public static String getPath(String basePath, String subPath) {
+		return Tools.appendIfNotEndsWith(basePath, "/") + removeIfStartsWithSlash(subPath);
+	}
+	// 如果path以斜杠, 反斜杠开头, 则删除
+	private static String removeIfStartsWithSlash(String path) {
+		return Tools.removeIfStartsWith(Tools.removeIfStartsWith(path, "/"), "\\");
+	}
+	
+	// 如果给定的字符串以startsWith, 则移除startsWith
+	public static String removeIfStartsWith(String str, String startsWith) {
+		if(str.startsWith(startsWith) ) {
+			return str.substring(startsWith.length() );
+		}
+		
+		return str;
+	}
+	// 如果给定的字符串以endsWith, 则移除endsWith
+	public static String removeIfEndsWith(String str, String endsWith) {
+		if(str.endsWith(endsWith) ) {
+			return str.substring(0, str.length() - endsWith.length());
+		}
+		
+		return str;
+	}
+	// 如果不是给定的字符串以startsWith, 则添加startsWith
+	public static String appendIfNotStartsWith(String str, String startsWith) {
+		if(! str.startsWith(startsWith) ) {
+			return startsWith + str;
+		}
+		
+		return str;
+	}
+	public static String appendIfNotEndsWith(String str, String endsWith) {
+		if(! str.endsWith(endsWith) ) {
+			return str + endsWith;
+		}
+		
+		return str;
+	}
 	
 	// 获取 / 关闭 到数据库的连接
 	public static Connection getConnection(String basePath) throws Exception {
@@ -1176,6 +1219,88 @@ public class Tools {
 	// 通过产品的数目, 以及每一页显示的产品的数目, 计算页数
 	public static int calcPageNums(int productNum, int numPerPage) {
 		return ((productNum-1) / numPerPage) + 1;
+	}
+	
+    // 复制指定的文件(夹)
+    public static void copy(File src, File dst, boolean isOverride) throws IOException {
+        if(! src.exists() ) {
+            Log.log(Tools.class, "srcFile \" " + src.getAbsolutePath() + " \" do not exists ...");
+            return ;
+        }
+        if(dst.exists() ) {
+        	if(! isOverride) {
+        		Log.log(Tools.class, "dstFile \" " + dst.getAbsolutePath() + " \" does exists, please check it ...");
+        		return ;
+        	} else {
+        		Log.log(Tools.class, "dstFile \" " + dst.getAbsolutePath() + " \" does exists, override it ...");
+        	}
+        }
+
+        if(src.isDirectory() && ((! dst.exists()) || dst.isDirectory()) ) {
+        	if(! dst.exists() ) {
+        		dst.mkdirs();
+        	}
+            File[] childs = src.listFiles();
+            for(File child : childs) {
+            	File dstChild = new File(dst, child.getName() );
+            	copy(child, dstChild, isOverride);
+            }
+            Log.log(Tools.class, "copy folder \" " + src.getAbsolutePath() + " \" -> \" " + dst.getAbsolutePath() + " \" success ...");
+        } else if(src.isFile() && ((! dst.exists()) || dst.isFile()) ) {
+	        FileInputStream fis = new FileInputStream(src);
+	        FileOutputStream fos = new FileOutputStream(dst);
+	        copy(fis, fos);
+	        Log.log(Tools.class, "copy file \" " + src.getAbsolutePath() + " \" -> \" " + dst.getAbsolutePath() + " \" success ...");
+        } else {
+        	Log.log(Tools.class, "src & dst must be both 'File' or 'Folder' ! ");
+        }
+    }
+    public static void copy(String src, String dst, boolean isOverride) throws IOException {
+        copy(new File(src), new File(dst), isOverride);
+    }
+    public static void copy(File src, File dst) throws Exception {
+    	copy(src, dst, false);
+    }
+    public static void copy(String src, String dst) throws Exception {
+    	copy(src, dst, false);
+    }
+    
+	// 将输入流中的数据 复制到输出流
+	public static void copy(InputStream is, OutputStream os, boolean isCloseStream) {
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+		
+		try {
+			bis = new BufferedInputStream(is);
+			bos = new BufferedOutputStream(os);
+			int len = 0;
+			byte[] buf = new byte[BUFF_SIZE];
+			while((len = bis.read(buf)) != -1) {
+				bos.write(buf, 0, len);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if(isCloseStream) {
+				if(bos != null) {
+					try {
+						bos.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				if(bis != null) {
+					try {
+						bis.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	public static void copy(InputStream is, OutputStream os) {
+		copy(is, os, true);
 	}
 	
 }

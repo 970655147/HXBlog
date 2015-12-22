@@ -136,11 +136,42 @@
     	if(isEmpty(title) ) {
     		$(noticePath).html(titleStr + " can't be empty !")
     		return false
-    	}
-    	if(isMatch(specCharReg, title)) {
-    		$(noticePath).html(titleStr + " can't contains spec character [eg : ! - /] !")
+    	} 	
+    	
+    	return true
+    }
+    
+    // 校验tag
+    function validateTag(tag, noticePath) {
+    	if(tag == EMPTY_STR) {
+//    		$(noticePath).html("tag can't be empty !")
     		return false
-    	}    	
+    	}
+    	if(tag.length >= maxTagLength) {
+    		$(noticePath).html("tag is too long !")
+    		return false
+    	}
+    	if(isMatch(specCharReg, tag)) {
+    		$(noticePath).html("tag can't contains spec character [eg : ! - /] !")
+    		return false
+    	}
+    		
+    	return true
+    }
+    
+    // 校验tags
+    function validateTags(tagsPath, tag, noticePath) {
+    	var tags = $(tagsPath)
+    	// "tags" include another "tags span", so use ">"
+    	if(tags.length > maxTagNum) {
+    		$(noticePath).html("tag is to much !")    	
+    		return false
+    	}    
+    	var isExists = isTagExists(tags, tag)
+    	if(isExists) {
+    		$(noticePath).html("this tag already exists !")    	
+    		return false
+    	}
     	
     	return true
     }

@@ -1,4 +1,8 @@
 eclipse.preferences.version=1
+encoding//WebRoot/js/blogEditor.js=GBK
+encoding//WebRoot/js/common.js=GBK
+encoding//WebRoot/js/constants.js=GBK
+encoding//WebRoot/js/login.js=GBK
 encoding//WebRoot/partials/post.html=UTF-8
 encoding//WebRoot/ueditorLib/dialogs/spechars/spechars.js=UTF-8
 encoding//WebRoot/ueditorLib/index.html=GBK

@@ -24,6 +24,7 @@ public class Constants {
 	public final static String dbPath = "com/hx/config/HXBlog.db";
 	public final static String configPath = "com/hx/config/config.json";
 	public final static String resumePath = "com/hx/config/resume.json";
+	public final static String backupConfPath = "com/hx/config/backup.json";
 	
 	// 查找blogList, tagList表 的sql
 	// 增加blogList, tagList表元素的sql [增加播客的场景]
@@ -69,6 +70,7 @@ public class Constants {
 	// 默认的配置, 默认的建立数据, 格式化日期的dateFormat [前者用于显示, 后者用于构造文件]
 	public static JSONObject defaultConfig = JSONObject.fromObject("{ \"title\" : \"蓝风970655147\", \"subTitle\" : \"好记性不如烂笔头\", \"quickLinks\" : [ {\"text\" : \"Blog\", \"href\" : \"/HXBlog/#!/tag/all\"}, {\"text\" : \"Resume\", \"href\" : \"/HXBlog/#!/resume\"}, {\"text\" : \"Github\", \"href\" : \"https://github.com/970655147\"}, {\"text\" : \"CSDNBlog\", \"href\" : \"http://blog.csdn.net/u011039332\"}, ]}");
 	public static JSONObject defaultResume = JSONObject.fromObject("{ \"basicInfo\" : { \"name\" : \"Jerry He\", \"description\" : \"One programmer who enjoys programming & expects challenges\", \"mail\" : \"970655147@qq.com\" }, \"education\" : [ { \"period\" : \"2012/09 - 2016/06\", \"university\" : \"cduestc\", \"college\" : \"cduestc\", \"description\" : \"Bachelor Degree in cduestc\" } ], \"workExperience\" : [ { \"period\" : \"2015/06 – 2015/09\", \"company\" : \"XXX\", \"title\" : \"java practice engineer\", \"description\" : [ \"crawler tasks\" ] } ], \"skills\" : [ { \"category\" : \"Programming language\", \"items\" : [ {\"name\" : \"Java\", \"proficiency\" : \"proficient\"}, {\"name\" : \"C++\", \"proficiency\" : \"familiar\"}, {\"name\" : \"C\", \"proficiency\" : \"familiar\"}, {\"name\" : \"Scheme\", \"proficiency\" : \"familiar\"}, {\"name\" : \"Python\", \"proficiency\" : \"familiar\"}, {\"name\" : \"C#\", \"proficiency\" : \"familiar\"}, {\"name\" : \"C#\", \"proficiency\" : \"familiar\"}, {\"name\" : \"Javascript\", \"proficiency\" : \"familiar\"} ] }, { \"category\" : \"Version Control\", \"items\" : [ {\"name\" : \"Git\", \"proficiency\" : \"proficient\"}, {\"name\" : \"SVN\", \"proficiency\" : \"familiar\"}, {\"name\" : \"Synergy\", \"proficiency\" : \"familiar\"} ] } ], \"projects\" : [ {\"name\" : \"HXBlog\", \"description\" : \"A static blog on github. using javascript comminication with server .\"} ]}");
+	public static JSONObject defaultBackupConf = JSONObject.fromObject("{\"backupDir\":\"D:\\Assist\\bak\\HXBlog\",\"backupPathes\":[\"upload\",\"WEB-INF/post\",\"WEB-INF/log\",\"WEB-INF/classes/com/hx/config\"]}");
 	public final static SimpleDateFormat createDateFormat = new SimpleDateFormat("yyyy-MM-dd HH : mm");
 	public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS");
 	
@@ -146,7 +148,8 @@ public class Constants {
 
 	// 校验相关的常量, title的最长长度, 特殊字符的校验Pattern
 	public final static int titleMaxLength = 30;
-	public final static Pattern specCharPattern = Pattern.compile("[!-/ | :-@ | {-~ | \\[ /\\]^—、]");
+//	public final static Pattern specCharPattern = Pattern.compile(".*[!-/|:-@|{-~|\\[/\\]^—、].*");
+	public final static Pattern specCharPattern = Pattern.compile(".*[\\|/|\\?|\\\"|<|>|\\|].*");
 	
 	// 是否点击过顶踩的cookieName, 一系列的cookie相关常量, [visitedMap, senseCookieValue 未用]
 	public final static String visitedCookieName = "isVisited";

@@ -1,4 +1,4 @@
-package com.hx.util;
+package com.hx.business;
 
 import java.io.IOException;
 
@@ -8,8 +8,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-
-import com.hx.business.BlogManager;
 
 // 每一个action的过滤器 [未用]
 public class InitBlogListFilter implements Filter {
