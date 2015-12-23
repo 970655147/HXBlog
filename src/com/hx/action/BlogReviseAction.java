@@ -61,7 +61,7 @@ public class BlogReviseAction extends HttpServlet {
 									String blogPath = Tools.getBlogFileName(Tools.getDateFromBlogFileName(blogInServer.getPath()), title);	
 									newBlog.set(id, Tools.replaceCommentBody(title, Constants.needToBeFormatMap), blogPath, tags, null);
 									
-									Tools.save(Tools.replaceCommentBody(content, Constants.needToBeFormatMap), Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
+									Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
 									if(isChangeName) {
 										Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath), Tools.getBlogPath(Tools.getProjectPath(), blogPath) );
 									}

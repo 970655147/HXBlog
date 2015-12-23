@@ -3,6 +3,7 @@
 <head>
 
   <meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
      Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -47,20 +48,26 @@
 
 <body>
 
-  <div class="header navbar-fixed-top" ng-controller="headerCtrl">
-    <ul class="nav nav-pills pull-right">
+  <!-- 
+  <div class="header navbar-fixed-top"  ng-controller="headerCtrl">
+  -->
+  <div class="navbar-fixed-top marginLeftRight bgWhite" ng-controller="headerCtrl" style="height:66px" >
+    <ul class="nav nav-pills pull-right" style="margin-top:20px" >
       <li ng-repeat="quickLink in config.quickLinks" ng-class="{'active': quickLink.text == state}">
         <a href="{{quickLink.href}}">{{quickLink.text}}</a>
       </li>
     </ul>
 
-    <h3 class="page-header text-muted">
+    <h3 class="page-header text-muted" style="margin-top:30px" >
       {{config.title}}
       <small>{{config.subTitle}}</small>
     </h3>
   </div>
   
+  <!-- 
   <div id="container" class="container-narrow">
+  -->
+  <div id="container" class="marginLeftRight" style="margin-top:10px" > 
     <div ng-view > </div>
     <div id="disqus_thread"></div>
     <div id="footer"></div>

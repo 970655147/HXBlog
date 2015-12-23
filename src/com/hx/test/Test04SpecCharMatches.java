@@ -8,6 +8,8 @@ package com.hx.test;
 
 import java.util.regex.Matcher;
 
+import com.hx.action.BlogPublishAction;
+import com.hx.action.BlogReviseAction;
 import com.hx.util.Constants;
 import com.hx.util.Log;
 
@@ -19,6 +21,8 @@ public class Test04SpecCharMatches {
 		Matcher matcher = Constants.specCharPattern.matcher("dfghf?fgh");
 		Log.log(matcher.matches() );
 		
+//		new BlogReviseAction();
+//		new BlogPublishAction();
 	}
 
 }

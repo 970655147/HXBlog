@@ -115,7 +115,13 @@
   
   // 查看帖子的控制器
   	// $routeParams.postPath.length 是指/post/path, path的长度
-  app.controller('postCtrl', function($scope, $http, $routeParams) {
+  app.controller('postCtrl', function($scope, $http, $routeParams, $location, $anchorScroll) {
+	  $scope.goTo = function(id) {
+          $location.hash(id);
+          $anchorScroll();
+          console.log("goTo")
+      }
+	  
 	  var path = NULL
       if (($routeParams.postPath != null) && $routeParams.postPath.length !== 0) {
     	  path = $routeParams.postPath
@@ -159,6 +165,20 @@
 				 $("#reviseBtn").remove()
 				 $("#deleteBtn").remove()
 			 }
+			 
+			 // it works !
+//			 $scope.goTo("_Toc438631344");
+			 // 处理锚点超连接 [用于word处理之后的目录]
+			 $("a").each(function() {
+				 var hrefVal = $(this).attr("href")
+				 if(typeof(hrefVal) != UNDEFINED && hrefVal.indexOf("#") == 0) {
+					 $(this).attr("href", "javascript:void(0)" )
+					 $(this).click(function() {
+						 $scope.goTo(hrefVal.substr(1) )
+						 console.log(hrefVal.substr(1) )
+					 })
+				 }
+			 })
 			 
 			 // 添加从服务器获取到的评论
 			var submitNoticePath = "#submitNotice"
@@ -318,6 +338,7 @@
 									} else {
 										appendNewReplyComment(commentPath, floorIdx, replyDivPath, comment)
 									}
+									// does not work !
 //									$scope.commentNum += 1
 								}
 								
@@ -344,7 +365,6 @@
 //				commentIdx = $(this).parent().attr("commentIdx")
 				$("#comment").val("[re]" + to + "[/re] : ")
 			}
-			 
 		  })		  
 	  }
   });
