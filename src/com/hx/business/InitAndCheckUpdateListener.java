@@ -16,6 +16,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import com.hx.util.Constants;
+import com.hx.util.Log;
 import com.hx.util.Tools;
 
 // 初始化, 并启动定时检查更新的ContextListener
@@ -88,10 +89,6 @@ public class InitAndCheckUpdateListener implements ServletContextListener {
 		}
 		CommentManager.clearFrequencyMap();
 		
-		if(Tools.getLogBufferSize() > 0) {
-			Tools.flushLog(Constants.dateFormat.format(new Date()) );
-		}
-		
 		if(isUpdated) {
 			try {
 				doBackup(getBackupConf() ) ;
@@ -99,6 +96,10 @@ public class InitAndCheckUpdateListener implements ServletContextListener {
 				Tools.log(this, "error while backup ! Exception : " + e.getMessage() );
 				e.printStackTrace();
 			}
+		}
+		
+		if(Tools.getLogBufferSize() > 0) {
+			Tools.flushLog(Constants.dateFormat.format(new Date()) );
 		}
 	}
 
@@ -135,7 +136,7 @@ public class InitAndCheckUpdateListener implements ServletContextListener {
 	// 如果给定的文件更新了, 则进行复制
     public static void copyIfModified(File src, File dst, boolean isOverride) throws IOException {
         if(! src.exists() ) {
-            Tools.log(Tools.class, "srcFile \" " + src.getAbsolutePath() + " \" do not exists ...");
+        	Tools.log(Tools.class, "srcFile \" " + src.getAbsolutePath() + " \" do not exists ...");
             return ;
         }
 //        if(dst.exists() ) {
@@ -156,7 +157,7 @@ public class InitAndCheckUpdateListener implements ServletContextListener {
             	File dstChild = new File(dst, child.getName() );
             	copyIfModified(child, dstChild, isOverride);
             }
-            Tools.log(Tools.class, "copy folder \" " + src.getAbsolutePath() + " \" -> \" " + dst.getAbsolutePath() + " \" success ...");
+            Log.log(Tools.class, "copy folder \" " + src.getAbsolutePath() + " \" -> \" " + dst.getAbsolutePath() + " \" success ...");
         } else if(src.isFile() && ((! dst.exists()) || dst.isFile()) ) {
         	if(! dst.exists() ) {
         		dst.createNewFile();
@@ -167,7 +168,7 @@ public class InitAndCheckUpdateListener implements ServletContextListener {
 		        Tools.copy(fis, fos);
 		        Tools.log(Tools.class, "copy file \" " + src.getAbsolutePath() + " \" -> \" " + dst.getAbsolutePath() + " \" success ...");
         	} else {
-        		Tools.log(Tools.class, "keep file \" " + dst.getAbsolutePath() + " \" , cause it not be modified ...");
+        		Log.log(Tools.class, "keep file \" " + dst.getAbsolutePath() + " \" , cause it not be modified ...");
         	}
         } else {
         	Tools.log(Tools.class, "src & dst must be both 'File' or 'Folder' ! ");

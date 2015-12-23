@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 
 import com.hx.action.BlogPublishAction;
 import com.hx.action.BlogReviseAction;
+import com.hx.business.InitAndCheckUpdateListener;
 import com.hx.util.Constants;
 import com.hx.util.Log;
 
@@ -23,6 +24,8 @@ public class Test04SpecCharMatches {
 		
 //		new BlogReviseAction();
 //		new BlogPublishAction();
+//		new InitAndCheckUpdateListener();
+		
 	}
 
 }
