@@ -1132,7 +1132,7 @@ public class Tools {
 		StringBuilder sb = new StringBuilder(commentBody.length());
 		for(int i=0; i<commentBody.length(); i++) {
 			sb.append(commentBody.charAt(i));
-			if(needToBeFormat.containsKey(commentBody.charAt(i)) && isAlphaOrInvSlash(commentBody.charAt(i+1)) ) {
+			if(needToBeFormat.containsKey(commentBody.charAt(i)) && ((i+1 >= commentBody.length()) || isAlphaOrInvSlash(commentBody.charAt(i+1))) ) {
 				sb.append(needToBeFormat.get(commentBody.charAt(i)) );
 			}
 		}
