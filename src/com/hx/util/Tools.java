@@ -883,7 +883,7 @@ public class Tools {
 		}
 		Matcher matcher = Constants.specCharPattern.matcher(title);
 		if(matcher.matches() ) {
-			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "your " + key + " contains special character [eg : ! - /], please check it !", Tools.getIPAddr(req) );
+			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "your " + key + " contains special character [eg : '\\/:*?\"<>|'], please check it !", Tools.getIPAddr(req) );
 			return false;
 		}
 		

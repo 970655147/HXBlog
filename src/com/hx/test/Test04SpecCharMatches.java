@@ -13,14 +13,17 @@ import com.hx.action.BlogReviseAction;
 import com.hx.business.InitAndCheckUpdateListener;
 import com.hx.util.Constants;
 import com.hx.util.Log;
+import com.hx.util.Tools;
 
 public class Test04SpecCharMatches {
 	
 	// specChars’˝‘Ú∆•≈‰
 	public static void main(String []args) {
 		
-		Matcher matcher = Constants.specCharPattern.matcher("dfghf?fgh");
+		Matcher matcher = Constants.specCharPattern.matcher("df:ghffgh");
 		Log.log(matcher.matches() );
+		
+//		new Tools();
 		
 //		new BlogReviseAction();
 //		new BlogPublishAction();

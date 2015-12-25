@@ -149,7 +149,7 @@ public class Constants {
 	// 校验相关的常量, title的最长长度, 特殊字符的校验Pattern
 	public final static int titleMaxLength = 30;
 //	public final static Pattern specCharPattern = Pattern.compile(".*[!-/|:-@|{-~|\\[/\\]^—、].*");
-	public final static Pattern specCharPattern = Pattern.compile(".*[\\|/|\\?|\\\"|<|>|\\|].*");
+	public final static Pattern specCharPattern = Pattern.compile(".*[\\|/|:|\\*|\\?|\\\"|<|>|\\|].*");
 	
 	// 是否点击过顶踩的cookieName, 一系列的cookie相关常量, [visitedMap, senseCookieValue 未用]
 	public final static String visitedCookieName = "isVisited";
