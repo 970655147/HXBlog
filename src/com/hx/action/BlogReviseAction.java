@@ -59,7 +59,7 @@ public class BlogReviseAction extends HttpServlet {
 //									Date now = new Date();
 //									String createTime = Constants.createDateFormat.format(now );
 									String blogPath = Tools.getBlogFileName(Tools.getDateFromBlogFileName(blogInServer.getPath()), title);	
-									newBlog.set(id, Tools.replaceCommentBody(title, Constants.needToBeFormatMap), blogPath, tags, null);
+									newBlog.set(id, Tools.replaceCommentBody(title, Constants.scriptCharacterMap), blogPath, tags, null);
 									
 									Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
 									if(isChangeName) {

@@ -55,41 +55,39 @@
     	$(submitNoticePath).html(EMPTY_STR)
     	
     	if(validateTitle(title, "title", submitNoticePath)) {
-        	if(validateTag(tag, tagNoticePath) ) {
-        		if(validateTags(tagsPath, tag, tagNoticePath)) {
-		    		if(validateTitle(checkCode, "checkCode", submitNoticePath)) {
-			    		if(validateContent(content, "content", submitNoticePath)) {
-			    			ts += 1
-			    			var blogObj = new Blog(post, title, getTags(tagsPath), checkCode, content)
-			    			var postUrl = EMPTY_STR
-			    			if(! isRevise) {
-			    				postUrl = "/HXBlog/action/blogPublishAction"
-			    			} else {
-			    				postUrl = "/HXBlog/action/blogReviseAction"
-			    			}
-			    			
-							$.ajax({
-								url: postUrl, type : "post",
-								data : blogObj.getObj(),
-								success : function(data){
-					    			freshCheckCode()							
-									data = JSON.parse(data)
-									
-									$("#respMsg").html(data.msg)
-									$("#myModal").modal()
-									if(data.isSuccess) {
-								    	$("input#title").val("")
-								    	ue.setContent("")
-								    	$("#tags").find("span.btn").remove()
-								    	$("#tagInput").val("")
-									}
-									$("#checkCode").val("")
-						        }
-							});    			
-			    		}
+    		if(validateTags(tagsPath, tag, tagNoticePath)) {
+	    		if(validateTitle(checkCode, "checkCode", submitNoticePath)) {
+		    		if(validateContent(content, "content", submitNoticePath)) {
+		    			ts += 1
+		    			var blogObj = new Blog(post, title, getTags(tagsPath), checkCode, content)
+		    			var postUrl = EMPTY_STR
+		    			if(! isRevise) {
+		    				postUrl = "/HXBlog/action/blogPublishAction"
+		    			} else {
+		    				postUrl = "/HXBlog/action/blogReviseAction"
+		    			}
+		    			
+						$.ajax({
+							url: postUrl, type : "post",
+							data : blogObj.getObj(),
+							success : function(data){
+				    			freshCheckCode()							
+								data = JSON.parse(data)
+								
+								$("#respMsg").html(data.msg)
+								$("#myModal").modal()
+								if(data.isSuccess) {
+							    	$("input#title").val("")
+							    	ue.setContent("")
+							    	$("#tags").find("span.btn").remove()
+							    	$("#tagInput").val("")
+								}
+								$("#checkCode").val("")
+					        }
+						});    			
 		    		}
-        		}
-        	}
+	    		}
+    		}
     	}
     })
     

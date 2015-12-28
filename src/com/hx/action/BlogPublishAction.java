@@ -45,7 +45,7 @@ public class BlogPublishAction extends HttpServlet {
 							String createTime = Constants.createDateFormat.format(now );
 							String blogName = Tools.getBlogFileName(Constants.dateFormat.format(now), title);
 							
-							Blog newBlog = new Blog(BlogManager.nextBlogId(), Tools.replaceCommentBody(title, Constants.needToBeFormatMap), blogName, tags, createTime, new AtomicInteger(0), new AtomicInteger(0), 0);
+							Blog newBlog = new Blog(BlogManager.nextBlogId(), Tools.replaceCommentBody(title, Constants.scriptCharacterMap), blogName, tags, createTime, new AtomicInteger(0), new AtomicInteger(0), 0);
 							Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), blogName) );
 							BlogManager.publishBlog(newBlog);
 							respMsg = new ResponseMsg(Constants.respSucc, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
