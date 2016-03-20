@@ -13,10 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hx.bean.CheckCode;
+import com.hx.interf.BaseAction;
 import com.hx.util.Constants;
 import com.hx.util.Tools;
 
-public class BlogCheckCodeAction extends HttpServlet {
+public class BlogCheckCodeAction extends BaseAction {
 	
 	// 获取验证码的action
 		// 取到验证码后, 将其放入session中

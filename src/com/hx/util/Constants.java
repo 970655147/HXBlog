@@ -9,10 +9,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Pattern;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import com.hx.bean.ValidateResult;
 
 // 常量
 public class Constants {
@@ -33,17 +36,17 @@ public class Constants {
 	// 增加comment的sql
 	public final static String blogListSql = "select * from blogList";
 	public final static String tagListSql = "select * from tagToBlog";
-	public final static String addBlogListSql = "insert into blogList (id, path, tag, createTime, good, notGood, visited) values ('%d', '%s', '%s', '%s', %d, %d, %d);";
-	public final static String addMultiBlogListSql = "insert into blogList (id, path, tag, createTime, good, notGood, visited) %s;";
-	public final static String addTagListSql = "insert into tagToBlog (tag, blogId) values ('%s', '%d');";
-	public final static String addMultiTagListSql = "insert into tagToBlog (tag, blogId) %s;";
+	public final static String addBlogListSql = "insert into blogList (id, path, tag, createTime, good, notGood, visited, commentsNum) values ('%d', '%s', '%s', '%s', %d, %d, %d, %d);";
+	public final static String addMultiBlogListSql = "insert into blogList (id, path, tag, createTime, good, notGood, visited, commentsNum) %s;";
+//	public final static String addTagListSql = "insert into tagToBlog (tag, blogId) values ('%s', '%d');";
+//	public final static String addMultiTagListSql = "insert into tagToBlog (tag, blogId) %s;";
 	public final static String addMultiCommentListSql = "insert into commentList (blogIdx, floorIdx, commentIdx, name, email, headImgIdx, date, toUser, privilege, comment) %s;";	
 	public final static String deleteBlogListSql = "delete from blogList where id = '%d'";
 	public final static String deleteMultiBlogListSql = "delete from blogList where id in (%s)";
-	public final static String deleteTagListSql = "delete from tagToBlog where blogId = '%d'";
-	public final static String deleteMultiTagListSql = "delete from tagToBlog where blogId = '%d' and tag in (%s)";
-	public final static String updateBlogListSql = "update blogList set path='%s', tag='%s', good=%d, notGood=%d, visited=%d where id = %d";
-	public final static String deleteByTagAndIdTagListSql = "delete from tagToBlog where tag = '%s' and blogId = '%d'";
+//	public final static String deleteTagListSql = "delete from tagToBlog where blogId = '%d'";
+//	public final static String deleteMultiTagListSql = "delete from tagToBlog where blogId = '%d' and tag in (%s)";
+	public final static String updateBlogListSql = "update blogList set path='%s', tag='%s', good=%d, notGood=%d, visited=%d, commentsNum=%d where id = %d";
+//	public final static String deleteByTagAndIdTagListSql = "delete from tagToBlog where tag = '%s' and blogId = '%d'";
 	public final static String deleteCommentByBlogIdxSql = "delete from commentList where blogIdx=%d";	
 	public final static String deleteCommentByFloorIdxSql = "delete from commentList where blogIdx=%d and floorIdx in (%s)";	
 	public final static String deleteCommentByCommentIdxSql = "delete from commentList where blogIdx=%d and commentIdx in (%s)";	
@@ -62,14 +65,15 @@ public class Constants {
 	public final static Integer defaultBlogId = -1;
 	public final static String defaultBlogPath = "unknown";
 	public final static String defaultBlogTag = "unknown";
-	public final static int defaultGood = 0;
-	public final static int defaultNotGood = 0;
-	public final static int defaultVisited = 0;
+	public final static AtomicInteger defaultGood =  new AtomicInteger(0);
+	public final static AtomicInteger defaultNotGood = defaultGood;
+	public final static AtomicInteger defaultVisited = defaultGood;
+	public final static AtomicInteger defaultCommentsNum = defaultGood;
 	public final static String defaultCookieValue = Tools.NULL;
 	
 	// 默认的配置, 默认的建立数据, 格式化日期的dateFormat [前者用于显示, 后者用于构造文件]
 	public static JSONObject defaultConfig = JSONObject.fromObject("{ \"title\" : \"蓝风970655147\", \"subTitle\" : \"好记性不如烂笔头\", \"quickLinks\" : [ {\"text\" : \"Blog\", \"href\" : \"/HXBlog/#!/tag/all\"}, {\"text\" : \"Resume\", \"href\" : \"/HXBlog/#!/resume\"}, {\"text\" : \"Github\", \"href\" : \"https://github.com/970655147\"}, {\"text\" : \"CSDNBlog\", \"href\" : \"http://blog.csdn.net/u011039332\"}, ]}");
-	public static JSONObject defaultResume = JSONObject.fromObject("{ \"basicInfo\" : { \"name\" : \"Jerry He\", \"description\" : \"One programmer who enjoys programming & expects challenges\", \"mail\" : \"970655147@qq.com\" }, \"education\" : [ { \"period\" : \"2012/09 - 2016/06\", \"university\" : \"cduestc\", \"college\" : \"cduestc\", \"description\" : \"Bachelor Degree in cduestc\" } ], \"workExperience\" : [ { \"period\" : \"2015/06 – 2015/09\", \"company\" : \"XXX\", \"title\" : \"java practice engineer\", \"description\" : [ \"crawler tasks\" ] } ], \"skills\" : [ { \"category\" : \"Programming language\", \"items\" : [ {\"name\" : \"Java\", \"proficiency\" : \"proficient\"}, {\"name\" : \"C++\", \"proficiency\" : \"familiar\"}, {\"name\" : \"C\", \"proficiency\" : \"familiar\"}, {\"name\" : \"Scheme\", \"proficiency\" : \"familiar\"}, {\"name\" : \"Python\", \"proficiency\" : \"familiar\"}, {\"name\" : \"C#\", \"proficiency\" : \"familiar\"}, {\"name\" : \"C#\", \"proficiency\" : \"familiar\"}, {\"name\" : \"Javascript\", \"proficiency\" : \"familiar\"} ] }, { \"category\" : \"Version Control\", \"items\" : [ {\"name\" : \"Git\", \"proficiency\" : \"proficient\"}, {\"name\" : \"SVN\", \"proficiency\" : \"familiar\"}, {\"name\" : \"Synergy\", \"proficiency\" : \"familiar\"} ] } ], \"projects\" : [ {\"name\" : \"HXBlog\", \"description\" : \"A static blog on github. using javascript comminication with server .\"} ]}");
+	public static JSONObject defaultResume = JSONObject.fromObject("{\"basicInfo\":{\"name\":\"JerryHe\",\"description\":\"Oneprogrammerwhoenjoysprogramming&expectschallenges\",\"mail\":\"970655147@qq.com\"},\"education\":[{\"period\":\"2012/09-2016/06\",\"university\":\"cduestc\",\"college\":\"cduestc\",\"description\":\"BachelorDegreeincduestc\"}],\"workExperience\":[{\"period\":\"2015/06–2015/09\",\"company\":\"XXX\",\"title\":\"javapracticeengineer\",\"description\":[\"crawlertasks\"]}],\"skills\":[{\"category\":\"Programminglanguage\",\"items\":[{\"name\":\"Java\",\"proficiency\":\"proficient\"},{\"name\":\"C++\",\"proficiency\":\"familiar\"},{\"name\":\"C\",\"proficiency\":\"familiar\"},{\"name\":\"Scheme\",\"proficiency\":\"familiar\"},{\"name\":\"Python\",\"proficiency\":\"familiar\"},{\"name\":\"C#\",\"proficiency\":\"familiar\"},{\"name\":\"C#\",\"proficiency\":\"familiar\"},{\"name\":\"Javascript\",\"proficiency\":\"familiar\"}]},{\"category\":\"VersionControl\",\"items\":[{\"name\":\"Git\",\"proficiency\":\"proficient\"},{\"name\":\"SVN\",\"proficiency\":\"familiar\"},{\"name\":\"Synergy\",\"proficiency\":\"familiar\"}]}],\"projects\":[{\"name\":\"HXSyntaxTree\",\"href\":\"\",\"description\":\"analysisthespecified'.java''sAST.\"},{\"name\":\"HXServer\",\"href\":\"http://blog.csdn.net/u011039332/article/details/50075125\",\"description\":\"asimple'Server'likeasimple'Tomcat',implements'Servlet','Filter',andsoon.\"},{\"name\":\"HXBlog\",\"href\":\"http://blog.csdn.net/u011039332/article/details/49869169\",\"description\":\"Astaticblogongithub.usingjavascriptcomminicationwithserver.\"},{\"name\":\"HXCrawler\",\"href\":\"http://blog.csdn.net/u011039332/article/details/48860929\",\"description\":\"alightweight'Crawler'framework.\"}]}");
 	public static JSONObject defaultBackupConf = JSONObject.fromObject("{\"backupDir\":\"D:\\Assist\\bak\\HXBlog\",\"backupPathes\":[\"upload\",\"WEB-INF/post\",\"WEB-INF/log\",\"WEB-INF/classes/com/hx/config\"]}");
 	public final static SimpleDateFormat createDateFormat = new SimpleDateFormat("yyyy-MM-dd HH : mm");
 	public final static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS");
@@ -223,5 +227,10 @@ public class Constants {
 	public final static int blogPerPage = 20;
 	public final static int maxTagLength = 10;
 	public final static int maxTagSize = 10;
+	
+	// 默认的ValidateResult
+	public final static ValidateResult validateResultTrue = new ValidateResult(false, null);
+	public final static ValidateResult validateResultFalse = new ValidateResult(false, null);
+	public final static ValidateResult defaultValidateResult = validateResultTrue;
 	
 }

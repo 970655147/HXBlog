@@ -81,29 +81,33 @@ public class BlogManager {
 				int end = blogIds.size()-1 - ((pageNo-1) * Constants.blogPerPage);
 				int startTmp = end - Constants.blogPerPage + 1;
 				int start =  startTmp >= 0 ? startTmp : 0;
+				JSONObject obj = new JSONObject();
 				for(int i=end; i>=start; i--) {
-					JSONObject obj = new JSONObject();
 					Blog blog = blogList.get(blogIds.get(i));
 					if(blog != null) {
 						blog.encapJSON(obj);
 						blogList_.add(obj);
 					}
+					obj.clear();
 				}
+				obj = null;
 			}
 		}
 		
 		boolean foundTag = false;
 		JSONArray tagList_ = new JSONArray();
 		Iterator<TagToBlogCnt> tagToBlogIt = tagToBlogCnt.iterator();
+		JSONObject obj = new JSONObject();
 		while(tagToBlogIt.hasNext() ) {
-			JSONObject obj = new JSONObject();
 			TagToBlogCnt tagToBlog = tagToBlogIt.next();
 			tagToBlog.encapJSON(obj);
 			if(tagToBlog.getTag().equals(tag) ) {
 				foundTag = true;
 			}
 			tagList_.add(obj);
+			obj.clear();
 		}
+		obj = null;
 		
 		String curTag = foundTag ? tag : Constants.defaultBlogTag;
 		
@@ -159,6 +163,18 @@ public class BlogManager {
 	// 添加blog到 visitSenseUpdatedList [更新了顶踩, 或者visited]
 	public static void addVisitSense(Blog blog) {
 		visitSenseUpdatedList.put(blog.getId(), blog);
+	}
+	
+	// 给blogIdx对应的播客增加了一条评论, 一条访问记录, 一个good / notGood
+	public static void addComment(Integer blogIdx) {
+		Blog blog = BlogManager.getBlog(blogIdx);
+		blog.incCommentsNum();
+		addVisitSense(blog);
+	}
+	public static void addVisited(Integer blogId) {
+		Blog blog = BlogManager.getBlog(blogId);
+		blog.incVisited();
+		addVisitSense(blog);
 	}
 	
 	// 通过id获取对应的blog [并更新该blog的使用频率]
@@ -653,5 +669,5 @@ public class BlogManager {
 		
 		return sb.toString();
 	}
-	
+
 }

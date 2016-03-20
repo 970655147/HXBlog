@@ -46,6 +46,9 @@
         }
     ],
     "projects" : [
-        {"name" : "HXBlog", "description" : "A static blog on github. using javascript comminication with server ."}
+        {"name" : "HXSyntaxTree", "href" : "", "description" : "analysis the specified '.java''s AST . "},
+        {"name" : "HXServer", "href" : "http://blog.csdn.net/u011039332/article/details/50075125", "description" : "a simple 'Server' like a simple 'Tomcat', implements 'Servlet', 'Filter', and so on . "},
+        {"name" : "HXBlog", "href" : "http://blog.csdn.net/u011039332/article/details/49869169", "description" : "A static blog on github. using javascript comminication with server ."},
+        {"name" : "HXCrawler", "href" : "http://blog.csdn.net/u011039332/article/details/48860929", "description" : "a lightweight 'Crawler' framework . "}
     ]
 }

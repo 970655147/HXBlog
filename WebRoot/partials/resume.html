@@ -68,7 +68,9 @@
       <h3>Side Projects</h3>
       <dl>
         <div ng-repeat="project in resume.projects">
-          <dt>{{project.name}}</dt>
+          <dt> 
+          	<a href="{{project.href}}" > {{project.name}} </a> 
+          </dt>
           <dd>{{project.description}}</dd>
         </div>
       </dl>

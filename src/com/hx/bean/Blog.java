@@ -20,7 +20,8 @@ public class Blog {
 	private String createTime;
 	private AtomicInteger good;
 	private AtomicInteger notGood;
-	private int visited;
+	private AtomicInteger visited;
+	private AtomicInteger commentsNum;
 	private String content;
 	private JSONObject comments;
 	
@@ -28,19 +29,19 @@ public class Blog {
 	public Blog() {
 		
 	}
-	public Blog(Integer id, String title, String path, String tags, String createTime, AtomicInteger good, AtomicInteger notGood, int visited) {
-		set(id, title, path, tags, createTime, good, notGood, visited);
+	public Blog(Integer id, String title, String path, String tags, String createTime, AtomicInteger good, AtomicInteger notGood, AtomicInteger visited, AtomicInteger commentsNum) {
+		set(id, title, path, tags, createTime, good, notGood, visited, commentsNum);
 		this.content = null;
 	}
 	public Blog(Blog blog) {
-		this(blog.id, blog.title, blog.path, null, blog.createTime, blog.good, blog.notGood, blog.visited);
+		this(blog.id, blog.title, blog.path, null, blog.createTime, blog.good, blog.notGood, blog.visited, blog.commentsNum);
 		this.tags = blog.tags;
 	}
 	
 	// 利用给定的resultSet 初始化当前blog对象
 	public void init(ResultSet rs) throws Exception {
 		String path = rs.getString("path");
-		set(rs.getInt("id"), null, path, rs.getString("tag"), rs.getString("createTime"), new AtomicInteger(rs.getInt("good")), new AtomicInteger(rs.getInt("notGood") ), rs.getInt("visited") );
+		set(rs.getInt("id"), null, path, rs.getString("tag"), rs.getString("createTime"), new AtomicInteger(rs.getInt("good")), new AtomicInteger(rs.getInt("notGood") ), new AtomicInteger(rs.getInt("visited")), new AtomicInteger(rs.getInt("commentsNum")) );
 		this.title = Tools.getTitleFromBlogFileName(path);
 	}
 	
@@ -55,6 +56,7 @@ public class Blog {
 		obj.element("good", good);
 		obj.element("notGood", notGood);
 		obj.element("visited", visited);
+		obj.element("commentsNum", commentsNum);
 		Tools.addIfNotEmpty(obj, "comments", comments);
 	}
 	
@@ -81,7 +83,10 @@ public class Blog {
 		return notGood.intValue();
 	}
 	public Integer getVisited() {
-		return visited;
+		return visited.intValue();
+	}
+	public Integer getCommentsNum() {
+		return commentsNum.intValue();
 	}
 	public void incGood() {
 		good.incrementAndGet();
@@ -96,7 +101,10 @@ public class Blog {
 		notGood.decrementAndGet();
 	}
 	public void incVisited() {
-		visited ++;
+		visited.incrementAndGet();
+	}
+	public void incCommentsNum() {
+		commentsNum.incrementAndGet();
 	}
 	public void set(Integer id, String title, String path, String tags, String createTime) {
 		this.id = id;
@@ -110,11 +118,12 @@ public class Blog {
 			this.createTime = createTime;
 		}
 	}
-	public void set(Integer id, String title, String path, String tags, String createTime, AtomicInteger good, AtomicInteger notGood, int visited) {
+	public void set(Integer id, String title, String path, String tags, String createTime, AtomicInteger good, AtomicInteger notGood, AtomicInteger visited, AtomicInteger commentsNum) {
 		set(id, title, path, tags, createTime);
 		this.good = good;
 		this.notGood = notGood;
 		this.visited = visited;
+		this.commentsNum = commentsNum;
 	}
 	public String getContent() {
 		return content;

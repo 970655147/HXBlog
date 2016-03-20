@@ -531,10 +531,10 @@ public class Tools {
 		String in = blogIds.substring(1, blogIds.length()-1 );
 		return String.format(Constants.deleteMultiBlogListSql, in);
 	}
-	public static String getDeleteSelectedTagsSql(Integer blogId, List<String> deletedTag) {
-		String in = tagsToStringTripBracket(deletedTag, true);
-		return String.format(Constants.deleteMultiTagListSql, blogId, in);
-	}
+//	public static String getDeleteSelectedTagsSql(Integer blogId, List<String> deletedTag) {
+//		String in = tagsToStringTripBracket(deletedTag, true);
+//		return String.format(Constants.deleteMultiTagListSql, blogId, in);
+//	}
 	// É¾³ýÆÀÂÛ by blogIdx, floorIdx, commentIdx
 	public static String getDeleteCommentByBlogIdxSql(Integer blogId) {
 		return String.format(Constants.deleteCommentByBlogIdxSql, blogId);
@@ -585,33 +585,36 @@ public class Tools {
 			sb.append(blog.getCreateTime());	sb.append("' , '");
 			sb.append(blog.getGood());	sb.append("' , '");
 			sb.append(blog.getNotGood());	sb.append("' , '");
-			sb.append(blog.getVisited());	
+			sb.append(blog.getVisited());	sb.append("' , '");
+			sb.append(blog.getCommentsNum());
 			sb.append("' union all ");
 		}
 		
 		String unionAll = sb.substring(0, sb.lastIndexOf("union"));
 		return String.format(Constants.addMultiBlogListSql, unionAll);
 	}	
-	public static String getAddSelectedTagsSql(Integer blogId, List<String> tags) {
-		if(tags.size() < 1) {
-			return EMPTY_STR;
-		}
-		
-		StringBuilder sb = new StringBuilder();
-		for(String tag : tags) {
-			if(! tagFilter.contains(tag)) {
-				sb.append(" select '");	
-				sb.append(tag);	sb.append("', ");
-				sb.append(blogId);	
-				sb.append(" union all ");
-			}
-		}
-		
-		String unionAll = sb.substring(0, sb.lastIndexOf("union"));
-		return String.format(Constants.addMultiTagListSql, unionAll);
-	}
+//	public static String getAddSelectedTagsSql(Integer blogId, List<String> tags) {
+//		if(tags.size() < 1) {
+//			return EMPTY_STR;
+//		}
+//		
+//		StringBuilder sb = new StringBuilder();
+//		for(String tag : tags) {
+//			if(! tagFilter.contains(tag)) {
+//				sb.append(" select '");	
+//				sb.append(tag);	sb.append("', ");
+//				sb.append(blogId);	
+//				sb.append(" union all ");
+//			}
+//		}
+//		
+//		String unionAll = sb.substring(0, sb.lastIndexOf("union"));
+//		return String.format(Constants.addMultiTagListSql, unionAll);
+//	}
 	public static String getUpdateBlogListSql(Integer blogId, Blog blog) {
-		return String.format(Constants.updateBlogListSql, blog.getPath(), tagsToStringTripBracket(blog.getTags(), false), blog.getGood(), blog.getNotGood(), blog.getVisited(), blog.getId());
+		return String.format(Constants.updateBlogListSql, blog.getPath(), 
+				tagsToStringTripBracket(blog.getTags(), false), blog.getGood(), blog.getNotGood(),
+				blog.getVisited(), blog.getCommentsNum(), blog.getId() );
 	}
 	public static String getAddSelectedCommentsSql(List<Comment> addedComments) {
 		if(addedComments.size() < 1) {

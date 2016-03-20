@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import com.hx.interf.BaseAction;
 import com.hx.util.Constants;
 import com.hx.util.Log;
 import com.hx.util.Tools;
 
 // 获取blog配置的action
-public class BlogResumeAction extends HttpServlet {
+public class BlogResumeAction extends BaseAction {
 	
 	// 是否是第一次访问
 	private static boolean isFirst = true;

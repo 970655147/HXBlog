@@ -1,7 +1,6 @@
 package com.hx.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,11 +11,13 @@ import javax.servlet.http.HttpSession;
 import net.sf.json.JSONObject;
 
 import com.hx.bean.UserInfo;
+import com.hx.interf.BaseAction;
 import com.hx.util.Constants;
+import com.hx.util.Log;
 import com.hx.util.Tools;
 
 // 获取blog配置的action
-public class BlogLoginAction extends HttpServlet {
+public class BlogLoginAction extends BaseAction {
 
 	// 登录校验
 	// 获取用户名密码
@@ -45,6 +46,8 @@ public class BlogLoginAction extends HttpServlet {
 				session.setAttribute(Constants.preferInfo, new UserInfo(Constants.adminUserName, Constants.adminEmail, Constants.adminImageIdx, Tools.getPrivilege(Tools.isLogin(req))) );
 				sb.append("login success !");
 				isLogin = true;
+			} else {
+				sb.append("userName & password not match !");	
 			}
 		} else {
 			sb.append("login failed !");

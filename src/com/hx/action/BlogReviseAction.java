@@ -2,20 +2,22 @@ package com.hx.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.hx.bean.Blog;
 import com.hx.bean.ResponseMsg;
+import com.hx.bean.ValidateResult;
 import com.hx.business.BlogManager;
+import com.hx.interf.BaseAction;
+import com.hx.interf.Validater;
 import com.hx.util.Constants;
 import com.hx.util.Tools;
 
-public class BlogReviseAction extends HttpServlet {
+public class BlogReviseAction extends BaseAction {
 
 	// 修改播客
 	// 确保用户登录, 校验校验码
@@ -45,32 +47,24 @@ public class BlogReviseAction extends HttpServlet {
 				String title = req.getParameter("title");
 				String tags = req.getParameter("tags");
 				String content = req.getParameter("content");
-				if(Tools.validateObjectBeNull(req, id, "blogId", respMsg) ) {
-					if(Tools.validateTitle(req, title, "title", respMsg)) {
-						if(Tools.validateTags(req, tags, respMsg)) {
-							if(Tools.validateContent(req, content, respMsg) ) {
-								Blog blogInServer = BlogManager.getBlog(id);
-								// 对于修改这里, 需要使用副本 [因为 需要统计标签的增减]
-								if(Tools.validateBlog(req, blogInServer, respMsg)) {
-									Blog newBlog = new Blog(blogInServer);
-									String oldBlogPath = blogInServer.getPath();
-									boolean isChangeName = ! Tools.equalsIgnorecase(blogInServer.getTitle().trim(), title.trim() );
-									
+				ValidateResult vRes = validater.validate(req, respMsg, id, title, tags, content);
+				if(vRes.isSucc) {
+					Blog blogInServer = (Blog) vRes.attachments[0];
+					Blog newBlog = new Blog(blogInServer);
+					String oldBlogPath = blogInServer.getPath();
+					boolean isChangeName = ! Tools.equalsIgnorecase(blogInServer.getTitle().trim(), title.trim() );
+					
 //									Date now = new Date();
 //									String createTime = Constants.createDateFormat.format(now );
-									String blogPath = Tools.getBlogFileName(Tools.getDateFromBlogFileName(blogInServer.getPath()), title);	
-									newBlog.set(id, Tools.replaceCommentBody(title, Constants.scriptCharacterMap), blogPath, tags, null);
-									
-									Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
-									if(isChangeName) {
-										Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath), Tools.getBlogPath(Tools.getProjectPath(), blogPath) );
-									}
-									BlogManager.reviseBlog(newBlog);
-									respMsg = new ResponseMsg(Constants.respSucc, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
-								}
-							}
-						}
+					String blogPath = Tools.getBlogFileName(Tools.getDateFromBlogFileName(blogInServer.getPath()), title);	
+					newBlog.set(id, Tools.replaceCommentBody(title, Constants.scriptCharacterMap), blogPath, tags, null);
+					
+					Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
+					if(isChangeName) {
+						Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath), Tools.getBlogPath(Tools.getProjectPath(), blogPath) );
 					}
+					BlogManager.reviseBlog(newBlog);
+					respMsg = new ResponseMsg(Constants.respSucc, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
 				}
 			}
 		}
@@ -80,6 +74,35 @@ public class BlogReviseAction extends HttpServlet {
 		out.write(respInfo );
 		Tools.log(this, respInfo);
 		out.close();
+	}
+	
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		this.validater = new Validater() {
+			@Override
+			public ValidateResult validate(HttpServletRequest req, ResponseMsg respMsg, Object... others) {
+				Integer id = (Integer) others[0];
+				String title = (String) others[1];
+				String tags = (String) others[2];
+				String content = (String) others[3];
+				if(Tools.validateObjectBeNull(req, id, "blogId", respMsg) ) {
+					if(Tools.validateTitle(req, title, "title", respMsg)) {
+						if(Tools.validateTags(req, tags, respMsg)) {
+							if(Tools.validateContent(req, content, respMsg) ) {
+								Blog blogInServer = BlogManager.getBlog(id);
+								// 对于修改这里, 需要使用副本 [因为 需要统计标签的增减]
+								if(Tools.validateBlog(req, blogInServer, respMsg)) {
+									return new ValidateResult(true, new Object[]{blogInServer } );
+								}
+							}
+						}
+					}
+				}
+				
+				return Constants.validateResultFalse;
+			}
+		};
 	}
 	
 	// 处理掉id为list的style标签 [这里先暂时这样处理, 之后再回来完善]

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +16,15 @@ import com.hx.bean.Blog;
 import com.hx.bean.Comment;
 import com.hx.bean.ResponseMsg;
 import com.hx.bean.UserInfo;
+import com.hx.bean.ValidateResult;
 import com.hx.business.BlogManager;
 import com.hx.business.CommentManager;
+import com.hx.interf.BaseAction;
+import com.hx.interf.Validater;
 import com.hx.util.Constants;
 import com.hx.util.Tools;
 
-public class BlogCommentAction extends HttpServlet {
+public class BlogCommentAction extends BaseAction {
 	
 	// 处理评论相关业务
 	// 获取blogIdx, floorIdx, imageIdx  如果发生异常, 将imageIdx置空 [必然过不了校验]
@@ -44,7 +48,7 @@ public class BlogCommentAction extends HttpServlet {
 			floorIdx = Integer.parseInt(req.getParameter("floorIdx") );
 			imageIdx = Integer.parseInt(req.getParameter("imageIdx") );
 		} catch (Exception e) {
-			imageIdx = null;
+			blogIdx = null;
 		}
 		String to = req.getParameter("to");
 		if(Tools.isEmpty(to)) {
@@ -52,35 +56,25 @@ public class BlogCommentAction extends HttpServlet {
 		}
 		String commentBody = req.getParameter("comment");
 		Comment comment = null;
-		if(Tools.validateObjectBeNull(req, blogIdx, "blogIdx", respMsg) ) {
-			if(Tools.validateObjectBeNull(req, floorIdx, "floorIdx", respMsg) ) {
-				if(Tools.validateObjectBeNull(req, imageIdx, "imageIdx", respMsg) ) {
-					UserInfo userInfo = new UserInfo(req.getParameter("userName"), req.getParameter("email"), imageIdx, Tools.getPrivilege(Tools.isLogin(req)) );
-					if(Tools.validateTitle(req, to, "to's userName", respMsg) ) {					
-						if(Tools.validateUserInfo(req, userInfo, respMsg) ) {
-							if(Tools.validateCommentBody(req, commentBody, respMsg) ) {
-								Blog blogInServer = BlogManager.getBlog(blogIdx);
-								if(Tools.validateBlog(req, blogInServer, respMsg)) {
-									req.getSession().setAttribute(Constants.preferInfo, userInfo);
-									comment = new Comment(blogIdx, floorIdx, Constants.defaultCommentIdx, userInfo, Constants.createDateFormat.format(new Date()), to, Tools.replaceCommentBody(commentBody, Constants.scriptCharacterMap) );
-									try {
-										CommentManager.addComment(blogIdx, comment);
-										if(! Tools.isReply(commentBody) ) {
-											CommentManager.updateFloorIdx(comment);
-										} else {
-											comment.setComment(Tools.getReplyComment(commentBody));
-											CommentManager.updateCommentIdx(comment);
-										}
-									} catch (Exception e) {
-										e.printStackTrace();
-									}
-									respMsg.set(Constants.respSucc, Constants.defaultResponseCode, "comment success !", Tools.getIPAddr(req) );
-								}
-							}
-						}
-					}
+		ValidateResult vRes = validater.validate(req, respMsg, blogIdx, floorIdx, imageIdx, to, commentBody);
+		if(vRes.isSucc) {
+			UserInfo userInfo = (UserInfo) vRes.attachments[0];
+			req.getSession().setAttribute(Constants.preferInfo, userInfo);
+			comment = new Comment(blogIdx, floorIdx, Constants.defaultCommentIdx, userInfo, Constants.createDateFormat.format(new Date()), to, Tools.replaceCommentBody(commentBody, Constants.scriptCharacterMap) );
+			try {
+				CommentManager.addComment(blogIdx, comment);
+				BlogManager.addComment(blogIdx);
+				
+				if(! Tools.isReply(commentBody) ) {
+					CommentManager.updateFloorIdx(comment);
+				} else {
+					comment.setComment(Tools.getReplyComment(commentBody));
+					CommentManager.updateCommentIdx(comment);
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+			respMsg.set(Constants.respSucc, Constants.defaultResponseCode, "comment success !", Tools.getIPAddr(req) );
 		}
 		
 		JSONObject res = new JSONObject();
@@ -92,6 +86,40 @@ public class BlogCommentAction extends HttpServlet {
 		out.write(respInfo );
 		Tools.log(this, respInfo);
 		out.close();
+	}
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		this.validater = new Validater() {
+			@Override
+			public ValidateResult validate(HttpServletRequest req, ResponseMsg respMsg, Object... others) {
+				Integer blogIdx = (Integer) others[0];
+				Integer floorIdx = (Integer) others[1];
+				Integer imageIdx = (Integer) others[2];
+				String to = (String) others[3];
+				String commentBody = (String) others[4];
+				if(Tools.validateObjectBeNull(req, blogIdx, "blogIdx", respMsg) ) {
+					if(Tools.validateObjectBeNull(req, floorIdx, "floorIdx", respMsg) ) {
+						if(Tools.validateObjectBeNull(req, imageIdx, "imageIdx", respMsg) ) {
+							UserInfo userInfo = new UserInfo(req.getParameter("userName"), req.getParameter("email"), imageIdx, Tools.getPrivilege(Tools.isLogin(req)) );
+							if(Tools.validateTitle(req, to, "to's userName", respMsg) ) {					
+								if(Tools.validateUserInfo(req, userInfo, respMsg) ) {
+									if(Tools.validateCommentBody(req, commentBody, respMsg) ) {
+										Blog blogInServer = BlogManager.getBlog(blogIdx);
+										if(Tools.validateBlog(req, blogInServer, respMsg)) {
+											return new ValidateResult(true, new Object[]{userInfo } );
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				return Constants.validateResultFalse;
+			}
+		};
 	}
 	
 }

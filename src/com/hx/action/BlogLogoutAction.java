@@ -11,12 +11,13 @@ import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONObject;
 
+import com.hx.interf.BaseAction;
 import com.hx.util.Constants;
 import com.hx.util.Log;
 import com.hx.util.Tools;
 
 // 获取blog配置的action
-public class BlogLogoutAction extends HttpServlet {
+public class BlogLogoutAction extends BaseAction {
 
 	// 安全退出系统
 	// 如果登录了, 则移除用户的userName, token, 以及用户的偏好信息

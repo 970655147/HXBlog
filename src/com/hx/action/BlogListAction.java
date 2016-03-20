@@ -11,11 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONObject;
 
 import com.hx.business.BlogManager;
+import com.hx.interf.BaseAction;
 import com.hx.util.Constants;
 import com.hx.util.Tools;
 
 // 获取blog配置的action
-public class BlogListAction extends HttpServlet {
+public class BlogListAction extends BaseAction {
 
 	// 获取config.conf中的配置
 	// 获取tag, 如果其为空, 其默认值为"all"

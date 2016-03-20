@@ -3,11 +3,9 @@ package com.hx.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,11 +15,12 @@ import com.hx.bean.Blog;
 import com.hx.bean.Comment;
 import com.hx.business.BlogManager;
 import com.hx.business.CommentManager;
+import com.hx.interf.BaseAction;
 import com.hx.util.Constants;
 import com.hx.util.Log;
 import com.hx.util.Tools;
 
-public class BlogGetAction extends HttpServlet {
+public class BlogGetAction extends BaseAction {
 	
 	// 给定播客的名称
 	// 获取blogId, 确保其为整数
@@ -47,13 +46,13 @@ public class BlogGetAction extends HttpServlet {
 		}
 		
 		if(blogId == null) {
-			blog = new Blog(Constants.defaultBlogId, "have no this blog !", Constants.defaultBlogPath, Constants.defaultBlogTag, null, new AtomicInteger(Constants.defaultGood), new AtomicInteger(Constants.defaultNotGood), Constants.defaultVisited);
+			blog = new Blog(Constants.defaultBlogId, "have no this blog !", Constants.defaultBlogPath, Constants.defaultBlogTag, null, Constants.defaultGood,Constants.defaultNotGood, Constants.defaultVisited, Constants.defaultCommentsNum);
 			blog.setContent("hi, you have been intercept ~ ~ ~ ~ !");
 			injectorInfo.element("blogId", req.getParameter("blogId")).element("ip", Tools.getIPAddr(req));
 		} else {
 			Blog blogInServer = BlogManager.getBlog(blogId);
 			if(blogInServer == null) {
-				blog = new Blog(Constants.defaultBlogId, "have no this blog !", Constants.defaultBlogPath, Constants.defaultBlogTag, null, new AtomicInteger(Constants.defaultGood), new AtomicInteger(Constants.defaultNotGood), Constants.defaultVisited);
+				blog = new Blog(Constants.defaultBlogId, "have no this blog !", Constants.defaultBlogPath, Constants.defaultBlogTag, null, Constants.defaultGood,Constants.defaultNotGood, Constants.defaultVisited, Constants.defaultCommentsNum);
 				blog.setContent("have no this blog !");
 				injectorInfo.element("blogId", blogId).element("ip", Tools.getIPAddr(req)); 
 			} else {
@@ -64,9 +63,7 @@ public class BlogGetAction extends HttpServlet {
 					blog.setContent("this blog already be deleted, maybe by adminstrator !");
 				} else {
 					if(! Constants.visitedCookieValue.equals(Tools.getCookieValByName(req.getCookies(), Tools.getVisitedCookieName(blog.getId()))) ) {
-						blogInServer.incVisited();
-						blog.incVisited();
-						BlogManager.addVisitSense(blog);
+						BlogManager.addVisited(blogId);
 						resp.addCookie(new Cookie(Tools.getVisitedCookieName(blog.getId()), Constants.visitedCookieValue));
 					}
 					
@@ -122,6 +119,8 @@ public class BlogGetAction extends HttpServlet {
 		if(injectorInfo.size() > 0) {
 			Tools.log(this, injectorInfo.toString() );
 		}
+		injectorInfo = null;
 		out.close();
 	}
+	
 }
