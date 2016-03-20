@@ -62,6 +62,16 @@ body {
 	background-color:white;
 }
 
+.twenTwen {
+	width : 20px;
+	height : 20px;	
+}
+
+.fourFour {
+	width : 40px;
+	height : 40px;	
+}
+
 /* 	from csdn	*/
 /*  ¶¥²È   */
 #digg{display:block; *display:inline-block; clear:both; width:182px; _width:188px; margin:0 auto; padding:30px 0 15px; text-align:center;}

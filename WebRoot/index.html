@@ -53,6 +53,7 @@
   -->
   <div class="navbar-fixed-top marginLeftRight bgWhite" ng-controller="headerCtrl" style="height:66px" >
     <ul class="nav nav-pills pull-right" style="margin-top:20px" >
+      <img src="./images/header/matrixIterate.gif" class="fourFour pull-left" style="margin-right:20px;" />
       <li ng-repeat="quickLink in config.quickLinks" ng-class="{'active': quickLink.text == state}">
         <a href="{{quickLink.href}}">{{quickLink.text}}</a>
       </li>
@@ -61,6 +62,7 @@
     <h3 class="page-header text-muted" style="margin-top:30px" >
       {{config.title}}
       <small>{{config.subTitle}}</small>
+      <img src="./images/header/clock.gif" class="fourFour" />
     </h3>
   </div>
   
