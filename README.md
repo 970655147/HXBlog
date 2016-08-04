@@ -1,7 +1,7 @@
 # HXBlog
 a personal blog site
 
-è¯¦ç»†è¯·è§ : 
-1. ç®€å•ä»‹ç» : http://blog.csdn.net/u011039332/article/details/49761175 ,
+ÏêÏ¸Çë¼û : 
+1. ¼òµ¥½éÉÜ : http://blog.csdn.net/u011039332/article/details/49761175 ,
 
-2. é€»è¾‘ä»‹ç» : http://blog.csdn.net/u011039332/article/details/49869169
+2. Âß¼­½éÉÜ : http://blog.csdn.net/u011039332/article/details/49869169

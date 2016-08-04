@@ -32,7 +32,7 @@ public class BlogDeleteAction extends BaseAction {
 
 		Integer blogId = null;
 		try {
-			blogId = Integer.parseInt(req.getParameter("id") );
+			blogId = Integer.parseInt((String) req.getAttribute("id") );
 		} catch(Exception e) {
 			blogId = null;
 		}

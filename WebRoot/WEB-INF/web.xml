@@ -106,20 +106,28 @@
     
   <!--
   // 因为有了 InitAndCheckUpdateListener, 所以 这个InitBlogListFilter似乎没有使用的余地了
-    ==========================- filter ========================================  
-
+  -->
+  <!-- ==========================- filter ======================================== -->  
+  <!-- 请注意, 某些编码解码的组合 可能导致数据的不可逆"丢失" -->
   <filter>
-      <filter-name>initBlogListFilter</filter-name>
-      <filter-class>com.hx.business.InitBlogListFilter</filter-class>
+      <filter-name>encodingFilter</filter-name>
+      <filter-class>com.hx.business.EncodingFilter</filter-class>
+      <init-param>
+      	<param-name>encodingInClient</param-name>
+      	<param-value>gbk</param-value>
+      </init-param>
+      <init-param>
+      	<param-name>decodingInServer</param-name>
+      	<param-value>iso8859-1</param-value>
+      </init-param>
   </filter>      
       
-    ==========================- sep ========================================      
+  <!-- ==========================- sep ======================================== -->      
       
   <filter-mapping>
- 	 <filter-name>initBlogListFilter</filter-name>
+ 	 <filter-name>encodingFilter</filter-name>
      <url-pattern>/action/*</url-pattern>
   </filter-mapping>    
-   -->
        
       
   <!--  ==========================- listener ========================================  -->

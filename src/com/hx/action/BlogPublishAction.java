@@ -64,9 +64,9 @@ public class BlogPublishAction extends BaseAction {
 					if(Tools.validateCheckCode(req, respMsg)) {
 						// fix "checkCode" in session's lifecycle [should be removed after checked !]		add at 2015.12.08
 						Tools.removeAttrFromSession(req, Constants.checkCode);
-						String title = Tools.replaceMultiSpacesAsOne(req.getParameter("title") );
-						String tags = Tools.replaceMultiSpacesAsOne(req.getParameter("tags") );
-						String content = req.getParameter("content");
+						String title = Tools.replaceMultiSpacesAsOne((String) req.getAttribute("title") );
+						String tags = Tools.replaceMultiSpacesAsOne((String) req.getAttribute("tags") );
+						String content = (String) req.getAttribute("content");
 						if(Tools.validateTitle(req, title, "title", respMsg)) {
 							if(Tools.validateTags(req, tags, respMsg)) {
 								if(Tools.validateContent(req, content, respMsg) ) {

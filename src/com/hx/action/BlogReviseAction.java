@@ -40,13 +40,13 @@ public class BlogReviseAction extends BaseAction {
 				
 				Integer id = null;
 				try {
-					id = Integer.parseInt(req.getParameter("id") );
+					id = Integer.parseInt((String) req.getAttribute("id") );
 				} catch(Exception e) {
 					id = null;
 				}
-				String title = req.getParameter("title");
-				String tags = req.getParameter("tags");
-				String content = req.getParameter("content");
+				String title = (String) req.getAttribute("title");
+				String tags = (String) req.getAttribute("tags");
+				String content = (String) req.getAttribute("content");
 				ValidateResult vRes = validater.validate(req, respMsg, id, title, tags, content);
 				if(vRes.isSucc) {
 					Blog blogInServer = (Blog) vRes.attachments[0];

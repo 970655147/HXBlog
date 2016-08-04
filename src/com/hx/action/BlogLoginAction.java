@@ -29,8 +29,8 @@ public class BlogLoginAction extends BaseAction {
 		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);
 		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
-		String userName = req.getParameter("userName");
-		String pwd = req.getParameter("pwd");
+		String userName = (String) req.getAttribute("userName");
+		String pwd = (String) req.getAttribute("pwd");
 		JSONObject userInfo = new JSONObject().element("userName", userName).element("pwd", pwd).element("ip", Tools.getIPAddr(req) );
 		StringBuilder sb = new StringBuilder();
 		sb.append("an user attempt to login with : ");

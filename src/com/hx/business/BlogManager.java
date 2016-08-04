@@ -218,41 +218,45 @@ public class BlogManager {
 //			addedList.clear();
 //			deletedList.clear();	
 			visitSenseUpdatedList.clear();
-			synchronized (updateLock) {
-//				addOrderTmp.addAll(addOrder);
-				addedListTmp.addAll(addedList);
-				deletedListTmp.addAll(deletedList);
-				updatedListTmp.putAll(updatedList);
-//				addedBlogIdToTagMapTmp.putAll(addedBlogIdToTagMap);
-//				deletedBlogIdToTagMapTmp.putAll(deletedBlogIdToTagMap);
+			// 并发优化	add at 2016.03.28
+				// 场景 : 两个线程同时到达此处, 虽然逻辑是正确的, 但是后者却会多进行获取updateLock, initLock[无效的操作]
+			if(addedList.size() > 0) {
+				synchronized (updateLock) {
+//					addOrderTmp.addAll(addOrder);
+					addedListTmp.addAll(addedList);
+					deletedListTmp.addAll(deletedList);
+					updatedListTmp.putAll(updatedList);
+//					addedBlogIdToTagMapTmp.putAll(addedBlogIdToTagMap);
+//					deletedBlogIdToTagMapTmp.putAll(deletedBlogIdToTagMap);
+					
+//					addOrder.clear();
+					addedList.clear();
+					deletedList.clear();
+					updatedList.clear();
+//					addedBlogIdToTagMap.clear();
+//					deletedBlogIdToTagMap.clear();
+				}
 				
-//				addOrder.clear();
-				addedList.clear();
-				deletedList.clear();
-				updatedList.clear();
-//				addedBlogIdToTagMap.clear();
-//				deletedBlogIdToTagMap.clear();
-			}
-			
-			synchronized (initLock) {
-				Connection con = null;
-				try {
-					con = Tools.getConnection(Tools.getProjectPath());			
-//					flushAddedRecords(con, addedListTmp, addOrderTmp, addedBlogIdToTagMapTmp);
-					flushAddedRecords(con, addedListTmp);
-					flushRevisedRecords(con, updatedListTmp, visitSenseUpdatedListTmp);
-//					flushDeletedRecords(con, deletedListTmp, deletedBlogIdToTagMapTmp);
-					flushDeletedRecords(con, deletedListTmp);
-				} catch (Exception e) {
-					e.printStackTrace();
-				} finally {
-					if(con != null) {
-						try {
-							con.close();
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
-					}					
+				synchronized (initLock) {
+					Connection con = null;
+					try {
+						con = Tools.getConnection(Tools.getProjectPath());			
+//						flushAddedRecords(con, addedListTmp, addOrderTmp, addedBlogIdToTagMapTmp);
+						flushAddedRecords(con, addedListTmp);
+						flushRevisedRecords(con, updatedListTmp, visitSenseUpdatedListTmp);
+//						flushDeletedRecords(con, deletedListTmp, deletedBlogIdToTagMapTmp);
+						flushDeletedRecords(con, deletedListTmp);
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if(con != null) {
+							try {
+								con.close();
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
+						}					
+					}
 				}
 			}
 			

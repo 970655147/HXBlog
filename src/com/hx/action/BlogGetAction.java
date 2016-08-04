@@ -37,10 +37,10 @@ public class BlogGetAction extends BaseAction {
 		
 		JSONObject injectorInfo = new JSONObject();
 		Integer blogId = null;
-		String tag = req.getParameter("tag");
+		String tag = (String) req.getAttribute("tag");
 		Blog blog = null;
 		try {
-			blogId = Integer.parseInt(req.getParameter("blogId") );
+			blogId = Integer.parseInt((String) req.getAttribute("blogId") );
 		} catch(Exception e) {
 			blogId = null;
 		}
@@ -48,7 +48,7 @@ public class BlogGetAction extends BaseAction {
 		if(blogId == null) {
 			blog = new Blog(Constants.defaultBlogId, "have no this blog !", Constants.defaultBlogPath, Constants.defaultBlogTag, null, Constants.defaultGood,Constants.defaultNotGood, Constants.defaultVisited, Constants.defaultCommentsNum);
 			blog.setContent("hi, you have been intercept ~ ~ ~ ~ !");
-			injectorInfo.element("blogId", req.getParameter("blogId")).element("ip", Tools.getIPAddr(req));
+			injectorInfo.element("blogId", req.getAttribute("blogId")).element("ip", Tools.getIPAddr(req));
 		} else {
 			Blog blogInServer = BlogManager.getBlog(blogId);
 			if(blogInServer == null) {

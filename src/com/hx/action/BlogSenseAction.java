@@ -37,11 +37,11 @@ public class BlogSenseAction extends BaseAction {
 		Integer blogId = null;
 		ResponseMsg respMsg = new ResponseMsg();
 		try {
-			blogId = Integer.parseInt(req.getParameter("blogId") );
+			blogId = Integer.parseInt((String) req.getAttribute("blogId") );
 		} catch(Exception e) {
 			blogId = null;
 		}
-		String sense = req.getParameter("sense");
+		String sense = (String) req.getAttribute("sense");
 		ValidateResult vRes = validater.validate(req, respMsg, blogId, sense);
 		if(vRes.isSucc ) {
 			Blog blog = (Blog) vRes.attachments[0];

@@ -327,7 +327,7 @@ public class Tools {
 		return date + dateBlogSep + title;
 	}
 	public static String[] getDateAndBlogTitleFromFileName(String fileName) {
-		String[] dateAndBlogTitle = new String[0];
+		String[] dateAndBlogTitle = null;
 		int sepIdx = fileName.indexOf(dateBlogSep);
 		if(sepIdx >= 0) {
 			dateAndBlogTitle = new String[2];
@@ -826,7 +826,7 @@ public class Tools {
 	
 	// 校验校验码
 	public static boolean validateCheckCode(HttpServletRequest req, ResponseMsg respMsg) {
-		String checkCode = req.getParameter("checkCode");
+		String checkCode = (String) req.getAttribute("checkCode");
 		if(Tools.isEmpty(checkCode)) {
 			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "sorry, please input checkCode　!", Tools.getIPAddr(req) );
 			return false;
@@ -1127,17 +1127,24 @@ public class Tools {
 	}
 	
 	// 将commentBody中包含脚本的部分转义掉
-	public static String replaceCommentBody(String commentBody, Map<Character, Character> needToBeFormat) {
+	public static String replaceCommentBody(String commentBody, Map<String, String> needToBeFormat) {
 		if(Tools.isEmpty(commentBody)) {
 			return EMPTY_STR;
 		}
 		
 		StringBuilder sb = new StringBuilder(commentBody.length());
 		for(int i=0; i<commentBody.length(); i++) {
-			sb.append(commentBody.charAt(i));
-			if(needToBeFormat.containsKey(commentBody.charAt(i)) && ((i+1 >= commentBody.length()) || isAlphaOrInvSlash(commentBody.charAt(i+1))) ) {
-				sb.append(needToBeFormat.get(commentBody.charAt(i)) );
+			// 为了效率, 这里就仅仅写"替换key"长度为1的数据了, 以后再来更新吧
+			String nextCh = String.valueOf(commentBody.charAt(i) );
+			if(! needToBeFormat.containsKey(nextCh) ) {
+				sb.append(nextCh);
+			} else {
+				sb.append(needToBeFormat.get(nextCh) );
 			}
+//			sb.append(commentBody.charAt(i));
+//			if(needToBeFormat.containsKey(commentBody.charAt(i)) && ((i+1 >= commentBody.length()) || isAlphaOrInvSlash(commentBody.charAt(i+1))) ) {
+//				sb.append(needToBeFormat.get(commentBody.charAt(i)) );
+//			}
 		}
 		
 		return sb.toString();

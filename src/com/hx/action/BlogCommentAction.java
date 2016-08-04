@@ -44,17 +44,17 @@ public class BlogCommentAction extends BaseAction {
 		Integer floorIdx = null;
 		Integer imageIdx = null;
 		try {
-			blogIdx = Integer.parseInt(req.getParameter("blogIdx") );
-			floorIdx = Integer.parseInt(req.getParameter("floorIdx") );
-			imageIdx = Integer.parseInt(req.getParameter("imageIdx") );
+			blogIdx = Integer.parseInt((String) req.getAttribute("blogIdx") );
+			floorIdx = Integer.parseInt((String) req.getAttribute("floorIdx") );
+			imageIdx = Integer.parseInt((String) req.getAttribute("imageIdx") );
 		} catch (Exception e) {
 			blogIdx = null;
 		}
-		String to = req.getParameter("to");
+		String to = (String) req.getAttribute("to");
 		if(Tools.isEmpty(to)) {
 			to = Constants.defaultTo;
 		}
-		String commentBody = req.getParameter("comment");
+		String commentBody = (String) req.getAttribute("comment");
 		Comment comment = null;
 		ValidateResult vRes = validater.validate(req, respMsg, blogIdx, floorIdx, imageIdx, to, commentBody);
 		if(vRes.isSucc) {
@@ -63,10 +63,10 @@ public class BlogCommentAction extends BaseAction {
 			comment = new Comment(blogIdx, floorIdx, Constants.defaultCommentIdx, userInfo, Constants.createDateFormat.format(new Date()), to, Tools.replaceCommentBody(commentBody, Constants.scriptCharacterMap) );
 			try {
 				CommentManager.addComment(blogIdx, comment);
-				BlogManager.addComment(blogIdx);
 				
 				if(! Tools.isReply(commentBody) ) {
 					CommentManager.updateFloorIdx(comment);
+					BlogManager.addComment(blogIdx);
 				} else {
 					comment.setComment(Tools.getReplyComment(commentBody));
 					CommentManager.updateCommentIdx(comment);
@@ -102,7 +102,7 @@ public class BlogCommentAction extends BaseAction {
 				if(Tools.validateObjectBeNull(req, blogIdx, "blogIdx", respMsg) ) {
 					if(Tools.validateObjectBeNull(req, floorIdx, "floorIdx", respMsg) ) {
 						if(Tools.validateObjectBeNull(req, imageIdx, "imageIdx", respMsg) ) {
-							UserInfo userInfo = new UserInfo(req.getParameter("userName"), req.getParameter("email"), imageIdx, Tools.getPrivilege(Tools.isLogin(req)) );
+							UserInfo userInfo = new UserInfo((String) req.getAttribute("userName"), (String) req.getAttribute("email"), imageIdx, Tools.getPrivilege(Tools.isLogin(req)) );
 							if(Tools.validateTitle(req, to, "to's userName", respMsg) ) {					
 								if(Tools.validateUserInfo(req, userInfo, respMsg) ) {
 									if(Tools.validateCommentBody(req, commentBody, respMsg) ) {

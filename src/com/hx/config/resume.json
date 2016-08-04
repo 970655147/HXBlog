@@ -27,6 +27,7 @@
             "category" : "Programming language",
             "items" : [
                 {"name" : "Java", "proficiency" : "proficient"},
+                {"name" : "Scala", "proficiency" : "proficient"},
                 {"name" : "C++", "proficiency" : "familiar"},
                 {"name" : "C", "proficiency" : "familiar"},
                 {"name" : "Scheme", "proficiency" : "familiar"},
@@ -46,6 +47,8 @@
         }
     ],
     "projects" : [
+    	{"name" : "HXBeans", "href" : "", "description" : "a simple 'IOC' framework, support scope as follow : 'prototype', 'single', 'session', 'threadLocal' "},
+	    {"name" : "HXMongo", "href" : "", "description" : "a lightweight 'Persistence' framework, current support 'mysql' & 'mongoDB' . "},
         {"name" : "HXSyntaxTree", "href" : "", "description" : "analysis the specified '.java''s AST . "},
         {"name" : "HXServer", "href" : "http://blog.csdn.net/u011039332/article/details/50075125", "description" : "a simple 'Server' like a simple 'Tomcat', implements 'Servlet', 'Filter', and so on . "},
         {"name" : "HXBlog", "href" : "http://blog.csdn.net/u011039332/article/details/49869169", "description" : "A static blog on github. using javascript comminication with server ."},

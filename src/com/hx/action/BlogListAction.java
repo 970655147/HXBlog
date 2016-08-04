@@ -27,10 +27,10 @@ public class BlogListAction extends BaseAction {
 		resp.setCharacterEncoding(Constants.DEFAULT_CHARSET);		
 		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
-		String tag = req.getParameter("tag");
+		String tag = (String) req.getAttribute("tag");
 		int pageNo = 0;
 		try {
-			pageNo = Integer.parseInt(req.getParameter("pageNo") );
+			pageNo = Integer.parseInt((String) req.getAttribute("pageNo") );
 		} catch (Exception e) {
 			pageNo = 0;
 		}

@@ -178,7 +178,7 @@ public class Constants {
 	public final static String replyEnd = "[/re] : ";
 	public final static Map<Character, Character> needToBeFormatMap = new HashMap<>();
 	public final static Set<Character> needToBeDeformat = new HashSet<>();
-	public final static Map<Character, Character> scriptCharacterMap = new HashMap<>();
+	public final static Map<String, String> scriptCharacterMap = new HashMap<>();
 	
 	// "checkCode", 验证码的长度, 验证码备选的字符个数, 备选的字符
 	// 验证码的宽高, 验证码的干扰线最少的个数, 干扰线的个数偏移
@@ -209,7 +209,9 @@ public class Constants {
 		needToBeDeformat.add(Tools.INV_SLASH);
 		needToBeDeformat.add(Tools.QUOTION);
 		
-		scriptCharacterMap.put('<', ' ');
+		scriptCharacterMap.put("<", "&lt;");
+		scriptCharacterMap.put(">", "&gt;");
+		scriptCharacterMap.put("&", "&amp;");
 		
 		for(char i='0'; i<'9'; i++) {
 			checkCodes.add(i);
