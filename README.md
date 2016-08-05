@@ -2,6 +2,7 @@
 ====
 一个简单的博客系统, 你可以用来记录日志, 写日记, 总结知识等等
 
+
 详细请见 
 ---
 1. 简单介绍 : http://blog.csdn.net/u011039332/article/details/49761175
@@ -11,7 +12,6 @@
 
 QuickStart
 ---
-
 1 克隆项目
 
 ![design_picure](https://raw.githubusercontent.com/970655147/HXBlog/master/readMeRes/1st_clone.png)
