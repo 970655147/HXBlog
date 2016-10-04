@@ -39,16 +39,22 @@ public class BlogReviseFilter implements Filter {
 		String content = (String) req.getAttribute(Constants.content);
 		
 		boolean isValid = false;
-		if(Tools.validateObjectBeNull(req, id, "blogId", respMsg) ) {
-			if(Tools.validateTitle(req, title, "title", respMsg)) {
-				if(Tools.validateTags(req, tags, respMsg)) {
-					if(Tools.validateContent(req, content, respMsg) ) {
-						Blog blogInServer = BlogManager.getBlog(id);
-						// 对于修改这里, 需要使用副本 [因为 需要统计标签的增减]
-						if(Tools.validateBlog(req, blogInServer, respMsg)) {
-							isValid = true;
-							req.setAttribute(Constants.blog, blogInServer);
-							filterChain.doFilter(req, resp);
+		if(Tools.validateUserLogin(req, respMsg)) {
+			if(Tools.validateCheckCode(req, respMsg)) {
+				// fix "checkCode" in session's lifecycle [should be removed after checked !]		add at 2015.12.08
+				Tools.removeAttrFromSession(req, Constants.checkCode);
+				if(Tools.validateObjectBeNull(req, id, "blogId", respMsg) ) {
+					if(Tools.validateTitle(req, title, "title", respMsg)) {
+						if(Tools.validateTags(req, tags, respMsg)) {
+							if(Tools.validateContent(req, content, respMsg) ) {
+								Blog blogInServer = BlogManager.getBlog(id);
+								// 对于修改这里, 需要使用副本 [因为 需要统计标签的增减]
+								if(Tools.validateBlog(req, blogInServer, respMsg)) {
+									isValid = true;
+									req.setAttribute(Constants.blog, blogInServer);
+									filterChain.doFilter(req, resp);
+								}
+							}
 						}
 					}
 				}

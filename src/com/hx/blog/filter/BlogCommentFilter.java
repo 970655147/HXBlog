@@ -8,6 +8,7 @@ package com.hx.blog.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -20,8 +21,8 @@ import com.hx.blog.bean.Blog;
 import com.hx.blog.bean.Comment;
 import com.hx.blog.bean.ResponseMsg;
 import com.hx.blog.bean.UserInfo;
-import com.hx.blog.bean.ValidateResult;
 import com.hx.blog.business.BlogManager;
+import com.hx.blog.business.CommentManager;
 import com.hx.blog.util.Constants;
 import com.hx.blog.util.Tools;
 
@@ -64,9 +65,11 @@ public class BlogCommentFilter implements Filter {
 							if(Tools.validateCommentBody(req, commentBody, respMsg) ) {
 								Blog blogInServer = BlogManager.getBlog(blogIdx);
 								if(Tools.validateBlog(req, blogInServer, respMsg)) {
-									isValid = true;
-									req.setAttribute(Constants.userInfo, userInfo);
-									filterChain.doFilter(req, resp);
+//									if(validateFloorIdx(req, blogIdx, floorIdx, respMsg) ) {
+										isValid = true;
+										req.setAttribute(Constants.userInfo, userInfo);
+										filterChain.doFilter(req, resp);
+//									}
 								}
 							}
 						}
@@ -94,4 +97,15 @@ public class BlogCommentFilter implements Filter {
 		
 	}
 
+//	// 校验floorIdx [检查了一下, 可以不用校验floorIdx..] 			add at 2016.08.25
+//	private boolean validateFloorIdx(ServletRequest req, int blogIdx, int floorIdx, ResponseMsg respMsg) {
+//		List<List<Comment>> comments = CommentManager.getCommentByBlogId(blogIdx);
+//		if((floorIdx<0) || (floorIdx>comments.size()) ) {
+//			respMsg.set(Constants.respFailed, Constants.defaultResponseCode, "floorIdx not valid　!", Tools.getIPAddr(req) );
+//			return false;
+//		}
+//		
+//		return true;
+//	}
+	
 }

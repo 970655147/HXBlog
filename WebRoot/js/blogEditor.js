@@ -77,10 +77,10 @@
 								$("#respMsg").html(data.msg)
 								$("#myModal").modal()
 								if(data.isSuccess) {
-							    	$("input#title").val("")
-							    	ue.setContent("")
-							    	$("#tags").find("span.btn").remove()
-							    	$("#tagInput").val("")
+//							    	$("input#title").val("")
+//							    	ue.setContent("")
+//							    	$("#tags").find("span.btn").remove()
+//							    	$("#tagInput").val("")
 								}
 								$("#checkCode").val("")
 					        }

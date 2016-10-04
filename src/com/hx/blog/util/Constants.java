@@ -18,8 +18,13 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 // 常量
-public class Constants {
+public final class Constants {
 
+	// disable constructor
+	private Constants() {
+		Tools.assert0("can't instantiate !");
+	}
+	
 	// 默认的字符集
 	public final static String DEFAULT_CHARSET = "GBK";
 	

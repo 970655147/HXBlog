@@ -474,10 +474,13 @@ public class BlogManager {
 		addedTags.removeAll(oldBlog.getTags() );
 		List<String> removedTags = new ArrayList<>(oldBlog.getTags() );
 		removedTags.removeAll(newBlog.getTags() );
-		boolean isRevised = false;
-		isRevised = (! oldBlog.getTitle().equals(newBlog.getTitle()) ) || (! oldBlog.getContent().equals(newBlog.getContent()) );
+		// NPE at "(! oldBlog.getContent().equals(newBlog.getContent())"  at 2016.09.03
+//		boolean isRevised = false;
+//		isRevised = (! oldBlog.getTitle().equals(newBlog.getTitle()) ) || (! oldBlog.getContent().equals(newBlog.getContent()) );
 		
-		if((addedTags.size() > 0) || (removedTags.size() > 0) || isRevised ) {
+		boolean isChangeName = (! Tools.equalsIgnorecase(oldBlog.getTitle().trim(), newBlog.getTitle().trim()));
+		boolean isTagsUpdate = (addedTags.size() > 0) || (removedTags.size() > 0);
+		if(isChangeName || isTagsUpdate) {
 			synchronized (updateLock) {
 //				List<String> addedTagsOfBlog = addedBlogIdToTagMap.get(newBlog.getId());
 //				List<String> deletedTagsOfBlog = deletedBlogIdToTagMap.get(newBlog.getId());
@@ -490,17 +493,19 @@ public class BlogManager {
 //					deletedBlogIdToTagMap.put(newBlog.getId(), deletedTagsOfBlog);
 //				}				
 				
-				// 短路或的特性, 如果 isRevised, 则说明, 没有tags的更新
-				if(! isRevised) {
-					for(String tag : addedTags) {
-	//					addedTagsOfBlog.add(tag);
-						updateTagCntInTagToBlogCnt(tag, true);
-					}
-					for(String tag : removedTags) {
-	//					deletedTagsOfBlog.add(tag);
-						updateTagCntInTagToBlogCnt(tag, false);
-					}	
+//				// 短路或的特性, 如果 isRevised, 则说明, 没有tags的更新
+				// 但是不能说明 ! isRevised => 存在tags更新				--2016.09.03
+//				if(! isRevised) {
+				for(String tag : addedTags) {
+//					addedTagsOfBlog.add(tag);
+					updateTagCntInTagToBlogCnt(tag, true);
 				}
+				for(String tag : removedTags) {
+//					deletedTagsOfBlog.add(tag);
+					updateTagCntInTagToBlogCnt(tag, false);
+				}
+//				}
+				// 如果更新了名称, 或者tags, 则将其添加到更新列表中, 之后持久化到数据库		--2016.10.04
 				updatedList.put(newBlog.getId(), newBlog);
 			}
 			
@@ -558,6 +563,7 @@ public class BlogManager {
 	// 将newBlog 添加 / 删除 到tag对应的tagList中
 	private static void updateBlogIdToTagList(Blog newBlog, String tag, boolean isAdd) {
 		List<Integer> listOfTag = tagList.get(tag);
+		// need double check again ?? oh my god, need another lock.. 	--2016.10.04 
 		if(listOfTag == null) {
 			listOfTag = new ArrayList<>();
 			tagList.put(tag, listOfTag);

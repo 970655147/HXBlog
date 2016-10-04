@@ -41,8 +41,8 @@ public class BlogDeleteFilter implements Filter {
 		}
 		
 		boolean isValid = false;
-		if(Tools.validateObjectBeNull(req, blogId, "blogId", respMsg) ) {
-			if(Tools.validateUserLogin(req, respMsg)) {
+		if(Tools.validateUserLogin(req, respMsg)) {
+			if(Tools.validateObjectBeNull(req, blogId, "blogId", respMsg) ) {
 				Blog oldBlog = BlogManager.getBlog(blogId);
 				if(Tools.validateBlog(req, oldBlog, respMsg) ) {
 					isValid = true;

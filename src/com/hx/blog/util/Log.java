@@ -10,8 +10,13 @@ import java.util.Iterator;
 import java.util.List;
 
 // 打印数据相关的类
-public class Log {
+public final class Log {
 
+	// disable constructor
+	private Log() {
+		Tools.assert0("can't instantiate !");
+	}
+	
 	// 将结果输出到指定的文件中
 //	private static String outputFilePath;
 //	private static FileChannel fc;

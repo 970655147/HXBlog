@@ -33,37 +33,31 @@ public class BlogReviseAction extends BaseAction {
 		resp.setHeader("Content-Type","text/html;charset=" + Constants.DEFAULT_CHARSET);
 		
 		ResponseMsg respMsg = new ResponseMsg();
-		if(Tools.validateUserLogin(req, respMsg) ) {
-			if(Tools.validateCheckCode(req, respMsg) ) {
-				// fix "checkCode" in session's lifecycle [should be removed after checked !]		add at 2015.12.08
-				Tools.removeAttrFromSession(req, Constants.checkCode);
 				
-				Integer id = Integer.parseInt((String) req.getAttribute(Constants.id) );
-				String title = (String) req.getAttribute(Constants.title);
-				String tags = (String) req.getAttribute(Constants.tags);
-				String content = (String) req.getAttribute(Constants.content);
-//				ValidateResult vRes = validater.validate(req, respMsg, id, title, tags, content);
-//				if(vRes.isSucc) {
-//					Blog blogInServer = (Blog) vRes.attachments[0];
-					Blog blogInServer = (Blog) req.getAttribute(Constants.blog);
-					Blog newBlog = new Blog(blogInServer);
-					String oldBlogPath = blogInServer.getPath();
-					boolean isChangeName = ! Tools.equalsIgnorecase(blogInServer.getTitle().trim(), title.trim() );
-					
-//									Date now = new Date();
-//									String createTime = Constants.createDateFormat.format(now );
-					String blogPath = Tools.getBlogFileName(Tools.getDateFromBlogFileName(blogInServer.getPath()), title);	
-					newBlog.set(id, Tools.replaceCommentBody(title, Constants.scriptCharacterMap), blogPath, tags, null);
-					
-					Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
-					if(isChangeName) {
-						Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath), Tools.getBlogPath(Tools.getProjectPath(), blogPath) );
-					}
-					BlogManager.reviseBlog(newBlog);
-					respMsg = new ResponseMsg(Constants.respSucc, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
-//				}
+		Integer id = Integer.parseInt((String) req.getAttribute(Constants.id) );
+		String title = (String) req.getAttribute(Constants.title);
+		String tags = (String) req.getAttribute(Constants.tags);
+		String content = (String) req.getAttribute(Constants.content);
+//		ValidateResult vRes = validater.validate(req, respMsg, id, title, tags, content);
+//		if(vRes.isSucc) {
+//			Blog blogInServer = (Blog) vRes.attachments[0];
+			Blog blogInServer = (Blog) req.getAttribute(Constants.blog);
+			Blog newBlog = new Blog(blogInServer);
+			String oldBlogPath = blogInServer.getPath();
+			boolean isChangeName = ! Tools.equalsIgnorecase(blogInServer.getTitle().trim(), title.trim() );
+			
+//			Date now = new Date();
+//			String createTime = Constants.createDateFormat.format(now );
+			String blogPath = Tools.getBlogFileName(Tools.getDateFromBlogFileName(blogInServer.getPath()), title);	
+			newBlog.set(id, Tools.replaceCommentBody(title, Constants.scriptCharacterMap), blogPath, tags, null);
+			
+			Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
+			if(isChangeName) {
+				Tools.renameTo(Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath), Tools.getBlogPath(Tools.getProjectPath(), blogPath) );
 			}
-		}
+			BlogManager.reviseBlog(newBlog);
+			respMsg = new ResponseMsg(Constants.respSucc, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
+//		}
 		
 		req.setAttribute(Constants.result, respMsg);
 	}
