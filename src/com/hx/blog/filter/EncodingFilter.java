@@ -32,22 +32,21 @@ public class EncodingFilter implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain fc) throws IOException, ServletException {
-		// set default param
-		Enumeration<String> paramNames = req.getParameterNames();
-		while(paramNames.hasMoreElements() ) {
-			String paramName = paramNames.nextElement();
-			req.setAttribute(paramName, req.getParameter(paramName) );
-		}
-		
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain fc) throws IOException, ServletException {		
 		if(! ("get".equalsIgnoreCase(((HttpServletRequest) req).getMethod())) ) {
+			// set default param
+			Enumeration<String> paramNames = req.getParameterNames();
+			while(paramNames.hasMoreElements() ) {
+				String paramName = paramNames.nextElement();
+				req.setAttribute(paramName, req.getParameter(paramName) );
+			}			
 			fc.doFilter(req, resp);
 			return ;
 		}
 		try {
 			// update encoding
 			if(( !Tools.isEmpty(encodingInClient)) && (! Tools.isEmpty(decodingInServer)) ) {
-				paramNames = req.getParameterNames();
+				Enumeration<String> paramNames = req.getParameterNames();
 				while(paramNames.hasMoreElements() ) {
 					String paramName = paramNames.nextElement();
 					req.setAttribute(paramName, new String(req.getParameter(paramName).getBytes(decodingInServer), encodingInClient) );

@@ -49,7 +49,7 @@ public class BlogReviseAction extends BaseAction {
 //			Date now = new Date();
 //			String createTime = Constants.createDateFormat.format(now );
 			String blogPath = Tools.getBlogFileName(Tools.getDateFromBlogFileName(blogInServer.getPath()), title);	
-			newBlog.set(id, Tools.replaceCommentBody(title, Constants.scriptCharacterMap), blogPath, tags, null);
+			newBlog.set(id, title, blogPath, tags, null);
 			
 			Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), oldBlogPath) );			
 			if(isChangeName) {

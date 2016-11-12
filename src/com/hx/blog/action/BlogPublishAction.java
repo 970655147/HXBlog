@@ -1,22 +1,25 @@
 package com.hx.blog.action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.Response;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attribute;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import com.hx.blog.bean.Blog;
 import com.hx.blog.bean.ResponseMsg;
-import com.hx.blog.bean.ValidateResult;
 import com.hx.blog.business.BlogManager;
 import com.hx.blog.interf.BaseAction;
-import com.hx.blog.interf.Validater;
 import com.hx.blog.util.Constants;
 import com.hx.blog.util.Tools;
 
@@ -41,11 +44,14 @@ public class BlogPublishAction extends BaseAction {
 			String tags = (String) req.getAttribute(Constants.tags);
 			String content = (String) req.getAttribute(Constants.content);
 			
+			// 预处理content
+			content = prepareContent(content);
+			
 			Date now = new Date();
 			String createTime = Constants.createDateFormat.format(now );
 			String blogName = Tools.getBlogFileName(Constants.dateFormat.format(now), title);
 			
-			Blog newBlog = new Blog(BlogManager.nextBlogId(), Tools.replaceCommentBody(title, Constants.scriptCharacterMap), blogName, tags, createTime, new AtomicInteger(0), new AtomicInteger(0), new AtomicInteger(0), new AtomicInteger(0) );
+			Blog newBlog = new Blog(BlogManager.nextBlogId(), title, blogName, tags, createTime, new AtomicInteger(0), new AtomicInteger(0), new AtomicInteger(0), new AtomicInteger(0) );
 			Tools.save(content, Tools.getBlogPath(Tools.getProjectPath(), blogName) );
 			BlogManager.publishBlog(newBlog);
 			ResponseMsg respMsg = new ResponseMsg(Constants.respSucc, Constants.defaultResponseCode, Tools.getPostSuccMsg(newBlog), null);
@@ -81,5 +87,69 @@ public class BlogPublishAction extends BaseAction {
 //			}
 //		};
 //	}
-				
+	
+	/**
+	 * @Name: prepareContent 
+	 * @Description: 预处理content
+	 *  1. 去掉script
+	 *  2. 去掉a.href, iframe.src
+	 *  3. 去掉各个事件
+	 *  因为html大小写不敏感, 因此这里统一以小写作为标准进行比较[toLowerCase]
+	 * @param content
+	 * @return  
+	 * @Create at 2016-11-12 13:11:36 by '970655147'
+	 */
+	private String prepareContent(String content) {
+		Document doc = Jsoup.parse(content);
+		prepareContent0(doc);
+		return doc.toString();
+	}
+	
+	// prepareContent0
+	private void prepareContent0(Element ele) {
+		String lowerTagName = ele.tagName().toLowerCase();
+		if(Constants.sensetiveTags.contains(lowerTagName) ) {
+			ele.remove();
+			return ;
+		}
+		
+		// remove specified tag's specified attribute if that contains sensetiveWords
+		if(Constants.sensetiveTag2Attr.containsKey(lowerTagName) ) {
+			Map<String, List<String>> attr2SensetiveWords = Constants.sensetiveTag2Attr.get(lowerTagName);
+			// remove all sensetiveAttrs
+			Iterator<Attribute> attrIts = ele.attributes().iterator();
+			while(attrIts.hasNext() ) {
+				Attribute attr = attrIts.next();
+				String lowerAttrKey = attr.getKey().toLowerCase();
+				// href = "javascript:alert(1)"
+				if(attr2SensetiveWords.containsKey(lowerAttrKey) ) {
+					String lowerAttrValue = attr.getValue().toLowerCase();
+					for(String sensetiveWord : attr2SensetiveWords.get(lowerAttrKey) ) {
+						if(lowerAttrValue.contains(sensetiveWord) ) {
+							ele.removeAttr(attr.getKey() );
+							break ;
+						}
+					}
+				}
+			}
+		}
+		// remove all sensetiveAttrs
+		Iterator<Attribute> attrIts = ele.attributes().iterator();
+		while(attrIts.hasNext() ) {
+			Attribute attr = attrIts.next();
+			if(Constants.sensetiveAttrs.contains(attr.getKey().toLowerCase()) ) {
+				ele.removeAttr(attr.getKey() );
+			}
+		}
+		
+		for(Element child : ele.children() ) {
+			prepareContent0(child);
+		}
+		// there must be an "#root" node
+//		Element nextSib = ele.nextElementSibling();
+//		if(nextSib != null) {
+//			prepareContent0(nextSib);
+//		}
+	}
+	
 }

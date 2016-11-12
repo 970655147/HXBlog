@@ -107,6 +107,14 @@
   // 因为有了 InitAndCheckUpdateListener, 所以 这个InitBlogListFilter似乎没有使用的余地了
   -->
   <!-- ==========================- filter ======================================== -->  
+  <filter>
+      <filter-name>xssFilter</filter-name>
+      <filter-class>com.hx.blog.filter.XSSFilter</filter-class>
+      <init-param>
+      	<param-name>excludeUrls</param-name>
+      	<param-value>/action/blogPublishAction, /action/blogReviseAction</param-value>
+      </init-param>
+  </filter>        
   <!-- 请注意, 某些编码解码的组合 可能导致数据的不可逆"丢失" -->
   <!-- filter 拦截资源是按照 filter-mapping 配置节出现的顺序来依次调用 doFilter() 方法的。 -->
   <filter>
@@ -124,6 +132,10 @@
       
   <!-- ==========================- sep ======================================== -->      
       
+  <filter-mapping>
+ 	 <filter-name>xssFilter</filter-name>
+     <url-pattern>/action/*</url-pattern>
+  </filter-mapping>          
   <filter-mapping>
  	 <filter-name>encodingFilter</filter-name>
      <url-pattern>/action/*</url-pattern>

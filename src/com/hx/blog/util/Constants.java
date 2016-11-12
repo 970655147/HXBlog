@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -261,5 +262,24 @@ public final class Constants {
 	public final static String result = "result";
 	public final static String blog = "blog";
 	public final static String oldBlog = "oldBlog";
+	
+	// 需要移除的标签		add at 2016.11.12
+	public final static Set<String> sensetiveTags = new HashSet<>();
+	static {
+		sensetiveTags.add("script");
+		sensetiveTags.add("iframe");
+	}
+	// 敏感的{tag -> {attr -> senseWords, .. }, .. }
+	// 默认的关键字检测 : "javascript"
+	public final static String javascript = "javascript";
+	public final static Map<String, Map<String, List<String>>> sensetiveTag2Attr = new HashMap<>();
+	static {
+		sensetiveTag2Attr.put("a", new JSONObject().element("href", Arrays.asList(javascript)) );
+		sensetiveTag2Attr.put("iframe", new JSONObject().element("src", Arrays.asList("")) );
+	}
+	
+	// 敏感的attr
+	public final static List<String> sensetiveAttrs = Arrays.asList("onclick","oncontextmenu","ondblclick","onmousedown","onmouseenter","onmouseleave","onmousemove","onmouseover","onmouseout","onmouseup","onkeydown","onkeypress","onkeyup","onabort","onbeforeunload","onerror","onhashchange","onload","onpageshow","onpagehide","onresize","onscroll","onunload","onblur","onchange","onfocus","onfocusin","onfocusout","oninput","onreset","onsearch","onselect","onsubmit","oncopy","oncut","onpaste","onafterprint","onbeforeprint","ondrag","ondragend","ondragenter","ondragleave","ondragover","ondragstart","ondrop","onabort","oncanplay","oncanplaythrough","ondurationchange","onemptied","onended","onerror","onloadeddata","onloadedmetadata","onloadstart","onpause","onplay","onplaying","onprogress","onratechange","onseeked","onseeking","onstalled","onsuspend","ontimeupdate","onvolumechange","onwaiting","onmessage","onmousewheel","ononline","onoffline","onpopstate","onshow","onstorage","ontoggle","onwheel");
+
 	
 }

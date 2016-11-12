@@ -54,7 +54,7 @@ public class BlogCommentAction extends BaseAction {
 //		if(vRes.isSucc) {
 			UserInfo userInfo = (UserInfo) req.getAttribute(Constants.userInfo);
 			req.getSession().setAttribute(Constants.preferInfo, userInfo);
-			comment = new Comment(blogIdx, floorIdx, Constants.defaultCommentIdx, userInfo, Constants.createDateFormat.format(new Date()), to, Tools.replaceCommentBody(commentBody, Constants.scriptCharacterMap) );
+			comment = new Comment(blogIdx, floorIdx, Constants.defaultCommentIdx, userInfo, Constants.createDateFormat.format(new Date()), to, commentBody);
 			try {
 				CommentManager.addComment(blogIdx, comment);
 				
