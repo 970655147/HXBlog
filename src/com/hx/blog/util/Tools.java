@@ -38,6 +38,11 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Attribute;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
 import com.hx.blog.bean.Blog;
 import com.hx.blog.bean.CheckCode;
 import com.hx.blog.bean.Comment;
@@ -1380,5 +1385,70 @@ public final class Tools {
 			assert0("assert0Exception : " + String.valueOf(val) + " " + symbol + " " + String.valueOf(expect) + ", expected : " + String.valueOf(expect) + ", MSG : " + errorMsg );
 		}
 	}
+	
+	/**
+	 * @Name: prepareContent 
+	 * @Description: 预处理content
+	 *  1. 去掉script
+	 *  2. 去掉a.href, iframe.src
+	 *  3. 去掉各个事件
+	 *  因为html大小写不敏感, 因此这里统一以小写作为标准进行比较[toLowerCase]
+	 * @param content
+	 * @return  
+	 * @Create at 2016-11-12 13:11:36 by '970655147'
+	 */
+	public static String prepareContent(String content) {
+		Document doc = Jsoup.parse(content);
+		prepareContent0(doc);
+		return doc.toString();
+	}
+	
+	// prepareContent0
+	private static void prepareContent0(Element ele) {
+		String lowerTagName = ele.tagName().toLowerCase();
+		if(Constants.sensetiveTags.contains(lowerTagName) ) {
+			ele.remove();
+			return ;
+		}
+		
+		// remove specified tag's specified attribute if that contains sensetiveWords
+		if(Constants.sensetiveTag2Attr.containsKey(lowerTagName) ) {
+			Map<String, List<String>> attr2SensetiveWords = Constants.sensetiveTag2Attr.get(lowerTagName);
+			// remove all sensetiveAttrs
+			Iterator<Attribute> attrIts = ele.attributes().iterator();
+			while(attrIts.hasNext() ) {
+				Attribute attr = attrIts.next();
+				String lowerAttrKey = attr.getKey().toLowerCase();
+				// href = "javascript:alert(1)"
+				if(attr2SensetiveWords.containsKey(lowerAttrKey) ) {
+					String lowerAttrValue = attr.getValue().toLowerCase();
+					for(String sensetiveWord : attr2SensetiveWords.get(lowerAttrKey) ) {
+						if(lowerAttrValue.contains(sensetiveWord) ) {
+							ele.removeAttr(attr.getKey() );
+							break ;
+						}
+					}
+				}
+			}
+		}
+		// remove all sensetiveAttrs
+		Iterator<Attribute> attrIts = ele.attributes().iterator();
+		while(attrIts.hasNext() ) {
+			Attribute attr = attrIts.next();
+			if(Constants.sensetiveAttrs.contains(attr.getKey().toLowerCase()) ) {
+				ele.removeAttr(attr.getKey() );
+			}
+		}
+		
+		for(Element child : ele.children() ) {
+			prepareContent0(child);
+		}
+		// there must be an "#root" node
+//		Element nextSib = ele.nextElementSibling();
+//		if(nextSib != null) {
+//			prepareContent0(nextSib);
+//		}
+	}
+	
 	
 }

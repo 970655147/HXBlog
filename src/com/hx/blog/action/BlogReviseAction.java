@@ -38,6 +38,9 @@ public class BlogReviseAction extends BaseAction {
 		String title = (String) req.getAttribute(Constants.title);
 		String tags = (String) req.getAttribute(Constants.tags);
 		String content = (String) req.getAttribute(Constants.content);
+		
+		// ‘§¥¶¿Ìcontent
+		content = Tools.prepareContent(content);
 //		ValidateResult vRes = validater.validate(req, respMsg, id, title, tags, content);
 //		if(vRes.isSucc) {
 //			Blog blogInServer = (Blog) vRes.attachments[0];
