@@ -104,7 +104,7 @@
 	var HTML = ".html"
 	var tagSep = ","
 	var maxTagNum = 10
-	var maxTagLength = 10
+	var maxTagLength = 20
 	var specCharReg = "[!-/ | :-@ | {-~ | \\[ /\\]^¡ª¡¢]"
 //	var haveNoPrevBlogIdx = -1
 //	var haveNoNextBlogIdx = -2

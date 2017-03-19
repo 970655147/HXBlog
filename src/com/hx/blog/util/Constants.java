@@ -233,7 +233,7 @@ public final class Constants {
 	// 日志需要记录的blog的内容的长度
 	public final static int logBlogContentMaxLength = 100;
 	public final static int blogPerPage = 20;
-	public final static int maxTagLength = 10;
+	public final static int maxTagLength = 20;
 	public final static int maxTagSize = 10;
 	
 	// 默认的ValidateResult
