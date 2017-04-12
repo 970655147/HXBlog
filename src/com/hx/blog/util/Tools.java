@@ -137,22 +137,22 @@ public final class Tools {
 		TMP_IDX = new AtomicInteger(idx );
 	}
 	public static String getNextTmpPath() {
-		return TMP_DIR + "\\" + getNextTmpName();
+		return TMP_DIR + "/" + getNextTmpName();
 	}
 	public static String getNextLogTmpPath() {
-		return LOG_TMP_DIR + "\\" + getNextLogTmpName();
+		return LOG_TMP_DIR + "/" + getNextLogTmpName();
 	}
 	public static String getNextTmpPath(String suffix) {
-		return TMP_DIR + "\\" + getNextTmpName(suffix);
+		return TMP_DIR + "/" + getNextTmpName(suffix);
 	}
 	public static String getNextTmpPath(String fileName, String suffix) {
-		return TMP_DIR + "\\" + fileName + suffix;
+		return TMP_DIR + "/" + fileName + suffix;
 	}
 	public static String getTmpPath(int idx) {
-		return TMP_DIR + "\\" + TMP_NAME + idx + SUFFIX;
+		return TMP_DIR + "/" + TMP_NAME + idx + SUFFIX;
 	}
 	public static String getTmpPath(int idx, String suffix) {
-		return TMP_DIR + "\\" + TMP_NAME + idx + suffix;
+		return TMP_DIR + "/" + TMP_NAME + idx + suffix;
 	}
 	
 	// 获取临时文件的下一个索引[生成文件名称]

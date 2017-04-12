@@ -2,11 +2,509 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5045a6d7-88b2-455e-86cf-4250b14f19ae" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/fonts/glyphiconshalflings-regular.eot" afterPath="$PROJECT_DIR$/WebRoot/css/fonts/glyphiconshalflings-regular.eot" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/fonts/glyphiconshalflings-regular.otf" afterPath="$PROJECT_DIR$/WebRoot/css/fonts/glyphiconshalflings-regular.otf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/fonts/glyphiconshalflings-regular.ttf" afterPath="$PROJECT_DIR$/WebRoot/css/fonts/glyphiconshalflings-regular.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/fonts/glyphiconshalflings-regular.woff" afterPath="$PROJECT_DIR$/WebRoot/css/fonts/glyphiconshalflings-regular.woff" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/icons/ajax-loader.gif" afterPath="$PROJECT_DIR$/WebRoot/icons/ajax-loader.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/icons/apple-touch-icon.png" afterPath="$PROJECT_DIR$/WebRoot/icons/apple-touch-icon.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/icons/down.png" afterPath="$PROJECT_DIR$/WebRoot/icons/down.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/icons/favicon.ico" afterPath="$PROJECT_DIR$/WebRoot/icons/favicon.ico" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/icons/header_bg.gif" afterPath="$PROJECT_DIR$/WebRoot/icons/header_bg.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/icons/up.png" afterPath="$PROJECT_DIR$/WebRoot/icons/up.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a0.png" afterPath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a0.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a1.png" afterPath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a2.png" afterPath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a3.png" afterPath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a4.png" afterPath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a5.png" afterPath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a5.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a6.png" afterPath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a6.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a7.png" afterPath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a7.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a8.png" afterPath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a8.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a9.png" afterPath="$PROJECT_DIR$/WebRoot/images/avatar/btn_avatar_a9.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/header/clock.gif" afterPath="$PROJECT_DIR$/WebRoot/images/header/clock.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/header/elephant.gif" afterPath="$PROJECT_DIR$/WebRoot/images/header/elephant.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/header/matrixIterate.gif" afterPath="$PROJECT_DIR$/WebRoot/images/header/matrixIterate.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/login/banner.jpg" afterPath="$PROJECT_DIR$/WebRoot/images/login/banner.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/login/email.png" afterPath="$PROJECT_DIR$/WebRoot/images/login/email.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/login/head-img.png" afterPath="$PROJECT_DIR$/WebRoot/images/login/head-img.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/login/lock.png" afterPath="$PROJECT_DIR$/WebRoot/images/login/lock.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/login/sprite.png" afterPath="$PROJECT_DIR$/WebRoot/images/login/sprite.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/login/tick.png" afterPath="$PROJECT_DIR$/WebRoot/images/login/tick.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/post/comment.png" afterPath="$PROJECT_DIR$/WebRoot/images/post/comment.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/post/digg_bg.gif" afterPath="$PROJECT_DIR$/WebRoot/images/post/digg_bg.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/post/good.png" afterPath="$PROJECT_DIR$/WebRoot/images/post/good.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/post/notGood.png" afterPath="$PROJECT_DIR$/WebRoot/images/post/notGood.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/post/tit_bg.jpg" afterPath="$PROJECT_DIR$/WebRoot/images/post/tit_bg.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/images/post/visited.png" afterPath="$PROJECT_DIR$/WebRoot/images/post/visited.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_chm.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_chm.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_default.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_default.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_doc.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_doc.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_exe.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_exe.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_jpg.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_jpg.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_mp3.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_mp3.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_mv.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_mv.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_pdf.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_pdf.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_ppt.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_ppt.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_psd.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_psd.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_rar.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_rar.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_txt.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_txt.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_xls.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/fileTypeImages/icon_xls.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/alignicon.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/alignicon.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/alignicon.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/alignicon.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/bg.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/bg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/file-icons.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/file-icons.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/file-icons.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/file-icons.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/icons.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/icons.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/icons.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/icons.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/image.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/image.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/progress.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/progress.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/success.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/success.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/success.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/images/success.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/background/images/bg.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/background/images/bg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/background/images/success.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/background/images/success.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts0.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts0.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts1.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts2.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts3.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts4.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts5.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/images/charts5.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/0.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/0.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/bface.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/bface.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/cface.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/cface.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/fface.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/fface.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/jxface2.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/jxface2.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/neweditor-tab-bg.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/neweditor-tab-bg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/tface.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/tface.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/wface.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/wface.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/yface.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/images/yface.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/alignicon.jpg" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/alignicon.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/bg.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/bg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/icons.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/icons.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/icons.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/icons.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/image.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/image.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/progress.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/progress.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/success.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/success.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/success.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/images/success.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/addimg.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/addimg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/brush.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/brush.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/delimg.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/delimg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/delimgH.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/delimgH.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/empty.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/empty.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/emptyH.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/emptyH.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/eraser.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/eraser.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/redo.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/redo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/redoH.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/redoH.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/scale.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/scale.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/scaleH.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/scaleH.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/size.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/size.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/undo.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/undo.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/undoH.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/images/undoH.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/dragicon.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/dragicon.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/bg.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/bg.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/pre0.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/pre0.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/pre1.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/pre1.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/pre2.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/pre2.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/pre3.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/pre3.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/pre4.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/images/pre4.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/bg.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/bg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/center_focus.jpg" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/center_focus.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/file-icons.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/file-icons.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/file-icons.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/file-icons.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/icons.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/icons.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/icons.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/icons.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/image.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/image.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/left_focus.jpg" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/left_focus.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/none_focus.jpg" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/none_focus.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/progress.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/progress.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/right_focus.jpg" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/right_focus.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/success.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/success.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/success.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/images/success.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/wordimage/fClipboard_ueditor.swf" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/wordimage/fClipboard_ueditor.swf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/wordimage/imageUploader.swf" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/wordimage/imageUploader.swf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/addimage.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/addimage.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/alldeletebtnhoverskin.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/alldeletebtnhoverskin.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/alldeletebtnupskin.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/alldeletebtnupskin.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/background.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/background.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/button.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/button.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/copy.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/copy.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/deletedisable.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/deletedisable.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/deleteenable.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/deleteenable.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/listbackground.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/listbackground.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/localimage.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/localimage.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/music.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/music.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/rotateleftdisable.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/rotateleftdisable.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/rotateleftenable.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/rotateleftenable.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/rotaterightdisable.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/rotaterightdisable.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/rotaterightenable.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/rotaterightenable.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/upload.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/images/upload.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/zh-cn/images/copy.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/zh-cn/images/copy.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/zh-cn/images/localimage.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/zh-cn/images/localimage.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/zh-cn/images/music.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/zh-cn/images/music.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/zh-cn/images/upload.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/zh-cn/images/upload.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/anchor.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/anchor.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/arrow.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/arrow.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/arrow_down.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/arrow_down.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/arrow_up.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/arrow_up.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/button-bg.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/button-bg.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/cancelbutton.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/cancelbutton.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/charts.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/charts.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/cursor_h.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/cursor_h.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/cursor_h.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/cursor_h.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/cursor_v.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/cursor_v.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/cursor_v.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/cursor_v.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/dialog-title-bg.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/dialog-title-bg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/filescan.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/filescan.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/highlighted.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/highlighted.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/icons-all.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/icons-all.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/icons.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/icons.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/icons.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/icons.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/loaderror.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/loaderror.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/loading.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/loading.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/lock.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/lock.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/neweditor-tab-bg.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/neweditor-tab-bg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/pagebreak.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/pagebreak.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/scale.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/scale.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/sortable.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/sortable.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/spacer.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/spacer.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/sparator_v.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/sparator_v.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/table-cell-align.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/table-cell-align.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/tangram-colorpicker.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/tangram-colorpicker.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/toolbar_bg.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/toolbar_bg.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/unhighlighted.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/unhighlighted.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/upload.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/upload.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/videologo.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/videologo.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/word.gif" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/word.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/wordpaste.png" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/images/wordpaste.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/snapscreen/UEditorSnapscreen.exe" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/snapscreen/UEditorSnapscreen.exe" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/font/vjs.eot" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/font/vjs.eot" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/font/vjs.ttf" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/font/vjs.ttf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/font/vjs.woff" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/font/vjs.woff" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/video-js.swf" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/video-js.swf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/Uploader.swf" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/Uploader.swf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/zeroclipboard/ZeroClipboard.swf" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/zeroclipboard/ZeroClipboard.swf" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/files/20151115/1447576877562052584.png" afterPath="$PROJECT_DIR$/WebRoot/upload/files/20151115/1447576877562052584.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447042338326077034.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447042338326077034.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447042403187090809.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447042403187090809.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447042462572002492.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447042462572002492.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447042817775005730.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447042817775005730.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447046778003050523.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447046778003050523.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447058700304053306.jpg" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447058700304053306.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447058755662094500.jpg" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447058755662094500.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447059741310055124.jpg" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151109/1447059741310055124.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151110/1447158599760001729.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151110/1447158599760001729.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447579839673007037.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447579839673007037.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447585262329021083.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447585262329021083.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447587530545089243.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447587530545089243.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447589042003099897.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447589042003099897.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447589110787099693.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447589110787099693.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595996402046301.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595996402046301.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595996628035512.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595996628035512.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595996741049079.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595996741049079.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595996827073608.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595996827073608.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595996909063473.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595996909063473.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595997012031391.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595997012031391.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595997125055109.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595997125055109.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595997259071512.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151115/1447595997259071512.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289364605073804.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289364605073804.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289365017014902.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289365017014902.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289365402057490.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289365402057490.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289783415011183.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289783415011183.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289783820032328.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289783820032328.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289784416004677.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451289784416004677.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451290039314014386.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451290039314014386.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451290040156083707.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451290040156083707.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451290040809011840.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20151228/1451290040809011840.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242510538035578.jpg" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242510538035578.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242555233002367.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242555233002367.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242651606073924.jpg" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242651606073924.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242684738064872.jpg" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242684738064872.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242694176008855.bmp" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242694176008855.bmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242716711077863.bmp" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242716711077863.bmp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242989056083964.jpg" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242989056083964.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242997139025829.jpg" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454242997139025829.jpg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243091668004340.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243091668004340.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243098783017886.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243098783017886.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243106767030417.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243106767030417.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243116844075723.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243116844075723.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243129597056957.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243129597056957.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243137234028754.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243137234028754.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243145167013032.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243145167013032.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243154432022106.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243154432022106.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243164386012307.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243164386012307.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243316435006832.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243316435006832.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243339549042027.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243339549042027.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243435322061174.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243435322061174.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243457799003810.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243457799003810.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243476104086649.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243476104086649.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243495461009664.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243495461009664.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243508820033454.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454243508820033454.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245510646092638.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245510646092638.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245521255035891.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245521255035891.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245531015013071.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245531015013071.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245544332080449.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245544332080449.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245561984028610.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245561984028610.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245577343086689.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245577343086689.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245585441049024.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245585441049024.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245594845054195.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245594845054195.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245607123015274.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245607123015274.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245617849017682.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245617849017682.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245633069026382.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245633069026382.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245689750056682.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245689750056682.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245701699087377.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245701699087377.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245707628026290.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160131/1454245707628026290.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160501/1462080403468023042.gif" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160501/1462080403468023042.gif" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160501/1462080424105081032.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160501/1462080424105081032.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/image/20160501/1462080502409011499.png" afterPath="$PROJECT_DIR$/WebRoot/upload/image/20160501/1462080502409011499.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readMeRes/1st_clone.png" afterPath="$PROJECT_DIR$/readMeRes/1st_clone.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readMeRes/2nd_downloadJars.png" afterPath="$PROJECT_DIR$/readMeRes/2nd_downloadJars.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readMeRes/3rd_confEnvEnd.png" afterPath="$PROJECT_DIR$/readMeRes/3rd_confEnvEnd.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readMeRes/3rd_confEnvStart.png" afterPath="$PROJECT_DIR$/readMeRes/3rd_confEnvStart.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readMeRes/4th_deploy.png" afterPath="$PROJECT_DIR$/readMeRes/4th_deploy.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readMeRes/4th_startServer.png" afterPath="$PROJECT_DIR$/readMeRes/4th_startServer.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readMeRes/5th_visit.png" afterPath="$PROJECT_DIR$/readMeRes/5th_visit.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/config/HXBlog.db" afterPath="$PROJECT_DIR$/src/com/hx/blog/config/HXBlog.db" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.classpath" afterPath="$PROJECT_DIR$/.classpath" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.project" afterPath="$PROJECT_DIR$/.project" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/.jsdtscope" afterPath="$PROJECT_DIR$/.settings/.jsdtscope" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" afterPath="$PROJECT_DIR$/.settings/org.eclipse.core.resources.prefs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/.settings/org.eclipse.jdt.core.prefs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.component" afterPath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.component" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.project.facet.core.xml" afterPath="$PROJECT_DIR$/.settings/org.eclipse.wst.common.project.facet.core.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.jsdt.ui.superType.container" afterPath="$PROJECT_DIR$/.settings/org.eclipse.wst.jsdt.ui.superType.container" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.settings/org.eclipse.wst.jsdt.ui.superType.name" afterPath="$PROJECT_DIR$/.settings/org.eclipse.wst.jsdt.ui.superType.name" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/HXBlog.iml" afterPath="$PROJECT_DIR$/HXBlog.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/META-INF/MANIFEST.MF" afterPath="$PROJECT_DIR$/WebRoot/META-INF/MANIFEST.MF" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/Test01Augularjs.html" afterPath="$PROJECT_DIR$/WebRoot/Test01Augularjs.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/Test02Index.html" afterPath="$PROJECT_DIR$/WebRoot/Test02Index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/Test03NgView.html" afterPath="$PROJECT_DIR$/WebRoot/Test03NgView.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/.gitignore" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/log/log0.log" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/log/log0.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2015-12-25_21-56-41-604__dateBlogSep__java锁的种类以及辨析(一) 自旋锁.html" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2015-12-25_21-56-41-604__dateBlogSep__java锁的种类以及辨析(一) 自旋锁.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2015-12-25_21-58-01-365__dateBlogSep__Java锁的种类以及辨析(二) 自旋锁的其他种类.html" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2015-12-25_21-58-01-365__dateBlogSep__Java锁的种类以及辨析(二) 自旋锁的其他种类.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2015-12-25_21-58-47-476__dateBlogSep__Java锁的种类以及辨析(三) 阻塞锁.html" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2015-12-25_21-58-47-476__dateBlogSep__Java锁的种类以及辨析(三) 阻塞锁.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2015-12-25_21-59-38-367__dateBlogSep__Java锁的种类以及辨析(四) 可重入锁.html" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2015-12-25_21-59-38-367__dateBlogSep__Java锁的种类以及辨析(四) 可重入锁.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2015-12-28_16-02-12-202__dateBlogSep__eclipse C &amp; CPP编译含有多个main函数的项目.html" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2015-12-28_16-02-12-202__dateBlogSep__eclipse C &amp; CPP编译含有多个main函数的项目.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2016-01-31_20-12-12-282__dateBlogSep__自动机字符串匹配.html" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2016-01-31_20-12-12-282__dateBlogSep__自动机字符串匹配.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2016-01-31_20-33-32-863__dateBlogSep__KMP 算法.html" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2016-01-31_20-33-32-863__dateBlogSep__KMP 算法.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2016-01-31_21-10-18-950__dateBlogSep__Boyer-Moore 算法.html" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/post/2016-01-31_21-10-18-950__dateBlogSep__Boyer-Moore 算法.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/WEB-INF/web.xml" afterPath="$PROJECT_DIR$/WebRoot/WEB-INF/web.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/default.css" afterPath="$PROJECT_DIR$/WebRoot/css/default.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/fonts/glyphiconshalflings-regular.svg" afterPath="$PROJECT_DIR$/WebRoot/css/fonts/glyphiconshalflings-regular.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/lib/bootstrap-glyphicons.css" afterPath="$PROJECT_DIR$/WebRoot/css/lib/bootstrap-glyphicons.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/lib/bootstrap.min.css" afterPath="$PROJECT_DIR$/WebRoot/css/lib/bootstrap.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/lib/bootstrap.model.min.css" afterPath="$PROJECT_DIR$/WebRoot/css/lib/bootstrap.model.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/login.css" afterPath="$PROJECT_DIR$/WebRoot/css/login.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/loginFonts.css" afterPath="$PROJECT_DIR$/WebRoot/css/loginFonts.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/resume.css" afterPath="$PROJECT_DIR$/WebRoot/css/resume.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/css/style.css" afterPath="$PROJECT_DIR$/WebRoot/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/index.html" afterPath="$PROJECT_DIR$/WebRoot/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/action/BlogCommentAction.java" afterPath="$PROJECT_DIR$/src/com/hx/action/BlogCommentAction.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/business/BlogManager.java" afterPath="$PROJECT_DIR$/src/com/hx/business/BlogManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/util/Constants.java" afterPath="$PROJECT_DIR$/src/com/hx/util/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/util/Tools.java" afterPath="$PROJECT_DIR$/src/com/hx/util/Tools.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/index.jsp" afterPath="$PROJECT_DIR$/WebRoot/index.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/blogEditor.js" afterPath="$PROJECT_DIR$/WebRoot/js/blogEditor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/common.js" afterPath="$PROJECT_DIR$/WebRoot/js/common.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/constants.js" afterPath="$PROJECT_DIR$/WebRoot/js/constants.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/lib/angular-route.min.js" afterPath="$PROJECT_DIR$/WebRoot/js/lib/angular-route.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/lib/angular-sanitize.min.js" afterPath="$PROJECT_DIR$/WebRoot/js/lib/angular-sanitize.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/lib/angular.min.js" afterPath="$PROJECT_DIR$/WebRoot/js/lib/angular.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/lib/bootstrap.min.js" afterPath="$PROJECT_DIR$/WebRoot/js/lib/bootstrap.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/lib/highlight.pack.js" afterPath="$PROJECT_DIR$/WebRoot/js/lib/highlight.pack.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/lib/jquery-2.0.0.min.js" afterPath="$PROJECT_DIR$/WebRoot/js/lib/jquery-2.0.0.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/lib/jquery-2.1.1.min.js" afterPath="$PROJECT_DIR$/WebRoot/js/lib/jquery-2.1.1.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/lib/md5.js" afterPath="$PROJECT_DIR$/WebRoot/js/lib/md5.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/lib/showdown.js" afterPath="$PROJECT_DIR$/WebRoot/js/lib/showdown.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/js/login.js" afterPath="$PROJECT_DIR$/WebRoot/js/login.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/login.html" afterPath="$PROJECT_DIR$/WebRoot/login.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/partials/blogList.html" afterPath="$PROJECT_DIR$/WebRoot/partials/blogList.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/partials/post.html" afterPath="$PROJECT_DIR$/WebRoot/partials/post.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/partials/publishBlog.html" afterPath="$PROJECT_DIR$/WebRoot/partials/publishBlog.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/partials/resume.html" afterPath="$PROJECT_DIR$/WebRoot/partials/resume.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/anchor/anchor.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/anchor/anchor.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/attachment.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/attachment.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/attachment.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/attachment.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/attachment.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/attachment/attachment.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/background/background.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/background/background.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/background/background.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/background/background.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/background/background.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/background/background.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/chart.config.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/chart.config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/charts.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/charts.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/charts.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/charts.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/charts.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/charts/charts.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/emotion.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/emotion.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/emotion.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/emotion.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/emotion.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/emotion/emotion.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/gmap/gmap.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/gmap/gmap.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/help/help.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/help/help.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/help/help.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/help/help.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/help/help.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/help/help.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/image.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/image.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/image.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/image.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/image.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/image/image.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/insertframe/insertframe.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/insertframe/insertframe.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/internal.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/internal.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/link/link.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/link/link.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/map/map.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/map/map.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/map/show.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/map/show.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/music/music.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/music/music.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/music/music.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/music/music.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/music/music.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/music/music.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/preview/preview.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/preview/preview.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/scrawl.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/scrawl.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/scrawl.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/scrawl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/scrawl.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/scrawl/scrawl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/searchreplace/searchreplace.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/searchreplace/searchreplace.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/searchreplace/searchreplace.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/searchreplace/searchreplace.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/snapscreen/snapscreen.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/snapscreen/snapscreen.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/spechars/spechars.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/spechars/spechars.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/spechars/spechars.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/spechars/spechars.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/edittable.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/edittable.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/edittable.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/edittable.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/edittable.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/edittable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/edittd.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/edittd.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/edittip.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/table/edittip.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/config.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/template.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/template.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/template.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/template.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/template.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/template/template.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/video.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/video.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/video.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/video.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/video.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/video/video.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/webapp/webapp.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/webapp/webapp.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/wordimage/tangram.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/wordimage/tangram.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/wordimage/wordimage.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/wordimage/wordimage.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/wordimage/wordimage.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/dialogs/wordimage/wordimage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/index.html" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/jsp/config.json" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/jsp/config.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/jsp/controller.jsp" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/jsp/controller.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/en.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/en/en.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/zh-cn/zh-cn.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/lang/zh-cn/zh-cn.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/css/ueditor.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/css/ueditor.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/css/ueditor.min.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/css/ueditor.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/dialogbase.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/default/dialogbase.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/iframe.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/themes/iframe.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/SyntaxHighlighter/shCore.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/SyntaxHighlighter/shCore.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/SyntaxHighlighter/shCoreDefault.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/SyntaxHighlighter/shCoreDefault.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/codemirror/codemirror.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/codemirror/codemirror.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/codemirror/codemirror.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/codemirror/codemirror.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/mootools-adapter.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/mootools-adapter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/mootools-adapter.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/mootools-adapter.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/prototype-adapter.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/prototype-adapter.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/prototype-adapter.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/prototype-adapter.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/standalone-framework.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/standalone-framework.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/standalone-framework.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/adapters/standalone-framework.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/highcharts-more.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/highcharts-more.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/highcharts-more.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/highcharts-more.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/highcharts.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/highcharts.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/highcharts.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/highcharts.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/annotations.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/annotations.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/annotations.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/annotations.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/canvas-tools.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/canvas-tools.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/canvas-tools.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/canvas-tools.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/data.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/data.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/data.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/data.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/drilldown.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/drilldown.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/drilldown.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/drilldown.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/exporting.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/exporting.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/exporting.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/exporting.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/funnel.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/funnel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/funnel.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/funnel.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/heatmap.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/heatmap.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/heatmap.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/heatmap.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/map.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/map.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/map.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/map.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/no-data-to-display.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/no-data-to-display.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/no-data-to-display.src.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/modules/no-data-to-display.src.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/themes/dark-blue.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/themes/dark-blue.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/themes/dark-green.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/themes/dark-green.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/themes/gray.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/themes/gray.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/themes/grid.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/themes/grid.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/themes/skies.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/highcharts/themes/skies.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/jquery-1.10.2.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/jquery-1.10.2.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/jquery-1.10.2.min.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/jquery-1.10.2.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/jquery-1.10.2.min.map" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/jquery-1.10.2.min.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/font/vjs.svg" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/font/vjs.svg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/video-js.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/video-js.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/video-js.min.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/video-js.min.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/video.dev.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/video.dev.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/video.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/video-js/video.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.css" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.custom.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.custom.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.custom.min.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.custom.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.flashonly.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.flashonly.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.flashonly.min.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.flashonly.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.html5only.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.html5only.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.html5only.min.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.html5only.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.min.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.withoutimage.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.withoutimage.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.withoutimage.min.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/webuploader/webuploader.withoutimage.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/zeroclipboard/ZeroClipboard.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/zeroclipboard/ZeroClipboard.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/zeroclipboard/ZeroClipboard.min.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/third-party/zeroclipboard/ZeroClipboard.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/ueditor.all.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/ueditor.all.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/ueditor.all.min.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/ueditor.all.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/ueditor.config.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/ueditor.config.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/ueditor.parse.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/ueditor.parse.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/ueditorLib/ueditor.parse.min.js" afterPath="$PROJECT_DIR$/WebRoot/ueditorLib/ueditor.parse.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WebRoot/upload/files/20151115/1447576819660050268.txt" afterPath="$PROJECT_DIR$/WebRoot/upload/files/20151115/1447576819660050268.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogCheckCodeAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogCheckCodeAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogCommentAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogCommentAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogConfigAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogConfigAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogDeleteAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogDeleteAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogGetAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogGetAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogListAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogListAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogLoginAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogLoginAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogLogoutAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogLogoutAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogPublishAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogPublishAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogResumeAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogResumeAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogReviseAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogReviseAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/action/BlogSenseAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/action/BlogSenseAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/bean/Blog.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/bean/Blog.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/bean/CheckCode.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/bean/CheckCode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/bean/Comment.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/bean/Comment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/bean/CommentEntry.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/bean/CommentEntry.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/bean/ResponseMsg.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/bean/ResponseMsg.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/bean/TagToBlogCnt.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/bean/TagToBlogCnt.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/bean/UserInfo.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/bean/UserInfo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/bean/ValidateResult.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/bean/ValidateResult.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/business/BlogManager.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/business/BlogManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/business/CommentManager.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/business/CommentManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/config/HXBlog.sql" afterPath="$PROJECT_DIR$/src/com/hx/blog/config/HXBlog.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/config/backup.json" afterPath="$PROJECT_DIR$/src/com/hx/blog/config/backup.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/config/config.json" afterPath="$PROJECT_DIR$/src/com/hx/blog/config/config.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/config/note.txt" afterPath="$PROJECT_DIR$/src/com/hx/blog/config/note.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/config/resume.json" afterPath="$PROJECT_DIR$/src/com/hx/blog/config/resume.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogCheckCodeFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogCheckCodeFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogCommentFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogCommentFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogConfigFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogConfigFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogDeleteFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogDeleteFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogGetFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogGetFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogListFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogListFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogLoginFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogLoginFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogLogoutFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogLogoutFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogPublishFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogPublishFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogResumeFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogResumeFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogReviseFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogReviseFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogSenseFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/BlogSenseFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/EncodingFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/EncodingFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/InitAndCheckUpdateListener.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/InitAndCheckUpdateListener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/InitBlogListFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/InitBlogListFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/filter/XSSFilter.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/filter/XSSFilter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/interf/BaseAction.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/interf/BaseAction.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/interf/Validater.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/interf/Validater.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/test/Test01JSONArrayToString.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/test/Test01JSONArrayToString.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/test/Test02PriorityTest.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/test/Test02PriorityTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/test/Test03FileCopy.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/test/Test03FileCopy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/test/Test04SpecCharMatches.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/test/Test04SpecCharMatches.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/test/Test06WindowsAlwaysOn.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/test/Test06WindowsAlwaysOn.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/util/Constants.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/util/Constants.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/util/EncapJSON.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/util/EncapJSON.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/util/Log.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/util/Log.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/hx/blog/util/Tools.java" afterPath="$PROJECT_DIR$/src/com/hx/blog/util/Tools.java" />
     </list>
     <ignored path="HXBlog.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -18,7 +516,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -27,26 +524,50 @@
     <favorites_list name="HXBlog" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf />
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>getConnection</find>
+      <find>\\</find>
+      <find>isLog</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/com/hx/blog/util/Tools.java" />
+        <option value="$PROJECT_DIR$/src/com/hx/blog/action/BlogCheckCodeAction.java" />
+        <option value="$PROJECT_DIR$/src/com/hx/blog/action/BlogDeleteAction.java" />
+        <option value="$PROJECT_DIR$/src/com/hx/blog/action/BlogPublishAction.java" />
+        <option value="$PROJECT_DIR$/src/com/hx/blog/action/BlogSenseAction.java" />
+        <option value="$PROJECT_DIR$/src/com/hx/blog/action/BlogCommentAction.java" />
+        <option value="$PROJECT_DIR$/src/com/hx/blog/action/BlogGetAction.java" />
+        <option value="$PROJECT_DIR$/src/com/hx/blog/action/BlogReviseAction.java" />
+        <option value="$PROJECT_DIR$/src/com/hx/blog/business/BlogManager.java" />
+        <option value="$PROJECT_DIR$/src/com/hx/blog/business/CommentManager.java" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="784" />
-  </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
+    <option name="width" value="1936" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -63,6 +584,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -70,22 +593,181 @@
               <option name="myItemId" value="HXBlog" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HXBlog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HXBlog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HXBlog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HXBlog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HXBlog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="interf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HXBlog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HXBlog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="business" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HXBlog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="HXBlog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blog" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="action" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/WebRoot/WEB-INF/lib/ueditor-1.1.2.jar!/" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
       <module name="" />
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
       <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android App">
+      <module name="" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -111,6 +793,160 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Cold Fusion runner description" factoryName="Cold Fusion" custom_browser="" web_path="">
+      <method />
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="myFilePath" />
+      <option name="GLUE" />
+      <option name="myNameFilter" />
+      <option name="myGeneratedName" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
+      <option name="BCName" value="" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method />
+    </configuration>
+    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
+      <option name="BCName" value="" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="moduleName" value="" />
+      <option name="trusted" value="true" />
+      <method />
+    </configuration>
+    <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list />
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="launchBrowserUrl" value="" />
+      <method />
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
@@ -132,12 +968,114 @@
       <patterns />
       <method />
     </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="HXBlog" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <envs />
+      <method />
+    </configuration>
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
+      <method />
+    </configuration>
+    <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -168,6 +1106,39 @@
       <listeners />
       <method />
     </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
+      <method />
+    </configuration>
+    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
+      <method />
+    </configuration>
+    <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
+      <setting name="showProgressMessages" value="true" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
   </component>
   <component name="SbtLocalSettings">
     <option name="externalProjectsViewState">
@@ -184,35 +1155,50 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1470061169266</updated>
+      <workItem from="1491903916518" duration="2334000" />
     </task>
     <servers />
   </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="2334000" />
+  </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17857143" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -221,30 +1207,381 @@
     <breakpoint-manager />
     <watches-manager />
   </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/hx/action/BlogCommentAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/action/BlogCommentAction.java" />
     <entry file="jar://$PROJECT_DIR$/WebRoot/WEB-INF/lib/json-lib-2.2.3-jdk15.jar!/net/sf/json/JSONObject.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="53" column="19" selection-start-line="53" selection-start-column="19" selection-end-line="53" selection-end-column="19" />
-          <folding />
+          <caret line="53" column="19" lean-forward="false" selection-start-line="53" selection-start-column="19" selection-end-line="53" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/hx/action/BlogCommentAction.java">
+    <entry file="file://$PROJECT_DIR$/src/com/hx/action/BlogCommentAction.java" />
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/util/Tools.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
+        <state relative-caret-position="32850">
+          <caret line="1429" column="21" lean-forward="true" selection-start-line="1429" selection-start-column="21" selection-end-line="1429" selection-end-column="21" />
+          <folding>
+            <element signature="e#4314#4315#0" expanded="true" />
+            <element signature="e#4367#4368#0" expanded="true" />
+            <element signature="e#9113#9114#0" expanded="true" />
+            <element signature="e#9138#9139#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/util/EncapJSON.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="23" lean-forward="true" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/interf/Validater.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="17" column="15" lean-forward="true" selection-start-line="17" selection-start-column="15" selection-end-line="17" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/filter/BlogCheckCodeFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/filter/BlogPublishFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/config/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/config/HXBlog.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1050">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/config/note.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/config/resume.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/interf/BaseAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="11" column="44" lean-forward="false" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/filter/BlogDeleteFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="33" column="90" lean-forward="false" selection-start-line="33" selection-start-column="79" selection-end-line="33" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogCheckCodeAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogCommentAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="43" column="24" lean-forward="false" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogConfigAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-150">
+          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogDeleteAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="42" column="5" lean-forward="false" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogGetAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1536">
+          <caret line="109" column="0" lean-forward="false" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogListAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="24" column="111" lean-forward="false" selection-start-line="24" selection-start-column="75" selection-end-line="24" selection-end-column="111" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogLoginAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-414">
+          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogLogoutAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogPublishAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="800">
+          <caret line="53" column="5" lean-forward="false" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogResumeAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-100">
+          <caret line="18" column="13" lean-forward="false" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogReviseAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="44" column="18" lean-forward="false" selection-start-line="44" selection-start-column="18" selection-end-line="44" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/action/BlogSenseAction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="859">
+          <caret line="76" column="13" lean-forward="true" selection-start-line="76" selection-start-column="13" selection-end-line="76" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/bean/Blog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/bean/CheckCode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/bean/Comment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-964">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/bean/CommentEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-350">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/bean/ResponseMsg.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-500">
+          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/bean/TagToBlogCnt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-650">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/bean/UserInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-100">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/bean/ValidateResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/business/BlogManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="586" column="42" lean-forward="true" selection-start-line="586" selection-start-column="42" selection-end-line="586" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/config/backup.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/business/CommentManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4325">
+          <caret line="318" column="0" lean-forward="false" selection-start-line="318" selection-start-column="0" selection-end-line="318" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/hx/blog/util/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="262" column="31" lean-forward="false" selection-start-line="262" selection-start-column="31" selection-end-line="262" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <last-edited>HXBlog:Web exploded</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.5" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>Web</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Web|HXBlog</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>deps</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

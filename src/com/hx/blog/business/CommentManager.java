@@ -316,8 +316,7 @@ public class CommentManager {
 				con = Tools.getConnection(Tools.getProjectPath());
 				PreparedStatement ps = con.prepareStatement(String.format(Constants.getBlogCommentByBlogIdSql, blogId) );
 				ResultSet rs = ps.executeQuery();
-				
-//				allComment = new ArrayList<>(Tools.getRows(rs) );
+
 				allComment = new ArrayList<>( );
 				maxFloor = -1;
 				while(rs.next() ) {

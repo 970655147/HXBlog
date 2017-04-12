@@ -27,8 +27,7 @@ public class BlogCheckCodeAction extends BaseAction {
 		resp.setHeader("Cache-Control", "no-cache");
 		resp.setHeader("Pragma", "no-cache");
 		resp.setHeader("Content-Type", "image");
-		
-//		CheckCode checkCode = Tools.getCheckCode();
+
 		CheckCode checkCode = Tools.getCheckCode(Constants.checkCodeWidth, Constants.checkCodeHeight, Constants.checkCodeBgColor, Constants.checkCodeFont, Constants.checkCodeLength, Constants.checkCodes, Constants.checkCodeMinInterference, Constants.checkCodeInterferenceOff);
 		req.getSession().setAttribute(Constants.checkCode, checkCode.checkCode);
 		
